@@ -4,7 +4,7 @@ This project aim to improve the quality of online education.
 
 ## Who are the stackholders of this projects?
 
-- Individuals, uni students, uni.
+- Individuals, uni students and uni.
 
 ## The project structure.
 
