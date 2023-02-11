@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  HomeScreen,
+  LoginScreen,
+  OrganizationRegisterScreen,
+  RegisterScreen,
+  CoursesScreen,
+  LeaderboardScreen,
+  MessagesScreen,
+  ProfileScreen,
+} from "./screens";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginScreen />} />
+          <Route path="/register" element={<RegisterScreen />} />
+          <Route
+            path="/organization-register"
+            element={<OrganizationRegisterScreen />}
+          />
+          <Route path="/home" element={<HomeScreen />} />
+          <Route path="/courses" element={<CoursesScreen />} />
+          <Route path="/leaderboard" element={<LeaderboardScreen />} />
+          <Route path="/messages" element={<MessagesScreen />} />
+          <Route path="/profile" element={<ProfileScreen />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
