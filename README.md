@@ -9,10 +9,10 @@ This project aim to improve the quality of online education.
 ## The project structure.
 
 - This is a react app divided into :
-  Screens.
-  Components.
-  mockup data.
-  utilities functions.
+  -Screens.
+  -Components.
+  -mockup data.
+  -utilities functions.
 
 ## Librairies and tools used:
 
