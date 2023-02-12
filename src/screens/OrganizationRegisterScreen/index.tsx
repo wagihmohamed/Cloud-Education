@@ -10,8 +10,7 @@ import * as Yup from "yup";
 import { phoneRegExp } from "../../utlis/phoneRegExp";
 import { Link } from "react-router-dom";
 import Select from "react-select";
-import { organizationOptions } from "../../mockup/organizationOptions";
-import { countriesOptions } from "../../mockup/countriesOptions";
+import { countriesOptions, organizationOptions } from "../../mockup";
 
 export const OrganizationRegisterScreen = () => {
   const orgRegisterFormik = useFormik({
