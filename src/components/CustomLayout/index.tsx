@@ -17,7 +17,17 @@ export const CustomLayout = ({ children, ...prop }: MainViewContainerProps) => {
       {...prop}
     >
       <CustomNavBar />
-      {children}
+      <Box
+        sx={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          ml: "100px",
+        }}
+      >
+        {children}
+      </Box>
     </Box>
   );
 };

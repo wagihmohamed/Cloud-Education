@@ -10,8 +10,7 @@ import * as Yup from "yup";
 import { phoneRegExp } from "../../utlis/phoneRegExp";
 import { Link } from "react-router-dom";
 import Select from "react-select";
-import { organizationOptions } from "../../mockup/organizationOptions";
-import { countriesOptions } from "../../mockup/countriesOptions";
+import { countriesOptions, organizationOptions } from "../../mockup";
 
 export const OrganizationRegisterScreen = () => {
   const orgRegisterFormik = useFormik({
@@ -376,7 +375,7 @@ export const OrganizationRegisterScreen = () => {
       <CustomAuthContainer mt={2} px={2} py={1}>
         <Typography variant="h5" textAlign="center">
           Already have an account?
-          <Link to="/login"> Login</Link>
+          <Link to="/"> Login</Link>
         </Typography>
       </CustomAuthContainer>
     </Box>
