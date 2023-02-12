@@ -376,7 +376,7 @@ export const OrganizationRegisterScreen = () => {
       <CustomAuthContainer mt={2} px={2} py={1}>
         <Typography variant="h5" textAlign="center">
           Already have an account?
-          <Link to="/login"> Login</Link>
+          <Link to="/"> Login</Link>
         </Typography>
       </CustomAuthContainer>
     </Box>

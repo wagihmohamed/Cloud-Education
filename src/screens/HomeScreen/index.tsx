@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import { CustomLayout } from "../../components";
+import { CustomLayout, NotificationList } from "../../components";
+import { messagesList, notificationList } from "../../mockup";
 
 export const HomeScreen = () => {
   return (
@@ -8,11 +9,17 @@ export const HomeScreen = () => {
         sx={{
           mt: 4,
           mx: 5,
+          bgcolor: "white",
         }}
       >
         <Typography fontWeight="bold" variant="h4">
           Welcome, Wagih.
         </Typography>
+        <NotificationList
+          title="Notifications"
+          messagesList={notificationList}
+        />
+        <NotificationList title="Messages" messagesList={messagesList} />
       </Box>
     </CustomLayout>
   );

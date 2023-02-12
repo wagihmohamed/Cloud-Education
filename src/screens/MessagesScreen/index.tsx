@@ -1,5 +1,6 @@
 import { Typography, Box } from "@mui/material";
-import { CustomLayout } from "../../components";
+import { CustomLayout, NotificationList } from "../../components";
+import { messagesList } from "../../mockup";
 
 export const MessagesScreen = () => {
   return (
@@ -13,6 +14,7 @@ export const MessagesScreen = () => {
         <Typography fontWeight="bold" variant="h4">
           MessagesScreen
         </Typography>
+        <NotificationList title="Messages" messagesList={messagesList} />
       </Box>
     </CustomLayout>
   );

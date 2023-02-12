@@ -10,6 +10,10 @@ export const CustomNavBar = () => {
         width: "100px",
         height: "100%",
         borderRight: "2px solid #000",
+        bgcolor: "white",
+        position: "fixed",
+        top: 0,
+        left: 0,
       }}
     >
       <CustomNavLink to="/home">Home</CustomNavLink>
