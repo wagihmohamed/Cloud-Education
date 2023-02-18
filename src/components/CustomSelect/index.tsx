@@ -39,7 +39,7 @@ export const CustomSelect = ({
         styles={{
           control: (provided) => ({
             ...provided,
-            height: "45px",
+            minHeight: "45px",
             border: "1px solid #c4c4c4",
             "&:hover": {
               border: "1px solid #000000",
@@ -51,6 +51,14 @@ export const CustomSelect = ({
             "&:active": {
               border: "1px solid #000000",
             },
+          }),
+          valueContainer: (provided) => ({
+            ...provided,
+            padding: "0 10px",
+          }),
+          menuList: (provided) => ({
+            ...provided,
+            maxHeight: "200px",
           }),
         }}
         options={options}
