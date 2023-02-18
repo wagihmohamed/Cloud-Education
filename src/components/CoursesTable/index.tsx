@@ -28,6 +28,11 @@ const CustomTableCell = styled(TableCell)(({ theme }) => ({
 
 export const CoursesTable = () => {
   const [isEditCourseOpen, setIsEditCourseOpen] = useState(false);
+  const [coursesData, setCoursesData] = useState(coursesBodyData);
+  const [selectedCourse, setSelectedCourse] = useState<
+    typeof coursesBodyData[0]
+  >({} as typeof coursesBodyData[0]);
+
   return (
     <>
       <Table
@@ -63,8 +68,9 @@ export const CoursesTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {coursesBodyData.map((row) => (
+          {coursesData.map((row) => (
             <TableRow
+              key={row.id}
               sx={{
                 boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
               }}
@@ -81,6 +87,7 @@ export const CoursesTable = () => {
                     }}
                     onClick={() => {
                       setIsEditCourseOpen(true);
+                      setSelectedCourse(row);
                     }}
                     cursor="pointer"
                     color="primary"
@@ -108,6 +115,8 @@ export const CoursesTable = () => {
         </TableBody>
       </Table>
       <EditCourseModal
+        handleSave={setCoursesData}
+        editedCourse={selectedCourse}
         handleClose={() => {
           setIsEditCourseOpen(false);
         }}

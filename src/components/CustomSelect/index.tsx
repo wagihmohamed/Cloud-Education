@@ -8,6 +8,8 @@ interface CustomSelectProps {
   label?: string;
   error?: boolean;
   helperText?: string;
+  value?: { label: string; value: string };
+  disabled?: boolean;
 }
 
 export const CustomSelect = ({
@@ -17,6 +19,8 @@ export const CustomSelect = ({
   label,
   error,
   helperText,
+  disabled,
+  value,
 }: CustomSelectProps) => {
   return (
     <>
@@ -36,6 +40,8 @@ export const CustomSelect = ({
         </Typography>
       )}
       <Select
+        value={value}
+        isDisabled={disabled}
         styles={{
           control: (provided) => ({
             ...provided,

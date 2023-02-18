@@ -22,6 +22,7 @@ export const NotificationList = ({
             bgcolor: "white",
             border: "3px solid #000",
           }}
+          key={message.id}
         >
           <Typography
             key={message.id}
