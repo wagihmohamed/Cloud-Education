@@ -14,6 +14,7 @@ interface CustomButtonProps extends ButtonProps {
   ml?: number | string;
   mr?: number | string;
   active?: boolean;
+  warning?: boolean;
 }
 export const CustomButton = ({
   children,
@@ -28,6 +29,7 @@ export const CustomButton = ({
   mr,
   active,
   py,
+  warning = false,
   ...props
 }: CustomButtonProps) => {
   return (
@@ -48,11 +50,12 @@ export const CustomButton = ({
         mr,
         py,
         fontWeight: (active && 700) || 400,
-        bgcolor: "primary.main",
+        bgcolor:
+          (active && "#323232") || (warning && "#d32f2f") || "primary.main",
         color: "white",
         fontSize: "20px",
         "&:hover": {
-          bgcolor: "#323232",
+          bgcolor: (warning && "#e06d6d") || "#323232",
         },
       }}
     >

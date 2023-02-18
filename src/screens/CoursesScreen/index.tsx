@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { CustomLayout } from "../../components";
+import { CoursesTable, CustomLayout } from "../../components";
 
 export const CoursesScreen = () => {
   return (
@@ -11,8 +11,9 @@ export const CoursesScreen = () => {
         }}
       >
         <Typography fontWeight="bold" variant="h4">
-          CoursesScreen
+          All Courses
         </Typography>
+        <CoursesTable />
       </Box>
     </CustomLayout>
   );
