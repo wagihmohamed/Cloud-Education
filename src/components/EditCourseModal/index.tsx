@@ -4,6 +4,7 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { CustomTextField } from "../CustomTextField";
 import { CustomSelect } from "../CustomSelect";
 import { CustomButton } from "../CustomButton";
+import { allCourses, coursesCategoryOptions, courseStatus } from "../../mockup";
 
 interface EditCourseModalProps {
   open: boolean;
@@ -61,7 +62,7 @@ export const EditCourseModal = ({
           <Grid item xs={6}>
             <CustomSelect
               onChange={() => {}}
-              options={[{ label: "Category", value: "Category" }]}
+              options={coursesCategoryOptions}
               withLabel
               label="Category"
             />
@@ -72,7 +73,7 @@ export const EditCourseModal = ({
           <Grid item xs={6}>
             <CustomSelect
               onChange={() => {}}
-              options={[{ label: "Category", value: "Category" }]}
+              options={courseStatus}
               withLabel
               label="Status"
             />
@@ -83,7 +84,7 @@ export const EditCourseModal = ({
           <Grid item xs={6}>
             <CustomSelect
               onChange={() => {}}
-              options={[{ label: "Category", value: "Category" }]}
+              options={allCourses}
               withLabel
               label="Prerequisites"
             />
