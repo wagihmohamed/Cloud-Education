@@ -4,13 +4,13 @@ import {
   CustomButton,
   CustomSelect,
   CustomTextField,
-} from "../../components";
+} from "components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { phoneRegExp } from "../../utlis/phoneRegExp";
+import { phoneRegExp } from "utlis/phoneRegExp";
 import { Link } from "react-router-dom";
 import Select from "react-select";
-import { countriesOptions, organizationOptions } from "../../mockup";
+import { countriesOptions, organizationOptions } from "mockup";
 
 export const OrganizationRegisterScreen = () => {
   const orgRegisterFormik = useFormik({
