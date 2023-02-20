@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {
   HomeScreen,
   LoginScreen,
@@ -8,7 +8,7 @@ import {
   LeaderboardScreen,
   MessagesScreen,
   ProfileScreen,
-} from "./screens";
+} from './screens';
 
 function App() {
   return (

@@ -1,14 +1,14 @@
 export const organizationOptions = [
   {
-    value: "university",
-    label: "University",
+    value: 'university',
+    label: 'University',
   },
   {
-    value: "school",
-    label: "School",
+    value: 'school',
+    label: 'School',
   },
   {
-    value: "independent-organization",
-    label: "Independent Organization",
+    value: 'independent-organization',
+    label: 'Independent Organization',
   },
 ];

@@ -1,70 +1,70 @@
-import { Box, Grid, Typography, Divider } from "@mui/material";
+import { Box, Grid, Typography, Divider } from '@mui/material';
 import {
   CustomAuthContainer,
   CustomButton,
   CustomSelect,
   CustomTextField,
-} from "components";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { phoneRegExp } from "utlis/phoneRegExp";
-import { Link } from "react-router-dom";
-import Select from "react-select";
-import { countriesOptions, organizationOptions } from "mockup";
+} from 'components';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { phoneRegExp } from 'utlis/phoneRegExp';
+import { Link } from 'react-router-dom';
+import Select from 'react-select';
+import { countriesOptions, organizationOptions } from 'mockup';
 
 export const OrganizationRegisterScreen = () => {
   const orgRegisterFormik = useFormik({
     initialValues: {
-      name: "",
+      name: '',
       type: {
-        value: "",
-        label: "",
+        value: '',
+        label: '',
       },
-      orgDomain: "",
-      orgDomainName: "",
-      orgPhone: "",
+      orgDomain: '',
+      orgDomainName: '',
+      orgPhone: '',
       country: {
-        value: "",
-        label: "",
+        value: '',
+        label: '',
       },
-      orgAddress: "",
-      adminFirstName: "",
-      adminLastName: "",
-      adminEmail: "",
-      adminPhone: "",
-      adminPassword: "",
-      adminConfirmPassword: "",
+      orgAddress: '',
+      adminFirstName: '',
+      adminLastName: '',
+      adminEmail: '',
+      adminPhone: '',
+      adminPassword: '',
+      adminConfirmPassword: '',
     },
     validationSchema: Yup.object({
-      name: Yup.string().required("Required"),
+      name: Yup.string().required('Required'),
       type: Yup.object().shape({
-        value: Yup.string().required("Required"),
-        label: Yup.string().required("Required"),
+        value: Yup.string().required('Required'),
+        label: Yup.string().required('Required'),
       }),
-      orgDomain: Yup.string().required("Required"),
-      orgDomainName: Yup.string().required("Required"),
+      orgDomain: Yup.string().required('Required'),
+      orgDomainName: Yup.string().required('Required'),
       orgPhone: Yup.string()
-        .matches(phoneRegExp, "Phone number is not valid")
-        .required("Required"),
+        .matches(phoneRegExp, 'Phone number is not valid')
+        .required('Required'),
       country: Yup.object().shape({
-        value: Yup.string().required("Required"),
-        label: Yup.string().required("Required"),
+        value: Yup.string().required('Required'),
+        label: Yup.string().required('Required'),
       }),
-      orgAddress: Yup.string().required("Required"),
-      adminFirstName: Yup.string().required("Required"),
-      adminLastName: Yup.string().required("Required"),
+      orgAddress: Yup.string().required('Required'),
+      adminFirstName: Yup.string().required('Required'),
+      adminLastName: Yup.string().required('Required'),
       adminEmail: Yup.string()
-        .email("Invalid email address")
-        .required("Required"),
+        .email('Invalid email address')
+        .required('Required'),
       adminPhone: Yup.string()
-        .matches(phoneRegExp, "Phone number is not valid")
-        .required("Required"),
+        .matches(phoneRegExp, 'Phone number is not valid')
+        .required('Required'),
       adminPassword: Yup.string()
-        .min(4, "Password must be +4")
-        .required("Required"),
+        .min(4, 'Password must be +4')
+        .required('Required'),
       adminConfirmPassword: Yup.string()
-        .oneOf([Yup.ref("adminPassword"), undefined], "Passwords must match")
-        .required("Required"),
+        .oneOf([Yup.ref('adminPassword'), undefined], 'Passwords must match')
+        .required('Required'),
     }),
     onSubmit: (values) => {
       console.log(values);
@@ -74,14 +74,14 @@ export const OrganizationRegisterScreen = () => {
   return (
     <Box
       sx={{
-        display: "flex",
+        display: 'flex',
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        flexDirection: "column",
-        pt: orgRegisterFormik.isValid ? "0px" : "200px",
-        mb: orgRegisterFormik.isValid ? "0px" : "200px",
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        flexDirection: 'column',
+        pt: orgRegisterFormik.isValid ? '0px' : '200px',
+        mb: orgRegisterFormik.isValid ? '0px' : '200px',
       }}
     >
       <CustomAuthContainer py="10px">
@@ -109,7 +109,7 @@ export const OrganizationRegisterScreen = () => {
               <CustomSelect
                 options={organizationOptions}
                 onChange={(e: any) => {
-                  orgRegisterFormik.setFieldValue("type", e);
+                  orgRegisterFormik.setFieldValue('type', e);
                 }}
                 withLabel
                 label="Type"
@@ -184,11 +184,11 @@ export const OrganizationRegisterScreen = () => {
                 variant="subtitle1"
                 mt={1}
                 sx={{
-                  color: "#000",
-                  alignSelf: "flex-start",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                  mb: "6px",
+                  color: '#000',
+                  alignSelf: 'flex-start',
+                  fontWeight: 'bold',
+                  fontSize: '15px',
+                  mb: '6px',
                 }}
               >
                 Country
@@ -197,12 +197,12 @@ export const OrganizationRegisterScreen = () => {
                 styles={{
                   control: (provided) => ({
                     ...provided,
-                    height: "45px",
+                    height: '45px',
                   }),
                 }}
                 options={countriesOptions}
                 onChange={(e) => {
-                  orgRegisterFormik.setFieldValue("country", e);
+                  orgRegisterFormik.setFieldValue('country', e);
                 }}
               />
               {orgRegisterFormik.errors?.country &&
@@ -247,8 +247,8 @@ export const OrganizationRegisterScreen = () => {
               <Divider
                 sx={{
                   borderBottomWidth: 2,
-                  borderColor: "#000",
-                  width: "98%",
+                  borderColor: '#000',
+                  width: '98%',
                 }}
                 variant="middle"
               />

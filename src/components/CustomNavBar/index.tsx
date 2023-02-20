@@ -1,17 +1,17 @@
-import { Box } from "@mui/material";
-import { CustomNavLink } from "../CustomNavLink";
+import { Box } from '@mui/material';
+import { CustomNavLink } from '../CustomNavLink';
 
 export const CustomNavBar = () => {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        width: "100px",
-        height: "100%",
-        borderRight: "2px solid #000",
-        bgcolor: "white",
-        position: "fixed",
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100px',
+        height: '100%',
+        borderRight: '2px solid #000',
+        bgcolor: 'white',
+        position: 'fixed',
         top: 0,
         left: 0,
       }}

@@ -1,34 +1,34 @@
-import { Box, Typography } from "@mui/material";
-import { useFormik } from "formik";
-import { CustomButton, CustomTextField, CustomAuthContainer } from "components";
-import * as Yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
+import { Box, Typography } from '@mui/material';
+import { useFormik } from 'formik';
+import { CustomButton, CustomTextField, CustomAuthContainer } from 'components';
+import * as Yup from 'yup';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const LoginScreen = () => {
   const navigate = useNavigate();
   const loginFormik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
     validationSchema: Yup.object({
-      email: Yup.string().email("Invalid email address").required("Required"),
-      password: Yup.string().min(4, "Password must be +4").required("Required"),
+      email: Yup.string().email('Invalid email address').required('Required'),
+      password: Yup.string().min(4, 'Password must be +4').required('Required'),
     }),
     onSubmit: (values) => {
-      navigate("/home");
+      navigate('/home');
     },
   });
 
   return (
     <Box
       sx={{
-        display: "flex",
+        display: 'flex',
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        flexDirection: "column",
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        flexDirection: 'column',
       }}
     >
       <CustomAuthContainer>

@@ -1,4 +1,4 @@
-import { Country } from "country-state-city";
+import { Country } from 'country-state-city';
 
 export const countriesOptions = Country.getAllCountries().map((country) => ({
   value: country.name,

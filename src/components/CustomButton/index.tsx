@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { Button, ButtonProps } from "@mui/material";
+import { ReactNode } from 'react';
+import { Button, ButtonProps } from '@mui/material';
 
 interface CustomButtonProps extends ButtonProps {
   children: ReactNode;
@@ -37,8 +37,8 @@ export const CustomButton = ({
       {...props}
       color="inherit"
       sx={{
-        textTransform: "none",
-        textDecoration: "none",
+        textTransform: 'none',
+        textDecoration: 'none',
         mx,
         px,
         width,
@@ -51,11 +51,11 @@ export const CustomButton = ({
         py,
         fontWeight: (active && 700) || 400,
         bgcolor:
-          (active && "#323232") || (warning && "#d32f2f") || "primary.main",
-        color: "white",
-        fontSize: "20px",
-        "&:hover": {
-          bgcolor: (warning && "#e06d6d") || "#323232",
+          (active && '#323232') || (warning && '#d32f2f') || 'primary.main',
+        color: 'white',
+        fontSize: '20px',
+        '&:hover': {
+          bgcolor: (warning && '#e06d6d') || '#323232',
         },
       }}
     >

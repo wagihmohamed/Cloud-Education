@@ -1,12 +1,12 @@
-import { useState } from "react";
-import styled from "@emotion/styled";
-import { coursesTableColumns, coursesBodyData } from "mockup";
-import { Stack } from "@mui/system";
+import { useState } from 'react';
+import styled from '@emotion/styled';
+import { coursesTableColumns, coursesBodyData } from 'mockup';
+import { Stack } from '@mui/system';
 import {
   DoDisturbOnOutlined,
   HighlightOffOutlined,
   SettingsOutlined,
-} from "@mui/icons-material";
+} from '@mui/icons-material';
 import {
   Table,
   TableBody,
@@ -14,16 +14,16 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from "@mui/material";
-import { EditCourseModal } from "../EditCourseModal";
+} from '@mui/material';
+import { EditCourseModal } from '../EditCourseModal';
 
 const CustomTableCell = styled(TableCell)(({ theme }) => ({
   ...theme,
-  color: "#000",
-  textAlign: "center",
-  border: "4px solid #000000",
-  backgroundColor: "#fff",
-  fontSize: "20px",
+  color: '#000',
+  textAlign: 'center',
+  border: '4px solid #000000',
+  backgroundColor: '#fff',
+  fontSize: '20px',
 }));
 
 export const CoursesTable = () => {
@@ -38,25 +38,25 @@ export const CoursesTable = () => {
       <Table
         sx={{
           mt: 4,
-          height: "100%",
-          width: "100%",
-          overflowY: "auto",
-          borderSpacing: "0 15px !important",
-          borderCollapse: "separate",
+          height: '100%',
+          width: '100%',
+          overflowY: 'auto',
+          borderSpacing: '0 15px !important',
+          borderCollapse: 'separate',
         }}
       >
         <TableHead
           sx={{
-            backgroundColor: "primary.main",
+            backgroundColor: 'primary.main',
           }}
         >
           <TableRow>
             {coursesTableColumns.map((column) => (
               <TableCell
                 sx={{
-                  color: "white",
-                  textAlign: "center",
-                  border: "4px solid white",
+                  color: 'white',
+                  textAlign: 'center',
+                  border: '4px solid white',
                 }}
                 key={column.id}
               >
@@ -72,7 +72,7 @@ export const CoursesTable = () => {
             <TableRow
               key={row.id}
               sx={{
-                boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+                boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
               }}
             >
               <CustomTableCell>{row.courseName}</CustomTableCell>
@@ -82,8 +82,8 @@ export const CoursesTable = () => {
                 <Stack direction="row" justifyContent="space-around">
                   <SettingsOutlined
                     sx={{
-                      height: "30px",
-                      width: "30px",
+                      height: '30px',
+                      width: '30px',
                     }}
                     onClick={() => {
                       setIsEditCourseOpen(true);
@@ -94,16 +94,16 @@ export const CoursesTable = () => {
                   />
                   <HighlightOffOutlined
                     sx={{
-                      height: "30px",
-                      width: "30px",
+                      height: '30px',
+                      width: '30px',
                     }}
                     cursor="pointer"
                     color="primary"
                   />
                   <DoDisturbOnOutlined
                     sx={{
-                      height: "30px",
-                      width: "30px",
+                      height: '30px',
+                      width: '30px',
                     }}
                     cursor="pointer"
                     color="primary"

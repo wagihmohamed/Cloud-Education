@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography } from '@mui/material';
 
 interface NotificationListProps {
   title: string;
@@ -17,10 +17,10 @@ export const NotificationList = ({
       {messagesList.map((message) => (
         <Box
           sx={{
-            my: "20px",
-            py: "20px",
-            bgcolor: "white",
-            border: "3px solid #000",
+            my: '20px',
+            py: '20px',
+            bgcolor: 'white',
+            border: '3px solid #000',
           }}
           key={message.id}
         >

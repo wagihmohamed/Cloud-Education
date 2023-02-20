@@ -1,6 +1,6 @@
-import { Box, Typography } from "@mui/material";
-import { CustomLayout, NotificationList } from "components";
-import { messagesList, notificationList } from "mockup";
+import { Box, Typography } from '@mui/material';
+import { CustomLayout, NotificationList } from 'components';
+import { messagesList, notificationList } from 'mockup';
 
 export const HomeScreen = () => {
   return (
@@ -9,7 +9,7 @@ export const HomeScreen = () => {
         sx={{
           mt: 4,
           mx: 5,
-          bgcolor: "white",
+          bgcolor: 'white',
         }}
       >
         <Typography fontWeight="bold" variant="h4">

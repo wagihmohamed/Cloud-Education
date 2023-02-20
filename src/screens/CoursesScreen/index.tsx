@@ -1,5 +1,5 @@
-import { Box, Typography } from "@mui/material";
-import { CoursesTable, CustomLayout } from "components";
+import { Box, Typography } from '@mui/material';
+import { CoursesTable, CustomLayout } from 'components';
 
 export const CoursesScreen = () => {
   return (
