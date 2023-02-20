@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { coursesTableColumns, coursesBodyData } from "../../mockup";
+import { coursesTableColumns, coursesBodyData } from "mockup";
 import { Stack } from "@mui/system";
 import {
   DoDisturbOnOutlined,

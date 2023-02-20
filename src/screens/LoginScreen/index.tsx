@@ -1,10 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import {
-  CustomButton,
-  CustomTextField,
-  CustomAuthContainer,
-} from "../../components";
+import { CustomButton, CustomTextField, CustomAuthContainer } from "components";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 

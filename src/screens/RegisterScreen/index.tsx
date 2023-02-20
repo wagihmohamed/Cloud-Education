@@ -1,12 +1,8 @@
 import { Box, Grid, Typography } from "@mui/material";
-import {
-  CustomAuthContainer,
-  CustomButton,
-  CustomTextField,
-} from "../../components";
+import { CustomAuthContainer, CustomButton, CustomTextField } from "components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { phoneRegExp } from "../../utlis/phoneRegExp";
+import { phoneRegExp } from "utlis/phoneRegExp";
 import { Link } from "react-router-dom";
 
 export const RegisterScreen = () => {
