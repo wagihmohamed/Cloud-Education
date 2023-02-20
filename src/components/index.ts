@@ -9,6 +9,7 @@ import { CustomNavBar } from './CustomNavBar';
 import { NotificationList } from './NotificationList';
 import { CoursesTable } from './CoursesTable';
 import { EditCourseModal } from './EditCourseModal';
+import { AddCourseModal } from './AddCourseModal';
 
 export {
   CustomDate,
@@ -22,4 +23,5 @@ export {
   NotificationList,
   CoursesTable,
   EditCourseModal,
+  AddCourseModal,
 };

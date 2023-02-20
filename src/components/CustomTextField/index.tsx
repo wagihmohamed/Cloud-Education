@@ -11,6 +11,7 @@ type CustomTextFieldProps = {
   ml?: number;
   mr?: number;
   width?: number;
+  placeholder?: string;
 } & TextFieldProps;
 
 export const CustomTextField = ({
@@ -23,6 +24,7 @@ export const CustomTextField = ({
   ml,
   mr,
   width,
+  placeholder,
   ...props
 }: CustomTextFieldProps) => {
   return (
@@ -43,6 +45,7 @@ export const CustomTextField = ({
       <TextField
         id={id}
         size="small"
+        placeholder={placeholder ?? label}
         {...props}
         inputProps={{ style: { fontSize: 20 } }}
         sx={{

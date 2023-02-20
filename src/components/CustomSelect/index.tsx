@@ -9,6 +9,7 @@ interface CustomSelectProps {
   error?: boolean;
   helperText?: string;
   value?: { label: string; value: string };
+  placeholder?: string;
   disabled?: boolean;
 }
 
@@ -20,6 +21,7 @@ export const CustomSelect = ({
   error,
   helperText,
   disabled,
+  placeholder,
   value,
 }: CustomSelectProps) => {
   return (
@@ -42,20 +44,21 @@ export const CustomSelect = ({
       <Select
         value={value}
         isDisabled={disabled}
+        placeholder={placeholder ?? 'Select ' + label}
         styles={{
           control: (provided) => ({
             ...provided,
             minHeight: '45px',
-            border: '1px solid #c4c4c4',
+            border: error ? '1px solid #d32f2f' : '1px solid #c4c4c4',
             '&:hover': {
-              border: '1px solid #000000',
+              border: error ? '1px solid #d32f2f' : '1px solid #c4c4c4',
             },
             outline: '1px solid #c4c4c4',
             '&:focus': {
-              border: '1px solid #000000',
+              border: error ? '1px solid #d32f2f' : '1px solid #c4c4c4',
             },
             '&:active': {
-              border: '1px solid #000000',
+              border: error ? '1px solid #d32f2f' : '1px solid #c4c4c4',
             },
           }),
           valueContainer: (provided) => ({

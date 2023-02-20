@@ -51,7 +51,29 @@ export const EditCourseModal = ({
           )?.label || '',
       },
     },
-    validationSchema: yup.object({}),
+    validationSchema: yup.object({
+      courseName: yup.string().required('Course name is required'),
+      category: yup
+        .object({
+          value: yup.string().required('Category is required'),
+          label: yup.string().required('Category is required'),
+        })
+        .required('Category is required'),
+      description: yup.string().required('Description is required'),
+      courseStatus: yup
+        .object({
+          value: yup.string().required('Course status is required'),
+          label: yup.string().required('Course status is required'),
+        })
+        .required('Course status is required'),
+      courseCode: yup.string().required('Course code is required'),
+      prerequisites: yup
+        .object({
+          value: yup.string().required('Prerequisites is required'),
+          label: yup.string().required('Prerequisites is required'),
+        })
+        .required('Prerequisites is required'),
+    }),
     onSubmit: (values) => {
       handleSave((prev) => {
         const newCourses = prev.map((course) => {
@@ -130,6 +152,12 @@ export const EditCourseModal = ({
                 onChange={formik.handleChange}
                 withLabel
                 label="Course Name"
+                error={
+                  formik.touched.courseName && Boolean(formik.errors.courseName)
+                }
+                helperText={
+                  formik.touched.courseName && formik.errors.courseName
+                }
               />
             </Grid>
             <Grid item xs={6}>
@@ -141,6 +169,12 @@ export const EditCourseModal = ({
                 options={coursesCategoryOptions}
                 withLabel
                 label="Category"
+                error={
+                  formik.touched.category && Boolean(formik.errors.category)
+                }
+                helperText={
+                  formik.touched.category && formik.errors.category?.label
+                }
               />
             </Grid>
             <Grid item xs={6}>
@@ -153,6 +187,13 @@ export const EditCourseModal = ({
                 rows={5}
                 withLabel
                 label="Description"
+                error={
+                  formik.touched.description &&
+                  Boolean(formik.errors.description)
+                }
+                helperText={
+                  formik.touched.description && formik.errors.description
+                }
               />
             </Grid>
             <Grid item xs={6}>
@@ -164,6 +205,14 @@ export const EditCourseModal = ({
                 options={courseStatus}
                 withLabel
                 label="Status"
+                error={
+                  formik.touched.courseStatus &&
+                  Boolean(formik.errors.courseStatus)
+                }
+                helperText={
+                  formik.touched.courseStatus &&
+                  formik.errors.courseStatus?.label
+                }
               />
             </Grid>
             <Grid item xs={6}>
@@ -174,6 +223,12 @@ export const EditCourseModal = ({
                 onChange={formik.handleChange}
                 withLabel
                 label="Course Code"
+                error={
+                  formik.touched.courseCode && Boolean(formik.errors.courseCode)
+                }
+                helperText={
+                  formik.touched.courseCode && formik.errors.courseCode
+                }
               />
             </Grid>
             <Grid item xs={6}>
@@ -186,6 +241,14 @@ export const EditCourseModal = ({
                 options={allCourses}
                 withLabel
                 label="Prerequisites"
+                error={
+                  formik.touched.prerequisites &&
+                  Boolean(formik.errors.prerequisites)
+                }
+                helperText={
+                  formik.touched.prerequisites &&
+                  formik.errors.prerequisites?.label
+                }
               />
             </Grid>
           </Grid>
