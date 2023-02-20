@@ -1,4 +1,4 @@
-import { TextField, TextFieldProps, Typography } from "@mui/material";
+import { TextField, TextFieldProps, Typography } from '@mui/material';
 
 type CustomTextFieldProps = {
   id?: string;
@@ -32,9 +32,9 @@ export const CustomTextField = ({
           variant="subtitle1"
           mt={1}
           sx={{
-            alignSelf: "flex-start",
-            fontWeight: "bold",
-            fontSize: "15px",
+            alignSelf: 'flex-start',
+            fontWeight: 'bold',
+            fontSize: '15px',
           }}
         >
           {label}
@@ -46,25 +46,25 @@ export const CustomTextField = ({
         {...props}
         inputProps={{ style: { fontSize: 20 } }}
         sx={{
-          marginTop: "6px",
-          bgcolor: "white",
-          "& legend": { display: "none" },
-          "& fieldset": { top: 0 },
+          marginTop: '6px',
+          bgcolor: 'white',
+          '& legend': { display: 'none' },
+          '& fieldset': { top: 0 },
           mx,
           width,
           mt,
           mb,
           ml,
           mr,
-          "&  .MuiFormHelperText-root.Mui-error": {
-            fontSize: "13px",
+          '&  .MuiFormHelperText-root.Mui-error': {
+            fontSize: '13px',
           },
-          "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+          '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button':
             {
-              display: "none",
+              display: 'none',
             },
-          "& input[type=number]": {
-            MozAppearance: "textfield",
+          '& input[type=number]': {
+            MozAppearance: 'textfield',
           },
         }}
         fullWidth

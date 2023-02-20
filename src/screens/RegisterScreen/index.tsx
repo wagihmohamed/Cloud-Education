@@ -1,31 +1,31 @@
-import { Box, Grid, Typography } from "@mui/material";
-import { CustomAuthContainer, CustomButton, CustomTextField } from "components";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { phoneRegExp } from "utlis/phoneRegExp";
-import { Link } from "react-router-dom";
+import { Box, Grid, Typography } from '@mui/material';
+import { CustomAuthContainer, CustomButton, CustomTextField } from 'components';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { phoneRegExp } from 'utlis/phoneRegExp';
+import { Link } from 'react-router-dom';
 
 export const RegisterScreen = () => {
   const registerFormik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phoneNumber: "",
-      password: "",
-      confirmPassword: "",
+      firstName: '',
+      lastName: '',
+      email: '',
+      phoneNumber: '',
+      password: '',
+      confirmPassword: '',
     },
     validationSchema: Yup.object({
-      firstName: Yup.string().required("Required"),
-      lastName: Yup.string().required("Required"),
-      email: Yup.string().email("Invalid email address").required("Required"),
+      firstName: Yup.string().required('Required'),
+      lastName: Yup.string().required('Required'),
+      email: Yup.string().email('Invalid email address').required('Required'),
       phoneNumber: Yup.string()
-        .matches(phoneRegExp, "Phone number is not valid")
-        .required("Required"),
-      password: Yup.string().min(4, "Password must be +4").required("Required"),
+        .matches(phoneRegExp, 'Phone number is not valid')
+        .required('Required'),
+      password: Yup.string().min(4, 'Password must be +4').required('Required'),
       confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password"), undefined], "Passwords must match")
-        .required("Required"),
+        .oneOf([Yup.ref('password'), undefined], 'Passwords must match')
+        .required('Required'),
     }),
     onSubmit: (values) => {
       console.log(values);
@@ -35,12 +35,12 @@ export const RegisterScreen = () => {
   return (
     <Box
       sx={{
-        display: "flex",
+        display: 'flex',
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        flexDirection: "column",
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        flexDirection: 'column',
       }}
     >
       <CustomAuthContainer>

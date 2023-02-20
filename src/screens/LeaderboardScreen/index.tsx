@@ -1,5 +1,5 @@
-import { Typography, Box } from "@mui/material";
-import { CustomLayout } from "components";
+import { Typography, Box } from '@mui/material';
+import { CustomLayout } from 'components';
 
 export const LeaderboardScreen = () => {
   return (

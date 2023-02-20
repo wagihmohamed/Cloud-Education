@@ -1,17 +1,17 @@
-import { Modal, Typography, Box, Grid } from "@mui/material";
-import Stack from "@mui/material/Stack";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { CustomTextField } from "../CustomTextField";
-import { CustomSelect } from "../CustomSelect";
-import { CustomButton } from "../CustomButton";
+import { Modal, Typography, Box, Grid } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { CustomTextField } from '../CustomTextField';
+import { CustomSelect } from '../CustomSelect';
+import { CustomButton } from '../CustomButton';
 import {
   allCourses,
   coursesBodyData,
   coursesCategoryOptions,
   courseStatus,
-} from "../../mockup";
-import { useFormik } from "formik";
-import * as yup from "yup";
+} from '../../mockup';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 
 interface EditCourseModalProps {
   open: boolean;
@@ -29,26 +29,26 @@ export const EditCourseModal = ({
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      courseName: editedCourse?.courseName || "",
+      courseName: editedCourse?.courseName || '',
       category: {
-        value: editedCourse?.category || "",
-        label: editedCourse?.category || "",
+        value: editedCourse?.category || '',
+        label: editedCourse?.category || '',
       },
-      description: editedCourse?.description || "",
+      description: editedCourse?.description || '',
       courseStatus: {
-        value: editedCourse?.status || "",
-        label: editedCourse?.status || "",
+        value: editedCourse?.status || '',
+        label: editedCourse?.status || '',
       },
-      courseCode: editedCourse?.courseCode || "",
+      courseCode: editedCourse?.courseCode || '',
       prerequisites: {
         value:
           allCourses.find(
             (course) => course.value === editedCourse?.prerequisites
-          )?.value || "",
+          )?.value || '',
         label:
           allCourses.find(
             (course) => course.value === editedCourse?.prerequisites
-          )?.label || "",
+          )?.label || '',
       },
     },
     validationSchema: yup.object({}),
@@ -63,7 +63,7 @@ export const EditCourseModal = ({
               description: values.description,
               status: values.courseStatus.label,
               courseCode: values.courseCode,
-              prerequisites: values.prerequisites.value || "",
+              prerequisites: values.prerequisites.value || '',
             };
           }
           return course;
@@ -88,16 +88,16 @@ export const EditCourseModal = ({
     >
       <Box
         sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "800px",
-          bgcolor: "background.paper",
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '800px',
+          bgcolor: 'background.paper',
           boxShadow: 24,
           p: 4,
-          borderRadius: "10px",
-          border: "3px solid #000",
+          borderRadius: '10px',
+          border: '3px solid #000',
         }}
       >
         <Stack direction="row" justifyContent="space-between">
@@ -107,9 +107,9 @@ export const EditCourseModal = ({
           <CloseOutlinedIcon
             onClick={handleCloseModal}
             sx={{
-              width: "30px",
-              height: "30px",
-              cursor: "pointer",
+              width: '30px',
+              height: '30px',
+              cursor: 'pointer',
               mt: 1,
             }}
           />
@@ -135,7 +135,7 @@ export const EditCourseModal = ({
             <Grid item xs={6}>
               <CustomSelect
                 onChange={(e: { label: string; value: string }) => {
-                  formik.setFieldValue("category", e);
+                  formik.setFieldValue('category', e);
                 }}
                 value={formik.values.category}
                 options={coursesCategoryOptions}
@@ -158,7 +158,7 @@ export const EditCourseModal = ({
             <Grid item xs={6}>
               <CustomSelect
                 onChange={(e: { label: string; value: string }) => {
-                  formik.setFieldValue("courseStatus", e);
+                  formik.setFieldValue('courseStatus', e);
                 }}
                 value={formik.values.courseStatus}
                 options={courseStatus}
@@ -179,10 +179,10 @@ export const EditCourseModal = ({
             <Grid item xs={6}>
               <CustomSelect
                 onChange={(e: { label: string; value: string }) => {
-                  formik.setFieldValue("prerequisites", e);
+                  formik.setFieldValue('prerequisites', e);
                 }}
                 value={formik.values.prerequisites}
-                disabled={formik.values.prerequisites.value === ""}
+                disabled={formik.values.prerequisites.value === ''}
                 options={allCourses}
                 withLabel
                 label="Prerequisites"

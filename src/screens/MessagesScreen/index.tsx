@@ -1,6 +1,6 @@
-import { Typography, Box } from "@mui/material";
-import { CustomLayout, NotificationList } from "components";
-import { messagesList } from "mockup";
+import { Typography, Box } from '@mui/material';
+import { CustomLayout, NotificationList } from 'components';
+import { messagesList } from 'mockup';
 
 export const MessagesScreen = () => {
   return (

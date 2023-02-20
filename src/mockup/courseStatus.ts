@@ -1,10 +1,10 @@
 export const courseStatus = [
   {
-    label: "Active",
-    value: "active",
+    label: 'Active',
+    value: 'active',
   },
   {
-    label: "Inactive",
-    value: "inactive",
+    label: 'Inactive',
+    value: 'inactive',
   },
 ];

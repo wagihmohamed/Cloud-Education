@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
-import { Box, BoxProps } from "@mui/material";
+import React, { ReactNode } from 'react';
+import { Box, BoxProps } from '@mui/material';
 
 interface CustomAuthContainerProps extends BoxProps {
   children: ReactNode;
@@ -19,9 +19,9 @@ export const CustomAuthContainer = ({
   children,
   mt,
   mx,
-  px = "80px",
-  py = "30px",
-  width = "800px",
+  px = '80px',
+  py = '30px',
+  width = '800px',
   pl,
   pr,
   mb,
@@ -32,9 +32,9 @@ export const CustomAuthContainer = ({
   return (
     <Box
       sx={{
-        border: "3px solid #000000",
+        border: '3px solid #000000',
         px,
-        borderRadius: "10px",
+        borderRadius: '10px',
         mt,
         mx,
         py,
