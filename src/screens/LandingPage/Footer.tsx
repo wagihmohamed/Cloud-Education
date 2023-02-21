@@ -1,4 +1,3 @@
-import React from "react";
 import { Stack } from "@mui/system";
 import { styled } from "@mui/system";
 

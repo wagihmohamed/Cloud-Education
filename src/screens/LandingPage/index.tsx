@@ -1,6 +1,3 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import { SectionComponent } from "./SectionComponent";
 import {
     AppBar,
     Toolbar,
@@ -11,6 +8,8 @@ import {
     Button,
     Divider,
 } from "@mui/material";
+import { Link } from "react-router-dom";
+import { SectionComponent } from "./SectionComponent";
 import { Footer } from "./Footer";
 import { CaseStudy } from "./CaseStudy";
 import image1 from "./images/image1.jpg";
