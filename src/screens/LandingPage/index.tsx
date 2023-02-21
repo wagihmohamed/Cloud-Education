@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, NavLink } from "react-router-dom";
 import { SectionComponent } from "./SectionComponent";
 import {
     AppBar,
@@ -45,20 +46,35 @@ export const LandingPage = () => {
                             Cloud Education
                         </Typography>
                         <Stack direction="row" spacing={2}>
-                            <Button
-                                variant="contained"
-                                size="large"
-                                color="success"
-                                sx={buttonStyle}>
-                                Log in
-                            </Button>
-                            <Button
-                                variant="contained"
-                                size="large"
-                                color="success"
-                                sx={buttonStyle}>
-                                Sign up
-                            </Button>
+                            <Link
+                                to="/"
+                                style={{
+                                    textDecoration: "none",
+                                    color: "white",
+                                }}>
+                                <Button
+                                    variant="contained"
+                                    size="large"
+                                    color="success"
+                                    sx={buttonStyle}>
+                                    Log in
+                                </Button>
+                            </Link>
+
+                            <Link
+                                to="/register"
+                                style={{
+                                    textDecoration: "none",
+                                    color: "white",
+                                }}>
+                                <Button
+                                    variant="contained"
+                                    size="large"
+                                    color="success"
+                                    sx={buttonStyle}>
+                                    Sign up
+                                </Button>
+                            </Link>
                         </Stack>
                     </Toolbar>
                 </Container>
@@ -85,7 +101,8 @@ export const LandingPage = () => {
                     heading="Feature 2"
                     txt="Explantion of why you are going to love it and the benefit"
                     buttonLabel="Learn More"
-                    stackDirection="row"/>
+                    stackDirection="row"
+                />
                 <Divider />
                 <Stack
                     direction="column"
