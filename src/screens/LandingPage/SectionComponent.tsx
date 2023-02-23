@@ -1,11 +1,13 @@
 import { Typography, Button } from "@mui/material";
 import { Stack } from "@mui/system";
+import { CustomButton } from "components";
 type sectionProps = {
     image: string;
     heading: string;
     txt: string;
     buttonLabel: string;
     stackDirection: string;
+    bgcolor:string;
 };
 
 export const SectionComponent = ({
@@ -14,12 +16,14 @@ export const SectionComponent = ({
     txt,
     buttonLabel,
     stackDirection,
+    bgcolor,
 }: sectionProps) => {
     return (
         <Stack
             sx={{
                 padding: "4rem",
                 flexDirection: `${stackDirection}`,
+                bgcolor: `${bgcolor}`,
             }}
             alignItems="center"
             justifyContent="space-between">
@@ -33,9 +37,7 @@ export const SectionComponent = ({
                 <Typography variant="body1" sx={{ fontSize: "1rem" }}>
                     {txt}
                 </Typography>
-                <Button size="large" variant="contained" sx={{ width: "70%" }}>
-                    {buttonLabel}
-                </Button>
+                <CustomButton>{buttonLabel}</CustomButton>
             </Stack>
             <img
                 src={image}

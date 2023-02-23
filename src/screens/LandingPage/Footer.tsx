@@ -1,7 +1,7 @@
 import { Stack } from "@mui/system";
 import { styled } from "@mui/system";
 
-import { Typography, Grid, Button } from "@mui/material";
+import { Typography, Grid } from "@mui/material";
 const FButton = styled("a")({
     textAlign: "center",
     border: "none",
@@ -17,13 +17,15 @@ const footerHeader = {
     fontSize: "1.8rem",
 };
 
-export const Footer = () => {
+export const Footer = ({bgcolor}:{bgcolor:string}) => {
     return (
         <Grid
+        bgcolor={bgcolor}
+        color="whitesmoke"
             container
             spacing={2}
             sx={{ padding: "3rem", borderBottom: "1px solid black" }}>
-            <Grid item xs={2}>
+            <Grid item xs={2} color="white">
                 <Typography variant="h3">Cloud Education</Typography>
             </Grid>
             <Grid item xs={2}>

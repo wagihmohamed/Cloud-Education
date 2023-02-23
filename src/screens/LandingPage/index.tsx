@@ -11,6 +11,8 @@ import {
 import { Link } from "react-router-dom";
 import { SectionComponent } from "./SectionComponent";
 import { Footer } from "./Footer";
+import { CustomButton } from "components";
+
 import { CaseStudy } from "./CaseStudy";
 import image1 from "./images/image1.jpg";
 import image2 from "./images/image2.jpg";
@@ -29,6 +31,8 @@ export const LandingPage = () => {
                 position="static"
                 sx={{
                     backgroundColor: "black",
+                    paddingY: ".75rem",
+                    bgcolor: "#03045e",
                 }}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
@@ -51,51 +55,51 @@ export const LandingPage = () => {
                                     textDecoration: "none",
                                     color: "white",
                                 }}>
-                                <Button
-                                    variant="contained"
-                                    size="large"
-                                    color="success"
-                                    sx={buttonStyle}>
+                                <CustomButton
+                                    borderRadius="15px"
+                                    bgcolor="#0077b6"
+                                    width={"10rem"}>
                                     Log in
-                                </Button>
+                                </CustomButton>
                             </Link>
-
                             <Link
                                 to="/register"
                                 style={{
                                     textDecoration: "none",
                                     color: "white",
                                 }}>
-                                <Button
-                                    variant="contained"
-                                    size="large"
-                                    color="success"
-                                    sx={buttonStyle}>
+                                <CustomButton
+                                    borderRadius="15px"
+                                    bgcolor="#0077b6"
+                                    width={"10rem"}>
                                     Sign up
-                                </Button>
+                                </CustomButton>
                             </Link>
                         </Stack>
                     </Toolbar>
                 </Container>
             </AppBar>
-            <Container maxWidth="xl" sx={{ margin: "auto", paddingX: "1rem" }}>
+            <Container maxWidth={false} disableGutters sx={{}}>
                 <SectionComponent
-                    heading="it's better than sliced bread!"
-                    buttonLabel="Get Started"
+                    bgcolor="#e5e5e5"
                     image={image1}
+                    heading="it's better than sliced bread!"
                     txt="Tell the world how awesome your app is and why they should use it!"
+                    buttonLabel="Get Started"
                     stackDirection="row"
                 />
                 <Divider />
                 <SectionComponent
-                    heading="Feature 1"
-                    buttonLabel="Learn More"
+                    bgcolor="#e5e5e5"
                     image={image2}
+                    heading="Feature 1"
                     txt="Explanation of why you are going to love it and the benefit!"
+                    buttonLabel="Learn More"
                     stackDirection="row-reverse"
                 />
                 <Divider />
                 <SectionComponent
+                    bgcolor="#e5e5e5"
                     image={image3}
                     heading="Feature 2"
                     txt="Explantion of why you are going to love it and the benefit"
@@ -104,6 +108,7 @@ export const LandingPage = () => {
                 />
                 <Divider />
                 <Stack
+                    bgcolor={"#e7ecef"}
                     direction="column"
                     sx={{ padding: "4rem" }}
                     justifyContent="space-between"
@@ -131,6 +136,7 @@ export const LandingPage = () => {
                     </Stack>
                 </Stack>
                 <Stack
+                    bgcolor={"#3e92cc"}
                     direction={"row"}
                     justifyContent="space-between"
                     sx={{
@@ -141,11 +147,9 @@ export const LandingPage = () => {
                     <Typography variant="h2">
                         Call to Action! you can do it !!
                     </Typography>
-                    <Button variant="outlined" size="large">
-                        Get Started!!
-                    </Button>
+                    <CustomButton>Get Started!!</CustomButton>
                 </Stack>
-                <Footer></Footer>
+                <Footer bgcolor="#13293d"></Footer>
             </Container>
         </>
     );
