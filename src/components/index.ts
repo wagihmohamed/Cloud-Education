@@ -17,6 +17,7 @@ import{LandingPageCaseStudy} from './LandingPageCaseStudy'
 import {LandingPageCard}from './LandingPageCard'
 import {CustomLink} from'./MUIStyledComponents/CustomLink'
 export {
+<<<<<<< HEAD
     CustomDate,
     CustomTextField,
     CustomButton,
@@ -35,4 +36,18 @@ export {
     LandingPageCaseStudy,
     CustomLink,
     LandingPageCard,
+=======
+	CustomDate,
+	CustomTextField,
+	CustomButton,
+	CustomLayout,
+	CustomAuthContainer,
+	CustomSelect,
+	CustomNavLink,
+	CustomNavBar,
+	NotificationList,
+	CoursesTable,
+	EditCourseModal,
+	AddCourseModal,
+>>>>>>> 5eebbffce83520277601431dba5107d45db86484
 };

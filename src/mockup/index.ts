@@ -9,13 +9,13 @@ import { coursesCategoryOptions } from './coursesCategoryOptions';
 import { coursesTableColumns } from './coursesColumnData';
 
 export {
-  countriesOptions,
-  messagesList,
-  notificationList,
-  organizationOptions,
-  allCourses,
-  courseStatus,
-  coursesBodyData,
-  coursesCategoryOptions,
-  coursesTableColumns,
+	countriesOptions,
+	messagesList,
+	notificationList,
+	organizationOptions,
+	allCourses,
+	courseStatus,
+	coursesBodyData,
+	coursesCategoryOptions,
+	coursesTableColumns,
 };
