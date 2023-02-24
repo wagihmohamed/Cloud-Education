@@ -30,7 +30,7 @@ export const LandingPageSection = ({
             <Stack
                 direction="column"
                 spacing="1rem"
-                justifyContent="space-between">
+                justifyContent="space-evenly">
                 <Typography variant="h1" sx={{ fontSize: "3.5rem" }}>
                     {heading}
                 </Typography>

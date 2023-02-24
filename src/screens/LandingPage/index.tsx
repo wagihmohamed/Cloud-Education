@@ -1,6 +1,11 @@
 import { Typography, Container, Stack, Divider } from "@mui/material";
 import { CustomButton } from "components";
-import { Footer, NavigationBar, LandingPageSection,LandingPageCard } from "../../components";
+import {
+    Footer,
+    NavigationBar,
+    LandingPageSection,
+    LandingPageCard,
+} from "../../components";
 import {
     landingpageimage1,
     landingpageimage2,
@@ -27,7 +32,7 @@ export const LandingPage = () => {
     return (
         <>
             <NavigationBar />
-            <Container maxWidth={false} disableGutters sx={{}}>
+            <Container maxWidth="xl" sx={{ marginX: "auto" }}>
                 <LandingPageSection
                     bgcolor="#fff"
                     image={landingpageimage1}
@@ -89,22 +94,24 @@ export const LandingPage = () => {
                             }></LandingPageCard>
                     </Stack>
                 </Stack>
-                <Stack
-                    bgcolor={"#131515"}
-                    direction={"row"}
-                    justifyContent="space-between"
-                    sx={{
-                        border: "1px solid",
-                        borderInline: "none",
-                        padding: "3rem",
-                    }}>
+            </Container>
+            <Stack
+                bgcolor={"#131515"}
+                direction={"row"}
+                justifyContent="space-between"
+                sx={{
+                    border: "1px solid",
+                    borderInline: "none",
+                    padding: "3rem",
+                }}>
+                <Container maxWidth="xl" sx={{ margin: "auto" }}>
                     <Typography variant="h2" sx={{ color: "#fff" }}>
                         Call to Action! you can do it !!
                     </Typography>
                     <CustomButton>Get Started!!</CustomButton>
-                </Stack>
-                <Footer />
-            </Container>
+                </Container>
+            </Stack>
+            <Footer />
         </>
     );
 };
