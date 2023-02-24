@@ -12,7 +12,6 @@ import {
     landingpageimage3,
     landingimageCaseStudy,
 } from "assets";
-
 import { CaseStudyStatments } from "mockup/caseStudyStatments";
 
 export const LandingPage = () => {
