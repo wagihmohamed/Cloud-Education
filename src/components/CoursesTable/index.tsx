@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import styled from '@emotion/styled';
 import { coursesTableColumns } from 'mockup';
 import { Stack } from '@mui/system';
 import {
@@ -7,6 +6,7 @@ import {
   HighlightOffOutlined,
   SettingsOutlined,
   PeopleAltOutlined,
+  CheckCircleOutlineOutlined,
 } from '@mui/icons-material';
 import {
   Table,
@@ -19,6 +19,10 @@ import {
 } from '@mui/material';
 import { EditCourseModal } from '../EditCourseModal';
 import { CoursesBody } from 'models';
+import {
+  CustomTableCell,
+  CustomTableRow,
+} from 'components/MUIStyledComponents/CustomTableCell';
 
 interface CoursesTableProps {
   coursesData: CoursesBody[];
@@ -26,16 +30,6 @@ interface CoursesTableProps {
   setSelectedCourse: React.Dispatch<React.SetStateAction<CoursesBody>>;
   selectedCourse: CoursesBody;
 }
-
-const CustomTableCell = styled(TableCell)(({ theme }) => ({
-  ...theme,
-  color: '#000',
-  textAlign: 'center',
-  border: '4px solid #000000',
-  backgroundColor: '#fff',
-  fontSize: '20px',
-  height: '10px !important',
-}));
 
 export const CoursesTable = ({
   coursesData,
@@ -48,7 +42,19 @@ export const CoursesTable = ({
   const handleDeleteCourse = (id: string) => {
     setCoursesData((prev) => prev.filter((course) => course.id !== id));
   };
-
+  const handleToggleStatus = (id: string) => {
+    setCoursesData((prev) =>
+      prev.map((course) => {
+        if (course.id === id) {
+          return {
+            ...course,
+            status: course.status === 'active' ? 'inactive' : 'active',
+          };
+        }
+        return course;
+      })
+    );
+  };
   return (
     <>
       <Table
@@ -93,15 +99,15 @@ export const CoursesTable = ({
             </TableRow>
           ) : (
             coursesData.map((row) => (
-              <TableRow
-                key={row.id}
-                sx={{
-                  boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
-                }}
-              >
+              <CustomTableRow key={row.id}>
                 <CustomTableCell>{row.courseName}</CustomTableCell>
                 <CustomTableCell>{row.category}</CustomTableCell>
                 <CustomTableCell>{row.lastUpdated}</CustomTableCell>
+                <CustomTableCell
+                  color={row.status === 'active' ? '#6aa84f' : '#FF0000'}
+                >
+                  {row.status}
+                </CustomTableCell>
                 <CustomTableCell width="200px">
                   <Stack direction="row" justifyContent="space-around">
                     <SettingsOutlined
@@ -121,18 +127,31 @@ export const CoursesTable = ({
                         height: '30px',
                         width: '30px',
                       }}
-                      cursor="pointer"
-                      color="primary"
-                    />
-                    <DoDisturbOnOutlined
-                      sx={{
-                        height: '30px',
-                        width: '30px',
-                      }}
-                      cursor="pointer"
-                      color="primary"
                       onClick={() => handleDeleteCourse(row.id)}
+                      cursor="pointer"
+                      color="primary"
                     />
+                    {row.status === 'active' ? (
+                      <DoDisturbOnOutlined
+                        sx={{
+                          height: '30px',
+                          width: '30px',
+                        }}
+                        onClick={() => handleToggleStatus(row.id)}
+                        cursor="pointer"
+                        color="primary"
+                      />
+                    ) : (
+                      <CheckCircleOutlineOutlined
+                        sx={{
+                          height: '30px',
+                          width: '30px',
+                        }}
+                        onClick={() => handleToggleStatus(row.id)}
+                        cursor="pointer"
+                        color="primary"
+                      />
+                    )}
                     <PeopleAltOutlined
                       sx={{
                         height: '30px',
@@ -143,7 +162,7 @@ export const CoursesTable = ({
                     />
                   </Stack>
                 </CustomTableCell>
-              </TableRow>
+              </CustomTableRow>
             ))
           )}
         </TableBody>

@@ -34,10 +34,12 @@ export const AddCourseModal = ({
         label: '',
       },
       courseCode: '',
-      prerequisites: {
-        value: '',
-        label: '',
-      },
+      prerequisites: [
+        {
+          value: '',
+          label: '',
+        },
+      ],
     },
     validationSchema: yup.object({
       courseName: yup.string().required('Course name is required'),
@@ -55,12 +57,12 @@ export const AddCourseModal = ({
         })
         .required('Course status is required'),
       courseCode: yup.string().required('Course code is required'),
-      prerequisites: yup
-        .object({
+      prerequisites: yup.array().of(
+        yup.object({
           value: yup.string().required('Prerequisites is required'),
           label: yup.string().required('Prerequisites is required'),
         })
-        .required('Prerequisites is required'),
+      ),
     }),
     onSubmit: (values) => {
       setCourses((prev) => [
@@ -72,13 +74,13 @@ export const AddCourseModal = ({
           description: values.description,
           courseStatus: values.courseStatus.label,
           courseCode: values.courseCode,
-          prerequisites:
-            allCourses.find(
-              (course) => course.value === values.prerequisites.value
-            )?.value || '',
+          prerequisites: values.prerequisites.map((prerequisite) => {
+            return prerequisite.value;
+          }),
           categoryId: values.category.value,
           lastUpdated: new Date().toLocaleDateString(),
-          status: values.courseStatus.value,
+          status:
+            values.courseStatus.value === 'active' ? 'active' : 'inactive',
         },
       ]);
       handleCloseModal();
@@ -220,6 +222,7 @@ export const AddCourseModal = ({
             </Grid>
             <Grid item xs={6}>
               <CustomSelect
+                isMulti
                 onChange={(e: { label: string; value: string }) => {
                   formik.setFieldValue('prerequisites', e);
                 }}
@@ -232,7 +235,8 @@ export const AddCourseModal = ({
                 }
                 helperText={
                   formik.touched.prerequisites &&
-                  formik.errors.prerequisites?.label
+                  formik.errors.prerequisites &&
+                  'Prerequisites is required'
                 }
               />
             </Grid>

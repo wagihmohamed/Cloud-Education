@@ -1,4 +1,6 @@
-export const coursesBodyData = [
+import { CoursesBody } from 'models';
+
+export const coursesBodyData: CoursesBody[] = [
   {
     id: '1',
     courseName: 'Computer Graphics',
@@ -6,7 +8,7 @@ export const coursesBodyData = [
     lastUpdated: '27-02-2023',
     categoryId: 'development',
     description: 'This course is about computer graphics',
-    prerequisites: 'cs321',
+    prerequisites: ['cs321'],
     courseCode: 'cs330',
     status: 'active',
   },
@@ -17,7 +19,7 @@ export const coursesBodyData = [
     lastUpdated: '01-02-2023',
     categoryId: 'development',
     description: 'This course is about computer science',
-    prerequisites: 'cs322',
+    prerequisites: ['cs322'],
     courseCode: 'cs321',
     status: 'active',
   },
@@ -28,7 +30,7 @@ export const coursesBodyData = [
     lastUpdated: '12-02-2023',
     categoryId: '1',
     description: 'This course is about design patterns',
-    prerequisites: 'cs329',
+    prerequisites: ['cs329'],
     courseCode: 'cs331',
     status: 'active',
   },
@@ -39,7 +41,7 @@ export const coursesBodyData = [
     lastUpdated: '12-02-2023',
     categoryId: 'music',
     description: 'This course is about music theory',
-    prerequisites: 'cs332',
+    prerequisites: ['cs332'],
     courseCode: 'cs333',
     status: 'inactive',
   },
@@ -50,7 +52,7 @@ export const coursesBodyData = [
     lastUpdated: '27-02-2023',
     categoryId: '1',
     description: 'This course is about algorithms and data structures',
-    prerequisites: 'none',
+    prerequisites: ['none'],
     courseCode: 'cs322',
     status: 'inactive',
   },
@@ -61,7 +63,7 @@ export const coursesBodyData = [
     lastUpdated: '27-02-2023',
     categoryId: '1',
     description: 'This course is about CPR',
-    prerequisites: 'none',
+    prerequisites: ['none'],
     courseCode: 'cs334',
     status: 'active',
   },

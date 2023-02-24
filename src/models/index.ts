@@ -1,3 +1,5 @@
+export type CourseStatus = 'active' | 'inactive';
+
 export interface CoursesBody {
   id: string;
   courseName: string;
@@ -5,7 +7,7 @@ export interface CoursesBody {
   lastUpdated: string;
   categoryId: string;
   description: string;
-  prerequisites: string;
+  prerequisites: string[];
   courseCode: string;
-  status: string;
+  status: CourseStatus;
 }
