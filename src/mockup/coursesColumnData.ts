@@ -12,6 +12,10 @@ export const coursesTableColumns = [
     label: 'Last Updated',
   },
   {
+    id: 'status',
+    label: 'Status',
+  },
+  {
     id: 'options',
     label: 'Options',
   },

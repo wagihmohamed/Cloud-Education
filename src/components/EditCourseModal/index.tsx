@@ -4,20 +4,16 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { CustomTextField } from '../CustomTextField';
 import { CustomSelect } from '../CustomSelect';
 import { CustomButton } from '../CustomButton';
-import {
-  allCourses,
-  coursesBodyData,
-  coursesCategoryOptions,
-  courseStatus,
-} from '../../mockup';
+import { allCourses, coursesCategoryOptions, courseStatus } from '../../mockup';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { CoursesBody } from 'models';
 
 interface EditCourseModalProps {
   open: boolean;
   handleClose: () => void;
-  editedCourse: typeof coursesBodyData[0];
-  handleSave: React.Dispatch<React.SetStateAction<typeof coursesBodyData>>;
+  editedCourse: CoursesBody;
+  handleSave: React.Dispatch<React.SetStateAction<CoursesBody[]>>;
 }
 
 export const EditCourseModal = ({
@@ -26,6 +22,10 @@ export const EditCourseModal = ({
   editedCourse,
   handleSave,
 }: EditCourseModalProps) => {
+  const selectedPreequisites = allCourses.filter((course) =>
+    editedCourse?.prerequisites?.includes(course.value)
+  );
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -40,16 +40,7 @@ export const EditCourseModal = ({
         label: editedCourse?.status || '',
       },
       courseCode: editedCourse?.courseCode || '',
-      prerequisites: {
-        value:
-          allCourses.find(
-            (course) => course.value === editedCourse?.prerequisites
-          )?.value || '',
-        label:
-          allCourses.find(
-            (course) => course.value === editedCourse?.prerequisites
-          )?.label || '',
-      },
+      prerequisites: selectedPreequisites,
     },
     validationSchema: yup.object({
       courseName: yup.string().required('Course name is required'),
@@ -67,12 +58,12 @@ export const EditCourseModal = ({
         })
         .required('Course status is required'),
       courseCode: yup.string().required('Course code is required'),
-      prerequisites: yup
-        .object({
-          value: yup.string().required('Prerequisites is required'),
-          label: yup.string().required('Prerequisites is required'),
+      prerequisites: yup.array().of(
+        yup.object({
+          value: yup.string().required('Prerequisite is required'),
+          label: yup.string().required('Prerequisite is required'),
         })
-        .required('Prerequisites is required'),
+      ),
     }),
     onSubmit: (values) => {
       handleSave((prev) => {
@@ -85,7 +76,9 @@ export const EditCourseModal = ({
               description: values.description,
               status: values.courseStatus.label,
               courseCode: values.courseCode,
-              prerequisites: values.prerequisites.value || '',
+              prerequisites: values.prerequisites.map(
+                (prerequisite) => prerequisite.value
+              ),
             };
           }
           return course;
@@ -233,11 +226,11 @@ export const EditCourseModal = ({
             </Grid>
             <Grid item xs={6}>
               <CustomSelect
+                isMulti
                 onChange={(e: { label: string; value: string }) => {
                   formik.setFieldValue('prerequisites', e);
                 }}
                 value={formik.values.prerequisites}
-                disabled={formik.values.prerequisites.value === ''}
                 options={allCourses}
                 withLabel
                 label="Prerequisites"
@@ -247,7 +240,8 @@ export const EditCourseModal = ({
                 }
                 helperText={
                   formik.touched.prerequisites &&
-                  formik.errors.prerequisites?.label
+                  formik.errors.prerequisites &&
+                  "Prerequisite can't be empty"
                 }
               />
             </Grid>

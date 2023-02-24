@@ -7,7 +7,7 @@ export interface CoursesBody {
   lastUpdated: string;
   categoryId: string;
   description: string;
-  prerequisites: string;
+  prerequisites: string[];
   courseCode: string;
   status: CourseStatus;
 }
