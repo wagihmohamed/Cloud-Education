@@ -29,7 +29,7 @@ function App() {
                     />
                     <Route path="/messages" element={<MessagesScreen />} />
                     <Route path="/profile" element={<ProfileScreen />} />
-                    <Route path="/landingpage" element={<LandingPage />} />
+                    <Route path="/landing-page" element={<LandingPage />} />
                 </Routes>
             </BrowserRouter>
         </div>
