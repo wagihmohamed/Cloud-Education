@@ -78,7 +78,8 @@ export const AddCourseModal = ({
             )?.value || '',
           categoryId: values.category.value,
           lastUpdated: new Date().toLocaleDateString(),
-          status: values.courseStatus.value,
+          status:
+            values.courseStatus.value === 'active' ? 'active' : 'inactive',
         },
       ]);
       handleCloseModal();
