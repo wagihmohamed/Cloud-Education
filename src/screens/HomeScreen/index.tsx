@@ -3,7 +3,6 @@ import { CustomLayout, NotificationList } from "components";
 import { messagesList, notificationList } from "mockup";
 
 export const HomeScreen = () => {
-<<<<<<< HEAD
     return (
         <CustomLayout>
             <Box
@@ -26,26 +25,4 @@ export const HomeScreen = () => {
             </Box>
         </CustomLayout>
     );
-=======
-	return (
-		<CustomLayout>
-			<Box
-				sx={{
-					mt: 4,
-					mx: 5,
-					bgcolor: 'white',
-				}}
-			>
-				<Typography fontWeight="bold" variant="h4">
-					Welcome, Wagih.
-				</Typography>
-				<NotificationList
-					title="Notifications"
-					messagesList={notificationList}
-				/>
-				<NotificationList title="Messages" messagesList={messagesList} />
-			</Box>
-		</CustomLayout>
-	);
->>>>>>> 5eebbffce83520277601431dba5107d45db86484
 };

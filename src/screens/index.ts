@@ -9,7 +9,6 @@ import { MessagesScreen } from './MessagesScreen';
 import { LandingPage } from './LandingPage';
 
 export {
-<<<<<<< HEAD
   LoginScreen,
   RegisterScreen,
   HomeScreen,
@@ -19,14 +18,4 @@ export {
   ProfileScreen,
   MessagesScreen,
   LandingPage
-=======
-	LoginScreen,
-	RegisterScreen,
-	HomeScreen,
-	OrganizationRegisterScreen,
-	CoursesScreen,
-	LeaderboardScreen,
-	ProfileScreen,
-	MessagesScreen,
->>>>>>> 5eebbffce83520277601431dba5107d45db86484
 };
