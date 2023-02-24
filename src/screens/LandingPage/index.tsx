@@ -1,40 +1,54 @@
 import { Typography, Container, Stack, Divider } from "@mui/material";
-import { SectionComponent } from "./SectionComponent";
-import { Footer } from "./Footer";
 import { CustomButton } from "components";
-import { CaseStudy } from "./CaseStudy";
-import image1 from "../../Assets/LandingPageAssets/image1.jpg";
-import image2 from "../../Assets/LandingPageAssets/image2.jpg";
-import image3 from "../../Assets/LandingPageAssets/image3.jpg";
-import caseStudyImage from "../../Assets/LandingPageAssets/caseStudy.jpg";
-import { NavigationBar } from "./AppBar";
-import { CaseStudyStatments } from "./LandingPageStatements";
+import { Footer, NavigationBar, LandingPageSection,LandingPageCard } from "../../components";
+import {
+    landingpageimage1,
+    landingpageimage2,
+    landingpageimage3,
+    landingimageCaseStudy,
+} from "assets";
+
+const CaseStudyStatments = {
+    castStudy1: {
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry.  ",
+    },
+    castStudy2: {
+        content:
+            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
+    },
+    castStudy3: {
+        content:
+            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
+    },
+};
+
 export const LandingPage = () => {
     return (
         <>
             <NavigationBar />
             <Container maxWidth={false} disableGutters sx={{}}>
-                <SectionComponent
-                    bgcolor="#e5e5e5"
-                    image={image1}
+                <LandingPageSection
+                    bgcolor="#fff"
+                    image={landingpageimage1}
                     heading="it's better than sliced bread!"
                     txt="Tell the world how awesome your app is and why they should use it!"
                     buttonLabel="Get Started"
                     stackDirection="row"
                 />
                 <Divider />
-                <SectionComponent
-                    bgcolor="#e5e5e5"
-                    image={image2}
+                <LandingPageSection
+                    bgcolor="#fff"
+                    image={landingpageimage2}
                     heading="Feature 1"
                     txt="Explanation of why you are going to love it and the benefit!"
                     buttonLabel="Learn More"
                     stackDirection="row-reverse"
                 />
                 <Divider />
-                <SectionComponent
-                    bgcolor="#e5e5e5"
-                    image={image3}
+                <LandingPageSection
+                    bgcolor="#fff"
+                    image={landingpageimage3}
                     heading="Feature 2"
                     txt="Explantion of why you are going to love it and the benefit"
                     buttonLabel="Learn More"
@@ -42,7 +56,7 @@ export const LandingPage = () => {
                 />
                 <Divider />
                 <Stack
-                    bgcolor={"#e7ecef"}
+                    bgcolor={"#fff"}
                     direction="column"
                     sx={{ padding: "4rem" }}
                     justifyContent="space-between"
@@ -58,21 +72,21 @@ export const LandingPage = () => {
                         justifyContent="space-around"
                         alignItems={"flex-start"}
                         spacing={2}>
-                        <CaseStudy
-                            image={caseStudyImage}
+                        <LandingPageCard
+                            image={landingimageCaseStudy}
                             content={
                                 CaseStudyStatments.castStudy1.content
-                            }></CaseStudy>
-                        <CaseStudy
-                            image={caseStudyImage}
+                            }></LandingPageCard>
+                        <LandingPageCard
+                            image={landingimageCaseStudy}
                             content={
                                 CaseStudyStatments.castStudy2.content
-                            }></CaseStudy>
-                        <CaseStudy
-                            image={caseStudyImage}
+                            }></LandingPageCard>
+                        <LandingPageCard
+                            image={landingimageCaseStudy}
                             content={
                                 CaseStudyStatments.castStudy3.content
-                            }></CaseStudy>
+                            }></LandingPageCard>
                     </Stack>
                 </Stack>
                 <Stack

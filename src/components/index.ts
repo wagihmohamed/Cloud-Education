@@ -10,18 +10,29 @@ import { NotificationList } from './NotificationList';
 import { CoursesTable } from './CoursesTable';
 import { EditCourseModal } from './EditCourseModal';
 import { AddCourseModal } from './AddCourseModal';
-
+import { Footer } from './Footer';
+import {NavigationBar} from './LandingPageNavigation'
+import {LandingPageSection} from './LandingPageSection'
+import{LandingPageCaseStudy} from './LandingPageCaseStudy'
+import {LandingPageCard}from './LandingPageCard'
+import {CustomLink} from'./MUIStyledComponents/CustomLink'
 export {
-  CustomDate,
-  CustomTextField,
-  CustomButton,
-  CustomLayout,
-  CustomAuthContainer,
-  CustomSelect,
-  CustomNavLink,
-  CustomNavBar,
-  NotificationList,
-  CoursesTable,
-  EditCourseModal,
-  AddCourseModal,
+    CustomDate,
+    CustomTextField,
+    CustomButton,
+    CustomLayout,
+    CustomAuthContainer,
+    CustomSelect,
+    CustomNavLink,
+    CustomNavBar,
+    NotificationList,
+    CoursesTable,
+    EditCourseModal,
+    AddCourseModal,
+    Footer,
+    NavigationBar,
+    LandingPageSection,
+    LandingPageCaseStudy,
+    CustomLink,
+    LandingPageCard,
 };

@@ -1,14 +1,10 @@
 import { styled } from "@mui/system";
-interface LinkButtonProps{
-    children:string,
-    href:string,
-};
-export const LinkButton = styled("a")({
+export const CustomLink = styled("a")({
     textAlign: "center",
     border: "none",
     display: "inline",
-    width: "min-width",
-    letterSpacing:"1px",
+    width: "min-content",
+    letterSpacing: "1px",
     backgroundColor: "transparent",
     cursor: "pointer",
     textDecoration: "none",
@@ -16,7 +12,7 @@ export const LinkButton = styled("a")({
     "&.MuiButtonBase-root:hover": {
         bgcolor: "transparent",
     },
+    "&:hover": {
+        color: "#219ebc",
+    },
 });
-export const index = ({ children, href }: LinkButtonProps) => {
-    return <LinkButton href={href}>{children}</LinkButton>;
-};

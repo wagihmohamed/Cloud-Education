@@ -8,8 +8,8 @@ import {
     LeaderboardScreen,
     MessagesScreen,
     ProfileScreen,
+    LandingPage,
 } from "./screens";
-import { LandingPage } from "screens/LandingPage";
 function App() {
     return (
         <div className="App">

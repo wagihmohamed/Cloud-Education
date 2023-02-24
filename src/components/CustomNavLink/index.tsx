@@ -1,14 +1,12 @@
-import { Button } from '@mui/material';
+import { Button, SxProps, Theme } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-
 interface CustomNavLinkProps {
-  to: string;
-  children: React.ReactNode;
-  sx?:object;
-  isLast?: boolean;
+    to: string;
+    children: React.ReactNode;
+    sx?: SxProps<Theme>;
+    isLast?: boolean;
 }
-
 export const CustomNavLink = ({ children, to,sx, isLast  }: CustomNavLinkProps) => {
   const { pathname } = useLocation();
   const isActive = pathname === to;

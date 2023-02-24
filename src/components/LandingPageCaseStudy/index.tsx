@@ -1,5 +1,5 @@
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
-export const CaseStudy = ({
+export const LandingPageCaseStudy = ({
     image,
     content,
 }: {
@@ -8,11 +8,7 @@ export const CaseStudy = ({
 }) => {
     return (
         <Card sx={{ maxWidth: 300 }}>
-            <CardMedia
-                component="img"
-                image={image}
-                alt="case-study"
-            />
+            <CardMedia component="img" image={image} alt="case-study" />
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
                     {content}

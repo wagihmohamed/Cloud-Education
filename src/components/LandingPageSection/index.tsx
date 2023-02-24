@@ -1,4 +1,4 @@
-import { Typography, Button } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { CustomButton } from "components";
 interface sectionProps {
@@ -10,7 +10,7 @@ interface sectionProps {
     bgcolor: string;
 }
 
-export const SectionComponent = ({
+export const LandingPageSection = ({
     image,
     heading,
     txt,

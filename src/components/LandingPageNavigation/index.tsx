@@ -32,10 +32,14 @@ export const NavigationBar = () => {
                         Cloud Education
                     </Typography>
                     <Stack direction="row" spacing={2}>
-                        <CustomNavLink to="/" sx={{ px: "3rem" ,py:".5rem"}}>
+                        <CustomNavLink to="/" sx={{ px: "3rem", py: ".5rem" }}>
                             Log in
                         </CustomNavLink>
-                        <CustomNavLink to="/register" sx={{ px: "3rem",py:".5rem"}}>Sign Up</CustomNavLink>
+                        <CustomNavLink
+                            to="/register"
+                            sx={{ px: "3rem", py: ".5rem" }}>
+                            Sign Up
+                        </CustomNavLink>
                     </Stack>
                 </Toolbar>
             </Container>
