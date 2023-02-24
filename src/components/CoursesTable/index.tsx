@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import styled from '@emotion/styled';
 import { coursesTableColumns } from 'mockup';
 import { Stack } from '@mui/system';
 import {
@@ -20,6 +19,10 @@ import {
 } from '@mui/material';
 import { EditCourseModal } from '../EditCourseModal';
 import { CoursesBody } from 'models';
+import {
+  CustomTableCell,
+  CustomTableRow,
+} from 'components/MUIStyledComponents/CustomTableCell';
 
 interface CoursesTableProps {
   coursesData: CoursesBody[];
@@ -27,16 +30,6 @@ interface CoursesTableProps {
   setSelectedCourse: React.Dispatch<React.SetStateAction<CoursesBody>>;
   selectedCourse: CoursesBody;
 }
-
-const CustomTableCell = styled(TableCell)(({ theme }) => ({
-  ...theme,
-  color: '#000',
-  textAlign: 'center',
-  border: '4px solid #000000',
-  backgroundColor: '#fff',
-  fontSize: '20px',
-  height: '10px !important',
-}));
 
 export const CoursesTable = ({
   coursesData,
@@ -62,7 +55,6 @@ export const CoursesTable = ({
       })
     );
   };
-
   return (
     <>
       <Table
@@ -107,15 +99,15 @@ export const CoursesTable = ({
             </TableRow>
           ) : (
             coursesData.map((row) => (
-              <TableRow
-                key={row.id}
-                sx={{
-                  boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
-                }}
-              >
+              <CustomTableRow key={row.id}>
                 <CustomTableCell>{row.courseName}</CustomTableCell>
                 <CustomTableCell>{row.category}</CustomTableCell>
                 <CustomTableCell>{row.lastUpdated}</CustomTableCell>
+                <CustomTableCell
+                  color={row.status === 'active' ? '#6aa84f' : '#FF0000'}
+                >
+                  {row.status}
+                </CustomTableCell>
                 <CustomTableCell width="200px">
                   <Stack direction="row" justifyContent="space-around">
                     <SettingsOutlined
@@ -170,7 +162,7 @@ export const CoursesTable = ({
                     />
                   </Stack>
                 </CustomTableCell>
-              </TableRow>
+              </CustomTableRow>
             ))
           )}
         </TableBody>

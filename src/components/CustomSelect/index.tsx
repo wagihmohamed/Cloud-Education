@@ -8,9 +8,10 @@ interface CustomSelectProps {
   label?: string;
   error?: boolean;
   helperText?: string;
-  value?: { label: string; value: string };
+  value?: { label: string; value: string } | { label: string; value: string }[];
   placeholder?: string;
   disabled?: boolean;
+  isMulti?: boolean;
 }
 
 export const CustomSelect = ({
@@ -23,6 +24,7 @@ export const CustomSelect = ({
   disabled,
   placeholder,
   value,
+  isMulti,
 }: CustomSelectProps) => {
   return (
     <>
@@ -43,6 +45,7 @@ export const CustomSelect = ({
       )}
       <Select
         value={value}
+        isMulti={isMulti}
         isDisabled={disabled}
         placeholder={placeholder ?? 'Select ' + label}
         styles={{
