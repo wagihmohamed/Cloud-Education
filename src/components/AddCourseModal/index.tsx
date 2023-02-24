@@ -20,8 +20,6 @@ export const AddCourseModal = ({
 	open,
 	setCourses,
 }: AddCourseModalProps) => {
-	console.log('asd');
-
 	const formik = useFormik({
 		enableReinitialize: true,
 		initialValues: {
