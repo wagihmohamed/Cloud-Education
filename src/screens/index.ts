@@ -8,12 +8,12 @@ import { ProfileScreen } from './ProfileScreen';
 import { MessagesScreen } from './MessagesScreen';
 
 export {
-  LoginScreen,
-  RegisterScreen,
-  HomeScreen,
-  OrganizationRegisterScreen,
-  CoursesScreen,
-  LeaderboardScreen,
-  ProfileScreen,
-  MessagesScreen,
+	LoginScreen,
+	RegisterScreen,
+	HomeScreen,
+	OrganizationRegisterScreen,
+	CoursesScreen,
+	LeaderboardScreen,
+	ProfileScreen,
+	MessagesScreen,
 };

@@ -12,16 +12,16 @@ import { EditCourseModal } from './EditCourseModal';
 import { AddCourseModal } from './AddCourseModal';
 
 export {
-  CustomDate,
-  CustomTextField,
-  CustomButton,
-  CustomLayout,
-  CustomAuthContainer,
-  CustomSelect,
-  CustomNavLink,
-  CustomNavBar,
-  NotificationList,
-  CoursesTable,
-  EditCourseModal,
-  AddCourseModal,
+	CustomDate,
+	CustomTextField,
+	CustomButton,
+	CustomLayout,
+	CustomAuthContainer,
+	CustomSelect,
+	CustomNavLink,
+	CustomNavBar,
+	NotificationList,
+	CoursesTable,
+	EditCourseModal,
+	AddCourseModal,
 };
