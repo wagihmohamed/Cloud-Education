@@ -1,84 +1,18 @@
-import {
-    AppBar,
-    Toolbar,
-    IconButton,
-    Typography,
-    Container,
-    Stack,
-    Button,
-    Divider,
-} from "@mui/material";
-import { Link } from "react-router-dom";
+import { Typography, Container, Stack, Divider } from "@mui/material";
 import { SectionComponent } from "./SectionComponent";
 import { Footer } from "./Footer";
 import { CustomButton } from "components";
-
 import { CaseStudy } from "./CaseStudy";
-import image1 from "./images/image1.jpg";
-import image2 from "./images/image2.jpg";
-import image3 from "./images/image3.jpg";
-import caseStudyImage from "./images/caseStudy.jpg";
-import SchoolIcon from "@mui/icons-material/School";
-const buttonStyle = {
-    borderRadius: "2rem",
-    minWidth: "10rem",
-    backgroundColor: "darkblue",
-};
+import image1 from "../../Assets/LandingPageAssets/image1.jpg";
+import image2 from "../../Assets/LandingPageAssets/image2.jpg";
+import image3 from "../../Assets/LandingPageAssets/image3.jpg";
+import caseStudyImage from "../../Assets/LandingPageAssets/caseStudy.jpg";
+import { NavigationBar } from "./AppBar";
+import { CaseStudyStatments } from "./LandingPageStatements";
 export const LandingPage = () => {
     return (
         <>
-            <AppBar
-                position="static"
-                sx={{
-                    backgroundColor: "black",
-                    paddingY: ".75rem",
-                    bgcolor: "#03045e",
-                }}>
-                <Container maxWidth="xl">
-                    <Toolbar disableGutters>
-                        <IconButton size="large" edge="start" aria-label="logo">
-                            <SchoolIcon
-                                sx={{
-                                    color: "white",
-                                    fontSize: "3rem",
-                                }}></SchoolIcon>
-                        </IconButton>
-                        <Typography
-                            variant="h4"
-                            sx={{ letterSpacing: "3px", flexGrow: 0.8 }}>
-                            Cloud Education
-                        </Typography>
-                        <Stack direction="row" spacing={2}>
-                            <Link
-                                to="/"
-                                style={{
-                                    textDecoration: "none",
-                                    color: "white",
-                                }}>
-                                <CustomButton
-                                    borderRadius="15px"
-                                    bgcolor="#0077b6"
-                                    width={"10rem"}>
-                                    Log in
-                                </CustomButton>
-                            </Link>
-                            <Link
-                                to="/register"
-                                style={{
-                                    textDecoration: "none",
-                                    color: "white",
-                                }}>
-                                <CustomButton
-                                    borderRadius="15px"
-                                    bgcolor="#0077b6"
-                                    width={"10rem"}>
-                                    Sign up
-                                </CustomButton>
-                            </Link>
-                        </Stack>
-                    </Toolbar>
-                </Container>
-            </AppBar>
+            <NavigationBar />
             <Container maxWidth={false} disableGutters sx={{}}>
                 <SectionComponent
                     bgcolor="#e5e5e5"
@@ -126,17 +60,23 @@ export const LandingPage = () => {
                         spacing={2}>
                         <CaseStudy
                             image={caseStudyImage}
-                            content="Lorem Ipsum is simply dummy text of the printing and typesetting industry.  "></CaseStudy>
+                            content={
+                                CaseStudyStatments.castStudy1.content
+                            }></CaseStudy>
                         <CaseStudy
                             image={caseStudyImage}
-                            content="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"></CaseStudy>
+                            content={
+                                CaseStudyStatments.castStudy2.content
+                            }></CaseStudy>
                         <CaseStudy
                             image={caseStudyImage}
-                            content="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"></CaseStudy>
+                            content={
+                                CaseStudyStatments.castStudy3.content
+                            }></CaseStudy>
                     </Stack>
                 </Stack>
                 <Stack
-                    bgcolor={"#3e92cc"}
+                    bgcolor={"#131515"}
                     direction={"row"}
                     justifyContent="space-between"
                     sx={{
@@ -144,12 +84,12 @@ export const LandingPage = () => {
                         borderInline: "none",
                         padding: "3rem",
                     }}>
-                    <Typography variant="h2">
+                    <Typography variant="h2" sx={{ color: "#fff" }}>
                         Call to Action! you can do it !!
                     </Typography>
                     <CustomButton>Get Started!!</CustomButton>
                 </Stack>
-                <Footer bgcolor="#13293d"></Footer>
+                <Footer />
             </Container>
         </>
     );

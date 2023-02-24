@@ -1,14 +1,14 @@
 import { Typography, Button } from "@mui/material";
 import { Stack } from "@mui/system";
 import { CustomButton } from "components";
-type sectionProps = {
+interface sectionProps {
     image: string;
     heading: string;
     txt: string;
     buttonLabel: string;
     stackDirection: string;
-    bgcolor:string;
-};
+    bgcolor: string;
+}
 
 export const SectionComponent = ({
     image,
