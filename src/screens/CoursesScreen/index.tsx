@@ -15,7 +15,7 @@ export const CoursesScreen = () => {
   const [coursesData, setCoursesData] =
     useState<CoursesBody[]>(coursesBodyData);
   const [selectedCourse, setSelectedCourse] = useState<CoursesBody>(
-    {} as typeof coursesBodyData[0]
+    {} as CoursesBody
   );
   return (
     <>

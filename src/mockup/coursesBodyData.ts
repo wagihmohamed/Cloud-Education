@@ -1,4 +1,6 @@
-export const coursesBodyData = [
+import { CoursesBody } from 'models';
+
+export const coursesBodyData: CoursesBody[] = [
   {
     id: '1',
     courseName: 'Computer Graphics',

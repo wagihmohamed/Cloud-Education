@@ -7,6 +7,7 @@ import {
   HighlightOffOutlined,
   SettingsOutlined,
   PeopleAltOutlined,
+  CheckCircleOutlineOutlined,
 } from '@mui/icons-material';
 import {
   Table,
@@ -47,6 +48,19 @@ export const CoursesTable = ({
 
   const handleDeleteCourse = (id: string) => {
     setCoursesData((prev) => prev.filter((course) => course.id !== id));
+  };
+  const handleToggleStatus = (id: string) => {
+    setCoursesData((prev) =>
+      prev.map((course) => {
+        if (course.id === id) {
+          return {
+            ...course,
+            status: course.status === 'active' ? 'inactive' : 'active',
+          };
+        }
+        return course;
+      })
+    );
   };
 
   return (
@@ -121,18 +135,31 @@ export const CoursesTable = ({
                         height: '30px',
                         width: '30px',
                       }}
-                      cursor="pointer"
-                      color="primary"
-                    />
-                    <DoDisturbOnOutlined
-                      sx={{
-                        height: '30px',
-                        width: '30px',
-                      }}
-                      cursor="pointer"
-                      color="primary"
                       onClick={() => handleDeleteCourse(row.id)}
+                      cursor="pointer"
+                      color="primary"
                     />
+                    {row.status === 'active' ? (
+                      <DoDisturbOnOutlined
+                        sx={{
+                          height: '30px',
+                          width: '30px',
+                        }}
+                        onClick={() => handleToggleStatus(row.id)}
+                        cursor="pointer"
+                        color="primary"
+                      />
+                    ) : (
+                      <CheckCircleOutlineOutlined
+                        sx={{
+                          height: '30px',
+                          width: '30px',
+                        }}
+                        onClick={() => handleToggleStatus(row.id)}
+                        cursor="pointer"
+                        color="primary"
+                      />
+                    )}
                     <PeopleAltOutlined
                       sx={{
                         height: '30px',
