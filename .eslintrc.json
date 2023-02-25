@@ -42,7 +42,7 @@
 			"error",
 			{
 				"printWidth": 80,
-				"endOfLine": "lf",
+				"endOfLine": "auto",
 				"singleQuote": true,
 				"tabWidth": 2,
 				"indentStyle": "space",

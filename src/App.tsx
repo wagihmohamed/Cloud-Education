@@ -8,6 +8,7 @@ import {
 	LeaderboardScreen,
 	MessagesScreen,
 	ProfileScreen,
+	CourseScreen,
 } from './screens';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
 					/>
 					<Route path="/home" element={<HomeScreen />} />
 					<Route path="/courses" element={<CoursesScreen />} />
+					<Route path="/courses/:courseId" element={<CourseScreen />} />
 					<Route path="/leaderboard" element={<LeaderboardScreen />} />
 					<Route path="/messages" element={<MessagesScreen />} />
 					<Route path="/profile" element={<ProfileScreen />} />
