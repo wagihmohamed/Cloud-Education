@@ -9,6 +9,7 @@ import {
 	MessagesScreen,
 	ProfileScreen,
 	CourseScreen,
+	UsersScreen,
 } from './screens';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
 					<Route path="/courses/:courseId" element={<CourseScreen />} />
 					<Route path="/leaderboard" element={<LeaderboardScreen />} />
 					<Route path="/messages" element={<MessagesScreen />} />
+					<Route path="/users" element={<UsersScreen />} />
 					<Route path="/profile" element={<ProfileScreen />} />
 				</Routes>
 			</BrowserRouter>

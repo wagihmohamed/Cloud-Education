@@ -7,6 +7,7 @@ import { LeaderboardScreen } from './LeaderboardScreen';
 import { ProfileScreen } from './ProfileScreen';
 import { MessagesScreen } from './MessagesScreen';
 import { CourseScreen } from './CourseScreen';
+import { UsersScreen } from './UsersScreen';
 
 export {
 	LoginScreen,
@@ -18,4 +19,5 @@ export {
 	ProfileScreen,
 	MessagesScreen,
 	CourseScreen,
+	UsersScreen,
 };

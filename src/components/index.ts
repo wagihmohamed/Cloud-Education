@@ -10,6 +10,8 @@ import { NotificationList } from './NotificationList';
 import { CoursesTable } from './CoursesTable';
 import { EditCourseModal } from './EditCourseModal';
 import { AddCourseModal } from './AddCourseModal';
+import { UsersTable } from './UsersTable';
+import { EditUserModal } from './EditUserModal';
 
 export {
 	CustomDate,
@@ -24,4 +26,6 @@ export {
 	CoursesTable,
 	EditCourseModal,
 	AddCourseModal,
+	UsersTable,
+	EditUserModal,
 };
