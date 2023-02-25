@@ -19,8 +19,9 @@ export const CustomNavBar = () => {
 			<CustomNavLink to="/home">Home</CustomNavLink>
 			<CustomNavLink to="/courses">Courses</CustomNavLink>
 			<CustomNavLink to="/leaderboard">Leaderboard</CustomNavLink>
-			<CustomNavLink isLast to="/messages">
-				Messages
+			<CustomNavLink to="/messages">Messages</CustomNavLink>
+			<CustomNavLink isLast to="/users">
+				Users
 			</CustomNavLink>
 			<Box mt="auto">
 				<CustomNavLink isLast to="/profile">
