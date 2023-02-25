@@ -62,7 +62,7 @@
 		],
 		"react-hooks/exhaustive-deps": "off",
 		"object-shorthand": "error",
-		"no-console": "warn",
+		"no-console": "error",
 		"@typescript-eslint/no-floating-promises": "off",
 		"import/no-named-as-default-member": "off",
 		"import/no-extraneous-dependencies": "off",
