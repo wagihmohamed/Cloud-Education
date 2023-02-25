@@ -6,6 +6,7 @@ import { CoursesScreen } from './CoursesScreen';
 import { LeaderboardScreen } from './LeaderboardScreen';
 import { ProfileScreen } from './ProfileScreen';
 import { MessagesScreen } from './MessagesScreen';
+import { CourseScreen } from './CourseScreen';
 
 export {
 	LoginScreen,
@@ -16,4 +17,5 @@ export {
 	LeaderboardScreen,
 	ProfileScreen,
 	MessagesScreen,
+	CourseScreen,
 };

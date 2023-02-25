@@ -23,6 +23,7 @@ import {
 	CustomTableCell,
 	CustomTableRow,
 } from 'components/MUIStyledComponents/CustomTableCell';
+import { useNavigate } from 'react-router-dom';
 
 interface CoursesTableProps {
 	coursesData: CoursesBody[];
@@ -38,7 +39,7 @@ export const CoursesTable = ({
 	setCoursesData,
 }: CoursesTableProps) => {
 	const [isEditCourseOpen, setIsEditCourseOpen] = useState(false);
-
+	const navigate = useNavigate();
 	const handleDeleteCourse = (id: string) => {
 		setCoursesData((prev) => prev.filter((course) => course.id !== id));
 	};
@@ -99,7 +100,12 @@ export const CoursesTable = ({
 						</TableRow>
 					) : (
 						coursesData.map((row) => (
-							<CustomTableRow key={row.id}>
+							<CustomTableRow
+								onClick={() => {
+									navigate(`/courses/${row.id}`);
+								}}
+								key={row.id}
+							>
 								<CustomTableCell>{row.courseName}</CustomTableCell>
 								<CustomTableCell>{row.category}</CustomTableCell>
 								<CustomTableCell>{row.lastUpdated}</CustomTableCell>
