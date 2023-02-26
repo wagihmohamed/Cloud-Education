@@ -16,12 +16,8 @@ import {
 	PeopleAltOutlined,
 	CheckCircleOutlineOutlined,
 } from '@mui/icons-material';
-import {
-	CustomTableCell,
-	CustomTableRow,
-} from 'components/MUIStyledComponents/CustomTableCell';
 import { userTableColumns } from 'mockup';
-import { EditUserModal } from 'components';
+import { EditUserModal, CustomTableCell, CustomTableRow } from 'components';
 import { User } from 'models';
 
 interface UsersTableProps {
@@ -48,6 +44,10 @@ export const UsersTable = ({
 				return user;
 			})
 		);
+	};
+
+	const handleDeleteUser = (id: string) => {
+		setUsersBodyData((prev) => prev.filter((user) => user.id !== id));
 	};
 
 	return (
@@ -126,6 +126,7 @@ export const UsersTable = ({
 											}}
 											cursor="pointer"
 											color="primary"
+											onClick={() => handleDeleteUser(row.id)}
 										/>
 										{row.status === 'active' ? (
 											<DoDisturbOnOutlined

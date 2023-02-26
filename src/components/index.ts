@@ -18,6 +18,10 @@ import { CustomLink } from './MUIStyledComponents/CustomLink';
 import { LandingPageNavigation } from './LandingPageNavigation';
 import { LandingPageSection } from './LandingPageSection';
 import { AddUserModal } from './AddUserModal';
+import {
+	CustomTableCell,
+	CustomTableRow,
+} from './MUIStyledComponents/CustomTableCell';
 
 export {
 	LandingPageCard,
@@ -40,4 +44,6 @@ export {
 	UsersTable,
 	EditUserModal,
 	AddUserModal,
+	CustomTableRow,
+	CustomTableCell,
 };
