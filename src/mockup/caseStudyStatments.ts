@@ -1,4 +1,4 @@
-export const CaseStudyStatments = {
+export const caseStudyStatments = {
 	castStudy1: {
 		content:
 			'Lorem Ipsum is simply dummy text of the printing and typesetting industry.  ',

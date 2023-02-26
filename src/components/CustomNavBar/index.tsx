@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { CustomNavLink } from '../CustomNavLink';
+import { CustomNavLink } from 'components';
 
 export const CustomNavBar = () => {
 	return (

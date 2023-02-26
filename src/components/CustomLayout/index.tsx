@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, BoxProps } from '@mui/material';
-import { CustomNavBar } from '../CustomNavBar';
+import { CustomNavBar } from 'components';
 
 interface MainViewContainerProps extends BoxProps {
 	children: React.ReactNode;

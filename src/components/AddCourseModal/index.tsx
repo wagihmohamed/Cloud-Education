@@ -2,11 +2,9 @@ import React from 'react';
 import { Box, Grid, Modal, Stack, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { CustomSelect } from 'components/CustomSelect';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { CustomTextField } from 'components/CustomTextField';
+import { CustomTextField, CustomSelect, CustomButton } from 'components';
 import { allCourses, coursesCategoryOptions, courseStatus } from 'mockup';
-import { CustomButton } from 'components/CustomButton';
 import { CoursesBody } from 'models';
 
 interface AddCourseModalProps {
