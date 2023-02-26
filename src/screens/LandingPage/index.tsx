@@ -14,7 +14,7 @@ import {
 	landingpageimage3,
 	landingimageCaseStudy,
 } from 'assets';
-import { CaseStudyStatments } from 'mockup/caseStudyStatments';
+import { caseStudyStatments } from 'mockup';
 
 export const LandingPage = () => {
 	return (
@@ -69,16 +69,16 @@ export const LandingPage = () => {
 					>
 						<LandingPageCard
 							image={landingimageCaseStudy}
-							content={CaseStudyStatments.castStudy1.content}
-						></LandingPageCard>
+							content={caseStudyStatments.castStudy1.content}
+						/>
 						<LandingPageCard
 							image={landingimageCaseStudy}
-							content={CaseStudyStatments.castStudy2.content}
-						></LandingPageCard>
+							content={caseStudyStatments.castStudy2.content}
+						/>
 						<LandingPageCard
 							image={landingimageCaseStudy}
-							content={CaseStudyStatments.castStudy3.content}
-						></LandingPageCard>
+							content={caseStudyStatments.castStudy3.content}
+						/>
 					</Stack>
 				</Stack>
 			</Container>

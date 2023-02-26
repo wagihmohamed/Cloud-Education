@@ -11,6 +11,7 @@ import { userTableColumns } from './userTableColumns';
 import { usersData } from './usersData';
 import { usersRoles } from './usersRoles';
 import { usersStatus } from './usersStatus';
+import { caseStudyStatments } from './caseStudyStatments';
 
 export {
 	countriesOptions,
@@ -26,4 +27,5 @@ export {
 	usersData,
 	usersRoles,
 	usersStatus,
+	caseStudyStatments,
 };

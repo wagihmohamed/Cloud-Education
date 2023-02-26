@@ -1,9 +1,7 @@
 import { Modal, Typography, Box, Grid } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { CustomTextField } from '../CustomTextField';
-import { CustomSelect } from '../CustomSelect';
-import { CustomButton } from '../CustomButton';
+import { CustomTextField, CustomSelect, CustomButton } from 'components';
 import { allCourses, coursesCategoryOptions, courseStatus } from 'mockup';
 import { useFormik } from 'formik';
 import * as yup from 'yup';

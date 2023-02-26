@@ -17,12 +17,8 @@ import {
 	Typography,
 	Pagination,
 } from '@mui/material';
-import { EditCourseModal } from '../EditCourseModal';
 import { CoursesBody } from 'models';
-import {
-	CustomTableCell,
-	CustomTableRow,
-} from 'components/MUIStyledComponents/CustomTableCell';
+import { CustomTableCell, CustomTableRow, EditCourseModal } from 'components';
 import { useNavigate } from 'react-router-dom';
 
 interface CoursesTableProps {
