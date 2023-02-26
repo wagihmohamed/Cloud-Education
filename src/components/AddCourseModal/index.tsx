@@ -111,6 +111,7 @@ export const AddCourseModal = ({
 					p: 4,
 					borderRadius: '10px',
 					border: '3px solid #000',
+					overflow: 'hidden',
 				}}
 			>
 				<Stack direction="row" justifyContent="space-between">
