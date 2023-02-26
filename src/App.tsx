@@ -9,6 +9,7 @@ import {
 	MessagesScreen,
 	ProfileScreen,
 	CourseScreen,
+	LandingPage,
 } from './screens';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
 					<Route path="/leaderboard" element={<LeaderboardScreen />} />
 					<Route path="/messages" element={<MessagesScreen />} />
 					<Route path="/profile" element={<ProfileScreen />} />
+					<Route path="/landing-page" element={<LandingPage />} />
 				</Routes>
 			</BrowserRouter>
 		</div>
