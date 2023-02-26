@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useState } from 'react';
 import {
 	Table,
@@ -35,6 +36,21 @@ export const UsersTable = ({
 }: UsersTableProps) => {
 	const [isEditUserOpen, setIsEditUserOpen] = useState(false);
 	const [selectedUser, setSelectedUser] = useState<User>({} as User);
+
+	const handleToggleUserStatus = (id: string) => {
+		setUsersBodyData((prev) =>
+			prev.map((user) => {
+				if (user.id === id) {
+					return {
+						...user,
+						status: user.status === 'active' ? 'inactive' : 'active',
+					};
+				}
+				return user;
+			})
+		);
+	};
+
 	return (
 		<>
 			<Table
@@ -120,6 +136,7 @@ export const UsersTable = ({
 												}}
 												cursor="pointer"
 												color="primary"
+												onClick={() => handleToggleUserStatus(row.id)}
 											/>
 										) : (
 											<CheckCircleOutlineOutlined
@@ -129,6 +146,7 @@ export const UsersTable = ({
 												}}
 												cursor="pointer"
 												color="primary"
+												onClick={() => handleToggleUserStatus(row.id)}
 											/>
 										)}
 										<PeopleAltOutlined
