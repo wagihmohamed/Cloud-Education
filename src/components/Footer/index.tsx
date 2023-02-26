@@ -19,7 +19,9 @@ export const Footer = () => {
 				sx={{ padding: '3rem', borderBottom: '1px solid black' }}
 			>
 				<Grid item xs={2} color="white">
-					<Typography variant="h3">Cloud Education</Typography>
+					<Typography textAlign="start" variant="h3">
+						Cloud Education
+					</Typography>
 				</Grid>
 				<Grid item xs={2}>
 					<Stack spacing={2} alignItems={'center'}>

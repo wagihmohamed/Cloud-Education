@@ -1,0 +1,8 @@
+.landing-nav-link {
+	text-decoration: none;
+	color: white;
+	display: flex;
+	align-items: center;
+	margin-right: auto;
+	gap: 1rem;
+}

@@ -90,13 +90,25 @@ export const LandingPage = () => {
 					border: '1px solid',
 					borderInline: 'none',
 					padding: '3rem',
+					width: '100%',
 				}}
 			>
-				<Container maxWidth="xl" sx={{ margin: 'auto' }}>
-					<Typography variant="h2" sx={{ color: '#fff' }}>
+				<Container
+					sx={{
+						mx: 'auto',
+						width: '100%',
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}
+				>
+					<Typography textAlign="center" variant="h2" sx={{ color: '#fff' }}>
 						Call to Action! you can do it !!
 					</Typography>
-					<CustomButton>Get Started!!</CustomButton>
+					<CustomButton mx="auto" mt={3} px={8}>
+						Get Started!!
+					</CustomButton>
 				</Container>
 			</Stack>
 			<Footer />

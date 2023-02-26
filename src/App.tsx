@@ -18,7 +18,7 @@ function App() {
 		<div className="App">
 			<BrowserRouter>
 				<Routes>
-					<Route path="/" element={<LoginScreen />} />
+					<Route path="/login" element={<LoginScreen />} />
 					<Route path="/register" element={<RegisterScreen />} />
 					<Route
 						path="/organization-register"
@@ -31,7 +31,7 @@ function App() {
 					<Route path="/messages" element={<MessagesScreen />} />
 					<Route path="/users" element={<UsersScreen />} />
 					<Route path="/profile" element={<ProfileScreen />} />
-					<Route path="/landing-page" element={<LandingPage />} />
+					<Route path="/" element={<LandingPage />} />
 				</Routes>
 			</BrowserRouter>
 		</div>
