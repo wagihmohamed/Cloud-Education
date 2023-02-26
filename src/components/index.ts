@@ -12,8 +12,18 @@ import { EditCourseModal } from './EditCourseModal';
 import { AddCourseModal } from './AddCourseModal';
 import { UsersTable } from './UsersTable';
 import { EditUserModal } from './EditUserModal';
+import { LandingPageCard } from './LandingPageCard';
+import { Footer } from './Footer';
+import { CustomLink } from './MUIStyledComponents/CustomLink';
+import { LandingPageNavigation } from './LandingPageNavigation';
+import { LandingPageSection } from './LandingPageSection';
 
 export {
+	LandingPageCard,
+	Footer,
+	CustomLink,
+	LandingPageNavigation,
+	LandingPageSection,
 	CustomDate,
 	CustomTextField,
 	CustomButton,

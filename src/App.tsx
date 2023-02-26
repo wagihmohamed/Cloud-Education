@@ -10,6 +10,7 @@ import {
 	ProfileScreen,
 	CourseScreen,
 	UsersScreen,
+	LandingPage,
 } from './screens';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
 					<Route path="/messages" element={<MessagesScreen />} />
 					<Route path="/users" element={<UsersScreen />} />
 					<Route path="/profile" element={<ProfileScreen />} />
+					<Route path="/landing-page" element={<LandingPage />} />
 				</Routes>
 			</BrowserRouter>
 		</div>
