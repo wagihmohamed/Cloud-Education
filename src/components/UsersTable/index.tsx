@@ -20,12 +20,19 @@ import {
 	CustomTableCell,
 	CustomTableRow,
 } from 'components/MUIStyledComponents/CustomTableCell';
-import { usersData, userTableColumns } from 'mockup';
+import { userTableColumns } from 'mockup';
 import { EditUserModal } from 'components';
 import { User } from 'models';
 
-export const UsersTable = () => {
-	const [usersBodyData, setUsersBodyData] = useState<User[]>(usersData);
+interface UsersTableProps {
+	usersBodyData: User[];
+	setUsersBodyData: React.Dispatch<React.SetStateAction<User[]>>;
+}
+
+export const UsersTable = ({
+	setUsersBodyData,
+	usersBodyData,
+}: UsersTableProps) => {
 	const [isEditUserOpen, setIsEditUserOpen] = useState(false);
 	const [selectedUser, setSelectedUser] = useState<User>({} as User);
 	return (

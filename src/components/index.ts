@@ -17,6 +17,7 @@ import { Footer } from './Footer';
 import { CustomLink } from './MUIStyledComponents/CustomLink';
 import { LandingPageNavigation } from './LandingPageNavigation';
 import { LandingPageSection } from './LandingPageSection';
+import { AddUserModal } from './AddUserModal';
 
 export {
 	LandingPageCard,
@@ -38,4 +39,5 @@ export {
 	AddCourseModal,
 	UsersTable,
 	EditUserModal,
+	AddUserModal,
 };

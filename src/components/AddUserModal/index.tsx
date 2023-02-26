@@ -4,36 +4,33 @@ import { CustomButton, CustomSelect, CustomTextField } from 'components';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { usersRoles, usersStatus } from 'mockup';
-import { User, UserRole } from 'models';
+import { User, UserRole, UserStatus } from 'models';
 
 interface EditUserModalProps {
 	open: boolean;
 	handleClose: () => void;
-	editedUser: User;
 	handleSave: React.Dispatch<React.SetStateAction<User[]>>;
 }
 
-export const EditUserModal = ({
+export const AddUserModal = ({
 	handleClose,
 	open,
-	editedUser,
 	handleSave,
 }: EditUserModalProps) => {
-	const userRole = usersRoles.find((role) => role.label === editedUser.role);
 	const formik = useFormik({
 		enableReinitialize: true,
 		initialValues: {
-			firstName: editedUser.firstName,
-			lastName: editedUser.lastName,
-			email: editedUser.email,
-			phoneNumber: editedUser.phoneNumber,
-			role: userRole || {
+			firstName: '',
+			lastName: '',
+			email: '',
+			phoneNumber: '',
+			role: {
 				value: '',
 				label: '',
 			},
 			status: {
-				value: editedUser.status,
-				label: editedUser.status,
+				value: '',
+				label: '',
 			},
 		},
 		validationSchema: yup.object({
@@ -59,21 +56,19 @@ export const EditUserModal = ({
 		}),
 		onSubmit: () => {
 			handleSave((prev) => {
-				const newUsers = prev.map((user) => {
-					if (user.id === editedUser.id) {
-						return {
-							...user,
-							firstName: formik.values.firstName,
-							lastName: formik.values.lastName,
-							email: formik.values.email,
-							phoneNumber: formik.values.phoneNumber,
-							role: formik.values.role.label as UserRole,
-							status: formik.values.status.value,
-						};
-					}
-					return user;
-				});
-				return newUsers;
+				return [
+					...prev,
+					{
+						id: (prev.length + 1).toString(),
+						firstName: formik.values.firstName,
+						lastName: formik.values.lastName,
+						email: formik.values.email,
+						phoneNumber: formik.values.phoneNumber,
+						role: formik.values.role.value as UserRole,
+						status: formik.values.status.value as UserStatus,
+						lastLogin: new Date().toLocaleDateString(),
+					},
+				];
 			});
 			handleClose();
 		},
@@ -107,7 +102,7 @@ export const EditUserModal = ({
 			>
 				<Stack direction="row" justifyContent="space-between">
 					<Typography variant="h4" fontWeight="bold">
-						Edit User
+						Add User
 					</Typography>
 					<CloseOutlinedIcon
 						sx={{
@@ -190,7 +185,6 @@ export const EditUserModal = ({
 									formik.setFieldValue('role', e);
 								}}
 								options={usersRoles}
-								value={formik.values.role}
 								withLabel
 								label="Role"
 								error={formik.touched.role && Boolean(formik.errors.role)}
@@ -203,7 +197,6 @@ export const EditUserModal = ({
 									formik.setFieldValue('status', e);
 								}}
 								options={usersStatus}
-								value={formik.values.status}
 								withLabel
 								label="Status"
 								error={formik.touched.status && Boolean(formik.errors.status)}
