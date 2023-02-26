@@ -10,11 +10,14 @@ import { NotificationList } from './NotificationList';
 import { CoursesTable } from './CoursesTable';
 import { EditCourseModal } from './EditCourseModal';
 import { AddCourseModal } from './AddCourseModal';
-import { LandingPageSection } from './LandingPageSection';
+import { UsersTable } from './UsersTable';
+import { EditUserModal } from './EditUserModal';
 import { LandingPageCard } from './LandingPageCard';
-import { LandingPageNavigation } from './LandingPageNavigation';
 import { Footer } from './Footer';
 import { CustomLink } from './MUIStyledComponents/CustomLink';
+import { LandingPageNavigation } from './LandingPageNavigation';
+import { LandingPageSection } from './LandingPageSection';
+
 export {
 	LandingPageCard,
 	Footer,
@@ -33,4 +36,6 @@ export {
 	CoursesTable,
 	EditCourseModal,
 	AddCourseModal,
+	UsersTable,
+	EditUserModal,
 };

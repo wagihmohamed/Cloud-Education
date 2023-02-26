@@ -100,13 +100,15 @@ export const CoursesTable = ({
 						</TableRow>
 					) : (
 						coursesData.map((row) => (
-							<CustomTableRow
-								onClick={() => {
-									navigate(`/courses/${row.id}`);
-								}}
-								key={row.id}
-							>
-								<CustomTableCell>{row.courseName}</CustomTableCell>
+							<CustomTableRow key={row.id}>
+								<CustomTableCell
+									cursor="pointer"
+									onClick={() => {
+										navigate(`/courses/${row.id}`);
+									}}
+								>
+									{row.courseName}
+								</CustomTableCell>
 								<CustomTableCell>{row.category}</CustomTableCell>
 								<CustomTableCell>{row.lastUpdated}</CustomTableCell>
 								<CustomTableCell

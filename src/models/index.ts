@@ -11,3 +11,17 @@ export interface CoursesBody {
 	courseCode: string;
 	status: CourseStatus;
 }
+
+export type UserStatus = 'active' | 'inactive';
+export type UserRole = 'Teacher' | 'Student';
+
+export interface User {
+	id: string;
+	firstName: string;
+	lastName: string;
+	email: string;
+	phoneNumber: string;
+	status: UserStatus;
+	role: UserRole;
+	lastLogin: string;
+}
