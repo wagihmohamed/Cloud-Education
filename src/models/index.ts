@@ -25,3 +25,14 @@ export interface User {
 	role: UserRole;
 	lastLogin: string;
 }
+
+export interface UserInfo {
+	firstName: string;
+	lastName: string;
+	phoneNumber: string;
+	email: string;
+	GPA: number;
+	role: UserRole;
+	currentLevel: string;
+	creditHours: string;
+}

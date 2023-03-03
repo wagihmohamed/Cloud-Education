@@ -18,6 +18,8 @@ import { CustomLink } from './MUIStyledComponents/CustomLink';
 import { LandingPageNavigation } from './LandingPageNavigation';
 import { LandingPageSection } from './LandingPageSection';
 import { AddUserModal } from './AddUserModal';
+import { EditProfileModal } from './EditProfileModal';
+import { ConfirmPasswordModal } from './ConfirmPasswordModal';
 import {
 	CustomTableCell,
 	CustomTableRow,
@@ -46,4 +48,6 @@ export {
 	AddUserModal,
 	CustomTableRow,
 	CustomTableCell,
+	EditProfileModal,
+	ConfirmPasswordModal,
 };
