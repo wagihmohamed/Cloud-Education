@@ -36,4 +36,17 @@ export interface ContactDetails {
 	userId: string;
 	contactName: string;
 	chat: Message[] | [];
+  }
+
+
+export interface UserInfo {
+	firstName: string;
+	lastName: string;
+	phoneNumber: string;
+	email: string;
+	GPA: number;
+	role: UserRole;
+	currentLevel: string;
+	creditHours: string;
+
 }
