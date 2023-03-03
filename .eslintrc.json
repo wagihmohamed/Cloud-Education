@@ -24,7 +24,7 @@
 		"tsconfigRootDir": ".",
 		"project": ["./tsconfig.json"]
 	},
-	"plugins": ["react", "@typescript-eslint"],
+	"plugins": ["react", "@typescript-eslint","prettier","react-hooks"],
 	// Resolve imports
 	"settings": {
 		"import/resolver": {
@@ -41,8 +41,8 @@
 		"prettier/prettier": [
 			"error",
 			{
-				"printWidth": 80,
 				"endOfLine": "auto",
+				"printWidth": 80,
 				"singleQuote": true,
 				"tabWidth": 2,
 				"indentStyle": "space",

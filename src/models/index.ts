@@ -1,3 +1,5 @@
+/** @format */
+
 export type CourseStatus = 'active' | 'inactive';
 
 export interface CoursesBody {
@@ -24,4 +26,14 @@ export interface User {
 	status: UserStatus;
 	role: UserRole;
 	lastLogin: string;
+}
+export interface Message {
+	id: string;
+	message: string;
+	date: Date;
+}
+export interface ContactDetails {
+	userId: string;
+	contactName: string;
+	chat: Message[] | [];
 }

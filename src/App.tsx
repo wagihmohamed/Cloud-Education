@@ -11,6 +11,7 @@ import {
 	CourseScreen,
 	UsersScreen,
 	LandingPage,
+	// LandingPage,
 } from './screens';
 
 function App() {

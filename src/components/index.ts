@@ -22,11 +22,16 @@ import {
 	CustomTableCell,
 	CustomTableRow,
 } from './MUIStyledComponents/CustomTableCell';
-
+import { ContactsContainer } from './MessagesContactContainer';
+import { Contact } from './MessagesContact';
+import { ChatScreen } from './ChatScreen';
+import { MessageContainer } from './MessageContainer';
 export {
 	LandingPageCard,
 	Footer,
 	CustomLink,
+	ContactsContainer,
+	Contact,
 	LandingPageNavigation,
 	LandingPageSection,
 	CustomDate,
@@ -46,4 +51,6 @@ export {
 	AddUserModal,
 	CustomTableRow,
 	CustomTableCell,
+	MessageContainer,
+	ChatScreen,
 };

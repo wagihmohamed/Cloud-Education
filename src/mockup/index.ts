@@ -1,5 +1,4 @@
 import { countriesOptions } from './countriesOptions';
-import { messagesList } from './messagesList';
 import { notificationList } from './notificationList';
 import { organizationOptions } from './organizationOptions';
 import { allCourses } from './allCourses';
@@ -12,9 +11,11 @@ import { usersData } from './usersData';
 import { usersRoles } from './usersRoles';
 import { usersStatus } from './usersStatus';
 import { caseStudyStatments } from './caseStudyStatments';
-
+import { messages } from './messages';
+import { messagesList } from './messagesList';
 export {
 	countriesOptions,
+	messages,
 	messagesList,
 	notificationList,
 	organizationOptions,
