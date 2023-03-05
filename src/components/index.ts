@@ -20,6 +20,7 @@ import { LandingPageSection } from './LandingPageSection';
 import { AddUserModal } from './AddUserModal';
 import { EditProfileModal } from './EditProfileModal';
 import { ConfirmPasswordModal } from './ConfirmPasswordModal';
+import { CustomEditor } from './CustomEditor';
 import {
 	CustomTableCell,
 	CustomTableRow,
@@ -57,4 +58,5 @@ export {
 	ChatScreen,
 	EditProfileModal,
 	ConfirmPasswordModal,
+	CustomEditor,
 };

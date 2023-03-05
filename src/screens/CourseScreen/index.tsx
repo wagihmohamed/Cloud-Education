@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box } from '@mui/material';
-import { CustomLayout } from 'components';
+import { CustomEditor, CustomLayout } from 'components';
 import { useParams } from 'react-router-dom';
 
 export const CourseScreen = () => {
@@ -12,7 +13,9 @@ export const CourseScreen = () => {
 					mx: 5,
 				}}
 			>
-				Hello {courseId}
+				<Box>
+					<CustomEditor />
+				</Box>
 			</Box>
 		</CustomLayout>
 	);
