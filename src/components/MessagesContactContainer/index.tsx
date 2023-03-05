@@ -4,7 +4,7 @@ import { ContactDetails } from 'models';
 
 interface ContactContainer {
 	messages: ContactDetails[];
-	setSelectedChat: React.Dispatch<React.SetStateAction<ContactDetails | null>>;
+	setSelectedChat: React.Dispatch<React.SetStateAction<ContactDetails>>;
 	active: string | undefined;
 }
 export const ContactsContainer = ({

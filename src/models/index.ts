@@ -35,9 +35,8 @@ export interface Message {
 export interface ContactDetails {
 	userId: string;
 	contactName: string;
-	chat: Message[] | [];
-  }
-
+	chat: Message[];
+}
 
 export interface UserInfo {
 	firstName: string;
@@ -48,5 +47,4 @@ export interface UserInfo {
 	role: UserRole;
 	currentLevel: string;
 	creditHours: string;
-
 }

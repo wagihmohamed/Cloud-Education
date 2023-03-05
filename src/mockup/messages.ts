@@ -1,4 +1,6 @@
-export const messages = [
+import { ContactDetails } from 'models';
+
+export const messages: ContactDetails[] = [
 	{
 		userId: '12',
 		contactName: 'shawky Sobhy',
@@ -87,78 +89,3 @@ export const messages = [
 		],
 	},
 ];
-/** {
-    userId: "16",
-
-    contactName: "Yousef Mohamed",
-    lastMessage: {
-      message: "hello , i am asking question about",
-      date: "22-02-2022",
-    },
-    chat: [
-      {
-        id: "502",
-        message: "hello , i am asking question about",
-        date: "22-02-2022",
-      }, {
-        id: "16",
-        message: "hello , i am asking question about",
-        date: "22-02-2022",
-      }
-    ]
-
-  },
-  {
-    userId: "17",
-    contactName: "Nada Yasser",
-    lastMessage: {
-      message: "hello , i am asking question about",
-      date: "22-02-2022",
-    }, chat: [
-      {
-        id: "502",
-        message: "hello , i am asking question about",
-        date: "22-02-2022",
-      }, {
-        id: "17",
-        message: "hello , i am asking question about",
-        date: "22-02-2022",
-      }
-    ]
-  },
-  {
-    userId: "18",
-    contactName: "Tamer Mohamed",
-    lastMessage: {
-      message: "hello , i am asking question about",
-      date: "22-02-2022",
-    }, chat: [
-      {
-        id: "502",
-        message: "hello , i am asking question about",
-        date: "22-02-2022",
-      }, {
-        id: "18",
-        message: "hello , i am asking question about",
-        date: "22-02-2022",
-      }
-    ]
-  },
-  {
-    userId: "19",
-    contactName: "Yousef Anwer",
-    lastMessage: {
-      message: "hello , i am asking question about",
-      date: "22-02-2022",
-    }, chat: [
-      {
-        id: "502",
-        message: "hello , i am asking question about",
-        date: "22-02-2022",
-      }, {
-        id: "19",
-        message: "hello , i am asking question about",
-        date: "22-02-2022",
-      }
-    ]
-  } */

@@ -3,7 +3,7 @@ import { ContactDetails } from 'models';
 interface ContactProps {
 	contactDetails: ContactDetails;
 	active: string | undefined;
-	setSelectedChat: React.Dispatch<React.SetStateAction<ContactDetails | null>>;
+	setSelectedChat: React.Dispatch<React.SetStateAction<ContactDetails>>;
 }
 export const Contact = ({
 	contactDetails,
