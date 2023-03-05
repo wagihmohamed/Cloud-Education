@@ -57,5 +57,4 @@ export {
 	ChatScreen,
 	EditProfileModal,
 	ConfirmPasswordModal,
-
 };
