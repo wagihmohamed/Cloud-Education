@@ -1,10 +1,11 @@
 # Lecturer and students Dashboard
 
 This project aim to improve the quality of online education.
+Made with React, Typescript and LOVE.
 
 ## Who are the stackholders of this projects?
 
-- Individuals, uni students and uni.
+- Individuals, university students and universities.
 
 ## The project structure.
 
@@ -13,6 +14,8 @@ This project aim to improve the quality of online education.
   -Components.
   -mockup data.
   -utilities functions.
+  -assets.
+  -models.
 
 ## Librairies and tools used:
 
@@ -21,6 +24,7 @@ This project aim to improve the quality of online education.
     -MUI5.
     -Formik and Yup.
     -Axios.
+    -EditorJs.
 
 ## Getting started:
 
