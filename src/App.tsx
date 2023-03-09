@@ -11,7 +11,7 @@ import {
 	CourseScreen,
 	UsersScreen,
 	LandingPage,
-	// LandingPage,
+	StudentsData,
 } from './screens';
 
 function App() {
@@ -32,6 +32,7 @@ function App() {
 					<Route path="/messages" element={<MessagesScreen />} />
 					<Route path="/users" element={<UsersScreen />} />
 					<Route path="/profile" element={<ProfileScreen />} />
+					<Route path="/students-data" element={<StudentsData />} />
 					<Route path="/" element={<LandingPage />} />
 				</Routes>
 			</BrowserRouter>

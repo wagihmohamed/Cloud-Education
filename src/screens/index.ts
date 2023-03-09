@@ -9,6 +9,7 @@ import { MessagesScreen } from './MessagesScreen';
 import { CourseScreen } from './CourseScreen';
 import { UsersScreen } from './UsersScreen';
 import { LandingPage } from './LandingPage';
+import { StudentsData } from './StudentsData';
 export {
 	LoginScreen,
 	RegisterScreen,
@@ -21,4 +22,5 @@ export {
 	CourseScreen,
 	LandingPage,
 	UsersScreen,
+	StudentsData,
 };
