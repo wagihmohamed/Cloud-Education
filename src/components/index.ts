@@ -29,6 +29,8 @@ import { ContactsContainer } from './MessagesContactContainer';
 import { Contact } from './MessagesContact';
 import { ChatScreen } from './ChatScreen';
 import { MessageContainer } from './MessageContainer';
+import { StudentsTable } from './StudentsTable';
+
 export {
 	LandingPageCard,
 	Footer,
@@ -59,4 +61,5 @@ export {
 	EditProfileModal,
 	ConfirmPasswordModal,
 	CustomEditor,
+	StudentsTable,
 };

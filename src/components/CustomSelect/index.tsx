@@ -14,6 +14,7 @@ interface CustomSelectProps {
 	placeholder?: string;
 	disabled?: boolean;
 	isMulti?: boolean;
+	width?: string;
 }
 
 export const CustomSelect = ({
@@ -27,6 +28,7 @@ export const CustomSelect = ({
 	placeholder,
 	value,
 	isMulti,
+	width,
 }: CustomSelectProps) => {
 	return (
 		<>
@@ -54,6 +56,7 @@ export const CustomSelect = ({
 					control: (provided) => ({
 						...provided,
 						minHeight: '45px',
+						width,
 						border: error ? '1px solid #d32f2f' : '1px solid #c4c4c4',
 						'&:hover': {
 							border: error ? '1px solid #d32f2f' : '1px solid #c4c4c4',

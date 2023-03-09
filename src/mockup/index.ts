@@ -13,6 +13,9 @@ import { usersStatus } from './usersStatus';
 import { caseStudyStatments } from './caseStudyStatments';
 import { messages } from './messages';
 import { messagesList } from './messagesList';
+import { studentsDataOptions } from './studentsData';
+import { studentsTableHead } from './studentsTableHead';
+import { studentsTableBodyData } from './studentsTableBodyData';
 export {
 	countriesOptions,
 	messages,
@@ -29,4 +32,7 @@ export {
 	usersRoles,
 	usersStatus,
 	caseStudyStatments,
+	studentsDataOptions,
+	studentsTableHead,
+	studentsTableBodyData,
 };
