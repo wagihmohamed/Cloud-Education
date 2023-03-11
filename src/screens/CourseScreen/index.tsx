@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useMemo } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
@@ -17,23 +18,28 @@ export const CourseScreen = () => {
 	const dispatch = useDispatch();
 	const { courses } = useSelector((state: RootState) => state.courseReducer);
 	const [courseTitle, setCourseTitle] = useState('');
-	const [selectedCourse, setSelectedCourse] = useState(courses[0].id);
+	const [selectedCourseId, setSelectedCourseId] = useState(courses[0].id);
 
 	const editorJs = useMemo(() => {
-		return <CustomEditor id={selectedCourse} />;
-	}, [selectedCourse]);
+		return <CustomEditor id={selectedCourseId} />;
+	}, [selectedCourseId]);
+
+	const getSelectedCourse = () => {
+		return courses.find((course) => course.id === selectedCourseId);
+	};
 
 	return (
 		<CustomLayout>
 			<Box
 				sx={{
 					mt: 4,
-					ml: 2,
+					ml: 3,
 					mr: 2,
 				}}
 			>
 				<Grid columnSpacing="10px" container>
 					<Grid
+						mt={3}
 						spacing={4}
 						sx={{
 							border: '3px solid #000',
@@ -47,10 +53,23 @@ export const CourseScreen = () => {
 						md={2}
 					>
 						<Box>
-							<Typography variant="h5">Course Subjects</Typography>
+							<Typography
+								textAlign="center"
+								mt={2}
+								sx={{
+									textDecoration: 'underline',
+								}}
+								fontWeight="bold"
+								fontSize={25}
+								variant="h5"
+							>
+								Course Subjects
+							</Typography>
 							<CustomTextField
+								placeholder="Subject Name"
 								value={courseTitle}
 								onChange={(e) => setCourseTitle(e.target.value)}
+								mt={2}
 							/>
 							<CustomButton
 								mt={2}
@@ -89,9 +108,12 @@ export const CourseScreen = () => {
 							</CustomButton>
 							{courses.map((course) => (
 								<Typography
-									onClick={() => setSelectedCourse(course.id)}
-									fontWeight={course.id === selectedCourse ? 'bold' : 'normal'}
+									onClick={() => setSelectedCourseId(course.id)}
+									fontWeight={
+										course.id === selectedCourseId ? 'bold' : 'normal'
+									}
 									mt={2}
+									my={2}
 									sx={{
 										width: '100%',
 										cursor: 'pointer',
@@ -99,27 +121,56 @@ export const CourseScreen = () => {
 									}}
 									key={course.id}
 								>
-									{course.title}
+									&#x2022; {course.title}
 								</Typography>
 							))}
 						</Box>
 					</Grid>
-					<Grid spacing={4} item xs={12} md={8}>
-						{/* <CustomEditor id={selectedCourse} /> */}
+					<Grid mt={2} spacing={4} item xs={12} md={8}>
 						{editorJs}
 					</Grid>
 					<Grid
 						spacing={4}
+						mt={3}
 						sx={{
-							mt: 4,
-							border: '1px solid #000',
+							border: '3px solid #000',
+							borderRadius: '10px',
+							height: 'max-content',
+							p: 2,
+							pb: 8,
 						}}
 						item
 						xs={12}
 						md={2}
 					>
 						<Box>
-							<Typography variant="h5">Course Contnet</Typography>
+							<Typography
+								textAlign="center"
+								mt={2}
+								sx={{
+									textDecoration: 'underline',
+								}}
+								fontWeight="bold"
+								fontSize={25}
+								variant="h5"
+							>
+								Course Contnet
+							</Typography>
+							{getSelectedCourse()?.course.map(
+								(course) =>
+									course.type === 'header' && (
+										<Typography
+											my={2}
+											fontWeight="bold"
+											fontSize={20}
+											key={course.id}
+											pl={1}
+										>
+											&#x2022;
+											{course.data.text}.
+										</Typography>
+									)
+							)}
 						</Box>
 					</Grid>
 				</Grid>
