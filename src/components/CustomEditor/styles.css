@@ -1,0 +1,13 @@
+.ce-block__content,
+.ce-toolbar__content {
+	max-width: 90%;
+}
+
+.embed-tool__content {
+	height: 550px;
+	width: 100%;
+}
+
+#editorjs {
+	font-size: 1.3rem;
+}

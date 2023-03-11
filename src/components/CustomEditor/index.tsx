@@ -8,6 +8,7 @@ import Image from '@editorjs/image';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'redux/store';
 import { saveCourse } from 'redux/Slices/courseSlice';
+import './styles.css';
 
 interface EditorCore {
 	destroy(): Promise<void>;
@@ -79,12 +80,13 @@ export const CustomEditor = ({ id }: CustomEditorProps) => {
 
 	return (
 		<>
-			<CustomButton px={7} onClick={handleSave}>
-				Save
+			<CustomButton ml={8} mb={3} px={7} onClick={handleSave}>
+				Save Edit
 			</CustomButton>
 			<ReactEditorJS
 				autofocus={true}
 				onInitialize={handleInitialize}
+				placeholder="Show us your creativity..."
 				holder="editorjs"
 				tools={{
 					...EDITOR_JS_TOOLS,
