@@ -1,22 +1,13 @@
-/* eslint-disable @typescript-eslint/no-redeclare */
-/* eslint-disable import/named */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable react/no-children-prop */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable no-console */
+/*eslint-disable */
 import { OutputData } from '@editorjs/editorjs';
 import { CustomButton } from 'components/CustomButton';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef } from 'react';
 import { createReactEditorJS } from 'react-editor-js';
 import { EDITOR_JS_TOOLS } from './constants';
-import { editorDummyData, editorDummyExamData } from './editorDummyData';
 import Image from '@editorjs/image';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from 'redux/store';
+import { saveCourse } from 'redux/Slices/courseSlice';
 
 interface EditorCore {
 	destroy(): Promise<void>;
@@ -28,10 +19,17 @@ interface EditorCore {
 	render(data: OutputData): Promise<void>;
 }
 
+interface CustomEditorProps {
+	id?: string;
+}
+
 const ReactEditorJS = createReactEditorJS();
 
-export const CustomEditor = () => {
+export const CustomEditor = ({ id }: CustomEditorProps) => {
 	const editorCore = useRef<EditorCore | null>(null);
+	const { courses } = useSelector((state: RootState) => state.courseReducer);
+
+	const dispatch = useDispatch();
 	const isExam = true;
 
 	const handleInitialize = useCallback((instance: any) => {
@@ -40,13 +38,17 @@ export const CustomEditor = () => {
 
 	const handleSave = useCallback(async () => {
 		const savedData = await editorCore?.current?.save();
-		console.log(savedData);
-	}, []);
+		dispatch(
+			saveCourse({
+				id,
+				course: savedData?.blocks as any,
+			})
+		);
+	}, [id]);
 
 	const habdleToggleExam = useCallback(() => {
 		if (isExam) {
 			const editableElements = document.querySelectorAll('h1');
-
 			editableElements.forEach((el) => {
 				el.removeAttribute('contenteditable');
 				document.createElement('input');
@@ -62,14 +64,11 @@ export const CustomEditor = () => {
 	const handleImageUpload = async (file: any) => {
 		const formData = new FormData();
 		formData.append('file', file);
-
 		const response = await fetch(' https://api.bayfiles.com/upload', {
 			method: 'POST',
 			body: formData,
 		});
-
 		const data = await response.json();
-
 		return {
 			success: 1,
 			file: {
@@ -80,10 +79,13 @@ export const CustomEditor = () => {
 
 	return (
 		<>
-			<CustomButton onClick={handleSave}>Save</CustomButton>
+			<CustomButton px={7} onClick={handleSave}>
+				Save
+			</CustomButton>
 			<ReactEditorJS
+				autofocus={true}
 				onInitialize={handleInitialize}
-				// readOnly={true}
+				holder="editorjs"
 				tools={{
 					...EDITOR_JS_TOOLS,
 					image: {
@@ -95,12 +97,17 @@ export const CustomEditor = () => {
 						},
 					},
 				}}
+				value={{
+					time: 1635603431943,
+					blocks: courses.find((course) => course.id === id)?.course || [],
+				}}
 				defaultValue={{
 					time: 1635603431943,
-					blocks: editorDummyData,
+					blocks: courses.find((course) => course.id === id)?.course || [],
 				}}
 				onReady={habdleToggleExam}
 			/>
+			<div id="editorjs" />
 		</>
 	);
 };
