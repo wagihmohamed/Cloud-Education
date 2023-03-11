@@ -1,4 +1,6 @@
-export const editorDummyData = [
+import { OutputBlockData } from '@editorjs/editorjs';
+
+export const editorDummyData: OutputBlockData[] = [
 	{
 		id: 'sheNwCUP5A',
 		type: 'header',
