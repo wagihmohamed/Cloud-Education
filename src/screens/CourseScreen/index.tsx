@@ -69,6 +69,7 @@ export const CourseScreen = () => {
 								placeholder="Subject Name"
 								value={courseTitle}
 								onChange={(e) => setCourseTitle(e.target.value)}
+								mt={2}
 							/>
 							<CustomButton
 								mt={2}
@@ -112,6 +113,7 @@ export const CourseScreen = () => {
 										course.id === selectedCourseId ? 'bold' : 'normal'
 									}
 									mt={2}
+									my={2}
 									sx={{
 										width: '100%',
 										cursor: 'pointer',
