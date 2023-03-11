@@ -3,9 +3,13 @@
 This project aim to improve the quality of online education.
 Made with React, Typescript and LOVE.
 
-## Who are the stackholders of this projects?
+## Who are the target audience of this projects?
 
 - Individuals, university students and universities.
+
+## Want to see live demo?
+
+- [Demo](https://lecture-dashboard.vercel.app/).
 
 ## The project structure.
 
