@@ -30,6 +30,7 @@ import { Contact } from './MessagesContact';
 import { ChatScreen } from './ChatScreen';
 import { MessageContainer } from './MessageContainer';
 import { StudentsTable } from './StudentsTable';
+import { ExamList } from './ExamList';
 
 export {
 	LandingPageCard,
@@ -62,4 +63,5 @@ export {
 	ConfirmPasswordModal,
 	CustomEditor,
 	StudentsTable,
+	ExamList,
 };

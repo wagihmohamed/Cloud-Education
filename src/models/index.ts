@@ -58,3 +58,25 @@ export interface StudnetsAttendanceTableBodyData {
 	week4: string;
 	bounses: string;
 }
+
+export interface Exam {
+	examId: string;
+	examName: string;
+	examDescription: string;
+	examDuration: number;
+	examQuestions: Question[];
+}
+
+export interface Question {
+	questionId: string;
+	questionText: string;
+	questionType: ExamType;
+	questionChoices?: Choice[];
+}
+
+export interface Choice {
+	choiceId: string;
+	choiceText: string;
+}
+
+export type ExamType = 'essay' | 'choice';
