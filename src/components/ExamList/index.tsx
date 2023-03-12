@@ -190,6 +190,7 @@ export const ExamList = ({ examData }: ExamListProps) => {
 												)
 											}
 											helperText={
+												formik.touched.examQuestions &&
 												(
 													formik.errors.examQuestions?.[
 														parseInt(question.questionId) - 1
