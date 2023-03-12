@@ -16,6 +16,7 @@ import { messagesList } from './messagesList';
 import { studentsDataOptions } from './studentsData';
 import { studentsTableHead } from './studentsTableHead';
 import { studentsTableBodyData } from './studentsTableBodyData';
+import { examDummyData } from './examDummyData';
 export {
 	countriesOptions,
 	messages,
@@ -35,4 +36,5 @@ export {
 	studentsDataOptions,
 	studentsTableHead,
 	studentsTableBodyData,
+	examDummyData,
 };

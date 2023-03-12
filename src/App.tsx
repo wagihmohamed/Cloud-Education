@@ -34,7 +34,7 @@ function App() {
 					<Route path="/users" element={<UsersScreen />} />
 					<Route path="/profile" element={<ProfileScreen />} />
 					<Route path="/students-data" element={<StudentsData />} />
-					<Route path="/exam" element={<ExamScreen />} />
+					<Route path="/exam/:examId" element={<ExamScreen />} />
 					<Route path="/" element={<LandingPage />} />
 				</Routes>
 			</BrowserRouter>

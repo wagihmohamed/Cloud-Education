@@ -1,7 +1,10 @@
+import { useParams } from 'react-router-dom';
 import { Typography, Box } from '@mui/material';
-import { CustomLayout } from 'components';
+import { CustomLayout, ExamList } from 'components';
+import { examDummyData } from 'mockup';
 
 export const ExamScreen = () => {
+	const { examId } = useParams();
 	return (
 		<CustomLayout>
 			<Box
@@ -11,8 +14,9 @@ export const ExamScreen = () => {
 				}}
 			>
 				<Typography fontWeight="bold" variant="h4">
-					Exam Screen
+					Exam Screen {examId}
 				</Typography>
+				<ExamList examData={examDummyData} />
 			</Box>
 		</CustomLayout>
 	);
