@@ -52,6 +52,9 @@ export const CoursesTable = ({
 			})
 		);
 	};
+
+	const handleNavigate = (id: string) => navigate(`/courses/${id}`);
+
 	return (
 		<>
 			<Table
@@ -100,14 +103,32 @@ export const CoursesTable = ({
 								<CustomTableCell
 									cursor="pointer"
 									onClick={() => {
-										navigate(`/courses/${row.id}`);
+										handleNavigate(row.id);
 									}}
 								>
 									{row.courseName}
 								</CustomTableCell>
-								<CustomTableCell>{row.category}</CustomTableCell>
-								<CustomTableCell>{row.lastUpdated}</CustomTableCell>
 								<CustomTableCell
+									cursor="pointer"
+									onClick={() => {
+										handleNavigate(row.id);
+									}}
+								>
+									{row.category}
+								</CustomTableCell>
+								<CustomTableCell
+									cursor="pointer"
+									onClick={() => {
+										handleNavigate(row.id);
+									}}
+								>
+									{row.lastUpdated}
+								</CustomTableCell>
+								<CustomTableCell
+									cursor="pointer"
+									onClick={() => {
+										handleNavigate(row.id);
+									}}
 									color={row.status === 'active' ? '#6aa84f' : '#FF0000'}
 								>
 									{row.status}
