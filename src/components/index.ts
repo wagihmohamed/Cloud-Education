@@ -31,6 +31,7 @@ import { ChatScreen } from './ChatScreen';
 import { MessageContainer } from './MessageContainer';
 import { StudentsTable } from './StudentsTable';
 import { ExamList } from './ExamList';
+import { SettingsModal } from './SettingsModal';
 
 export {
 	LandingPageCard,
@@ -64,4 +65,5 @@ export {
 	CustomEditor,
 	StudentsTable,
 	ExamList,
+	SettingsModal,
 };

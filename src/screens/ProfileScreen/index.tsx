@@ -1,10 +1,16 @@
 /* eslint-disable no-console */
 import { useState } from 'react';
 import { Avatar, Box, Typography } from '@mui/material';
-import { CustomButton, CustomLayout, EditProfileModal } from 'components';
+import {
+	CustomButton,
+	CustomLayout,
+	EditProfileModal,
+	SettingsModal,
+} from 'components';
 import { Stack, styled } from '@mui/system';
 import { ProfileImg } from 'assets';
 import { UserInfo } from 'models';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const InfoLabel = styled(Typography)(() => ({
 	fontWeight: 'bold',
@@ -15,6 +21,7 @@ const InfoLabel = styled(Typography)(() => ({
 
 export const ProfileScreen = () => {
 	const [isEditProfileShown, setIsEditProfileShown] = useState(false);
+	const [isSettingsShown, setIsSettingsShown] = useState(false);
 	const [userIfo, setUserInfo] = useState<UserInfo>({
 		firstName: 'Ali',
 		lastName: 'Kehel',
@@ -38,6 +45,26 @@ export const ProfileScreen = () => {
 					justifyContent: 'center',
 				}}
 			>
+				<Box
+					sx={{
+						position: 'absolute',
+						top: 0,
+						right: 0,
+						mt: 3,
+						mr: 3,
+						width: 150,
+					}}
+				>
+					<CustomButton
+						onClick={() => {
+							setIsSettingsShown(true);
+						}}
+						px={3}
+						startIcon={<SettingsIcon />}
+					>
+						Settings
+					</CustomButton>
+				</Box>
 				<Box
 					sx={{
 						display: 'flex',
@@ -85,6 +112,12 @@ export const ProfileScreen = () => {
 				handleClose={() => setIsEditProfileShown(false)}
 				handleSave={setUserInfo}
 				editedProfile={userIfo}
+			/>
+			<SettingsModal
+				handleClose={() => {
+					setIsSettingsShown(false);
+				}}
+				open={isSettingsShown}
 			/>
 		</CustomLayout>
 	);

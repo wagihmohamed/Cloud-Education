@@ -2,6 +2,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Typography } from '@mui/material';
 import Select from 'react-select';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 
 interface CustomSelectProps {
 	options: { label: string; value: string }[];
@@ -30,6 +32,9 @@ export const CustomSelect = ({
 	isMulti,
 	width,
 }: CustomSelectProps) => {
+	const { primaryColor } = useSelector(
+		(state: RootState) => state.settingsReducer
+	);
 	return (
 		<>
 			{withLabel && (
@@ -37,7 +42,7 @@ export const CustomSelect = ({
 					variant="subtitle1"
 					mt={1}
 					sx={{
-						color: '#000',
+						color: primaryColor,
 						alignSelf: 'flex-start',
 						fontWeight: 'bold',
 						fontSize: '15px',
@@ -57,16 +62,16 @@ export const CustomSelect = ({
 						...provided,
 						minHeight: '45px',
 						width,
-						border: error ? '1px solid #d32f2f' : '1px solid #c4c4c4',
+						border: error ? '1px solid #d32f2f' : `1px solid ${primaryColor}`,
 						'&:hover': {
-							border: error ? '1px solid #d32f2f' : '1px solid #c4c4c4',
+							border: error ? '1px solid #d32f2f' : `1px solid ${primaryColor}`,
 						},
-						outline: '1px solid #c4c4c4',
+						outline: `1px solid ${primaryColor}`,
 						'&:focus': {
-							border: error ? '1px solid #d32f2f' : '1px solid #c4c4c4',
+							border: error ? '1px solid #d32f2f' : `1px solid ${primaryColor}`,
 						},
 						'&:active': {
-							border: error ? '1px solid #d32f2f' : '1px solid #c4c4c4',
+							border: error ? '1px solid #d32f2f' : `1px solid ${primaryColor}`,
 						},
 					}),
 					valueContainer: (provided) => ({

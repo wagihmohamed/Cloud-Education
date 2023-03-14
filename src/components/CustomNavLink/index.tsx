@@ -1,5 +1,7 @@
 import { Button, SxProps, Theme } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 
 interface CustomNavLinkProps {
 	to: string;
@@ -14,6 +16,9 @@ export const CustomNavLink = ({
 	isLast,
 }: CustomNavLinkProps) => {
 	const { pathname } = useLocation();
+	const { primaryColor } = useSelector(
+		(state: RootState) => state.settingsReducer
+	);
 	const isActive = pathname === to;
 	return (
 		<Link className="nav-link" to={to}>
@@ -22,7 +27,7 @@ export const CustomNavLink = ({
 					width: '100%',
 					py: '28px',
 					px: '14px',
-					backgroundColor: isActive ? '#000000' : '#fff',
+					backgroundColor: isActive ? primaryColor : '#fff',
 					textTransform: 'none',
 					color: isActive ? '#fff' : '#000',
 					fontSize: '18px',
