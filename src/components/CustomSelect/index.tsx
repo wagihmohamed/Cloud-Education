@@ -2,8 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Typography } from '@mui/material';
 import Select from 'react-select';
-import { useSelector } from 'react-redux';
-import { RootState } from 'redux/store';
+import { useSettings } from 'zustandStore';
 
 interface CustomSelectProps {
 	options: { label: string; value: string }[];
@@ -32,9 +31,7 @@ export const CustomSelect = ({
 	isMulti,
 	width,
 }: CustomSelectProps) => {
-	const { primaryColor } = useSelector(
-		(state: RootState) => state.settingsReducer
-	);
+	const { primaryColor } = useSettings();
 	return (
 		<>
 			{withLabel && (

@@ -13,20 +13,14 @@ import {
 	LandingPage,
 	StudentsData,
 	ExamScreen,
-} from './screens';
+} from 'screens';
+import { setAppColor } from 'utlis';
 
 function App() {
 	const withPrimatyColor = localStorage.getItem('primaryColor');
 	const withTextColor = localStorage.getItem('textColor');
 
-	if (withPrimatyColor) {
-		localStorage.setItem('primaryColor', withPrimatyColor);
-	} else if (withTextColor) {
-		localStorage.setItem('textColor', withTextColor);
-	} else {
-		localStorage.setItem('textColor', '#000000');
-		localStorage.setItem('primaryColor', '#000000');
-	}
+	setAppColor(withPrimatyColor, withTextColor);
 
 	return (
 		<div className="App">

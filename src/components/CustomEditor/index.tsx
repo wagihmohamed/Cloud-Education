@@ -5,10 +5,8 @@ import { useCallback, useRef } from 'react';
 import { createReactEditorJS } from 'react-editor-js';
 import { EDITOR_JS_TOOLS } from './constants';
 import Image from '@editorjs/image';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from 'redux/store';
-import { saveCourse } from 'redux/Slices/courseSlice';
 import './styles.css';
+import { useCourses } from 'zustandStore';
 
 interface EditorCore {
 	destroy(): Promise<void>;
@@ -28,9 +26,8 @@ const ReactEditorJS = createReactEditorJS();
 
 export const CustomEditor = ({ id }: CustomEditorProps) => {
 	const editorCore = useRef<EditorCore | null>(null);
-	const { courses } = useSelector((state: RootState) => state.courseReducer);
+	const { courses, saveCourse } = useCourses();
 
-	const dispatch = useDispatch();
 	const isExam = true;
 
 	const handleInitialize = useCallback((instance: any) => {
@@ -39,12 +36,10 @@ export const CustomEditor = ({ id }: CustomEditorProps) => {
 
 	const handleSave = useCallback(async () => {
 		const savedData = await editorCore?.current?.save();
-		dispatch(
-			saveCourse({
-				id,
-				course: savedData?.blocks as any,
-			})
-		);
+		saveCourse({
+			id,
+			course: savedData?.blocks as any,
+		});
 	}, [id]);
 
 	const habdleToggleExam = useCallback(() => {
