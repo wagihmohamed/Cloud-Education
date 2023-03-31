@@ -3,9 +3,7 @@ import { Box, Modal, Stack, Typography } from '@mui/material';
 import { CloseOutlined, SaveAsOutlined } from '@mui/icons-material';
 import { HexColorPicker, HexColorInput } from 'react-colorful';
 import { CustomButton } from 'components/CustomButton';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from 'redux/store';
-import { setPrimaryColor } from 'redux/Slices/settingsSlice';
+import { useSettings } from 'zustandStore';
 
 interface SettingsModalProps {
 	open: boolean;
@@ -13,21 +11,17 @@ interface SettingsModalProps {
 }
 
 export const SettingsModal = ({ handleClose, open }: SettingsModalProps) => {
-	const { primaryColor, textColor: storageTextColor } = useSelector(
-		(state: RootState) => state.settingsReducer
-	);
-	const dispatch = useDispatch();
+	const {
+		setPrimaryColor,
+		textColor: storageTextColor,
+		primaryColor,
+	} = useSettings();
 	const [color, setColor] = useState(primaryColor);
 	const [textColor, setTextColor] = useState(storageTextColor);
 
 	const handleSaveSettings = () => {
+		setPrimaryColor(color, textColor);
 		handleClose();
-		dispatch(
-			setPrimaryColor({
-				primaryColor: color,
-				textColor,
-			})
-		);
 		window.location.reload();
 	};
 

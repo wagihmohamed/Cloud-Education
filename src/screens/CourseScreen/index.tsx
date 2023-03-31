@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useState, useMemo } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import {
@@ -9,14 +9,11 @@ import {
 	CustomTextField,
 } from 'components';
 import { useParams } from 'react-router-dom';
-import { addCourse } from 'redux/Slices/courseSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'redux/store';
+import { useCourses } from 'zustandStore';
 
 export const CourseScreen = () => {
 	const { courseId } = useParams();
-	const dispatch = useDispatch();
-	const { courses } = useSelector((state: RootState) => state.courseReducer);
+	const { addCourse, courses } = useCourses();
 	const [courseTitle, setCourseTitle] = useState('');
 	const [selectedCourseId, setSelectedCourseId] = useState(courses[0].id);
 
@@ -76,30 +73,29 @@ export const CourseScreen = () => {
 								fullWidth
 								onClick={() => {
 									if (courseTitle) {
-										dispatch(
-											addCourse({
-												id: (courses.length + 1).toString(),
-												course: [
-													{
-														id: new Date().getTime().toString(),
-														type: 'paragraph',
-														data: {
-															blocks: [
-																{
-																	type: 'header',
-																	data: {
-																		text: 'Header',
-																		level: 2,
-																	},
+										addCourse({
+											id: (courses.length + 1).toString(),
+											course: [
+												{
+													id: new Date().getTime().toString(),
+													type: 'paragraph',
+													data: {
+														blocks: [
+															{
+																type: 'header',
+																data: {
+																	text: 'Header',
+																	level: 2,
 																},
-															],
-															version: '2.22.2',
-														},
+															},
+														],
+														version: '2.22.2',
 													},
-												],
-												title: courseTitle,
-											})
-										);
+												},
+											],
+											title: courseTitle,
+										});
+
 										setCourseTitle('');
 									}
 								}}

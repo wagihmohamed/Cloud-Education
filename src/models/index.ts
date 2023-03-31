@@ -1,5 +1,7 @@
 /** @format */
 
+import { OutputBlockData } from '@editorjs/editorjs';
+
 export type CourseStatus = 'active' | 'inactive';
 
 export interface CoursesBody {
@@ -80,3 +82,23 @@ export interface Choice {
 }
 
 export type ExamType = 'essay' | 'choice';
+
+export type Course = {
+	id?: string;
+	title: string;
+	course: OutputBlockData[];
+};
+
+export interface CoursePayload {
+	id?: string;
+	title?: string;
+	course: OutputBlockData[];
+}
+
+export interface InitialStateType {
+	courses: {
+		id?: string;
+		title: string;
+		course: OutputBlockData[];
+	}[];
+}
