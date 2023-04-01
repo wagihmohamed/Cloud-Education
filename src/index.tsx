@@ -4,13 +4,18 @@ import App from './App';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme';
 import './index.css';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+export const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
 );
 root.render(
 	<ThemeProvider theme={theme}>
-		<CssBaseline />
-		<App />
+		<QueryClientProvider client={queryClient}>
+			<CssBaseline />
+			<App />
+		</QueryClientProvider>
 	</ThemeProvider>
 );

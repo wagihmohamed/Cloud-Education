@@ -102,3 +102,8 @@ export interface InitialStateType {
 		course: OutputBlockData[];
 	}[];
 }
+
+export interface LoginResponse {
+	status: string;
+	token: string;
+}
