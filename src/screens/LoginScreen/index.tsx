@@ -3,9 +3,39 @@ import { useFormik } from 'formik';
 import { CustomButton, CustomTextField, CustomAuthContainer } from 'components';
 import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { orginizationLogin } from 'services/auth';
+import { notification } from 'antd';
+import { useAuth } from 'zustandStore';
 
 export const LoginScreen = () => {
 	const navigate = useNavigate();
+	const { setToken } = useAuth();
+	const { mutate: login, isLoading } = useMutation({
+		mutationFn: () => {
+			return orginizationLogin('BFCAI', {
+				email: loginFormik.values.email,
+				password: loginFormik.values.password,
+			});
+		},
+		onSuccess: ({ token }) => {
+			navigate('/home');
+			setToken(token);
+			notification.open({
+				type: 'success',
+				message: 'Login Success',
+				description: 'You have successfully logged in',
+			});
+		},
+		onError: () => {
+			notification.open({
+				type: 'error',
+				message: 'Login Failed',
+				description: 'You have entered wrong credentials',
+			});
+		},
+	});
+
 	const loginFormik = useFormik({
 		initialValues: {
 			email: '',
@@ -16,7 +46,7 @@ export const LoginScreen = () => {
 			password: Yup.string().min(4, 'Password must be +4').required('Required'),
 		}),
 		onSubmit: () => {
-			navigate('/home');
+			login();
 		},
 	});
 
@@ -61,7 +91,14 @@ export const LoginScreen = () => {
 						placeholder="Enter Your Password"
 						type="password"
 					/>
-					<CustomButton type="submit" fullWidth mt="40px" py="15px">
+					<CustomButton
+						loading={isLoading}
+						loadingButton
+						type="submit"
+						fullWidth
+						mt="40px"
+						py="15px"
+					>
 						Login
 					</CustomButton>
 				</form>

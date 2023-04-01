@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import { Button, ButtonProps } from '@mui/material';
+import { Button, ButtonProps, CircularProgress } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 interface CustomButtonProps extends ButtonProps {
 	children: ReactNode;
@@ -15,6 +16,9 @@ interface CustomButtonProps extends ButtonProps {
 	mr?: number | string;
 	active?: boolean;
 	warning?: boolean;
+	bgColor?: string;
+	loadingButton?: boolean;
+	loading?: boolean;
 }
 export const CustomButton = ({
 	children,
@@ -30,36 +34,81 @@ export const CustomButton = ({
 	active,
 	py,
 	warning = false,
+	bgColor,
+	loadingButton = false,
+	loading,
 	...props
 }: CustomButtonProps) => {
 	return (
-		<Button
-			{...props}
-			color="inherit"
-			sx={{
-				textTransform: 'none',
-				textDecoration: 'none',
-				mx,
-				px,
-				width,
-				pl,
-				pr,
-				mt,
-				mb,
-				ml,
-				mr,
-				py,
-				fontWeight: (active && 700) || 400,
-				bgcolor:
-					(active && '#323232') || (warning && '#d32f2f') || 'primary.main',
-				color: 'white',
-				fontSize: '20px',
-				'&:hover': {
-					bgcolor: (warning && '#e06d6d') || '#323232',
-				},
-			}}
-		>
-			{children}
-		</Button>
+		<>
+			{!loadingButton ? (
+				<Button
+					{...props}
+					color="inherit"
+					sx={{
+						textTransform: 'none',
+						textDecoration: 'none',
+						mx,
+						px,
+						width,
+						pl,
+						pr,
+						mt,
+						mb,
+						ml,
+						mr,
+						py,
+						fontWeight: (active && 700) || 400,
+						bgcolor: (warning && '#d32f2f') || 'primary.main',
+						color: 'white',
+						fontSize: '20px',
+						'&:hover': {
+							bgcolor: (warning && '#e06d6d') || 'primary.main',
+						},
+						borderRadius: '20px',
+					}}
+				>
+					{children}
+				</Button>
+			) : (
+				<LoadingButton
+					loading={loading}
+					loadingIndicator={
+						<CircularProgress
+							sx={{
+								color: '#000',
+							}}
+							size={24}
+						/>
+					}
+					{...props}
+					color="inherit"
+					sx={{
+						textTransform: 'none',
+						textDecoration: 'none',
+						mx,
+						px,
+						width,
+						pl,
+						pr,
+						mt,
+						mb,
+						ml,
+						mr,
+						py,
+						fontWeight: (active && 700) || 400,
+						bgcolor: (warning && '#d32f2f') || 'primary.main',
+						color: 'white',
+						fontSize: '20px',
+						'&:hover': {
+							bgcolor: (warning && '#e06d6d') || 'primary.main',
+						},
+						// borderRadius: '10px',
+					}}
+				>
+					{children}
+				</LoadingButton>
+			)}
+		</>
 	);
 };
