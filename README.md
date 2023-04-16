@@ -15,12 +15,12 @@ Made with React, Typescript and LOVE.
 
 - This is a react app divided into
 
-  -Screens.
-  -Components.
-  -mockup data.
-  -utilities functions.
-  -assets.
-  -models.
+-Screens.
+-Components.
+-mockup data.
+-utilities functions.
+-assets.
+-models.
 
 ## Librairies and tools used:
 
