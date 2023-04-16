@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { api } from 'api';
 import { orgnizationLoginEndpoint } from 'api/apiURL';
 import { LoginResponse } from 'models';
@@ -21,4 +20,10 @@ export const orginizationLogin = async (
 		}
 	);
 	return response.data;
+};
+
+export const checkTokenValidity = async (token: string) => {
+	if (!token) return;
+	const response = await api.post('/auth/introspect', { token });
+	return response;
 };
