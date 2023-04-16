@@ -13,14 +13,13 @@ Made with React, Typescript and LOVE.
 
 ## The project structure.
 
-- This is a react app divided into
-
--Screens.
--Components.
--mockup data.
--utilities functions.
--assets.
--models.
+- This project is devided into the following main parts:
+  - Screens.
+  - Components.
+  - mockup data.
+  - utilities functions.
+  - assets.
+  - models.
 
 ## Librairies and tools used:
 
