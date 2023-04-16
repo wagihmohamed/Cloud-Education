@@ -13,7 +13,8 @@ Made with React, Typescript and LOVE.
 
 ## The project structure.
 
-- This is a react app divided into :
+- This is a react app divided into
+
   -Screens.
   -Components.
   -mockup data.
@@ -24,11 +25,12 @@ Made with React, Typescript and LOVE.
 ## Librairies and tools used:
 
 - [Zustand](https://github.com/pmndrs/zustand).
-  - [TanStackQuery](https://tanstack.com/query/latest).
-    -MUI5.
-    -Formik and Yup.
-    -Axios.
-    -EditorJs.
+- [TanStackQuery](https://tanstack.com/query/latest).
+- [MUI](https://mui.com/).
+- [Formik](https://formik.org/).
+- [YUP](https://github.com/jquense/yup).
+- [Axios](https://axios-http.com/).
+- [EditorJs](https://editorjs.io/).
 
 ## Getting started:
 
