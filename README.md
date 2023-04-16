@@ -23,8 +23,8 @@ Made with React, Typescript and LOVE.
 
 ## Librairies and tools used:
 
-    -Redux-toolkit.
-    -RTK-query.
+- [Zustand](https://github.com/pmndrs/zustand).
+  - [TanStackQuery](https://tanstack.com/query/latest).
     -MUI5.
     -Formik and Yup.
     -Axios.
