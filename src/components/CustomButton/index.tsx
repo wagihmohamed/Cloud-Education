@@ -76,7 +76,7 @@ export const CustomButton = ({
 					loadingIndicator={
 						<CircularProgress
 							sx={{
-								color: '#000',
+								color: '#fff',
 							}}
 							size={24}
 						/>
@@ -103,7 +103,6 @@ export const CustomButton = ({
 						'&:hover': {
 							bgcolor: (warning && '#e06d6d') || 'primary.main',
 						},
-						// borderRadius: '10px',
 					}}
 				>
 					{children}

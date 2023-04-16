@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { RequireAuth } from 'components';
+import { Routes, Route } from 'react-router-dom';
 import {
 	HomeScreen,
 	LoginScreen,
@@ -19,19 +20,18 @@ import { setAppColor } from 'utlis';
 function App() {
 	const withPrimatyColor = localStorage.getItem('primaryColor');
 	const withTextColor = localStorage.getItem('textColor');
-
 	setAppColor(withPrimatyColor, withTextColor);
 
 	return (
 		<div className="App">
-			<BrowserRouter>
-				<Routes>
-					<Route path="/login" element={<LoginScreen />} />
-					<Route path="/register" element={<RegisterScreen />} />
-					<Route
-						path="/organization-register"
-						element={<OrganizationRegisterScreen />}
-					/>
+			<Routes>
+				<Route path="/login" element={<LoginScreen />} />
+				<Route path="/register" element={<RegisterScreen />} />
+				<Route
+					path="/organization-register"
+					element={<OrganizationRegisterScreen />}
+				/>
+				<Route element={<RequireAuth />}>
 					<Route path="/home" element={<HomeScreen />} />
 					<Route path="/courses" element={<CoursesScreen />} />
 					<Route path="/courses/:courseId" element={<CourseScreen />} />
@@ -42,8 +42,8 @@ function App() {
 					<Route path="/students-data" element={<StudentsData />} />
 					<Route path="/exam/:examId" element={<ExamScreen />} />
 					<Route path="/" element={<LandingPage />} />
-				</Routes>
-			</BrowserRouter>
+				</Route>
+			</Routes>
 		</div>
 	);
 }

@@ -32,6 +32,7 @@ import { MessageContainer } from './MessageContainer';
 import { StudentsTable } from './StudentsTable';
 import { ExamList } from './ExamList';
 import { SettingsModal } from './SettingsModal';
+import { RequireAuth } from './RequireAuth';
 
 export {
 	LandingPageCard,
@@ -66,4 +67,5 @@ export {
 	StudentsTable,
 	ExamList,
 	SettingsModal,
+	RequireAuth,
 };
