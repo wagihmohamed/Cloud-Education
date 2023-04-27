@@ -1,12 +1,19 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Box, Typography } from '@mui/material';
 import { useFormik } from 'formik';
-import { CustomButton, CustomTextField, CustomAuthContainer } from 'components';
+import {
+	CustomButton,
+	CustomTextField,
+	CustomAuthContainer,
+	CustomToast,
+} from 'components';
 import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { orginizationLogin } from 'services/auth';
-import { notification } from 'antd';
 import { useAuth } from 'zustandStore';
+import { toast } from 'react-toastify';
 
 export const LoginScreen = () => {
 	const navigate = useNavigate();
@@ -19,20 +26,14 @@ export const LoginScreen = () => {
 			});
 		},
 		onSuccess: ({ token }) => {
-			navigate('/home');
+			navigate('/home', { replace: true });
 			setToken(token);
-			notification.open({
-				type: 'success',
-				message: 'Login Success',
-				description: 'You have successfully logged in',
-			});
+			toast.success(<CustomToast title="Successfuly Login" />);
 		},
-		onError: () => {
-			notification.open({
-				type: 'error',
-				message: 'Login Failed',
-				description: 'You have entered wrong credentials',
-			});
+		onError: (err: any) => {
+			toast.error(
+				<CustomToast title="Error Login" message={err.response?.data.message} />
+			);
 		},
 	});
 

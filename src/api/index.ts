@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/require-await */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import axios from 'axios';
-import { notification } from 'antd';
+import { toast } from 'react-toastify';
 
 export const api = axios.create({
-	baseURL:
-		'https://virtserver.swaggerhub.com/alisaber272/cloud-education-api/1.0.0',
+	baseURL: process.env.REACT_APP_DEV_SERVER,
 });
 
 api.interceptors.request.use(
@@ -27,12 +26,8 @@ api.interceptors.response.use(
 		return response;
 	},
 	async (error) => {
-		if (error.response.status === 500) {
-			notification.open({
-				message: 'Error',
-				description: 'Internal Server Error',
-				type: 'error',
-			});
+		if (error.response?.status === 500) {
+			toast.error('Something went wrong, please try again later');
 		}
 	}
 );

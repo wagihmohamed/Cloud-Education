@@ -1,5 +1,5 @@
-import { notification } from 'antd';
 import { queryClient, router } from 'index';
+import { toast } from 'react-toastify';
 import { checkTokenValidity } from 'services/auth';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -33,14 +33,10 @@ const useAuthStore = create<AuthStore>()(
 				// WE CAN MAKE USE OF IT IF THE USER REFRESHES THE PAGE
 				// AND WE WANT TO UPDATE THE TOKEN IN THE STORE
 
-				const isTokenValid = await checkTokenValidity(state?.token as string);
+				const isTokenValid = await checkTokenValidity(state?.token || '');
 				if (isTokenValid === undefined && state?.token) {
 					state?.logout();
-					notification.open({
-						type: 'error',
-						message: 'Session Expired',
-						description: 'Please login again.',
-					});
+					toast.error('Your session has expired, please login again');
 				}
 			},
 		}
