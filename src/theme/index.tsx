@@ -8,7 +8,7 @@ export const theme = createTheme({
 	},
 	typography: {
 		allVariants: {
-			color: localStorage.getItem('textColor') ?? '#000000',
+			color: '#000',
 		},
 		fontFamily: ['Patrick Hand', 'cursive'].join(','),
 	},

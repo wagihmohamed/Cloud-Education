@@ -81,7 +81,12 @@ export const CoursesTable = ({
 								}}
 								key={column.id}
 							>
-								<Typography fontSize="20px" fontWeight="bold" variant="h4">
+								<Typography
+									color="white"
+									fontSize="20px"
+									fontWeight="bold"
+									variant="h4"
+								>
 									{column.label}
 								</Typography>
 							</TableCell>
