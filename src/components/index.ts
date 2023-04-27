@@ -32,7 +32,8 @@ import { MessageContainer } from './MessageContainer';
 import { StudentsTable } from './StudentsTable';
 import { ExamList } from './ExamList';
 import { SettingsModal } from './SettingsModal';
-import { RequireAuth } from './RequireAuth';
+import { RequireAuth, NoAuth } from './RequireAuth';
+import { CustomToast } from './CustomToast';
 
 export {
 	LandingPageCard,
@@ -68,4 +69,6 @@ export {
 	ExamList,
 	SettingsModal,
 	RequireAuth,
+	CustomToast,
+	NoAuth,
 };
