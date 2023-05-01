@@ -33,6 +33,7 @@ The following libraries and tools were used in the development of this project:
 - [Axios](https://axios-http.com/)
 - [EditorJs](https://editorjs.io/)
 - [React Router Dom](https://reactrouter.com/en/main)
+- [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
 
 ## Getting started
 
