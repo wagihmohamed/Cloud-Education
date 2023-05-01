@@ -23,7 +23,7 @@ root.render(
 		</QueryClientProvider>
 		<ToastContainer
 			position="top-center"
-			autoClose={10500}
+			autoClose={2500}
 			hideProgressBar={false}
 			newestOnTop={false}
 			closeOnClick

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Box, Modal, Stack, Typography, Grid } from '@mui/material';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { UserInfo, UserRole } from 'models';
 import { usersRoles } from 'mockup';
@@ -11,7 +10,13 @@ import {
 	CustomButton,
 	CustomSelect,
 	CustomTextField,
+	CustomToast,
 } from 'components';
+import {
+	editProfileInitialValues,
+	editProfileValidationSchema,
+} from './formikUtils';
+import { toast } from 'react-toastify';
 
 interface EditProfileModalProps {
 	open: boolean;
@@ -26,60 +31,13 @@ export const EditProfileModal = ({
 	open,
 	editedProfile,
 }: EditProfileModalProps) => {
-	const userRole = usersRoles.find((role) => role.label === editedProfile.role);
-	const userLevel = allLevels.find(
-		(level) => level.label === editedProfile.currentLevel
-	);
 	const [openConfirmPasswordModal, setOpenConfirmPasswordModal] =
 		useState(false);
 
 	const formik = useFormik({
 		enableReinitialize: true,
-		initialValues: {
-			firstName: editedProfile.firstName,
-			lastName: editedProfile.lastName,
-			phoneNumber: editedProfile.phoneNumber,
-			email: editedProfile.email,
-			GPA: editedProfile.GPA,
-			role: userRole ?? {
-				value: '',
-				label: '',
-			},
-			currentLevel: userLevel ?? {
-				value: '',
-				label: '',
-			},
-			creditHours: editedProfile.creditHours,
-		},
-		validationSchema: yup.object({
-			firstName: yup.string().required('First name is required'),
-			lastName: yup.string().required('Last name is required'),
-			phoneNumber: yup.string().required('Phone number is required'),
-			email: yup
-				.string()
-				.email('Invalid E-mail format')
-				.required('Email is required'),
-			GPA: yup
-				.number()
-				.typeError('GPA must be a number')
-				.min(0, 'GPA cant be less than 0')
-				.max(4, 'GPA cant be more than 4')
-				.positive('GPA cant be negative')
-				.required('GPA is required'),
-			role: yup
-				.object({
-					value: yup.string().required('Role is required'),
-					label: yup.string().required('Role is required'),
-				})
-				.required('Role is required'),
-			currentLevel: yup
-				.object({
-					value: yup.string().required('Current level is required'),
-					label: yup.string().required('Current level is required'),
-				})
-				.required('Current level is required'),
-			creditHours: yup.string().required('Credit hours is required'),
-		}),
+		initialValues: editProfileInitialValues(editedProfile),
+		validationSchema: editProfileValidationSchema,
 		onSubmit: () => {
 			setOpenConfirmPasswordModal(true);
 		},
@@ -96,8 +54,10 @@ export const EditProfileModal = ({
 			currentLevel: formik.values.currentLevel.label,
 			creditHours: formik.values.creditHours,
 		}));
+		toast.success(<CustomToast title="Profile edited successfully" />);
 		handleCloseModal();
 	};
+
 	const handleCloseModal = () => {
 		handleClose();
 		formik.resetForm();

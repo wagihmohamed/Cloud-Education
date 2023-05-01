@@ -1,11 +1,20 @@
 import React from 'react';
 import { Box, Grid, Modal, Stack, Typography } from '@mui/material';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { CustomTextField, CustomSelect, CustomButton } from 'components';
+import {
+	CustomTextField,
+	CustomSelect,
+	CustomButton,
+	CustomToast,
+} from 'components';
 import { allCourses, coursesCategoryOptions, courseStatus } from 'mockup';
 import { CoursesBody } from 'models';
+import { toast } from 'react-toastify';
+import {
+	addCourseInitialValues,
+	addedCourseValidationSchema,
+} from './formikUtlis';
 
 interface AddCourseModalProps {
 	open: boolean;
@@ -19,49 +28,8 @@ export const AddCourseModal = ({
 	setCourses,
 }: AddCourseModalProps) => {
 	const formik = useFormik({
-		enableReinitialize: true,
-		initialValues: {
-			courseName: '',
-			category: {
-				value: '',
-				label: '',
-			},
-			description: '',
-			courseStatus: {
-				value: '',
-				label: '',
-			},
-			courseCode: '',
-			prerequisites: [
-				{
-					value: '',
-					label: '',
-				},
-			],
-		},
-		validationSchema: yup.object({
-			courseName: yup.string().required('Course name is required'),
-			category: yup
-				.object({
-					value: yup.string().required('Category is required'),
-					label: yup.string().required('Category is required'),
-				})
-				.required('Category is required'),
-			description: yup.string().required('Description is required'),
-			courseStatus: yup
-				.object({
-					value: yup.string().required('Course status is required'),
-					label: yup.string().required('Course status is required'),
-				})
-				.required('Course status is required'),
-			courseCode: yup.string().required('Course code is required'),
-			prerequisites: yup.array().of(
-				yup.object({
-					value: yup.string().required('Prerequisites is required'),
-					label: yup.string().required('Prerequisites is required'),
-				})
-			),
-		}),
+		initialValues: addCourseInitialValues,
+		validationSchema: addedCourseValidationSchema,
 		onSubmit: (values) => {
 			setCourses((prev) => [
 				...prev,
@@ -81,6 +49,7 @@ export const AddCourseModal = ({
 						values.courseStatus.value === 'active' ? 'active' : 'inactive',
 				},
 			]);
+			toast.success(<CustomToast title="Course added successfully" />);
 			handleCloseModal();
 		},
 	});
@@ -109,7 +78,6 @@ export const AddCourseModal = ({
 					p: 4,
 					borderRadius: '10px',
 					border: '3px solid #000',
-					overflow: 'hidden',
 				}}
 			>
 				<Stack direction="row" justifyContent="space-between">

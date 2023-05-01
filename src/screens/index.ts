@@ -11,6 +11,7 @@ import { UsersScreen } from './UsersScreen';
 import { LandingPage } from './LandingPage';
 import { StudentsData } from './StudentsData';
 import { ExamScreen } from './ExamScreen';
+import { ErrorPage } from './ErrorPage';
 export {
 	LoginScreen,
 	RegisterScreen,
@@ -25,4 +26,5 @@ export {
 	UsersScreen,
 	StudentsData,
 	ExamScreen,
+	ErrorPage,
 };

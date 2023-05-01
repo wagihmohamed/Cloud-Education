@@ -1,11 +1,20 @@
 import { Modal, Typography, Box, Grid } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { CustomTextField, CustomSelect, CustomButton } from 'components';
+import {
+	CustomTextField,
+	CustomSelect,
+	CustomButton,
+	CustomToast,
+} from 'components';
 import { allCourses, coursesCategoryOptions, courseStatus } from 'mockup';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
 import { CoursesBody } from 'models';
+import {
+	editCourseInitialValues,
+	editCourseValidationSchema,
+} from './formikUtils';
+import { toast } from 'react-toastify';
 
 interface EditCourseModalProps {
 	open: boolean;
@@ -20,49 +29,10 @@ export const EditCourseModal = ({
 	editedCourse,
 	handleSave,
 }: EditCourseModalProps) => {
-	const selectedPreequisites = allCourses.filter((course) =>
-		editedCourse?.prerequisites?.includes(course.value)
-	);
-
 	const formik = useFormik({
 		enableReinitialize: true,
-		initialValues: {
-			courseName: editedCourse?.courseName || '',
-			category: {
-				value: editedCourse?.category || '',
-				label: editedCourse?.category || '',
-			},
-			description: editedCourse?.description || '',
-			courseStatus: {
-				value: editedCourse?.status || '',
-				label: editedCourse?.status || '',
-			},
-			courseCode: editedCourse?.courseCode || '',
-			prerequisites: selectedPreequisites,
-		},
-		validationSchema: yup.object({
-			courseName: yup.string().required('Course name is required'),
-			category: yup
-				.object({
-					value: yup.string().required('Category is required'),
-					label: yup.string().required('Category is required'),
-				})
-				.required('Category is required'),
-			description: yup.string().required('Description is required'),
-			courseStatus: yup
-				.object({
-					value: yup.string().required('Course status is required'),
-					label: yup.string().required('Course status is required'),
-				})
-				.required('Course status is required'),
-			courseCode: yup.string().required('Course code is required'),
-			prerequisites: yup.array().of(
-				yup.object({
-					value: yup.string().required('Prerequisite is required'),
-					label: yup.string().required('Prerequisite is required'),
-				})
-			),
-		}),
+		initialValues: editCourseInitialValues(editedCourse),
+		validationSchema: editCourseValidationSchema,
 		onSubmit: (values) => {
 			handleSave((prev) => {
 				const newCourses = prev.map((course) => {
@@ -72,7 +42,7 @@ export const EditCourseModal = ({
 							courseName: values.courseName,
 							category: values.category.label,
 							description: values.description,
-							status: values.courseStatus.label,
+							status: values.courseStatus.value,
 							courseCode: values.courseCode,
 							prerequisites: values.prerequisites.map(
 								(prerequisite) => prerequisite.value
@@ -83,6 +53,7 @@ export const EditCourseModal = ({
 				});
 				return newCourses;
 			});
+			toast.success(<CustomToast title="Course edited successfully" />);
 			handleClose();
 		},
 	});
@@ -111,7 +82,6 @@ export const EditCourseModal = ({
 					p: 4,
 					borderRadius: '10px',
 					border: '3px solid #000',
-					overflow: 'hidden',
 				}}
 			>
 				<Stack direction="row" justifyContent="space-between">

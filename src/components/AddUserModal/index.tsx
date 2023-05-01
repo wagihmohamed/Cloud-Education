@@ -1,10 +1,16 @@
 import { Box, Modal, Stack, Typography, Grid } from '@mui/material';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { CustomButton, CustomSelect, CustomTextField } from 'components';
+import {
+	CustomButton,
+	CustomSelect,
+	CustomTextField,
+	CustomToast,
+} from 'components';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
 import { usersRoles, usersStatus } from 'mockup';
 import { User, UserRole, UserStatus } from 'models';
+import { addUserInitialValues, addUserValidationSchema } from './formikUtlis';
+import { toast } from 'react-toastify';
 
 interface EditUserModalProps {
 	open: boolean;
@@ -19,41 +25,8 @@ export const AddUserModal = ({
 }: EditUserModalProps) => {
 	const formik = useFormik({
 		enableReinitialize: true,
-		initialValues: {
-			firstName: '',
-			lastName: '',
-			email: '',
-			phoneNumber: '',
-			role: {
-				value: '',
-				label: '',
-			},
-			status: {
-				value: '',
-				label: '',
-			},
-		},
-		validationSchema: yup.object({
-			firstName: yup.string().required('First name is required'),
-			lastName: yup.string().required('Last name is required'),
-			email: yup
-				.string()
-				.email('Invalid E-mail format')
-				.required('Email is required'),
-			phoneNumber: yup.string().required('Phone number is required'),
-			role: yup
-				.object({
-					value: yup.string().required('Role is required'),
-					label: yup.string().required('Role is required'),
-				})
-				.required('Role is required'),
-			status: yup
-				.object({
-					value: yup.string().required('Status is required'),
-					label: yup.string().required('Status is required'),
-				})
-				.required('Status is required'),
-		}),
+		initialValues: addUserInitialValues,
+		validationSchema: addUserValidationSchema,
 		onSubmit: () => {
 			handleSave((prev) => {
 				return [
@@ -64,12 +37,13 @@ export const AddUserModal = ({
 						lastName: formik.values.lastName,
 						email: formik.values.email,
 						phoneNumber: formik.values.phoneNumber,
-						role: formik.values.role.value as UserRole,
+						role: formik.values.role.label as UserRole,
 						status: formik.values.status.value as UserStatus,
 						lastLogin: new Date().toLocaleDateString(),
 					},
 				];
 			});
+			toast.success(<CustomToast title="User added successfully" />);
 			handleClose();
 		},
 	});

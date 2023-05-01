@@ -4,6 +4,8 @@ import * as yup from 'yup';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { CustomTextField } from 'components/CustomTextField';
 import { CustomButton } from 'components/CustomButton';
+import { toast } from 'react-toastify';
+import { CustomToast } from 'components';
 
 interface ConfirmPasswordModalProps {
 	open: boolean;
@@ -34,6 +36,7 @@ export const ConfirmPasswordModal = ({
 			handleSubmit();
 			handleClose();
 		} else {
+			toast.error(<CustomToast title="Wrong password" />);
 			formik.setErrors({ password: 'Wrong password' });
 		}
 	};

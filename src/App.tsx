@@ -14,6 +14,7 @@ import {
 	LandingPage,
 	StudentsData,
 	ExamScreen,
+	ErrorPage,
 } from 'screens';
 import { setAppColor } from 'utlis';
 
@@ -33,6 +34,7 @@ function App() {
 						element={<OrganizationRegisterScreen />}
 					/>
 					<Route path="/" element={<LandingPage />} />
+					<Route path="*" element={<ErrorPage />} />
 				</Route>
 				<Route element={<RequireAuth />}>
 					<Route path="/home" element={<HomeScreen />} />
@@ -44,6 +46,7 @@ function App() {
 					<Route path="/profile" element={<ProfileScreen />} />
 					<Route path="/students-data" element={<StudentsData />} />
 					<Route path="/exam/:examId" element={<ExamScreen />} />
+					<Route path="*" element={<ErrorPage />} />
 				</Route>
 			</Routes>
 		</div>
