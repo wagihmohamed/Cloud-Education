@@ -34,6 +34,7 @@ import { ExamList } from './ExamList';
 import { SettingsModal } from './SettingsModal';
 import { RequireAuth, NoAuth } from './RequireAuth';
 import { CustomToast } from './CustomToast';
+import { LoadingErrorPlaceholder } from './LoadingErrorPlaceholder';
 
 export {
 	LandingPageCard,
@@ -71,4 +72,5 @@ export {
 	RequireAuth,
 	CustomToast,
 	NoAuth,
+	LoadingErrorPlaceholder,
 };

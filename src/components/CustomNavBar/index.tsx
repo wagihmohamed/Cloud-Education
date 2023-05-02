@@ -33,6 +33,7 @@ export const CustomNavBar = () => {
 			<CustomNavLink to="/leaderboard">Leaderboard</CustomNavLink>
 			<CustomNavLink to="/messages">Messages</CustomNavLink>
 			<CustomNavLink to="/users">Users</CustomNavLink>
+			<CustomNavLink to="/exams">Exams</CustomNavLink>
 			<CustomNavLink isLast to="/students-data">
 				Download Students Data
 			</CustomNavLink>

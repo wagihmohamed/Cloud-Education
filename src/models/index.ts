@@ -107,3 +107,13 @@ export interface LoginResponse {
 	status: string;
 	token: string;
 }
+
+export interface ExamListItem {
+	id: string;
+	title: string;
+	class: string;
+	grade?: string;
+	startDate: Date;
+	endDate: Date;
+	imageUrl: string;
+}
