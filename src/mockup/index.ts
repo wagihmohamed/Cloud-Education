@@ -17,6 +17,7 @@ import { studentsDataOptions } from './studentsData';
 import { studentsTableHead } from './studentsTableHead';
 import { studentsTableBodyData } from './studentsTableBodyData';
 import { examDummyData } from './examDummyData';
+import { mockExams } from './examsList';
 export {
 	countriesOptions,
 	messages,
@@ -37,4 +38,5 @@ export {
 	studentsTableHead,
 	studentsTableBodyData,
 	examDummyData,
+	mockExams,
 };

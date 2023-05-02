@@ -7,20 +7,22 @@ interface CustomNavLinkProps {
 	children: React.ReactNode;
 	sx?: SxProps<Theme>;
 	isLast?: boolean;
+	disabled?: boolean;
 }
 export const CustomNavLink = ({
 	children,
 	to,
 	sx,
 	isLast,
+	disabled,
 }: CustomNavLinkProps) => {
 	const { pathname } = useLocation();
 	const { primaryColor } = useSettings();
-
 	const isActive = pathname === to;
 	return (
 		<Link className="nav-link" to={to}>
 			<Button
+				disabled={disabled}
 				sx={{
 					width: '100%',
 					py: '28px',
@@ -32,6 +34,9 @@ export const CustomNavLink = ({
 					'&:hover': {
 						bgcolor: '#323232',
 						color: '#fff',
+					},
+					'&:disabled': {
+						color: 'gray',
 					},
 					borderRadius: '0',
 					borderTop: '2px solid #000',

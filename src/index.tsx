@@ -8,8 +8,16 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+			refetchInterval: 60000,
+		},
+	},
+});
 export const router = createBrowserRouter([{ path: '*', element: <App /> }]);
 
 const root = ReactDOM.createRoot(
@@ -20,6 +28,7 @@ root.render(
 		<QueryClientProvider client={queryClient}>
 			<CssBaseline />
 			<RouterProvider router={router} />
+			<ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
 		</QueryClientProvider>
 		<ToastContainer
 			position="top-center"
