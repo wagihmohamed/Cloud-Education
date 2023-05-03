@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { queryClient, router } from 'index';
 import { toast } from 'react-toastify';
 import { checkTokenValidity } from 'services/auth';
@@ -27,18 +28,18 @@ const useAuthStore = create<AuthStore>()(
 		}),
 		{
 			name: 'auth',
-			onRehydrateStorage: () => async (state) => {
-				// 2ND FUNCTION IS THE STATE
-				// THIS WILL RUN ON EACH PAGE RELOAD
-				// WE CAN MAKE USE OF IT IF THE USER REFRESHES THE PAGE
-				// AND WE WANT TO UPDATE THE TOKEN IN THE STORE
+			// onRehydrateStorage: () => async (state) => {
+			// 	// 2ND FUNCTION IS THE STATE
+			// 	// THIS WILL RUN ON EACH PAGE RELOAD
+			// 	// WE CAN MAKE USE OF IT IF THE USER REFRESHES THE PAGE
+			// 	// AND WE WANT TO UPDATE THE TOKEN IN THE STORE
 
-				const isTokenValid = await checkTokenValidity(state?.token || '');
-				if (isTokenValid === undefined && state?.token) {
-					state?.logout();
-					toast.error('Your session has expired, please login again');
-				}
-			},
+			// 	const isTokenValid = await checkTokenValidity(state?.token || '');
+			// 	if (isTokenValid === undefined && state?.token) {
+			// 		state?.logout();
+			// 		toast.error('Your session has expired, please login again');
+			// 	}
+			// },
 		}
 	)
 );
