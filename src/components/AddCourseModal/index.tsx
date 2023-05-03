@@ -15,6 +15,7 @@ import {
 	addCourseInitialValues,
 	addedCourseValidationSchema,
 } from './formikUtlis';
+import { useAddCourse } from 'hooks';
 
 interface AddCourseModalProps {
 	open: boolean;
@@ -22,35 +23,35 @@ interface AddCourseModalProps {
 	setCourses: React.Dispatch<React.SetStateAction<CoursesBody[]>>;
 }
 
-export const AddCourseModal = ({
-	handleClose,
-	open,
-	setCourses,
-}: AddCourseModalProps) => {
+export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
 	const formik = useFormik({
 		initialValues: addCourseInitialValues,
 		validationSchema: addedCourseValidationSchema,
 		onSubmit: (values) => {
-			setCourses((prev) => [
-				...prev,
-				{
-					id: (allCourses.length + 1).toString(),
-					courseName: values.courseName,
-					category: values.category.label,
-					description: values.description,
-					courseStatus: values.courseStatus.label,
-					courseCode: values.courseCode,
-					prerequisites: values.prerequisites.map((prerequisite) => {
-						return prerequisite.value;
-					}),
-					categoryId: values.category.value,
-					lastUpdated: new Date().toLocaleDateString(),
-					status:
-						values.courseStatus.value === 'active' ? 'active' : 'inactive',
-				},
-			]);
+			mutate({
+				id: Math.random().toString(),
+				courseName: values.courseName,
+				category: values.category.label,
+				description: values.description,
+				courseCode: values.courseCode,
+				prerequisites: values.prerequisites.map((prerequisite) => {
+					return prerequisite.value;
+				}),
+				categoryId: values.category.value,
+				lastUpdated: new Date().toLocaleDateString(),
+				status: values.courseStatus.value === 'active' ? 'active' : 'inactive',
+			});
+		},
+	});
+
+	const { mutate, isLoading } = useAddCourse({
+		onSuccess: () => {
 			toast.success(<CustomToast title="Course added successfully" />);
+			formik.resetForm();
 			handleCloseModal();
+		},
+		onError: () => {
+			toast.error(<CustomToast title="Something went wrong" />);
 		},
 	});
 
@@ -209,7 +210,13 @@ export const AddCourseModal = ({
 						</Grid>
 					</Grid>
 					<Stack direction="row" gap={10} justifyContent="space-between" mt={4}>
-						<CustomButton type="submit" fullWidth color="error">
+						<CustomButton
+							loading={isLoading}
+							loadingButton
+							type="submit"
+							fullWidth
+							color="error"
+						>
 							Submit
 						</CustomButton>
 						<CustomButton
