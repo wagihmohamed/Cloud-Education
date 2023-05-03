@@ -38,7 +38,6 @@ export const UsersScreen = () => {
 			<AddUserModal
 				open={isAddUserModalOpen}
 				handleClose={() => setIsAddUserModalOpen(false)}
-				handleSave={setUserData}
 			/>
 		</CustomLayout>
 	);

@@ -1,4 +1,5 @@
 import { useExamsList } from './useExamsList';
 import { useUsersList } from './useUsersList';
+import { useAddUser } from './useAddUser';
 
-export { useExamsList, useUsersList };
+export { useAddUser, useExamsList, useUsersList };

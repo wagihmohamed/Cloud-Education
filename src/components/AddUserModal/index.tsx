@@ -8,45 +8,57 @@ import {
 } from 'components';
 import { useFormik } from 'formik';
 import { usersRoles, usersStatus } from 'mockup';
-import { User, UserRole, UserStatus } from 'models';
+import { UserRole, UserStatus } from 'models';
 import { addUserInitialValues, addUserValidationSchema } from './formikUtlis';
 import { toast } from 'react-toastify';
+import { useAddUser } from 'hooks';
 
 interface EditUserModalProps {
 	open: boolean;
 	handleClose: () => void;
-	handleSave: React.Dispatch<React.SetStateAction<User[]>>;
 }
 
-export const AddUserModal = ({
-	handleClose,
-	open,
-	handleSave,
-}: EditUserModalProps) => {
+export const AddUserModal = ({ handleClose, open }: EditUserModalProps) => {
 	const formik = useFormik({
 		enableReinitialize: true,
 		initialValues: addUserInitialValues,
 		validationSchema: addUserValidationSchema,
 		onSubmit: () => {
-			handleSave((prev) => {
-				return [
-					...prev,
-					{
-						id: (prev.length + 1).toString(),
-						firstName: formik.values.firstName,
-						lastName: formik.values.lastName,
-						email: formik.values.email,
-						phoneNumber: formik.values.phoneNumber,
-						role: formik.values.role.label as UserRole,
-						status: formik.values.status.value as UserStatus,
-						lastLogin: new Date().toLocaleDateString(),
-					},
-				];
-			});
-			toast.success(<CustomToast title="User added successfully" />);
-			handleClose();
+			mutate();
 		},
 	});
+
+	const {
+		error: errorMessage,
+		mutate,
+		isError,
+		isLoading,
+	} = useAddUser({
+		user: {
+			id: Math.random().toString(),
+			firstName: formik.values.firstName,
+			lastName: formik.values.lastName,
+			email: formik.values.email,
+			phoneNumber: formik.values.phoneNumber,
+			role: formik.values.role.label as UserRole,
+			status: formik.values.status.value as UserStatus,
+			lastLogin: new Date().toLocaleDateString(),
+		},
+		onSuccess: () => {
+			handleClose();
+			formik.resetForm();
+			toast.success(<CustomToast title="User added successfully" />);
+		},
+		onError: (error) => {
+			toast.error(
+				<CustomToast
+					title="Something went wrong"
+					message={error.response?.data.message}
+				/>
+			);
+		},
+	});
+
 	const handleCloseModal = () => {
 		handleClose();
 		formik.resetForm();
@@ -78,6 +90,11 @@ export const AddUserModal = ({
 					<Typography variant="h4" fontWeight="bold">
 						Add User
 					</Typography>
+					{isError && (
+						<Typography variant="h5" fontWeight="bold" color="red">
+							{errorMessage?.response?.data.message}
+						</Typography>
+					)}
 					<CloseOutlinedIcon
 						sx={{
 							width: '30px',
@@ -181,7 +198,13 @@ export const AddUserModal = ({
 						</Grid>
 					</Grid>
 					<Stack direction="row" gap={10} justifyContent="space-between" mt={4}>
-						<CustomButton type="submit" fullWidth color="error">
+						<CustomButton
+							loading={isLoading}
+							loadingButton
+							type="submit"
+							fullWidth
+							color="error"
+						>
 							Submit
 						</CustomButton>
 						<CustomButton

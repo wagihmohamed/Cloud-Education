@@ -13,11 +13,7 @@ import { orginizationLogin } from 'services/auth';
 import { useAuth } from 'zustandStore';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
-
-interface Error {
-	message: string;
-	status: string;
-}
+import { ApiError } from 'models';
 
 export const LoginScreen = () => {
 	const navigate = useNavigate();
@@ -34,7 +30,7 @@ export const LoginScreen = () => {
 			setToken(token);
 			toast.success(<CustomToast title="Successfuly Login" />);
 		},
-		onError: (err: AxiosError<Error>) => {
+		onError: (err: AxiosError<ApiError>) => {
 			toast.error(
 				<CustomToast title="Error Login" message={err.response?.data.message} />
 			);

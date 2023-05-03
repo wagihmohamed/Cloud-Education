@@ -117,3 +117,8 @@ export interface ExamListItem {
 	endDate: Date;
 	imageUrl: string;
 }
+
+export interface ApiError {
+	message: string;
+	status: string;
+}
