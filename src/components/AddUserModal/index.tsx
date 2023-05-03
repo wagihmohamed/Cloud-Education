@@ -23,8 +23,17 @@ export const AddUserModal = ({ handleClose, open }: EditUserModalProps) => {
 		enableReinitialize: true,
 		initialValues: addUserInitialValues,
 		validationSchema: addUserValidationSchema,
-		onSubmit: () => {
-			mutate();
+		onSubmit: (values) => {
+			mutate({
+				id: Math.random().toString(),
+				firstName: values.firstName,
+				lastName: values.lastName,
+				email: values.email,
+				phoneNumber: values.phoneNumber,
+				role: values.role.label as UserRole,
+				status: values.status.value as UserStatus,
+				lastLogin: new Date().toLocaleDateString(),
+			});
 		},
 	});
 
@@ -34,16 +43,6 @@ export const AddUserModal = ({ handleClose, open }: EditUserModalProps) => {
 		isError,
 		isLoading,
 	} = useAddUser({
-		user: {
-			id: Math.random().toString(),
-			firstName: formik.values.firstName,
-			lastName: formik.values.lastName,
-			email: formik.values.email,
-			phoneNumber: formik.values.phoneNumber,
-			role: formik.values.role.label as UserRole,
-			status: formik.values.status.value as UserStatus,
-			lastLogin: new Date().toLocaleDateString(),
-		},
 		onSuccess: () => {
 			handleClose();
 			formik.resetForm();

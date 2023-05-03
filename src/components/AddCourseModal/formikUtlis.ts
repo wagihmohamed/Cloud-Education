@@ -1,3 +1,4 @@
+import { CourseStatus } from 'models';
 import * as yup from 'yup';
 
 export const addedCourseValidationSchema = yup.object({
@@ -32,8 +33,8 @@ export const addCourseInitialValues = {
 	},
 	description: '',
 	courseStatus: {
-		value: '',
-		label: '',
+		value: '' as CourseStatus,
+		label: '' as CourseStatus,
 	},
 	courseCode: '',
 	prerequisites: [
