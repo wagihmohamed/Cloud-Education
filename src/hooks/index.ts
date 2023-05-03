@@ -4,6 +4,7 @@ import { useAddUser } from './useAddUser';
 import { useValidateToken } from './useValidateToken';
 import { useCoursesList } from './useCoursesList';
 import { useAddCourse } from './useAddCourse';
+import { useGetExam } from './useGetExam';
 
 export {
 	useAddUser,
@@ -12,4 +13,5 @@ export {
 	useValidateToken,
 	useCoursesList,
 	useAddCourse,
+	useGetExam,
 };

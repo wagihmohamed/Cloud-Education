@@ -65,8 +65,8 @@ export interface Exam {
 	examId: string;
 	examName: string;
 	examDescription: string;
-	examDuration: number;
 	examQuestions: Question[];
+	examDurationInMinutes: number;
 }
 
 export interface Question {
@@ -121,4 +121,9 @@ export interface ExamListItem {
 export interface ApiError {
 	message: string;
 	status: string;
+}
+
+export interface ExamError {
+	questionId: string;
+	answer: string;
 }

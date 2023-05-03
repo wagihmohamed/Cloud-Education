@@ -5,7 +5,7 @@ export const examDummyData: Exam = {
 	examName: 'Internet of Things (IoT) Exam',
 	examDescription:
 		'This is an exam for Internet of Things (IoT) for what we have learned in the course during the semester. The exam will be 60 minutes long.',
-	examDuration: 60,
+	examDurationInMinutes: 1,
 	examQuestions: [
 		{
 			questionId: '1',
