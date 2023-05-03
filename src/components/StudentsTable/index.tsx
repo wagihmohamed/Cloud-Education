@@ -140,7 +140,12 @@ export const StudentsTable = () => {
 								}}
 								key={column.id}
 							>
-								<Typography fontSize="20px" fontWeight="bold" variant="h4">
+								<Typography
+									color="#fff"
+									fontSize="20px"
+									fontWeight="bold"
+									variant="h4"
+								>
 									{column.label}
 								</Typography>
 							</TableCell>
