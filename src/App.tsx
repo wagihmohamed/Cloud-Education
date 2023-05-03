@@ -1,4 +1,5 @@
 import { NoAuth, RequireAuth } from 'components';
+import { useValidateToken } from 'hooks';
 import { Routes, Route } from 'react-router-dom';
 import {
 	HomeScreen,
@@ -18,11 +19,30 @@ import {
 	ExamsScreen,
 } from 'screens';
 import { setAppColor } from 'utlis';
+import { CircularProgress, Box } from '@mui/material';
+import { useAuth } from 'zustandStore';
 
 function App() {
+	const { isLoading } = useValidateToken();
+	const { token } = useAuth();
 	const withPrimatyColor = localStorage.getItem('primaryColor');
 	const withTextColor = localStorage.getItem('textColor');
 	setAppColor(withPrimatyColor, withTextColor);
+
+	if (isLoading && !!token) {
+		return (
+			<Box
+				sx={{
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+					height: '100vh',
+				}}
+			>
+				<CircularProgress />
+			</Box>
+		);
+	}
 
 	return (
 		<div className="App">
