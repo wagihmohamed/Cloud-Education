@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Box, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import {
@@ -14,6 +12,12 @@ import { useMutation } from '@tanstack/react-query';
 import { orginizationLogin } from 'services/auth';
 import { useAuth } from 'zustandStore';
 import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
+
+interface Error {
+	message: string;
+	status: string;
+}
 
 export const LoginScreen = () => {
 	const navigate = useNavigate();
@@ -30,7 +34,7 @@ export const LoginScreen = () => {
 			setToken(token);
 			toast.success(<CustomToast title="Successfuly Login" />);
 		},
-		onError: (err: any) => {
+		onError: (err: AxiosError<Error>) => {
 			toast.error(
 				<CustomToast title="Error Login" message={err.response?.data.message} />
 			);
