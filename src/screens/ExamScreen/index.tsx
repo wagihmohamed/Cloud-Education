@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { Typography, Box, Chip, CircularProgress } from '@mui/material';
