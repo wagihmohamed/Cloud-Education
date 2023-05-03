@@ -17,17 +17,21 @@ const StyledBox = styled(Box)(({ theme }) => ({
 interface LoadingErrorPlaceholderProps {
 	isLoading: boolean;
 	isError: boolean;
+	height?: string;
+	children: React.ReactNode;
 }
 
 export const LoadingErrorPlaceholder = ({
 	isError,
 	isLoading,
+	height = '90vh',
+	children,
 }: LoadingErrorPlaceholderProps) => {
 	if (isLoading) {
 		return (
 			<Box
 				width="100%"
-				height="90vh"
+				height={height}
 				display="flex"
 				justifyContent="center"
 				alignItems="center"
@@ -76,5 +80,5 @@ export const LoadingErrorPlaceholder = ({
 		);
 	}
 
-	return null;
+	return <>{children}</>;
 };
