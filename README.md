@@ -14,12 +14,17 @@ You can check out the [demo here](https://lecture-dashboard.vercel.app/).
 
 The project is divided into the following main parts:
 
-- Screens
-- Components
-- Mockup data
-- Utility functions
-- Assets
+- api
+- assets
+- hooks
+- screens
+- components
+- mockup data
+- utility functions
 - Models
+- services
+- zustand store
+- theme
 
 ## Libraries and tools used
 
