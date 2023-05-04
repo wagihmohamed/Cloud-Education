@@ -15,46 +15,50 @@ import {
 	editCourseValidationSchema,
 } from './formikUtils';
 import { toast } from 'react-toastify';
+import { useEditCourse } from 'hooks';
 
 interface EditCourseModalProps {
 	open: boolean;
 	handleClose: () => void;
 	editedCourse: CoursesBody;
-	handleSave: React.Dispatch<React.SetStateAction<CoursesBody[]>>;
 }
 
 export const EditCourseModal = ({
 	handleClose,
 	open,
 	editedCourse,
-	handleSave,
 }: EditCourseModalProps) => {
+	const { mutate, isLoading } = useEditCourse({
+		onSuccess: () => {
+			toast.success(<CustomToast title="Course edited successfully" />);
+			formik.resetForm();
+			handleClose();
+		},
+		onError: (err) => {
+			toast.error(
+				<CustomToast
+					title="Something went wrong"
+					message={err?.response?.data?.message || 'Please try again later'}
+				/>
+			);
+		},
+	});
 	const formik = useFormik({
 		enableReinitialize: true,
 		initialValues: editCourseInitialValues(editedCourse),
 		validationSchema: editCourseValidationSchema,
 		onSubmit: (values) => {
-			handleSave((prev) => {
-				const newCourses = prev.map((course) => {
-					if (course.courseCode === editedCourse.courseCode) {
-						return {
-							...course,
-							courseName: values.courseName,
-							category: values.category.label,
-							description: values.description,
-							status: values.courseStatus.value,
-							courseCode: values.courseCode,
-							prerequisites: values.prerequisites.map(
-								(prerequisite) => prerequisite.value
-							),
-						};
-					}
-					return course;
-				});
-				return newCourses;
+			mutate({
+				...editedCourse,
+				courseName: values.courseName,
+				category: values.category.label,
+				description: values.description,
+				status: values.courseStatus.value,
+				courseCode: values.courseCode,
+				prerequisites: values.prerequisites.map(
+					(prerequisite) => prerequisite.value
+				),
 			});
-			toast.success(<CustomToast title="Course edited successfully" />);
-			handleClose();
 		},
 	});
 
@@ -216,7 +220,13 @@ export const EditCourseModal = ({
 						</Grid>
 					</Grid>
 					<Stack direction="row" gap={10} justifyContent="space-between" mt={4}>
-						<CustomButton type="submit" fullWidth color="error">
+						<CustomButton
+							loading={isLoading}
+							loadingButton
+							type="submit"
+							fullWidth
+							color="error"
+						>
 							Submit
 						</CustomButton>
 						<CustomButton

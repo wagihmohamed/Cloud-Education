@@ -21,11 +21,13 @@ import { CoursesBody } from 'models';
 import {
 	CustomTableCell,
 	CustomTableRow,
+	CustomToast,
 	EditCourseModal,
 	LoadingErrorPlaceholder,
 } from 'components';
 import { useNavigate } from 'react-router-dom';
-import { useCoursesList } from 'hooks';
+import { useCoursesList, useEditCourse } from 'hooks';
+import { toast } from 'react-toastify';
 
 interface CoursesTableProps {
 	setCoursesData: React.Dispatch<React.SetStateAction<CoursesBody[]>>;
@@ -39,26 +41,43 @@ export const CoursesTable = ({
 	setCoursesData,
 }: CoursesTableProps) => {
 	const { data: courses = [], isLoading, isError } = useCoursesList();
+
+	const { mutate, isLoading: isEditing } = useEditCourse({
+		onSuccess: () => {
+			toast.success(<CustomToast title="Status Changed successfully" />);
+		},
+		onError: (err) => {
+			<CustomToast
+				title="Something went wrong"
+				message={err?.response?.data?.message || 'Please try again later'}
+			/>;
+		},
+	});
+
+	const disableActions = isEditing;
 	const [isEditCourseOpen, setIsEditCourseOpen] = useState(false);
 	const navigate = useNavigate();
 	const handleDeleteCourse = (id: string) => {
+		if (disableActions) return;
 		setCoursesData((prev) => prev.filter((course) => course.id !== id));
 	};
-	const handleToggleStatus = (id: string) => {
-		setCoursesData((prev) =>
-			prev.map((course) => {
-				if (course.id === id) {
-					return {
-						...course,
-						status: course.status === 'active' ? 'inactive' : 'active',
-					};
-				}
-				return course;
-			})
-		);
+	const handleToggleStatus = (editedCourse: CoursesBody) => {
+		mutate({
+			...editedCourse,
+			status: editedCourse.status === 'active' ? 'inactive' : 'active',
+		});
 	};
 
-	const handleNavigate = (id: string) => navigate(`/courses/${id}`);
+	const handleNavigate = (id: string) => {
+		if (disableActions) return;
+		navigate(`/courses/${id}`);
+	};
+
+	const handleShowEditCourse = (course: CoursesBody) => {
+		if (disableActions) return;
+		setSelectedCourse(course);
+		setIsEditCourseOpen(true);
+	};
 
 	return (
 		<>
@@ -74,6 +93,8 @@ export const CoursesTable = ({
 						overflowY: 'auto',
 						borderSpacing: '0 15px !important',
 						borderCollapse: 'separate',
+						opacity: isEditing ? 0.5 : 1,
+						cursor: isEditing ? 'not-allowed' : 'pointer',
 					}}
 				>
 					<TableHead
@@ -116,7 +137,7 @@ export const CoursesTable = ({
 							courses.map((row) => (
 								<CustomTableRow key={row.id}>
 									<CustomTableCell
-										cursor="pointer"
+										cursor={disableActions ? 'not-allowed' : 'pointer'}
 										onClick={() => {
 											handleNavigate(row.id);
 										}}
@@ -124,7 +145,7 @@ export const CoursesTable = ({
 										{row.courseName}
 									</CustomTableCell>
 									<CustomTableCell
-										cursor="pointer"
+										cursor={disableActions ? 'not-allowed' : 'pointer'}
 										onClick={() => {
 											handleNavigate(row.id);
 										}}
@@ -132,7 +153,7 @@ export const CoursesTable = ({
 										{row.category}
 									</CustomTableCell>
 									<CustomTableCell
-										cursor="pointer"
+										cursor={disableActions ? 'not-allowed' : 'pointer'}
 										onClick={() => {
 											handleNavigate(row.id);
 										}}
@@ -140,7 +161,7 @@ export const CoursesTable = ({
 										{row.lastUpdated}
 									</CustomTableCell>
 									<CustomTableCell
-										cursor="pointer"
+										cursor={disableActions ? 'not-allowed' : 'pointer'}
 										onClick={() => {
 											handleNavigate(row.id);
 										}}
@@ -156,10 +177,9 @@ export const CoursesTable = ({
 													width: '30px',
 												}}
 												onClick={() => {
-													setIsEditCourseOpen(true);
-													setSelectedCourse(row);
+													handleShowEditCourse(row);
 												}}
-												cursor="pointer"
+												cursor={disableActions ? 'not-allowed' : 'pointer'}
 												color="primary"
 											/>
 											<HighlightOffOutlined
@@ -168,7 +188,7 @@ export const CoursesTable = ({
 													width: '30px',
 												}}
 												onClick={() => handleDeleteCourse(row.id)}
-												cursor="pointer"
+												cursor={disableActions ? 'not-allowed' : 'pointer'}
 												color="primary"
 											/>
 											{row.status === 'active' ? (
@@ -177,8 +197,12 @@ export const CoursesTable = ({
 														height: '30px',
 														width: '30px',
 													}}
-													onClick={() => handleToggleStatus(row.id)}
-													cursor="pointer"
+													onClick={() => {
+														if (!isEditing) {
+															handleToggleStatus(row);
+														}
+													}}
+													cursor={disableActions ? 'not-allowed' : 'pointer'}
 													color="primary"
 												/>
 											) : (
@@ -187,8 +211,12 @@ export const CoursesTable = ({
 														height: '30px',
 														width: '30px',
 													}}
-													onClick={() => handleToggleStatus(row.id)}
-													cursor="pointer"
+													onClick={() => {
+														if (!isEditing) {
+															handleToggleStatus(row);
+														}
+													}}
+													cursor={disableActions ? 'not-allowed' : 'pointer'}
 													color="primary"
 												/>
 											)}
@@ -197,7 +225,7 @@ export const CoursesTable = ({
 													height: '30px',
 													width: '30px',
 												}}
-												cursor="pointer"
+												cursor={disableActions ? 'not-allowed' : 'pointer'}
 												color="primary"
 											/>
 										</Stack>
@@ -219,7 +247,6 @@ export const CoursesTable = ({
 					/>
 				)}
 				<EditCourseModal
-					handleSave={setCoursesData}
 					editedCourse={selectedCourse}
 					handleClose={() => {
 						setIsEditCourseOpen(false);

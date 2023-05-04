@@ -103,6 +103,7 @@ export const CustomButton = ({
 						'&:hover': {
 							bgcolor: (warning && '#e06d6d') || 'primary.main',
 						},
+						borderRadius: '20px',
 					}}
 				>
 					{children}

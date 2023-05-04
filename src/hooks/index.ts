@@ -5,6 +5,7 @@ import { useValidateToken } from './useValidateToken';
 import { useCoursesList } from './useCoursesList';
 import { useAddCourse } from './useAddCourse';
 import { useGetExam } from './useGetExam';
+import { useEditCourse } from './useEditCourse';
 
 export {
 	useAddUser,
@@ -14,4 +15,5 @@ export {
 	useCoursesList,
 	useAddCourse,
 	useGetExam,
+	useEditCourse,
 };
