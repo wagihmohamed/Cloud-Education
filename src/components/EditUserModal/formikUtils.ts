@@ -6,17 +6,17 @@ export const editUserInitialValues = (editedUser: User) => {
 	const userRole = usersRoles.find((role) => role.label === editedUser.role);
 
 	return {
-		firstName: editedUser.firstName,
-		lastName: editedUser.lastName,
-		email: editedUser.email,
-		phoneNumber: editedUser.phoneNumber,
+		firstName: editedUser.firstName || '',
+		lastName: editedUser.lastName || '',
+		email: editedUser.email || '',
+		phoneNumber: editedUser.phoneNumber || '',
 		role: userRole || {
-			value: '',
-			label: '',
+			value: '' || '',
+			label: '' || '',
 		},
 		status: {
-			value: editedUser.status,
-			label: editedUser.status,
+			value: editedUser.status || '',
+			label: editedUser.status || '',
 		},
 	};
 };

@@ -9,20 +9,20 @@ export const editProfileInitialValues = (editedProfile: UserInfo) => {
 		(level) => level.label === editedProfile.currentLevel
 	);
 	return {
-		firstName: editedProfile.firstName,
-		lastName: editedProfile.lastName,
-		phoneNumber: editedProfile.phoneNumber,
-		email: editedProfile.email,
-		GPA: editedProfile.GPA,
+		firstName: editedProfile.firstName || '',
+		lastName: editedProfile.lastName || '',
+		phoneNumber: editedProfile.phoneNumber || '',
+		email: editedProfile.email || '',
+		GPA: editedProfile.GPA || 0,
 		role: userRole ?? {
-			value: '',
-			label: '',
+			value: '' || '',
+			label: '' || '',
 		},
 		currentLevel: userLevel ?? {
-			value: '',
-			label: '',
+			value: '' || '',
+			label: '' || '',
 		},
-		creditHours: editedProfile.creditHours,
+		creditHours: editedProfile.creditHours || '',
 	};
 };
 
