@@ -1,3 +1,5 @@
+/** @format */
+
 import {
 	ContactsContainer,
 	CustomLayout,
@@ -24,7 +26,14 @@ export const MessagesScreen = () => {
 	} as ContactDetails);
 	const [messageData, setMessagesData] = useState(messages);
 	const contactsContainer = mdScreen ? (
-		<CustomDrawer iconName={'contactContainer'}>
+		<CustomDrawer
+			iconName={'contactContainer'}
+			styleProps={{
+				position: 'absolute',
+				right: '1rem',
+				color: 'white',
+			}}
+		>
 			<ContactsContainer
 				active={selectedChat?.userId}
 				messages={messageData}

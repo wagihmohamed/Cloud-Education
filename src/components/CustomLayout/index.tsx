@@ -24,7 +24,7 @@ const styles = {
 export const CustomLayout = ({ children, ...prop }: MainViewContainerProps) => {
 	const mdScreeen = useMediaQuery(theme.breakpoints.down('md'));
 	const navBar = mdScreeen ? (
-		<CustomDrawer>
+		<CustomDrawer styleProps={{}}>
 			<CustomNavBar />
 		</CustomDrawer>
 	) : (
@@ -36,7 +36,7 @@ export const CustomLayout = ({ children, ...prop }: MainViewContainerProps) => {
 				width: '100%',
 				height: '100vh',
 				display: 'flex',
-				flexDirection: 'row',
+				flexDirection: 'column',
 			}}
 			{...prop}
 		>
