@@ -27,17 +27,6 @@ interface MainViewContainerProps {
 export const CustomDrawer = ({
 	children,
 	iconName,
-	mx,
-	px,
-	width,
-	pl,
-	pr,
-	mt,
-	mb,
-	m,
-	ml,
-	mr,
-	py,
 	styleProps,
 }: MainViewContainerProps) => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);

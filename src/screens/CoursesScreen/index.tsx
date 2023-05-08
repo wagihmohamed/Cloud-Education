@@ -31,7 +31,12 @@ export const CoursesScreen = () => {
 						},
 					}}
 				>
-					<Box my={4} display="flex" alignItems={'space-betwenn'}>
+					<Box
+						mt={2}
+						display="flex"
+						alignItems={'space-betwenn'}
+						padding={'10px'}
+					>
 						<Typography fontWeight="bold" variant="h4" flexGrow={'1'}>
 							All Courses
 						</Typography>
