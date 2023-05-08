@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { CustomLayout, CustomSelect, StudentsTable } from 'components';
 import { studentsDataOptions } from 'mockup';
+import { theme } from 'theme';
 
 export const StudentsData = () => {
 	return (
@@ -14,7 +15,16 @@ export const StudentsData = () => {
 					<Typography fontWeight="bold" variant="h4">
 						You can Download the assigned students data here.
 					</Typography>
-					<Box display="flex" justifyContent="space-evenly" mt={5}>
+					<Box
+						display="flex"
+						justifyContent="space-evenly"
+						mt={5}
+						sx={{
+							[theme.breakpoints.down('md')]: {
+								flexDirection: 'column',
+							},
+						}}
+					>
 						<Typography mb={2} fontSize="25px">
 							Currently you have
 							<Typography

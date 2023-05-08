@@ -17,6 +17,7 @@ import { studentsTableBodyData, studentsTableHead } from 'mockup';
 import { StudnetsAttendanceTableBodyData } from 'models';
 import { downloadPdf } from 'utlis';
 import { closeImg, tickImg } from 'utlis/base64imgs';
+import { theme } from 'theme';
 export const StudentsTable = () => {
 	const [showDummyData, setShowDummyData] = useState(true);
 	const [attendanceData, setAttendanceData] = useState<
@@ -83,6 +84,9 @@ export const StudentsTable = () => {
 					mx: '10px',
 					display: 'flex',
 					alignItems: 'center',
+					[theme.breakpoints.down('md')]: {
+						justifyContent: 'flex-end',
+					},
 				}}
 			>
 				<FormGroup>
