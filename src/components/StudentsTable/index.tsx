@@ -8,6 +8,7 @@ import {
 	Table,
 	TableBody,
 	TableCell,
+	TableContainer,
 	TableHead,
 	TableRow,
 	Typography,
@@ -79,6 +80,7 @@ export const StudentsTable = () => {
 		<>
 			<Box
 				sx={{
+					mx: '10px',
 					display: 'flex',
 					alignItems: 'center',
 				}}
@@ -115,75 +117,76 @@ export const StudentsTable = () => {
 					Download as PDF
 				</CustomButton>
 			</Box>
-			<Table
-				id="students-table"
-				sx={{
-					mt: 4,
-					width: '100%',
-					overflowY: 'auto',
-					borderSpacing: '0 15px !important',
-					borderCollapse: 'separate',
-				}}
-			>
-				<TableHead
+			<TableContainer sx={{ maxWidth: '100%', overflowX: 'auto' }}>
+				<Table
+					id="students-table"
 					sx={{
-						backgroundColor: 'primary.main',
+						width: '100%',
+						overflowY: 'auto',
+						borderSpacing: '0 15px !important',
+						borderCollapse: 'separate',
 					}}
 				>
-					<TableRow>
-						{studentsTableHead.map((column) => (
-							<TableCell
-								sx={{
-									color: 'white',
-									textAlign: 'center',
-									border: '4px solid white',
-								}}
-								key={column.id}
-							>
-								<Typography
-									color="#fff"
-									fontSize="20px"
-									fontWeight="bold"
-									variant="h4"
-								>
-									{column.label}
-								</Typography>
-							</TableCell>
-						))}
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{attendanceData.length === 0 ? (
+					<TableHead
+						sx={{
+							backgroundColor: 'primary.main',
+						}}
+					>
 						<TableRow>
-							<CustomTableCell colSpan={12}>
-								<Typography variant="h4" fontWeight="bold">
-									No Assigned Students found, Contact The Technical Team.
-								</Typography>
-							</CustomTableCell>
+							{studentsTableHead.map((column) => (
+								<TableCell
+									sx={{
+										color: 'white',
+										textAlign: 'center',
+										border: '4px solid white',
+									}}
+									key={column.id}
+								>
+									<Typography
+										color="#fff"
+										fontSize="20px"
+										fontWeight="bold"
+										variant="h4"
+									>
+										{column.label}
+									</Typography>
+								</TableCell>
+							))}
 						</TableRow>
-					) : (
-						attendanceData.map((row) => (
-							<CustomTableRow hover={false} key={row.number}>
-								<CustomTableCell>{row.number}</CustomTableCell>
-								<CustomTableCell>{row.name}</CustomTableCell>
-								<CustomTableCell>
-									{checkIfStudentAttended(row.week1)}
+					</TableHead>
+					<TableBody>
+						{attendanceData.length === 0 ? (
+							<TableRow>
+								<CustomTableCell colSpan={12}>
+									<Typography variant="h4" fontWeight="bold">
+										No Assigned Students found, Contact The Technical Team.
+									</Typography>
 								</CustomTableCell>
-								<CustomTableCell>
-									{checkIfStudentAttended(row.week2)}
-								</CustomTableCell>
-								<CustomTableCell>
-									{checkIfStudentAttended(row.week3)}
-								</CustomTableCell>
-								<CustomTableCell>
-									{checkIfStudentAttended(row.week4)}
-								</CustomTableCell>
-								<CustomTableCell>{row.bounses}</CustomTableCell>
-							</CustomTableRow>
-						))
-					)}
-				</TableBody>
-			</Table>
+							</TableRow>
+						) : (
+							attendanceData.map((row) => (
+								<CustomTableRow hover={false} key={row.number}>
+									<CustomTableCell>{row.number}</CustomTableCell>
+									<CustomTableCell>{row.name}</CustomTableCell>
+									<CustomTableCell>
+										{checkIfStudentAttended(row.week1)}
+									</CustomTableCell>
+									<CustomTableCell>
+										{checkIfStudentAttended(row.week2)}
+									</CustomTableCell>
+									<CustomTableCell>
+										{checkIfStudentAttended(row.week3)}
+									</CustomTableCell>
+									<CustomTableCell>
+										{checkIfStudentAttended(row.week4)}
+									</CustomTableCell>
+									<CustomTableCell>{row.bounses}</CustomTableCell>
+								</CustomTableRow>
+							))
+						)}
+					</TableBody>
+				</Table>
+			</TableContainer>
 		</>
 	);
 };
