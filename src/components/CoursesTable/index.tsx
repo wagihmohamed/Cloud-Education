@@ -87,7 +87,7 @@ export const CoursesTable = ({
 				isError={isError}
 				isLoading={isLoading}
 			>
-				<TableContainer sx={{ maxWidth: '100%', overflowX: 'auto' }}>
+				<TableContainer sx={{ maxWidth: '90%', overflowX: 'auto', mx: '10px' }}>
 					<Table
 						sx={{
 							mt: 4,

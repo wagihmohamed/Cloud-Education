@@ -121,7 +121,7 @@ export const StudentsTable = () => {
 					Download as PDF
 				</CustomButton>
 			</Box>
-			<TableContainer sx={{ maxWidth: '100%', overflowX: 'auto' }}>
+			<TableContainer sx={{ maxWidth: '90%', overflowX: 'auto', mx: '10px' }}>
 				<Table
 					id="students-table"
 					sx={{

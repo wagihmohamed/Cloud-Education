@@ -23,6 +23,7 @@ const styles = {
 		width: '150',
 		marginLeft: 'auto',
 		marginTop: '4rem',
+		alignSelf: 'flex-end',
 	},
 	infoProfileContainer: {
 		p: '1rem',
@@ -67,57 +68,65 @@ export const ProfileScreen = () => {
 	const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
 	return (
 		<CustomLayout>
-			<Box sx={styles.settingButton}>
-				<CustomButton
-					onClick={() => {
-						setIsSettingsShown(true);
-					}}
-					px={5}
-					startIcon={<SettingsIcon />}
-				>
-					Settings
-				</CustomButton>
-			</Box>
-			<Box sx={styles.infoProfileContainer}>
-				<Box
-					sx={[
-						styles.infoProfil,
-						mdScreen ? styles.infoProfileFull : styles.infoProfileMd,
-					]}
-				>
-					<Box sx={mdScreen ? { order: 2 } : { order: 1 }}>
-						<InfoLabel>First Name : {userIfo.firstName}.</InfoLabel>
-						<InfoLabel>Last Name : {userIfo.lastName}.</InfoLabel>
-						<InfoLabel>Phone Number : {userIfo.phoneNumber}.</InfoLabel>
-						<InfoLabel>Email : {userIfo.email}.</InfoLabel>
-						<InfoLabel>GPA : {userIfo.GPA}.</InfoLabel>
-						<InfoLabel>Role : {userIfo.role}.</InfoLabel>
-						<InfoLabel>Current Level : {userIfo.currentLevel}.</InfoLabel>
-						<InfoLabel>Credit Hours : {userIfo.creditHours}.</InfoLabel>
-					</Box>
-					<Avatar src={ProfileImg as string} sx={styles.avatarStyle} />
+			<Box
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					mx: '10px',
+				}}
+			>
+				<Box sx={styles.settingButton}>
 					<CustomButton
 						onClick={() => {
-							setIsEditProfileShown(true);
+							setIsSettingsShown(true);
 						}}
-						m="1rem"
+						px={5}
+						startIcon={<SettingsIcon />}
 					>
-						Edit Profile
+						Settings
 					</CustomButton>
 				</Box>
+				<Box sx={styles.infoProfileContainer}>
+					<Box
+						sx={[
+							styles.infoProfil,
+							mdScreen ? styles.infoProfileFull : styles.infoProfileMd,
+						]}
+					>
+						<Box sx={mdScreen ? { order: 2 } : { order: 1 }}>
+							<InfoLabel>First Name : {userIfo.firstName}.</InfoLabel>
+							<InfoLabel>Last Name : {userIfo.lastName}.</InfoLabel>
+							<InfoLabel>Phone Number : {userIfo.phoneNumber}.</InfoLabel>
+							<InfoLabel>Email : {userIfo.email}.</InfoLabel>
+							<InfoLabel>GPA : {userIfo.GPA}.</InfoLabel>
+							<InfoLabel>Role : {userIfo.role}.</InfoLabel>
+							<InfoLabel>Current Level : {userIfo.currentLevel}.</InfoLabel>
+							<InfoLabel>Credit Hours : {userIfo.creditHours}.</InfoLabel>
+						</Box>
+						<Avatar src={ProfileImg as string} sx={styles.avatarStyle} />
+						<CustomButton
+							onClick={() => {
+								setIsEditProfileShown(true);
+							}}
+							m="1rem"
+						>
+							Edit Profile
+						</CustomButton>
+					</Box>
+				</Box>
+				<EditProfileModal
+					open={isEditProfileShown}
+					handleClose={() => setIsEditProfileShown(false)}
+					handleSave={setUserInfo}
+					editedProfile={userIfo}
+				/>
+				<SettingsModal
+					handleClose={() => {
+						setIsSettingsShown(false);
+					}}
+					open={isSettingsShown}
+				/>
 			</Box>
-			<EditProfileModal
-				open={isEditProfileShown}
-				handleClose={() => setIsEditProfileShown(false)}
-				handleSave={setUserInfo}
-				editedProfile={userIfo}
-			/>
-			<SettingsModal
-				handleClose={() => {
-					setIsSettingsShown(false);
-				}}
-				open={isSettingsShown}
-			/>
 		</CustomLayout>
 	);
 };
