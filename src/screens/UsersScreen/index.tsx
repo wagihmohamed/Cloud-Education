@@ -9,6 +9,7 @@ import {
 } from 'components';
 import AddIcon from '@mui/icons-material/Add';
 import { usersData } from 'mockup';
+import { theme } from 'theme';
 
 export const UsersScreen = () => {
 	const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
@@ -19,12 +20,15 @@ export const UsersScreen = () => {
 				sx={{
 					mt: 4,
 					mx: 5,
+					[theme.breakpoints.down('md')]: {
+						mx: 0,
+					},
 				}}
 			>
-				<Typography fontWeight="bold" variant="h4">
-					All Users
-				</Typography>
-				<Box my={4} display="flex" justifyContent="flex-end">
+				<Box my={4} display="flex" alignItems="space-betwenn" mx="10px">
+					<Typography fontWeight="bold" variant="h4" flexGrow={'1'}>
+						All Users
+					</Typography>
 					<CustomButton
 						onClick={() => setIsAddUserModalOpen(true)}
 						px={3}

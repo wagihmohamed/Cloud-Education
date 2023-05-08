@@ -5,4 +5,5 @@
 	align-items: center;
 	margin-right: auto;
 	gap: 1rem;
+	flex: 1;
 }

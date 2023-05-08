@@ -10,6 +10,7 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import { coursesBodyData } from 'mockup';
 import { CoursesBody } from 'models';
+import { theme } from 'theme';
 
 export const CoursesScreen = () => {
 	const [isAddCourseOpen, setIsAddCourseOpen] = useState(false);
@@ -25,12 +26,15 @@ export const CoursesScreen = () => {
 					sx={{
 						mt: 4,
 						mx: 5,
+						[theme.breakpoints.down('md')]: {
+							m: '0rem',
+						},
 					}}
 				>
-					<Typography fontWeight="bold" variant="h4">
-						All Courses
-					</Typography>
-					<Box my={4} display="flex" justifyContent="flex-end">
+					<Box my={4} display="flex" alignItems={'space-betwenn'}>
+						<Typography fontWeight="bold" variant="h4" flexGrow={'1'}>
+							All Courses
+						</Typography>
 						<CustomButton
 							px={3}
 							onClick={() => {

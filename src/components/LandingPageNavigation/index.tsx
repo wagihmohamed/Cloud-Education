@@ -1,9 +1,31 @@
-import { AppBar, Toolbar, Typography, Container, Stack } from '@mui/material';
+import {
+	AppBar,
+	Toolbar,
+	Typography,
+	Container,
+	Stack,
+	Button,
+} from '@mui/material';
 import SchoolIcon from '@mui/icons-material/School';
-import { CustomNavLink } from 'components';
-import { Link } from 'react-router-dom';
-import './styles.css';
+import { Link, Link as RouterLink } from 'react-router-dom';
+const styles = {
+	linkStyle: {
+		textDecoration: 'none',
+		color: 'white',
+		display: 'flex',
+		alignItems: 'center',
+		marginRight: 'auto',
+		gap: '1rem',
+		flex: '1',
+	},
+};
+
 export const LandingPageNavigation = () => {
+	const navItems = [
+		{ text: 'Sign Up', path: '/register' },
+		{ text: 'Log in', path: '/login' },
+	];
+
 	return (
 		<AppBar
 			position="sticky"
@@ -16,7 +38,7 @@ export const LandingPageNavigation = () => {
 		>
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
-					<Link className="landing-nav-link" to="/">
+					<Link style={styles.linkStyle} to="/">
 						<SchoolIcon
 							sx={{
 								color: 'white',
@@ -24,19 +46,26 @@ export const LandingPageNavigation = () => {
 							}}
 						></SchoolIcon>
 						<Typography
-							variant="h4"
-							sx={{ letterSpacing: '3px', flexGrow: 0.8 }}
+							variant="h6"
+							sx={{ letterSpacing: '3px', flexGrow: 0.8, color: 'white' }}
 						>
 							Cloud Education
 						</Typography>
 					</Link>
 					<Stack direction="row" spacing={2}>
-						<CustomNavLink to="/login" sx={{ px: '3rem', py: '.5rem' }}>
-							Log in
-						</CustomNavLink>
-						<CustomNavLink to="/register" sx={{ px: '3rem', py: '.5rem' }}>
-							Sign Up
-						</CustomNavLink>
+						{navItems.map((item) => {
+							return (
+								<Button
+									sx={{ p: '0', fontSize: '1.2rem' }}
+									key={item.text}
+									color="inherit"
+									component={RouterLink}
+									to={item.path}
+								>
+									{item.text}
+								</Button>
+							);
+						})}
 					</Stack>
 				</Toolbar>
 			</Container>

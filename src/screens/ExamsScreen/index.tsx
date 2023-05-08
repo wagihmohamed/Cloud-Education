@@ -11,13 +11,15 @@ import {
 	CardHeader,
 	CardContent,
 	Box,
+	useMediaQuery,
 } from '@mui/material';
 import { useExamsList } from 'hooks';
 import { isExamDisabled } from 'utlis';
+import { theme } from 'theme';
 
 export const ExamsScreen = () => {
 	const { data: exams = [], isLoading, isError } = useExamsList();
-
+	const isSmScreen = useMediaQuery(theme.breakpoints.down('lg'));
 	return (
 		<CustomLayout>
 			<Box
@@ -51,6 +53,11 @@ export const ExamsScreen = () => {
 												display="flex"
 												justifyContent="space-between"
 												alignItems="center"
+												sx={[
+													isSmScreen
+														? { flexDirection: 'column', gap: '10px' }
+														: {},
+												]}
 											>
 												<Box>
 													<Typography variant="body2" color="text.secondary">

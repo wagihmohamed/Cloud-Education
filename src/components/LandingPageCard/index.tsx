@@ -3,11 +3,11 @@ export const LandingPageCard = ({
 	image,
 	content,
 }: {
-	image: '*jpg';
+	image: '*jpg' | string;
 	content: string;
 }) => {
 	return (
-		<Card sx={{ maxWidth: 300 }}>
+		<Card sx={{ maxWidth: '90%' }}>
 			<CardMedia component="img" image={image} alt="case-study" />
 			<CardContent>
 				<Typography variant="body2" color="text.secondary">
