@@ -125,7 +125,7 @@ export const EditCourseModal = ({
 						columnSpacing="60px"
 						rowSpacing="20px"
 					>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomTextField
 								value={formik.values.courseName}
 								id="courseName"
@@ -141,7 +141,7 @@ export const EditCourseModal = ({
 								}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomSelect
 								onChange={(e: { label: string; value: string }) => {
 									formik.setFieldValue('category', e);
@@ -158,7 +158,7 @@ export const EditCourseModal = ({
 								}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomTextField
 								value={formik.values.description}
 								id="description"
@@ -177,7 +177,7 @@ export const EditCourseModal = ({
 								}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomSelect
 								onChange={(e: { label: string; value: string }) => {
 									formik.setFieldValue('courseStatus', e);
@@ -196,7 +196,7 @@ export const EditCourseModal = ({
 								}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomTextField
 								value={formik.values.courseCode}
 								id="courseCode"
@@ -212,7 +212,7 @@ export const EditCourseModal = ({
 								}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomSelect
 								isMulti
 								onChange={(e: { label: string; value: string }) => {
