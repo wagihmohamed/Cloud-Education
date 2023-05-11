@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 import {
 	Table,
@@ -10,7 +9,6 @@ import {
 	Stack,
 	Pagination,
 	TableContainer,
-	Box,
 } from '@mui/material';
 import {
 	DoDisturbOnOutlined,
@@ -191,7 +189,7 @@ export const UsersTable = ({
 						page={1}
 						count={10}
 						sx={{
-							mt: 4,
+							m: '1rem 2rem 2rem',
 							display: 'flex',
 							justifyContent: 'center',
 						}}

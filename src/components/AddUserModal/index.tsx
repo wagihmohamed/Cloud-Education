@@ -1,4 +1,11 @@
-import { Box, Modal, Stack, Typography, Grid } from '@mui/material';
+import {
+	Box,
+	Modal,
+	Stack,
+	Typography,
+	Grid,
+	useMediaQuery,
+} from '@mui/material';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import {
 	CustomButton,
@@ -12,11 +19,40 @@ import { UserRole, UserStatus } from 'models';
 import { addUserInitialValues, addUserValidationSchema } from './formikUtlis';
 import { toast } from 'react-toastify';
 import { useAddUser } from 'hooks';
+import { theme } from 'theme';
 
 interface EditUserModalProps {
 	open: boolean;
 	handleClose: () => void;
 }
+// sx={[styles.coursesModel, mdScreen ? styles.coursesModelMd : null]}
+// const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
+const styles = {
+	usersModal: {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		border: '3px solid #000',
+		bgcolor: 'background.paper',
+		borderRadius: '10px',
+		boxShadow: 24,
+		p: 4,
+		width: '800px',
+		maxHeight: '100vh',
+		overflow: 'auto',
+		maxWidth: '100%',
+		'&::-webkit-scrollbar': {
+			width: '0.4em',
+			background: 'transparent',
+		},
+	},
+	usersModalMd: {
+		width: '85%',
+		margin: 'auto',
+		maxHeight: '88vh',
+	},
+};
 
 export const AddUserModal = ({ handleClose, open }: EditUserModalProps) => {
 	const formik = useFormik({
@@ -36,6 +72,7 @@ export const AddUserModal = ({ handleClose, open }: EditUserModalProps) => {
 			});
 		},
 	});
+	const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
 
 	const {
 		error: errorMessage,
@@ -70,21 +107,7 @@ export const AddUserModal = ({ handleClose, open }: EditUserModalProps) => {
 			aria-labelledby="modal-modal-title"
 			aria-describedby="modal-modal-description"
 		>
-			<Box
-				sx={{
-					position: 'absolute',
-					top: '50%',
-					left: '50%',
-					transform: 'translate(-50%, -50%)',
-					width: '800px',
-					bgcolor: 'background.paper',
-					boxShadow: 24,
-					p: 4,
-					borderRadius: '10px',
-					border: '3px solid #000',
-					overflow: 'hidden',
-				}}
-			>
+			<Box sx={[styles.usersModal, mdScreen ? styles.usersModalMd : null]}>
 				<Stack direction="row" justifyContent="space-between">
 					<Typography variant="h4" fontWeight="bold">
 						Add User
@@ -112,7 +135,7 @@ export const AddUserModal = ({ handleClose, open }: EditUserModalProps) => {
 						columnSpacing="60px"
 						rowSpacing="20px"
 					>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomTextField
 								value={formik.values.firstName}
 								id="firstName"
@@ -126,7 +149,7 @@ export const AddUserModal = ({ handleClose, open }: EditUserModalProps) => {
 								helperText={formik.touched.firstName && formik.errors.firstName}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomTextField
 								value={formik.values.lastName}
 								id="lastName"
@@ -140,7 +163,7 @@ export const AddUserModal = ({ handleClose, open }: EditUserModalProps) => {
 								helperText={formik.touched.lastName && formik.errors.lastName}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomTextField
 								value={formik.values.email}
 								id="email"
@@ -152,7 +175,7 @@ export const AddUserModal = ({ handleClose, open }: EditUserModalProps) => {
 								helperText={formik.touched.email && formik.errors.email}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomTextField
 								value={formik.values.phoneNumber}
 								id="phoneNumber"
@@ -169,7 +192,7 @@ export const AddUserModal = ({ handleClose, open }: EditUserModalProps) => {
 								}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomSelect
 								onChange={(e: { label: string; value: string }) => {
 									formik.setFieldValue('role', e);
@@ -181,7 +204,7 @@ export const AddUserModal = ({ handleClose, open }: EditUserModalProps) => {
 								helperText={formik.touched.role && formik.errors.role?.label}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomSelect
 								onChange={(e: { label: string; value: string }) => {
 									formik.setFieldValue('status', e);

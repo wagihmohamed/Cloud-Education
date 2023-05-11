@@ -130,7 +130,6 @@ export const ExamList = () => {
 															}
 														>
 															<FormControlLabel
-																sx={{}}
 																value={choise.choiceText}
 																control={
 																	<Radio

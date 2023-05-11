@@ -56,7 +56,7 @@ export const ExamsScreen = () => {
 												sx={[
 													isSmScreen
 														? { flexDirection: 'column', gap: '10px' }
-														: {},
+														: null,
 												]}
 											>
 												<Box>

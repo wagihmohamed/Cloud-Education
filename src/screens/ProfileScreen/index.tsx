@@ -22,7 +22,7 @@ const styles = {
 		mr: 5,
 		width: '150',
 		marginLeft: 'auto',
-		marginTop: '4rem',
+		marginTop: '2rem',
 		alignSelf: 'flex-end',
 	},
 	infoProfileContainer: {
@@ -47,7 +47,7 @@ const styles = {
 		py: 1.5,
 	},
 	infoProfileMd: {
-		width: '80%',
+		width: '40%',
 		py: 3,
 	},
 	avatarStyle: { width: 170, height: 170, border: '3px solid #000' },

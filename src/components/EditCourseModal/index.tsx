@@ -1,4 +1,4 @@
-import { Modal, Typography, Box, Grid } from '@mui/material';
+import { Modal, Typography, Box, Grid, useMediaQuery } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import {
@@ -16,12 +16,39 @@ import {
 } from './formikUtils';
 import { toast } from 'react-toastify';
 import { useEditCourse } from 'hooks';
+import { theme } from 'theme';
 
 interface EditCourseModalProps {
 	open: boolean;
 	handleClose: () => void;
 	editedCourse: CoursesBody;
 }
+const styles = {
+	courseModal: {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		border: '3px solid #000',
+		bgcolor: 'background.paper',
+		borderRadius: '10px',
+		boxShadow: 24,
+		p: 4,
+		width: '800px',
+		maxHeight: '100vh',
+		overflow: 'auto',
+		maxWidth: '100%',
+		'&::-webkit-scrollbar': {
+			width: '0.4em',
+			background: 'transparent',
+		},
+	},
+	courseModalMd: {
+		width: '85%',
+		margin: 'auto',
+		maxHeight: '88vh',
+	},
+};
 
 export const EditCourseModal = ({
 	handleClose,
@@ -66,6 +93,7 @@ export const EditCourseModal = ({
 		handleClose();
 		formik.resetForm();
 	};
+	const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
 
 	return (
 		<Modal
@@ -74,20 +102,7 @@ export const EditCourseModal = ({
 			aria-labelledby="modal-modal-title"
 			aria-describedby="modal-modal-description"
 		>
-			<Box
-				sx={{
-					position: 'absolute',
-					top: '50%',
-					left: '50%',
-					transform: 'translate(-50%, -50%)',
-					width: '800px',
-					bgcolor: 'background.paper',
-					boxShadow: 24,
-					p: 4,
-					borderRadius: '10px',
-					border: '3px solid #000',
-				}}
-			>
+			<Box sx={[styles.courseModal, mdScreen ? styles.courseModalMd : null]}>
 				<Stack direction="row" justifyContent="space-between">
 					<Typography variant="h4" fontWeight="bold">
 						Edit Course
