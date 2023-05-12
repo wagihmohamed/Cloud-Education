@@ -8,24 +8,39 @@ export const StudentsData = () => {
 		<CustomLayout>
 			<Box
 				sx={{
-					bgcolor: 'white',
+					mt: 4,
+					mx: 5,
+					padding: '1rem',
+					[theme.breakpoints.down('md')]: {
+						mx: 0,
+					},
 				}}
 			>
-				<Box mx={4} my={3}>
+				<Box
+					sx={{
+						mx: '2rem',
+						my: '1.5rem',
+						[theme.breakpoints.down('sm')]: {
+							mr: '.5rem',
+							ml: '1.5rem',
+							mt: '0rem',
+						},
+					}}
+				>
 					<Typography fontWeight="bold" variant="h4">
 						You can Download the assigned students data here.
 					</Typography>
 					<Box
 						display="flex"
-						justifyContent="space-evenly"
 						mt={5}
 						sx={{
+							gap: '1rem',
 							[theme.breakpoints.down('md')]: {
 								flexDirection: 'column',
 							},
 						}}
 					>
-						<Typography mb={2} fontSize="25px">
+						<Typography mb={2} sx={{ fontSize: '25px', mr: '10px' }}>
 							Currently you have
 							<Typography
 								component="span"
@@ -39,6 +54,7 @@ export const StudentsData = () => {
 							assigned Classes.
 						</Typography>
 						<CustomSelect
+							maxWidth="100%"
 							width="300px"
 							options={studentsDataOptions}
 							placeholder="Choose which Class"

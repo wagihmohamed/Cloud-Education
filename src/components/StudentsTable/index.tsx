@@ -81,11 +81,16 @@ export const StudentsTable = () => {
 		<>
 			<Box
 				sx={{
-					mx: '10px',
+					mx: '2rem',
+					mb: '10px',
 					display: 'flex',
 					alignItems: 'center',
 					[theme.breakpoints.down('md')]: {
 						justifyContent: 'flex-end',
+					},
+					[theme.breakpoints.down('sm')]: {
+						flexDirection: 'column',
+						gap: '1rem',
 					},
 				}}
 			>
@@ -121,7 +126,7 @@ export const StudentsTable = () => {
 					Download as PDF
 				</CustomButton>
 			</Box>
-			<TableContainer sx={{ maxWidth: '90%', overflowX: 'auto', mx: '10px' }}>
+			<TableContainer sx={{ maxWidth: '100%', overflowX: 'auto' }}>
 				<Table
 					id="students-table"
 					sx={{

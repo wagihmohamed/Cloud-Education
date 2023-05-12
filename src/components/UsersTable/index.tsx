@@ -65,7 +65,7 @@ export const UsersTable = ({
 				isError={isError}
 				isLoading={isLoading}
 			>
-				<TableContainer sx={{ maxWidth: '90%', overflowX: 'auto', mx: '10px' }}>
+				<TableContainer sx={{ maxWidth: '100%', overflowX: 'auto' }}>
 					<Table
 						sx={{
 							mt: 4,

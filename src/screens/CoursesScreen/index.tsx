@@ -26,8 +26,9 @@ export const CoursesScreen = () => {
 					sx={{
 						mt: 4,
 						mx: 5,
+						padding: '1rem',
 						[theme.breakpoints.down('md')]: {
-							m: '0rem',
+							mx: 0,
 						},
 					}}
 				>
@@ -35,7 +36,7 @@ export const CoursesScreen = () => {
 						mt={2}
 						display="flex"
 						alignItems={'space-betwenn'}
-						padding={'10px'}
+						paddingX={'10px'}
 					>
 						<Typography fontWeight="bold" variant="h4" flexGrow={'1'}>
 							All Courses

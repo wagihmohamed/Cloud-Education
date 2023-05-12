@@ -16,6 +16,7 @@ import { pink } from '@mui/material/colors';
 import { useGetExam } from 'hooks';
 import { useParams } from 'react-router-dom';
 import { ExamError } from 'models';
+import { theme } from 'theme';
 
 export const ExamList = () => {
 	const { examId } = useParams();
@@ -96,6 +97,10 @@ export const ExamList = () => {
 									mx: 5,
 									width: '100%',
 									pr: 5,
+									[theme.breakpoints.down('md')]: {
+										m: 0,
+										p: 0,
+									},
 								}}
 							>
 								<Box my={3}>

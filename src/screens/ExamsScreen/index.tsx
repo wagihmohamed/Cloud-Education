@@ -25,7 +25,7 @@ export const ExamsScreen = () => {
 			<Box
 				sx={{
 					mt: 4,
-					mx: 5,
+					mx: '2.5rem',
 					bgcolor: 'white',
 				}}
 			>
@@ -34,12 +34,12 @@ export const ExamsScreen = () => {
 						Exams Screen
 					</Typography>
 				</Box>
-				<Grid container spacing={2} sx={{ mt: 2 }}>
+				<Grid container spacing={4} sx={{ mt: 2 }}>
 					<LoadingErrorPlaceholder isError={isError} isLoading={isLoading}>
 						{!isError &&
 							!isLoading &&
 							exams.map((exam) => (
-								<Grid item xs={12} sm={4} md={3} key={exam.id}>
+								<Grid item xs={12} sm={6} md={4} key={exam.id}>
 									<Card sx={{ opacity: isExamDisabled(exam) ? 0.5 : 1 }}>
 										<CardMedia
 											component="img"
@@ -48,7 +48,7 @@ export const ExamsScreen = () => {
 											alt={exam.title}
 										/>
 										<CardHeader title={exam.title} subheader={exam.class} />
-										<CardContent>
+										<CardContent sx={{ padding: '0px 16px 16px' }}>
 											<Box
 												display="flex"
 												justifyContent="space-between"
@@ -60,13 +60,25 @@ export const ExamsScreen = () => {
 												]}
 											>
 												<Box>
-													<Typography variant="body2" color="text.secondary">
+													<Typography
+														variant="body2"
+														color="text.secondary"
+														fontSize="1.2rem"
+													>
 														Grade: {exam.grade || 'Not graded'}
 													</Typography>
-													<Typography variant="body2" color="text.secondary">
+													<Typography
+														variant="body2"
+														color="text.secondary"
+														fontSize="1.2rem"
+													>
 														Start date: {exam.startDate.toLocaleDateString()}
 													</Typography>
-													<Typography variant="body2" color="text.secondary">
+													<Typography
+														variant="body2"
+														color="text.secondary"
+														fontSize="1.2rem"
+													>
 														End date: {exam.endDate.toLocaleDateString()}
 													</Typography>
 												</Box>
