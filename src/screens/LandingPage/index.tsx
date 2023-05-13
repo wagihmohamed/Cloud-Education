@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import {
 	CustomButton,
-	// Footer,
+	Footer,
 	LandingPageNavigation,
 	LandingPageSection,
 	LandingPageCard,
@@ -109,7 +109,7 @@ export const LandingPage = () => {
 					</CustomButton>
 				</Container>
 			</Stack>
-			{/* <Footer /> */}
+			<Footer />
 		</>
 	);
 };
