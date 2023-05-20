@@ -122,6 +122,7 @@ export const CoursesTable = ({
 											color: 'white',
 											textAlign: 'center',
 											border: '4px solid white',
+											cursor: disableActions ? 'not-allowed' : 'auto',
 										}}
 										key={column.id}
 									>

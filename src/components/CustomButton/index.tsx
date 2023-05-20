@@ -62,11 +62,14 @@ export const CustomButton = ({
 						mr,
 						py,
 						fontWeight: (active && 700) || 400,
-						bgcolor: (warning && '#d32f2f') || 'primary.main',
+						bgcolor: (warning && '#d32f2f') || bgColor || 'primary.main',
 						color: 'white',
 						fontSize: '20px',
 						'&:hover': {
-							bgcolor: (warning && '#e06d6d') || 'primary.main',
+							bgcolor: (warning && '#e06d6d') || bgColor || 'primary.main',
+						},
+						'&:disabled': {
+							bgcolor: '#9e9e9e',
 						},
 						borderRadius: '20px',
 					}}
@@ -100,11 +103,14 @@ export const CustomButton = ({
 						mr,
 						py,
 						fontWeight: (active && 700) || 400,
-						bgcolor: (warning && '#d32f2f') || 'primary.main',
+						bgcolor: (warning && '#d32f2f') || bgColor || 'primary.main',
 						color: 'white',
 						fontSize: '20px',
 						'&:hover': {
-							bgcolor: (warning && '#e06d6d') || 'primary.main',
+							bgcolor: (warning && '#e06d6d') || bgColor || 'primary.main',
+						},
+						'&:disabled': {
+							bgcolor: '#9e9e9e',
 						},
 						borderRadius: '20px',
 					}}

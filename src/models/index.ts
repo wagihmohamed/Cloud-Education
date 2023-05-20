@@ -127,3 +127,15 @@ export interface ExamError {
 	questionId: string;
 	answer: string;
 }
+
+export type QuestionType = 'essay' | 'mcq';
+
+export interface ExamInitialValues {
+	exam: [
+		{
+			questionTitle: '';
+			questionType: QuestionType;
+			questionAnswers?: string[];
+		}
+	];
+}
