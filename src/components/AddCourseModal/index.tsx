@@ -1,4 +1,11 @@
-import { Box, Grid, Modal, Stack, Typography } from '@mui/material';
+import {
+	Box,
+	Grid,
+	Modal,
+	Stack,
+	Typography,
+	useMediaQuery,
+} from '@mui/material';
 import { useFormik } from 'formik';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import {
@@ -14,13 +21,41 @@ import {
 	addedCourseValidationSchema,
 } from './formikUtlis';
 import { useAddCourse } from 'hooks';
+import { theme } from 'theme';
 
 interface AddCourseModalProps {
 	open: boolean;
 	handleClose: () => void;
 }
+const styles = {
+	courseModal: {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		border: '3px solid #000',
+		bgcolor: 'background.paper',
+		borderRadius: '10px',
+		boxShadow: 24,
+		p: 4,
+		width: '800px',
+		maxHeight: '100vh',
+		overflow: 'auto',
+		maxWidth: '100%',
+		'&::-webkit-scrollbar': {
+			width: '0.4em',
+			background: 'transparent',
+		},
+	},
+	courseModalMd: {
+		width: '85%',
+		margin: 'auto',
+		maxHeight: '88vh',
+	},
+};
 
 export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
+	const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
 	const formik = useFormik({
 		initialValues: addCourseInitialValues,
 		validationSchema: addedCourseValidationSchema,
@@ -64,20 +99,7 @@ export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
 			aria-labelledby="modal-modal-title"
 			aria-describedby="modal-modal-description"
 		>
-			<Box
-				sx={{
-					position: 'absolute',
-					top: '50%',
-					left: '50%',
-					transform: 'translate(-50%, -50%)',
-					width: '800px',
-					bgcolor: 'background.paper',
-					boxShadow: 24,
-					p: 4,
-					borderRadius: '10px',
-					border: '3px solid #000',
-				}}
-			>
+			<Box sx={[styles.courseModal, mdScreen ? styles.courseModalMd : null]}>
 				<Stack direction="row" justifyContent="space-between">
 					<Typography variant="h4" fontWeight="bold">
 						Edit Course
@@ -100,7 +122,7 @@ export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
 						columnSpacing="60px"
 						rowSpacing="20px"
 					>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomTextField
 								value={formik.values.courseName}
 								id="courseName"
@@ -116,7 +138,7 @@ export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
 								}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomSelect
 								onChange={(e: { label: string; value: string }) => {
 									formik.setFieldValue('category', e);
@@ -132,7 +154,7 @@ export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
 								}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomTextField
 								value={formik.values.description}
 								id="description"
@@ -151,7 +173,7 @@ export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
 								}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomSelect
 								onChange={(e: { label: string; value: string }) => {
 									formik.setFieldValue('courseStatus', e);
@@ -169,7 +191,7 @@ export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
 								}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomTextField
 								value={formik.values.courseCode}
 								id="courseCode"
@@ -185,7 +207,7 @@ export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
 								}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomSelect
 								isMulti
 								onChange={(e: { label: string; value: string }) => {

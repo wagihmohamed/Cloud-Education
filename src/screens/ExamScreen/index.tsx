@@ -5,6 +5,7 @@ import { CustomLayout, ExamList } from 'components';
 import Countdown from 'react-countdown';
 import { pink } from '@mui/material/colors';
 import { useGetExam } from 'hooks';
+import { theme } from 'theme';
 
 export const ExamScreen = () => {
 	const { examId } = useParams();
@@ -69,8 +70,12 @@ export const ExamScreen = () => {
 		<CustomLayout>
 			<Box
 				sx={{
-					mt: 4,
-					mx: 5,
+					backgroundColor: '#fff',
+					mx: '4rem',
+					my: '3rem',
+					[theme.breakpoints.down('md')]: {
+						m: '0rem',
+					},
 				}}
 			>
 				{isLoading && (
@@ -84,7 +89,11 @@ export const ExamScreen = () => {
 						<CircularProgress />
 					</Box>
 				)}
-				<Typography fontWeight="bold" variant="h4">
+				<Typography
+					fontWeight="bold"
+					variant="h4"
+					sx={{ width: '90%', margin: ' 1rem auto' }}
+				>
 					{examId} Exam Screen
 				</Typography>
 				{renderTimer}

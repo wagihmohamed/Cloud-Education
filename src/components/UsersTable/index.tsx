@@ -8,6 +8,7 @@ import {
 	Typography,
 	Stack,
 	Pagination,
+	TableContainer,
 } from '@mui/material';
 import {
 	DoDisturbOnOutlined,
@@ -64,129 +65,131 @@ export const UsersTable = ({
 				isError={isError}
 				isLoading={isLoading}
 			>
-				<Table
-					sx={{
-						mt: 4,
-						width: '100%',
-						overflowY: 'auto',
-						borderSpacing: '0 15px !important',
-						borderCollapse: 'separate',
-					}}
-				>
-					<TableHead
+				<TableContainer sx={{ maxWidth: '100%', overflowX: 'auto' }}>
+					<Table
 						sx={{
-							backgroundColor: 'primary.main',
+							mt: 4,
+							width: '100%',
+							overflowY: 'auto',
+							borderSpacing: '0 15px !important',
+							borderCollapse: 'separate',
 						}}
 					>
-						<TableRow>
-							{userTableColumns.map((column) => (
-								<TableCell
-									sx={{
-										color: 'white',
-										textAlign: 'center',
-										border: '4px solid white',
-									}}
-									key={column.id}
-								>
-									<Typography
-										color="white"
-										fontSize="20px"
-										fontWeight="bold"
-										variant="h4"
-									>
-										{column.label}
-									</Typography>
-								</TableCell>
-							))}
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{users.length === 0 ? (
+						<TableHead
+							sx={{
+								backgroundColor: 'primary.main',
+							}}
+						>
 							<TableRow>
-								<CustomTableCell colSpan={12}>
-									<Typography variant="h4" fontWeight="bold">
-										No Users found
-									</Typography>
-								</CustomTableCell>
-							</TableRow>
-						) : (
-							users.map((row) => (
-								<CustomTableRow key={row.id}>
-									<CustomTableCell>
-										{row.firstName} {row.lastName}
-									</CustomTableCell>
-									<CustomTableCell>{row.role}</CustomTableCell>
-									<CustomTableCell>{row.lastLogin}</CustomTableCell>
-									<CustomTableCell
-										color={row.status === 'active' ? '#6aa84f' : '#FF0000'}
+								{userTableColumns.map((column) => (
+									<TableCell
+										sx={{
+											color: 'white',
+											textAlign: 'center',
+											border: '4px solid white',
+										}}
+										key={column.id}
 									>
-										{row.status}
+										<Typography
+											color="white"
+											fontSize="20px"
+											fontWeight="bold"
+											variant="h4"
+										>
+											{column.label}
+										</Typography>
+									</TableCell>
+								))}
+							</TableRow>
+						</TableHead>
+						<TableBody>
+							{users.length === 0 ? (
+								<TableRow>
+									<CustomTableCell colSpan={12}>
+										<Typography variant="h4" fontWeight="bold">
+											No Users found
+										</Typography>
 									</CustomTableCell>
-									<CustomTableCell width="200px">
-										<Stack direction="row" justifyContent="space-around">
-											<SettingsOutlined
-												sx={{
-													height: '30px',
-													width: '30px',
-												}}
-												cursor="pointer"
-												color="primary"
-												onClick={() => {
-													setIsEditUserOpen(true);
-													setSelectedUser(row);
-												}}
-											/>
-											<HighlightOffOutlined
-												sx={{
-													height: '30px',
-													width: '30px',
-												}}
-												cursor="pointer"
-												color="primary"
-												onClick={() => handleDeleteUser(row.id)}
-											/>
-											{row.status === 'active' ? (
-												<DoDisturbOnOutlined
+								</TableRow>
+							) : (
+								users.map((row) => (
+									<CustomTableRow key={row.id}>
+										<CustomTableCell>
+											{row.firstName} {row.lastName}
+										</CustomTableCell>
+										<CustomTableCell>{row.role}</CustomTableCell>
+										<CustomTableCell>{row.lastLogin}</CustomTableCell>
+										<CustomTableCell
+											color={row.status === 'active' ? '#6aa84f' : '#FF0000'}
+										>
+											{row.status}
+										</CustomTableCell>
+										<CustomTableCell width="200px">
+											<Stack direction="row" justifyContent="space-around">
+												<SettingsOutlined
 													sx={{
 														height: '30px',
 														width: '30px',
 													}}
 													cursor="pointer"
 													color="primary"
-													onClick={() => handleToggleUserStatus(row.id)}
+													onClick={() => {
+														setIsEditUserOpen(true);
+														setSelectedUser(row);
+													}}
 												/>
-											) : (
-												<CheckCircleOutlineOutlined
+												<HighlightOffOutlined
 													sx={{
 														height: '30px',
 														width: '30px',
 													}}
 													cursor="pointer"
 													color="primary"
-													onClick={() => handleToggleUserStatus(row.id)}
+													onClick={() => handleDeleteUser(row.id)}
 												/>
-											)}
-											<PeopleAltOutlined
-												sx={{
-													height: '30px',
-													width: '30px',
-												}}
-												cursor="pointer"
-												color="primary"
-											/>
-										</Stack>
-									</CustomTableCell>
-								</CustomTableRow>
-							))
-						)}
-					</TableBody>
-				</Table>
+												{row.status === 'active' ? (
+													<DoDisturbOnOutlined
+														sx={{
+															height: '30px',
+															width: '30px',
+														}}
+														cursor="pointer"
+														color="primary"
+														onClick={() => handleToggleUserStatus(row.id)}
+													/>
+												) : (
+													<CheckCircleOutlineOutlined
+														sx={{
+															height: '30px',
+															width: '30px',
+														}}
+														cursor="pointer"
+														color="primary"
+														onClick={() => handleToggleUserStatus(row.id)}
+													/>
+												)}
+												<PeopleAltOutlined
+													sx={{
+														height: '30px',
+														width: '30px',
+													}}
+													cursor="pointer"
+													color="primary"
+												/>
+											</Stack>
+										</CustomTableCell>
+									</CustomTableRow>
+								))
+							)}
+						</TableBody>
+					</Table>
+				</TableContainer>
 				{usersBodyData.length > 0 && (
 					<Pagination
 						page={1}
 						count={10}
 						sx={{
-							mt: 4,
+							m: '1rem 2rem 2rem',
 							display: 'flex',
 							justifyContent: 'center',
 						}}

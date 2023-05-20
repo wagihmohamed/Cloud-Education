@@ -1,30 +1,51 @@
-import React from 'react';
-import { Box, BoxProps } from '@mui/material';
-import { CustomNavBar } from 'components';
-
+import { Box, BoxProps, useMediaQuery } from '@mui/material';
+import { CustomNavBar, CustomDrawer } from 'components';
+import { theme } from 'theme';
 interface MainViewContainerProps extends BoxProps {
 	children: React.ReactNode;
 }
+const styles = {
+	default: {
+		width: '100%',
+		display: 'flex',
+		flexDirection: 'row',
+	},
+	childrenContainer: {
+		// width: '100%',
+		height: '100%',
+		display: 'flex',
+		flexDirection: 'column',
+		ml: '100px',
+	},
+	childrenContainerMd: {
+		ml: '0px',
+	},
+};
 export const CustomLayout = ({ children, ...prop }: MainViewContainerProps) => {
+	const mdScreeen = useMediaQuery(theme.breakpoints.down('md'));
+	const navBar = mdScreeen ? (
+		<CustomDrawer styleProps={{}}>
+			<CustomNavBar />
+		</CustomDrawer>
+	) : (
+		<CustomNavBar />
+	);
 	return (
 		<Box
 			sx={{
 				width: '100%',
 				height: '100vh',
 				display: 'flex',
-				flexDirection: 'row',
+				flexDirection: 'column',
 			}}
 			{...prop}
 		>
-			<CustomNavBar />
+			{navBar}
 			<Box
-				sx={{
-					width: '100%',
-					height: '100%',
-					display: 'flex',
-					flexDirection: 'column',
-					ml: '100px',
-				}}
+				sx={[
+					styles.childrenContainer,
+					mdScreeen ? styles.childrenContainerMd : {},
+				]}
 			>
 				{children}
 			</Box>

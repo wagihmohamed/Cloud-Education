@@ -18,6 +18,7 @@ import { studentsTableHead } from './studentsTableHead';
 import { studentsTableBodyData } from './studentsTableBodyData';
 import { examDummyData } from './examDummyData';
 import { mockExams } from './examsList';
+import { landingPageMainSections } from './landingPage';
 export {
 	countriesOptions,
 	messages,
@@ -39,4 +40,5 @@ export {
 	studentsTableBodyData,
 	examDummyData,
 	mockExams,
+	landingPageMainSections,
 };

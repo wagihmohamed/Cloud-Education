@@ -16,6 +16,7 @@ import {
 	TableRow,
 	Typography,
 	Pagination,
+	TableContainer,
 } from '@mui/material';
 import { CoursesBody } from 'models';
 import {
@@ -97,155 +98,157 @@ export const CoursesTable = ({
 				isError={isError}
 				isLoading={isLoading}
 			>
-				<Table
-					sx={{
-						mt: 4,
-						width: '100%',
-						overflowY: 'auto',
-						borderSpacing: '0 15px !important',
-						borderCollapse: 'separate',
-						opacity: disableActions ? 0.5 : 1,
-						cursor: disableActions ? 'not-allowed' : 'pointer',
-					}}
-				>
-					<TableHead
+				<TableContainer sx={{ maxWidth: '100%', overflowX: 'auto' }}>
+					<Table
 						sx={{
-							backgroundColor: 'primary.main',
+							mt: 4,
+							width: '100%',
+							overflowY: 'auto',
+							borderSpacing: '0 15px !important',
+							borderCollapse: 'separate',
+							opacity: disableActions ? 0.5 : 1,
+							cursor: disableActions ? 'not-allowed' : 'pointer',
 						}}
 					>
-						<TableRow>
-							{coursesTableColumns.map((column) => (
-								<TableCell
-									sx={{
-										color: 'white',
-										textAlign: 'center',
-										border: '4px solid white',
-									}}
-									key={column.id}
-								>
-									<Typography
-										color="white"
-										fontSize="20px"
-										fontWeight="bold"
-										variant="h4"
-									>
-										{column.label}
-									</Typography>
-								</TableCell>
-							))}
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{courses.length === 0 ? (
+						<TableHead
+							sx={{
+								backgroundColor: 'primary.main',
+							}}
+						>
 							<TableRow>
-								<CustomTableCell colSpan={12}>
-									<Typography variant="h4" fontWeight="bold">
-										No courses found
-									</Typography>
-								</CustomTableCell>
+								{coursesTableColumns.map((column) => (
+									<TableCell
+										sx={{
+											color: 'white',
+											textAlign: 'center',
+											border: '4px solid white',
+										}}
+										key={column.id}
+									>
+										<Typography
+											color="white"
+											fontSize="20px"
+											fontWeight="bold"
+											variant="h4"
+										>
+											{column.label}
+										</Typography>
+									</TableCell>
+								))}
 							</TableRow>
-						) : (
-							courses.map((row) => (
-								<CustomTableRow key={row.id}>
-									<CustomTableCell
-										cursor={disableActions ? 'not-allowed' : 'pointer'}
-										onClick={() => {
-											handleNavigate(row.id);
-										}}
-									>
-										{row.courseName}
+						</TableHead>
+						<TableBody>
+							{courses.length === 0 ? (
+								<TableRow>
+									<CustomTableCell colSpan={12}>
+										<Typography variant="h4" fontWeight="bold">
+											No courses found
+										</Typography>
 									</CustomTableCell>
-									<CustomTableCell
-										cursor={disableActions ? 'not-allowed' : 'pointer'}
-										onClick={() => {
-											handleNavigate(row.id);
-										}}
-									>
-										{row.category}
-									</CustomTableCell>
-									<CustomTableCell
-										cursor={disableActions ? 'not-allowed' : 'pointer'}
-										onClick={() => {
-											handleNavigate(row.id);
-										}}
-									>
-										{row.lastUpdated}
-									</CustomTableCell>
-									<CustomTableCell
-										cursor={disableActions ? 'not-allowed' : 'pointer'}
-										onClick={() => {
-											handleNavigate(row.id);
-										}}
-										color={row.status === 'active' ? '#6aa84f' : '#FF0000'}
-									>
-										{row.status}
-									</CustomTableCell>
-									<CustomTableCell width="200px">
-										<Stack direction="row" justifyContent="space-around">
-											<SettingsOutlined
-												sx={{
-													height: '30px',
-													width: '30px',
-												}}
-												onClick={() => {
-													handleShowEditCourse(row);
-												}}
-												cursor={disableActions ? 'not-allowed' : 'pointer'}
-												color="primary"
-											/>
-											<HighlightOffOutlined
-												sx={{
-													height: '30px',
-													width: '30px',
-												}}
-												onClick={() => handleDeleteCourse(row.id)}
-												cursor={disableActions ? 'not-allowed' : 'pointer'}
-												color="primary"
-											/>
-											{row.status === 'active' ? (
-												<DoDisturbOnOutlined
+								</TableRow>
+							) : (
+								courses.map((row) => (
+									<CustomTableRow key={row.id}>
+										<CustomTableCell
+											cursor={disableActions ? 'not-allowed' : 'pointer'}
+											onClick={() => {
+												handleNavigate(row.id);
+											}}
+										>
+											{row.courseName}
+										</CustomTableCell>
+										<CustomTableCell
+											cursor={disableActions ? 'not-allowed' : 'pointer'}
+											onClick={() => {
+												handleNavigate(row.id);
+											}}
+										>
+											{row.category}
+										</CustomTableCell>
+										<CustomTableCell
+											cursor={disableActions ? 'not-allowed' : 'pointer'}
+											onClick={() => {
+												handleNavigate(row.id);
+											}}
+										>
+											{row.lastUpdated}
+										</CustomTableCell>
+										<CustomTableCell
+											cursor={disableActions ? 'not-allowed' : 'pointer'}
+											onClick={() => {
+												handleNavigate(row.id);
+											}}
+											color={row.status === 'active' ? '#6aa84f' : '#FF0000'}
+										>
+											{row.status}
+										</CustomTableCell>
+										<CustomTableCell width="200px">
+											<Stack direction="row" justifyContent="space-around">
+												<SettingsOutlined
 													sx={{
 														height: '30px',
 														width: '30px',
 													}}
 													onClick={() => {
-														if (!isEditing) {
-															handleToggleStatus(row);
-														}
+														handleShowEditCourse(row);
 													}}
 													cursor={disableActions ? 'not-allowed' : 'pointer'}
 													color="primary"
 												/>
-											) : (
-												<CheckCircleOutlineOutlined
+												<HighlightOffOutlined
 													sx={{
 														height: '30px',
 														width: '30px',
 													}}
-													onClick={() => {
-														if (!isEditing) {
-															handleToggleStatus(row);
-														}
+													onClick={() => handleDeleteCourse(row.id)}
+													cursor={disableActions ? 'not-allowed' : 'pointer'}
+													color="primary"
+												/>
+												{row.status === 'active' ? (
+													<DoDisturbOnOutlined
+														sx={{
+															height: '30px',
+															width: '30px',
+														}}
+														onClick={() => {
+															if (!isEditing) {
+																handleToggleStatus(row);
+															}
+														}}
+														cursor={disableActions ? 'not-allowed' : 'pointer'}
+														color="primary"
+													/>
+												) : (
+													<CheckCircleOutlineOutlined
+														sx={{
+															height: '30px',
+															width: '30px',
+														}}
+														onClick={() => {
+															if (!isEditing) {
+																handleToggleStatus(row);
+															}
+														}}
+														cursor={disableActions ? 'not-allowed' : 'pointer'}
+														color="primary"
+													/>
+												)}
+												<PeopleAltOutlined
+													sx={{
+														height: '30px',
+														width: '30px',
 													}}
 													cursor={disableActions ? 'not-allowed' : 'pointer'}
 													color="primary"
 												/>
-											)}
-											<PeopleAltOutlined
-												sx={{
-													height: '30px',
-													width: '30px',
-												}}
-												cursor={disableActions ? 'not-allowed' : 'pointer'}
-												color="primary"
-											/>
-										</Stack>
-									</CustomTableCell>
-								</CustomTableRow>
-							))
-						)}
-					</TableBody>
-				</Table>
+											</Stack>
+										</CustomTableCell>
+									</CustomTableRow>
+								))
+							)}
+						</TableBody>
+					</Table>
+				</TableContainer>
 				{courses.length > 0 && (
 					<Pagination
 						page={1}

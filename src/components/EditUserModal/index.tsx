@@ -1,4 +1,11 @@
-import { Box, Modal, Stack, Typography, Grid } from '@mui/material';
+import {
+	Box,
+	Modal,
+	Stack,
+	Typography,
+	Grid,
+	useMediaQuery,
+} from '@mui/material';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import {
 	CustomButton,
@@ -11,6 +18,7 @@ import { usersRoles, usersStatus } from 'mockup';
 import { User, UserRole } from 'models';
 import { editUserInitialValues, editUserValidationSchema } from './formikUtils';
 import { toast } from 'react-toastify';
+import { theme } from 'theme';
 
 interface EditUserModalProps {
 	open: boolean;
@@ -18,7 +26,32 @@ interface EditUserModalProps {
 	editedUser: User;
 	handleSave: React.Dispatch<React.SetStateAction<User[]>>;
 }
-
+const styles = {
+	usersModal: {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		border: '3px solid #000',
+		bgcolor: 'background.paper',
+		borderRadius: '10px',
+		boxShadow: 24,
+		p: 4,
+		width: '800px',
+		maxHeight: '100vh',
+		overflow: 'auto',
+		maxWidth: '100%',
+		'&::-webkit-scrollbar': {
+			width: '0.4em',
+			background: 'transparent',
+		},
+	},
+	usersModalMd: {
+		width: '85%',
+		margin: 'auto',
+		maxHeight: '88vh',
+	},
+};
 export const EditUserModal = ({
 	handleClose,
 	open,
@@ -55,7 +88,7 @@ export const EditUserModal = ({
 		handleClose();
 		formik.resetForm();
 	};
-
+	const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
 	return (
 		<Modal
 			open={open}
@@ -63,21 +96,7 @@ export const EditUserModal = ({
 			aria-labelledby="modal-modal-title"
 			aria-describedby="modal-modal-description"
 		>
-			<Box
-				sx={{
-					position: 'absolute',
-					top: '50%',
-					left: '50%',
-					transform: 'translate(-50%, -50%)',
-					width: '800px',
-					bgcolor: 'background.paper',
-					boxShadow: 24,
-					p: 4,
-					borderRadius: '10px',
-					border: '3px solid #000',
-					overflow: 'hidden',
-				}}
-			>
+			<Box sx={[styles.usersModal, mdScreen ? styles.usersModalMd : null]}>
 				<Stack direction="row" justifyContent="space-between">
 					<Typography variant="h4" fontWeight="bold">
 						Edit User
@@ -100,11 +119,11 @@ export const EditUserModal = ({
 						columnSpacing="60px"
 						rowSpacing="20px"
 					>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomTextField
 								value={formik.values.firstName}
 								id="firstName"
-								name="firstName"
+								name="first name"
 								onChange={formik.handleChange}
 								withLabel
 								label="First Name"
@@ -114,7 +133,7 @@ export const EditUserModal = ({
 								helperText={formik.touched.firstName && formik.errors.firstName}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomTextField
 								value={formik.values.lastName}
 								id="lastName"
@@ -128,7 +147,7 @@ export const EditUserModal = ({
 								helperText={formik.touched.lastName && formik.errors.lastName}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomTextField
 								value={formik.values.email}
 								id="email"
@@ -140,7 +159,7 @@ export const EditUserModal = ({
 								helperText={formik.touched.email && formik.errors.email}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomTextField
 								value={formik.values.phoneNumber}
 								id="phoneNumber"
@@ -157,7 +176,7 @@ export const EditUserModal = ({
 								}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomSelect
 								onChange={(e: { label: string; value: string }) => {
 									formik.setFieldValue('role', e);
@@ -170,7 +189,7 @@ export const EditUserModal = ({
 								helperText={formik.touched.role && formik.errors.role?.label}
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomSelect
 								onChange={(e: { label: string; value: string }) => {
 									formik.setFieldValue('status', e);

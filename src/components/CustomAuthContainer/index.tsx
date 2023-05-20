@@ -19,9 +19,10 @@ export const CustomAuthContainer = ({
 	children,
 	mt,
 	mx,
-	px = '80px',
+	px = '40px',
 	py = '30px',
 	width = '800px',
+	maxWidth = '80%',
 	pl,
 	pr,
 	mb,
@@ -32,6 +33,7 @@ export const CustomAuthContainer = ({
 	return (
 		<Box
 			sx={{
+				maxWidth,
 				border: '3px solid #000000',
 				px,
 				borderRadius: '10px',

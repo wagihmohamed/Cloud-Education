@@ -1,5 +1,11 @@
-/*eslint-disable*/
-import { Typography, Container, Stack, Divider } from '@mui/material';
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import {
+	Typography,
+	Container,
+	Stack,
+	Divider,
+	useMediaQuery,
+} from '@mui/material';
 import {
 	CustomButton,
 	Footer,
@@ -8,50 +14,47 @@ import {
 	LandingPageCard,
 } from 'components';
 
-import {
-	landingpageimage1,
-	landingpageimage2,
-	landingpageimage3,
-	landingimageCaseStudy,
-} from 'assets';
-import { caseStudyStatments } from 'mockup';
-
+import { landingimageCaseStudy } from 'assets';
+import { caseStudyStatments, landingPageMainSections } from 'mockup';
+import { theme } from 'theme';
+const styles = {
+	casesStyle: {
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+		alignItems: 'flex-start',
+		spacing: '2',
+		gap: '2rem',
+	},
+	caseStyleSm: {
+		flexDirection: 'column',
+		alignItems: 'center',
+	},
+};
 export const LandingPage = () => {
+	const smScreen = useMediaQuery(theme.breakpoints.down(950));
 	return (
 		<>
 			<LandingPageNavigation />
 			<Container maxWidth="xl" sx={{ marginX: 'auto' }}>
-				<LandingPageSection
-					bgcolor="#fff"
-					image={landingpageimage1}
-					heading="it's better than sliced bread!"
-					txt="Tell the world how awesome your app is and why they should use it!"
-					buttonLabel="Get Started"
-					stackDirection="row"
-				/>
-				<Divider />
-				<LandingPageSection
-					bgcolor="#fff"
-					image={landingpageimage2}
-					heading="Feature 1"
-					txt="Explanation of why you are going to love it and the benefit!"
-					buttonLabel="Learn More"
-					stackDirection="row-reverse"
-				/>
-				<Divider />
-				<LandingPageSection
-					bgcolor="#fff"
-					image={landingpageimage3}
-					heading="Feature 2"
-					txt="Explantion of why you are going to love it and the benefit"
-					buttonLabel="Learn More"
-					stackDirection="row"
-				/>
-				<Divider />
+				{landingPageMainSections.map((section, indx) => {
+					return (
+						<>
+							<LandingPageSection
+								sectionDirection={section.direction}
+								key={`${indx}`}
+								image={section.image}
+								heading={section.heading}
+								txt={section.txt}
+								buttonLabel={section.btn.text}
+							/>
+							<Divider />
+						</>
+					);
+				})}
 				<Stack
-					bgcolor={'#fff'}
 					direction="column"
-					sx={{ padding: '4rem' }}
+					sx={{ padding: '4rem 1rem' }}
 					justifyContent="space-between"
 					spacing={3}
 				>
@@ -61,12 +64,7 @@ export const LandingPage = () => {
 					<Typography variant="body1" align="center">
 						They love ui! isn't it obvious
 					</Typography>
-					<Stack
-						direction={'row'}
-						justifyContent="space-around"
-						alignItems={'flex-start'}
-						spacing={2}
-					>
+					<Stack sx={[styles.casesStyle, smScreen ? styles.caseStyleSm : {}]}>
 						<LandingPageCard
 							image={landingimageCaseStudy}
 							content={caseStudyStatments.castStudy1.content}

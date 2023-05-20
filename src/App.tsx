@@ -36,7 +36,7 @@ function App() {
 					display: 'flex',
 					justifyContent: 'center',
 					alignItems: 'center',
-					height: '100vh',
+					padding: '4rem ',
 				}}
 			>
 				<CircularProgress />

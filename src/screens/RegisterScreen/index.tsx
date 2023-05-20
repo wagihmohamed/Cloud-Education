@@ -4,7 +4,6 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { phoneRegExp } from 'utlis/phoneRegExp';
 import { Link } from 'react-router-dom';
-
 export const RegisterScreen = () => {
 	const registerFormik = useFormik({
 		initialValues: {
@@ -37,7 +36,7 @@ export const RegisterScreen = () => {
 				flex: 1,
 				justifyContent: 'center',
 				alignItems: 'center',
-				height: '100vh',
+				py: '3rem',
 				flexDirection: 'column',
 			}}
 		>
