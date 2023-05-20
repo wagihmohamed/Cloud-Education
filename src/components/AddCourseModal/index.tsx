@@ -102,7 +102,7 @@ export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
 			<Box sx={[styles.courseModal, mdScreen ? styles.courseModalMd : null]}>
 				<Stack direction="row" justifyContent="space-between">
 					<Typography variant="h4" fontWeight="bold">
-						Edit Course
+						Add Course
 					</Typography>
 					<CloseOutlinedIcon
 						onClick={handleCloseModal}

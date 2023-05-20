@@ -13,6 +13,7 @@ import { StudentsData } from './StudentsData';
 import { ExamScreen } from './ExamScreen';
 import { ErrorPage } from './ErrorPage';
 import { ExamsScreen } from './ExamsScreen';
+import { CreateExamScreen } from './CreateExamScreen';
 
 export {
 	LoginScreen,
@@ -30,4 +31,5 @@ export {
 	ExamScreen,
 	ErrorPage,
 	ExamsScreen,
+	CreateExamScreen,
 };

@@ -17,6 +17,7 @@ interface CustomSelectProps {
 	isMulti?: boolean;
 	width?: string;
 	maxWidth?: string;
+	name?: string;
 }
 
 export const CustomSelect = ({
@@ -31,6 +32,7 @@ export const CustomSelect = ({
 	value,
 	isMulti,
 	width,
+	name,
 	maxWidth,
 }: CustomSelectProps) => {
 	const { primaryColor } = useSettings();
@@ -53,6 +55,7 @@ export const CustomSelect = ({
 			)}
 			<Select
 				value={value}
+				name={name}
 				isMulti={isMulti}
 				isDisabled={disabled}
 				placeholder={placeholder ?? `Select ${label ?? ''}`}
@@ -62,16 +65,16 @@ export const CustomSelect = ({
 						minHeight: '45px',
 						width,
 						maxWidth,
-						border: error ? '1px solid #d32f2f' : `1px solid ${primaryColor}`,
+						border: error ? '1px solid #d32f2f' : `1px solid #D3D3D3`,
 						'&:hover': {
-							border: error ? '1px solid #d32f2f' : `1px solid ${primaryColor}`,
+							border: error ? '1px solid #d32f2f' : `1px solid #D3D3D3`,
 						},
-						outline: `1px solid ${primaryColor}`,
+						outline: `1px solid #D3D3D3`,
 						'&:focus': {
-							border: error ? '1px solid #d32f2f' : `1px solid ${primaryColor}`,
+							border: error ? '1px solid #d32f2f' : `1px solid #D3D3D3`,
 						},
 						'&:active': {
-							border: error ? '1px solid #d32f2f' : `1px solid ${primaryColor}`,
+							border: error ? '1px solid #d32f2f' : `1px solid #D3D3D3`,
 						},
 					}),
 					valueContainer: (provided) => ({
