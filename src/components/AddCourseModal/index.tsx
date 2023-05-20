@@ -1,4 +1,3 @@
-import React from 'react';
 import {
 	Box,
 	Grid,
@@ -16,7 +15,6 @@ import {
 	CustomToast,
 } from 'components';
 import { allCourses, coursesCategoryOptions, courseStatus } from 'mockup';
-import { CoursesBody } from 'models';
 import { toast } from 'react-toastify';
 import {
 	addCourseInitialValues,
@@ -28,7 +26,6 @@ import { theme } from 'theme';
 interface AddCourseModalProps {
 	open: boolean;
 	handleClose: () => void;
-	setCourses: React.Dispatch<React.SetStateAction<CoursesBody[]>>;
 }
 const styles = {
 	courseModal: {

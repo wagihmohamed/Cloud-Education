@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import {
@@ -8,14 +7,11 @@ import {
 	CustomLayout,
 } from 'components';
 import AddIcon from '@mui/icons-material/Add';
-import { coursesBodyData } from 'mockup';
 import { CoursesBody } from 'models';
 import { theme } from 'theme';
 
 export const CoursesScreen = () => {
 	const [isAddCourseOpen, setIsAddCourseOpen] = useState(false);
-	const [coursesData, setCoursesData] =
-		useState<CoursesBody[]>(coursesBodyData);
 	const [selectedCourse, setSelectedCourse] = useState<CoursesBody>(
 		{} as CoursesBody
 	);
@@ -52,7 +48,6 @@ export const CoursesScreen = () => {
 						</CustomButton>
 					</Box>
 					<CoursesTable
-						setCoursesData={setCoursesData}
 						selectedCourse={selectedCourse}
 						setSelectedCourse={setSelectedCourse}
 					/>
@@ -61,7 +56,6 @@ export const CoursesScreen = () => {
 			<AddCourseModal
 				open={isAddCourseOpen}
 				handleClose={() => setIsAddCourseOpen(false)}
-				setCourses={setCoursesData}
 			/>
 		</>
 	);

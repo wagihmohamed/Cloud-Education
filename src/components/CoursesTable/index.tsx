@@ -12,11 +12,11 @@ import {
 	Table,
 	TableBody,
 	TableCell,
-	TableContainer,
 	TableHead,
 	TableRow,
 	Typography,
 	Pagination,
+	TableContainer,
 } from '@mui/material';
 import { CoursesBody } from 'models';
 import {
@@ -27,11 +27,10 @@ import {
 	LoadingErrorPlaceholder,
 } from 'components';
 import { useNavigate } from 'react-router-dom';
-import { useCoursesList, useEditCourse } from 'hooks';
+import { useCoursesList, useDeleteCourse, useEditCourse } from 'hooks';
 import { toast } from 'react-toastify';
 
 interface CoursesTableProps {
-	setCoursesData: React.Dispatch<React.SetStateAction<CoursesBody[]>>;
 	setSelectedCourse: React.Dispatch<React.SetStateAction<CoursesBody>>;
 	selectedCourse: CoursesBody;
 }
@@ -39,7 +38,6 @@ interface CoursesTableProps {
 export const CoursesTable = ({
 	selectedCourse,
 	setSelectedCourse,
-	setCoursesData,
 }: CoursesTableProps) => {
 	const { data: courses = [], isLoading, isError } = useCoursesList();
 
@@ -55,12 +53,25 @@ export const CoursesTable = ({
 		},
 	});
 
-	const disableActions = isEditing;
+	const { mutate: deleteCourse, isLoading: isDeleting } = useDeleteCourse({
+		onSuccess: () => {
+			toast.success(<CustomToast title="Course Deleted successfully" />);
+		},
+		onError: (err) => {
+			<CustomToast
+				title="Something went wrong"
+				message={err?.response?.data?.message || 'Please try again later'}
+			/>;
+		},
+	});
+
+	const disableActions = isEditing || isDeleting;
 	const [isEditCourseOpen, setIsEditCourseOpen] = useState(false);
 	const navigate = useNavigate();
+
 	const handleDeleteCourse = (id: string) => {
 		if (disableActions) return;
-		setCoursesData((prev) => prev.filter((course) => course.id !== id));
+		deleteCourse(id);
 	};
 	const handleToggleStatus = (editedCourse: CoursesBody) => {
 		mutate({
@@ -95,8 +106,8 @@ export const CoursesTable = ({
 							overflowY: 'auto',
 							borderSpacing: '0 15px !important',
 							borderCollapse: 'separate',
-							opacity: isEditing ? 0.5 : 1,
-							cursor: isEditing ? 'not-allowed' : 'pointer',
+							opacity: disableActions ? 0.5 : 1,
+							cursor: disableActions ? 'not-allowed' : 'pointer',
 						}}
 					>
 						<TableHead
