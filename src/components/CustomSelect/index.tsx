@@ -16,6 +16,7 @@ interface CustomSelectProps {
 	disabled?: boolean;
 	isMulti?: boolean;
 	width?: string;
+	maxWidth?: string;
 }
 
 export const CustomSelect = ({
@@ -30,6 +31,7 @@ export const CustomSelect = ({
 	value,
 	isMulti,
 	width,
+	maxWidth,
 }: CustomSelectProps) => {
 	const { primaryColor } = useSettings();
 	return (
@@ -59,6 +61,7 @@ export const CustomSelect = ({
 						...provided,
 						minHeight: '45px',
 						width,
+						maxWidth,
 						border: error ? '1px solid #d32f2f' : `1px solid ${primaryColor}`,
 						'&:hover': {
 							border: error ? '1px solid #d32f2f' : `1px solid ${primaryColor}`,

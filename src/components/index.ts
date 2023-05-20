@@ -21,6 +21,7 @@ import { AddUserModal } from './AddUserModal';
 import { EditProfileModal } from './EditProfileModal';
 import { ConfirmPasswordModal } from './ConfirmPasswordModal';
 import { CustomEditor } from './CustomEditor';
+import { CustomDrawer } from './Drawer';
 import {
 	CustomTableCell,
 	CustomTableRow,
@@ -73,4 +74,5 @@ export {
 	CustomToast,
 	NoAuth,
 	LoadingErrorPlaceholder,
+	CustomDrawer,
 };

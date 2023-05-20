@@ -1,10 +1,18 @@
-import { ContactsContainer, CustomLayout, ChatScreen } from 'components';
-import { Stack } from '@mui/material';
+/** @format */
+
+import {
+	ContactsContainer,
+	CustomLayout,
+	ChatScreen,
+	CustomDrawer,
+} from 'components';
+import { Stack, useMediaQuery } from '@mui/material';
 import { messages } from 'mockup';
 import { useState } from 'react';
 import { ContactDetails } from 'models';
-
+import { theme } from 'theme';
 export const MessagesScreen = () => {
+	const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
 	const [selectedChat, setSelectedChat] = useState<ContactDetails>({
 		userId: '1',
 		contactName: 'John Doe',
@@ -17,15 +25,32 @@ export const MessagesScreen = () => {
 		],
 	} as ContactDetails);
 	const [messageData, setMessagesData] = useState(messages);
-
+	const contactsContainer = mdScreen ? (
+		<CustomDrawer
+			iconName={'contactContainer'}
+			styleProps={{
+				position: 'absolute',
+				right: '1rem',
+				color: 'white',
+			}}
+		>
+			<ContactsContainer
+				active={selectedChat?.userId}
+				messages={messageData}
+				setSelectedChat={setSelectedChat}
+			/>
+		</CustomDrawer>
+	) : (
+		<ContactsContainer
+			active={selectedChat?.userId}
+			messages={messageData}
+			setSelectedChat={setSelectedChat}
+		/>
+	);
 	return (
 		<CustomLayout>
-			<Stack direction="row">
-				<ContactsContainer
-					active={selectedChat?.userId}
-					messages={messageData}
-					setSelectedChat={setSelectedChat}
-				/>
+			<Stack direction="row" height={'100vh'}>
+				{contactsContainer}
 				<ChatScreen
 					selectedChat={selectedChat}
 					setSelectedChat={setSelectedChat}

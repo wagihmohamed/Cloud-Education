@@ -1,5 +1,12 @@
 import { useState } from 'react';
-import { Box, Modal, Stack, Typography, Grid } from '@mui/material';
+import {
+	Box,
+	Modal,
+	Stack,
+	Typography,
+	Grid,
+	useMediaQuery,
+} from '@mui/material';
 import { useFormik } from 'formik';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { UserInfo, UserRole } from 'models';
@@ -17,6 +24,7 @@ import {
 	editProfileValidationSchema,
 } from './formikUtils';
 import { toast } from 'react-toastify';
+import { theme } from 'theme';
 
 interface EditProfileModalProps {
 	open: boolean;
@@ -24,7 +32,32 @@ interface EditProfileModalProps {
 	handleSave: React.Dispatch<React.SetStateAction<UserInfo>>;
 	editedProfile: UserInfo;
 }
-
+const styles = {
+	profileForm: {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		border: '3px solid #000',
+		bgcolor: 'background.paper',
+		borderRadius: '10px',
+		boxShadow: 24,
+		p: 4,
+		width: '800px',
+		maxHeight: '100vh',
+		overflow: 'auto',
+		maxWidth: '100%',
+		'&::-webkit-scrollbar': {
+			width: '0.4em',
+			background: 'transparent',
+		},
+	},
+	profileFormMd: {
+		width: '85%',
+		margin: 'auto',
+		maxHeight: '88vh',
+	},
+};
 export const EditProfileModal = ({
 	handleClose,
 	handleSave,
@@ -57,12 +90,11 @@ export const EditProfileModal = ({
 		toast.success(<CustomToast title="Profile edited successfully" />);
 		handleCloseModal();
 	};
-
+	const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
 	const handleCloseModal = () => {
 		handleClose();
 		formik.resetForm();
 	};
-
 	return (
 		<>
 			<Modal
@@ -71,21 +103,7 @@ export const EditProfileModal = ({
 				aria-labelledby="modal-modal-title"
 				aria-describedby="modal-modal-description"
 			>
-				<Box
-					sx={{
-						position: 'absolute',
-						top: '50%',
-						left: '50%',
-						transform: 'translate(-50%, -50%)',
-						width: '800px',
-						bgcolor: 'background.paper',
-						boxShadow: 24,
-						p: 4,
-						borderRadius: '10px',
-						border: '3px solid #000',
-						overflow: 'hidden',
-					}}
-				>
+				<Box sx={[styles.profileForm, mdScreen ? styles.profileFormMd : null]}>
 					<Stack direction="row" justifyContent="space-between">
 						<Typography variant="h4" fontWeight="bold">
 							Edit Profile
@@ -108,7 +126,7 @@ export const EditProfileModal = ({
 							columnSpacing="60px"
 							rowSpacing="20px"
 						>
-							<Grid item xs={6}>
+							<Grid item xs={12} sm={6}>
 								<CustomTextField
 									value={formik.values.firstName}
 									id="firstName"
@@ -124,7 +142,7 @@ export const EditProfileModal = ({
 									}
 								/>
 							</Grid>
-							<Grid item xs={6}>
+							<Grid item xs={12} sm={6}>
 								<CustomTextField
 									value={formik.values.lastName}
 									id="lastName"
@@ -138,7 +156,7 @@ export const EditProfileModal = ({
 									helperText={formik.touched.lastName && formik.errors.lastName}
 								/>
 							</Grid>
-							<Grid item xs={6}>
+							<Grid item xs={12} sm={6}>
 								<CustomTextField
 									value={formik.values.email}
 									id="email"
@@ -150,7 +168,7 @@ export const EditProfileModal = ({
 									helperText={formik.touched.email && formik.errors.email}
 								/>
 							</Grid>
-							<Grid item xs={6}>
+							<Grid item xs={12} sm={6}>
 								<CustomTextField
 									value={formik.values.phoneNumber}
 									id="phoneNumber"
@@ -167,7 +185,7 @@ export const EditProfileModal = ({
 									}
 								/>
 							</Grid>
-							<Grid item xs={6}>
+							<Grid item xs={12} sm={6}>
 								<CustomSelect
 									onChange={(e: { label: string; value: string }) => {
 										formik.setFieldValue('role', e);
@@ -180,7 +198,7 @@ export const EditProfileModal = ({
 									helperText={formik.touched.role && formik.errors.role?.label}
 								/>
 							</Grid>
-							<Grid item xs={6}>
+							<Grid item xs={12} sm={6}>
 								<CustomSelect
 									onChange={(e: { label: string; value: string }) => {
 										formik.setFieldValue('currentLevel', e);
@@ -199,7 +217,7 @@ export const EditProfileModal = ({
 									}
 								/>
 							</Grid>
-							<Grid item xs={6}>
+							<Grid item xs={12} sm={6}>
 								<CustomTextField
 									value={formik.values.GPA}
 									id="GPA"
@@ -211,7 +229,7 @@ export const EditProfileModal = ({
 									helperText={formik.touched.GPA && formik.errors.GPA}
 								/>
 							</Grid>
-							<Grid item xs={6}>
+							<Grid item xs={12} sm={6}>
 								<CustomTextField
 									value={formik.values.creditHours}
 									id="creditHours"

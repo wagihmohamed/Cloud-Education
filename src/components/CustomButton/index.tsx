@@ -14,6 +14,7 @@ interface CustomButtonProps extends ButtonProps {
 	mb?: number | string;
 	ml?: number | string;
 	mr?: number | string;
+	m?: number | string;
 	active?: boolean;
 	warning?: boolean;
 	bgColor?: string;
@@ -29,6 +30,7 @@ export const CustomButton = ({
 	pr,
 	mt,
 	mb,
+	m,
 	ml,
 	mr,
 	active,
@@ -50,6 +52,7 @@ export const CustomButton = ({
 						textDecoration: 'none',
 						mx,
 						px,
+						m,
 						width,
 						pl,
 						pr,
