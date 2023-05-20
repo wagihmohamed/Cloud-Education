@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Grid, Modal, Stack, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
@@ -9,7 +8,6 @@ import {
 	CustomToast,
 } from 'components';
 import { allCourses, coursesCategoryOptions, courseStatus } from 'mockup';
-import { CoursesBody } from 'models';
 import { toast } from 'react-toastify';
 import {
 	addCourseInitialValues,
@@ -20,7 +18,6 @@ import { useAddCourse } from 'hooks';
 interface AddCourseModalProps {
 	open: boolean;
 	handleClose: () => void;
-	setCourses: React.Dispatch<React.SetStateAction<CoursesBody[]>>;
 }
 
 export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {

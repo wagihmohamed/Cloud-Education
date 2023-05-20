@@ -6,6 +6,7 @@ import { useCoursesList } from './useCoursesList';
 import { useAddCourse } from './useAddCourse';
 import { useGetExam } from './useGetExam';
 import { useEditCourse } from './useEditCourse';
+import { useDeleteCourse } from './useDeleteCourse';
 
 export {
 	useAddUser,
@@ -16,4 +17,5 @@ export {
 	useAddCourse,
 	useGetExam,
 	useEditCourse,
+	useDeleteCourse,
 };

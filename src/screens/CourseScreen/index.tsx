@@ -34,10 +34,9 @@ export const CourseScreen = () => {
 					mr: 2,
 				}}
 			>
-				<Grid columnSpacing="10px" container>
+				<Grid columnSpacing="10px" container spacing={4}>
 					<Grid
 						mt={3}
-						spacing={4}
 						sx={{
 							border: '3px solid #000',
 							height: 'max-content',
@@ -122,11 +121,10 @@ export const CourseScreen = () => {
 							))}
 						</Box>
 					</Grid>
-					<Grid mt={2} spacing={4} item xs={12} md={8}>
+					<Grid mt={2} item xs={12} md={8}>
 						{editorJs}
 					</Grid>
 					<Grid
-						spacing={4}
 						mt={3}
 						sx={{
 							border: '3px solid #000',
