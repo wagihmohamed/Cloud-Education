@@ -12,6 +12,8 @@ type CustomTextFieldProps = {
 	mr?: number;
 	width?: number;
 	placeholder?: string;
+	bgcolor?: string;
+	borderColor?: string;
 } & TextFieldProps;
 
 export const CustomTextField = ({
@@ -25,6 +27,8 @@ export const CustomTextField = ({
 	mr,
 	width,
 	placeholder,
+	bgcolor,
+	borderColor,
 	...props
 }: CustomTextFieldProps) => {
 	return (
@@ -47,10 +51,15 @@ export const CustomTextField = ({
 				size="small"
 				placeholder={placeholder ?? label}
 				{...props}
-				inputProps={{ style: { fontSize: 20 } }}
+				inputProps={{
+					style: {
+						fontSize: 20,
+					},
+				}}
 				sx={{
 					marginTop: '6px',
-					bgcolor: 'white',
+					bgcolor: bgcolor || 'white',
+					border: borderColor && `3px solid ${borderColor}`,
 					'& legend': { display: 'none' },
 					'& fieldset': { top: 0 },
 					mx,

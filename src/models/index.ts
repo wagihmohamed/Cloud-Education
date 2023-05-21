@@ -129,13 +129,28 @@ export interface ExamError {
 }
 
 export type QuestionType = 'essay' | 'mcq';
+export interface MCQType {
+	answer: string;
+	isCorrect: boolean;
+}
 
 export interface ExamInitialValues {
 	exam: [
 		{
 			questionTitle: '';
+			essayAnswer: '';
 			questionType: QuestionType;
-			questionAnswers?: string[];
+			questionAnswers?: MCQType[];
 		}
 	];
+}
+
+export interface ExamErrorType {
+	questionTitle: string;
+	essayAnswer?: string;
+	questionType: string;
+	questionAnswers?: {
+		answer?: string;
+		isCorrect?: boolean;
+	}[];
 }
