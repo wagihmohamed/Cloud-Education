@@ -1,13 +1,22 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-console */
 import {
 	CustomButton,
 	CustomLayout,
 	CustomSelect,
 	CustomTextField,
 } from 'components';
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { Formik, Form, FieldArray } from 'formik';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import {
+	CheckCircleOutlineOutlined,
+	CloseOutlined,
+	DoDisturbOnOutlined,
+} from '@mui/icons-material';
 import { addExamInitialValues, addExamValidationSchema } from './formikUtils';
+import { ExamErrorType } from 'models';
+import { toast } from 'react-toastify';
 
 export const CreateExamScreen = () => {
 	return (
@@ -23,9 +32,7 @@ export const CreateExamScreen = () => {
 				<Formik
 					initialValues={addExamInitialValues}
 					validationSchema={addExamValidationSchema}
-					onSubmit={async () => {
-						await new Promise((r) => setTimeout(r, 500));
-					}}
+					onSubmit={() => {}}
 					validateOnMount={true}
 					validateOnChange={true}
 				>
@@ -36,6 +43,8 @@ export const CreateExamScreen = () => {
 						errors,
 						setFieldValue,
 						isValid,
+						isSubmitting,
+						resetForm,
 					}) => (
 						<Form>
 							<FieldArray name="exam">
@@ -67,7 +76,7 @@ export const CreateExamScreen = () => {
 																top: '0px',
 															}}
 														>
-															<CloseOutlinedIcon
+															<CloseOutlined
 																onClick={() => remove(index)}
 																sx={{
 																	width: '30px',
@@ -80,154 +89,315 @@ export const CreateExamScreen = () => {
 														</Box>
 														<CustomTextField
 															name={`exam.${index}.questionTitle`}
+															value={values.exam[index].questionTitle}
 															placeholder="Question Title"
 															type="text"
 															withLabel
 															label={`Question ${index + 1}`}
 															onChange={handleChange}
-															error={Boolean(
-																!values.exam[index].questionTitle &&
-																	touched.exam &&
-																	errors.exam
-															)}
+															error={
+																touched.exam?.[index]?.questionTitle &&
+																Boolean(
+																	(errors.exam?.[index] as ExamErrorType)
+																		?.questionTitle
+																)
+															}
 															helperText={
-																!values.exam[index].questionTitle &&
-																touched.exam &&
-																errors.exam &&
-																'Question Title is required'
+																touched.exam?.[index]?.questionTitle &&
+																(errors.exam?.[index] as ExamErrorType)
+																	?.questionTitle
 															}
 														/>
-													</Stack>
-													<div>
-														<CustomSelect
-															options={[
-																{ value: 'essay', label: 'Essay' },
-																{ value: 'mcq', label: 'MCQ' },
-															]}
-															withLabel
-															label="Question Type"
-															value={{
-																value: values.exam[index].questionType,
-																label: values.exam[index].questionType,
-															}}
-															name={`exam.${index}.questionType`}
-															placeholder="Question Type"
-															onChange={(e: {
-																label: string;
-																value: string;
-															}) => {
-																if (e.value === 'mcq') {
-																	setFieldValue(
-																		`exam.${index}.questionAnswers`,
-																		['', '', '']
-																	);
-																	setFieldValue(
-																		`exam.${index}.questionType`,
-																		e.value
-																	);
-																} else if (e.value === 'essay') {
-																	setFieldValue(
-																		`exam.${index}.questionType`,
-																		e.value
-																	);
-																	setFieldValue(
-																		`exam.${index}.questionAnswers`,
-																		undefined
-																	);
+														<div>
+															<CustomSelect
+																options={[
+																	{ value: 'essay', label: 'Essay' },
+																	{ value: 'mcq', label: 'MCQ' },
+																]}
+																withLabel
+																label="Question Type"
+																value={{
+																	value: values.exam[index].questionType,
+																	label: values.exam[index].questionType,
+																}}
+																name={`exam.${index}.questionType`}
+																placeholder="Question Type"
+																onChange={(e: {
+																	label: string;
+																	value: string;
+																}) => {
+																	if (e.value === 'mcq') {
+																		setFieldValue(
+																			`exam.${index}.essayAnswer`,
+																			undefined
+																		);
+																		setFieldValue(
+																			`exam.${index}.questionAnswers`,
+																			[
+																				{
+																					answer: '',
+																					isCorrect: false,
+																				},
+																				{
+																					answer: '',
+																					isCorrect: false,
+																				},
+																				{
+																					answer: '',
+																					isCorrect: false,
+																				},
+																			]
+																		);
+																		setFieldValue(
+																			`exam.${index}.questionType`,
+																			e.value
+																		);
+																	} else if (e.value === 'essay') {
+																		setFieldValue(
+																			`exam.${index}.questionType`,
+																			e.value
+																		);
+																		setFieldValue(
+																			`exam.${index}.questionAnswers`,
+																			undefined
+																		);
+																		setFieldValue(
+																			`exam.${index}.essayAnswer`,
+																			''
+																		);
+																	}
+																}}
+															/>
+														</div>
+														{values.exam[index].questionType === 'essay' && (
+															<CustomTextField
+																name={`exam.${index}.essayAnswer`}
+																value={values.exam[index].essayAnswer}
+																placeholder="Essay Answer"
+																type="text"
+																withLabel
+																label={`Essay Answer ${index + 1}`}
+																onChange={handleChange}
+																error={
+																	touched.exam?.[index]?.essayAnswer &&
+																	Boolean(
+																		(errors.exam?.[index] as ExamErrorType)
+																			?.essayAnswer
+																	)
 																}
-															}}
-														/>
-													</div>
-
+																helperText={
+																	touched.exam?.[index]?.essayAnswer &&
+																	(errors.exam?.[index] as ExamErrorType)
+																		?.essayAnswer
+																}
+															/>
+														)}
+													</Stack>
 													{values.exam[index].questionType === 'mcq' && (
-														<Stack>
-															<label htmlFor={`exam.${index}.questionAnswers`}>
-																Question {index + 1} Answers
-															</label>
-															<FieldArray
-																name={`exam.${index}.questionAnswers`}
+														<>
+															<Typography
+																sx={{
+																	textAlign: 'center',
+																	mt: 2,
+																	mb: 1,
+																	color: '#f44336',
+																	fontSize: '1.2rem',
+																}}
 															>
-																{({
-																	remove: removeAnswer,
-																	push: pushAnswer,
-																}) => (
-																	<Stack display="flex" flexBasis="column">
-																		{(values.exam[index].questionAnswers ?? [])
-																			.length > 0 &&
-																			(
+																{(touched.exam?.[index]?.questionAnswers &&
+																	(errors.exam?.[index] as ExamErrorType)
+																		?.questionAnswers?.[0]?.answer) ||
+																	(
+																		errors.exam?.[index] as ExamErrorType
+																	)?.questionAnswers?.toString()}
+															</Typography>
+															<Stack>
+																<label
+																	htmlFor={`exam.${index}.questionAnswers`}
+																>
+																	Question {index + 1} Answers
+																</label>
+																<FieldArray
+																	name={`exam.${index}.questionAnswers`}
+																>
+																	{({
+																		remove: removeAnswer,
+																		push: pushAnswer,
+																	}) => (
+																		<Stack display="flex" flexBasis="column">
+																			{(
 																				values.exam[index].questionAnswers ?? []
-																			).map((answer, answerIndex) => (
-																				<Box
-																					sx={{
-																						display: 'flex',
-																						justifyContent: 'space-between',
-																						alignItems: 'center',
-																						mb: 2,
-																					}}
-																					key={answerIndex}
-																				>
-																					<Box width="99%">
-																						<CustomTextField
-																							name={`exam.${index}.questionAnswers.${answerIndex}`}
-																							placeholder={`Answer ${
-																								answerIndex + 1
-																							}`}
-																							type="text"
-																							withLabel
-																							label={`Answer ${
-																								answerIndex + 1
-																							}`}
-																							onChange={handleChange}
-																							fullWidth
-																							error={Boolean(
-																								!values.exam[index]
-																									?.questionAnswers?.[
-																									answerIndex
-																								] &&
-																									touched.exam &&
-																									errors.exam
-																							)}
-																							helperText={
-																								!values.exam[index]
-																									?.questionAnswers?.[
-																									answerIndex
-																								] &&
-																								touched.exam &&
-																								errors.exam &&
-																								'Answer is required'
+																			).length > 0 &&
+																				(
+																					values.exam[index].questionAnswers ??
+																					[]
+																				).map((answer, answerIndex) => (
+																					<Box
+																						sx={{
+																							display: 'flex',
+																							justifyContent: 'space-between',
+																							alignItems: 'center',
+																							mb: 2,
+																						}}
+																						key={answerIndex}
+																					>
+																						<Box width="99%">
+																							<CustomTextField
+																								name={`exam.${index}.questionAnswers.${answerIndex}`}
+																								placeholder={`Answer ${
+																									answerIndex + 1
+																								}`}
+																								type="text"
+																								withLabel
+																								label={`Answer ${
+																									answerIndex + 1
+																								}`}
+																								onChange={(e) => {
+																									console.log(errors);
+
+																									setFieldValue(
+																										`exam.${index}.questionAnswers.${answerIndex}.answer`,
+																										e.target.value
+																									);
+																								}}
+																								fullWidth
+																								error={
+																									touched.exam?.[index]
+																										?.questionAnswers &&
+																									Boolean(
+																										(
+																											errors.exam?.[
+																												index
+																											] as ExamErrorType
+																										)?.questionAnswers?.[
+																											answerIndex
+																										]?.answer ||
+																											(
+																												errors.exam?.[
+																													index
+																												] as ExamErrorType
+																											)?.questionAnswers?.[
+																												answerIndex
+																											]?.isCorrect
+																									)
+																								}
+																								helperText={
+																									(touched.exam?.[index]
+																										?.questionAnswers &&
+																										(
+																											errors.exam?.[
+																												index
+																											] as ExamErrorType
+																										)?.questionAnswers?.[
+																											answerIndex
+																										]?.answer) ||
+																									(
+																										errors.exam?.[
+																											index
+																										] as ExamErrorType
+																									)?.questionAnswers?.[
+																										answerIndex
+																									]?.isCorrect
+																								}
+																							/>
+																						</Box>
+																						{values.exam[index]
+																							?.questionAnswers?.[answerIndex]
+																							.isCorrect ? (
+																							<DoDisturbOnOutlined
+																								onClick={() =>
+																									setFieldValue(
+																										`exam.${index}.questionAnswers.${answerIndex}.isCorrect`,
+																										false
+																									)
+																								}
+																								sx={{
+																									width: '30px',
+																									height: '30px',
+																									cursor: 'pointer',
+																									mt: 3,
+																									ml: 1,
+																								}}
+																							/>
+																						) : (
+																							<CheckCircleOutlineOutlined
+																								onClick={() =>
+																									setFieldValue(
+																										'exam',
+																										(values.exam ?? []).map(
+																											(ans, ansIdx) => ({
+																												...ans,
+																												questionAnswers:
+																													ansIdx === index
+																														? ans.questionAnswers?.map(
+																																(
+																																	mcqAns,
+																																	mcaAnsIdx
+																																) => ({
+																																	...mcqAns,
+																																	isCorrect:
+																																		mcaAnsIdx ===
+																																		answerIndex
+																																			? true
+																																			: false,
+																																})
+																														  )
+																														: ans.questionAnswers?.map(
+																																(mcqAns) => ({
+																																	...mcqAns,
+																																	isCorrect:
+																																		false,
+																																})
+																														  ),
+																											})
+																										)
+																									)
+																								}
+																								sx={{
+																									width: '30px',
+																									height: '30px',
+																									cursor: 'pointer',
+																									mt: 3,
+																									ml: 1,
+																								}}
+																							/>
+																						)}
+																						<CloseOutlined
+																							onClick={() =>
+																								removeAnswer(answerIndex)
 																							}
+																							sx={{
+																								width: '30px',
+																								height: '30px',
+																								cursor: 'pointer',
+																								mt: 3,
+																								ml: 1,
+																							}}
 																						/>
 																					</Box>
-																					<CloseOutlinedIcon
-																						onClick={() =>
-																							removeAnswer(answerIndex)
-																						}
-																						sx={{
-																							width: '30px',
-																							height: '30px',
-																							cursor: 'pointer',
-																							mt: 4,
-																							ml: 1,
-																						}}
-																					/>
-																				</Box>
-																			))}
-																		<CustomButton
-																			type="button"
-																			onClick={() => pushAnswer('')}
-																			sx={{
-																				mx: 'auto',
-																				maxWidth: '200px',
-																				mt: 3,
-																			}}
-																			fullWidth={false}
-																		>
-																			Add Answer
-																		</CustomButton>
-																	</Stack>
-																)}
-															</FieldArray>
-														</Stack>
+																				))}
+																			<CustomButton
+																				type="button"
+																				onClick={() =>
+																					pushAnswer({
+																						answer: '',
+																						isCorrect: false,
+																					})
+																				}
+																				sx={{
+																					mx: 'auto',
+																					maxWidth: '200px',
+																					mt: 3,
+																				}}
+																				fullWidth={false}
+																			>
+																				Add Answer
+																			</CustomButton>
+																		</Stack>
+																	)}
+																</FieldArray>
+															</Stack>
+														</>
 													)}
 												</Box>
 											))}
@@ -238,6 +408,7 @@ export const CreateExamScreen = () => {
 											onClick={() =>
 												push({
 													questionTitle: '',
+													essayAnswer: '',
 													questionType: 'essay',
 												})
 											}
@@ -249,12 +420,16 @@ export const CreateExamScreen = () => {
 								)}
 							</FieldArray>
 							<CustomButton
-								onClick={() => {}}
+								onClick={async () => {
+									if (!isValid || !values.exam.length || isSubmitting) return;
+									await new Promise((r) => setTimeout(r, 1500));
+									toast.success('Exam Added Successfully');
+									resetForm();
+								}}
 								type="submit"
 								fullWidth
 								mt={2}
 								py={2}
-								disabled={!isValid || !values.exam.length}
 								mb={6}
 							>
 								Submit
