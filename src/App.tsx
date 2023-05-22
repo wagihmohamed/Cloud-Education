@@ -1,6 +1,6 @@
 import { NoAuth, RequireAuth } from 'components';
-import { useValidateToken } from 'hooks';
-import { Routes, Route } from 'react-router-dom';
+import { useGetOrganizationName, useValidateToken } from 'hooks';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import {
 	HomeScreen,
 	LoginScreen,
@@ -26,6 +26,7 @@ import { useAuth } from 'zustandStore';
 function App() {
 	const { isLoading } = useValidateToken();
 	const { token } = useAuth();
+	const { organizationName } = useGetOrganizationName();
 	const withPrimatyColor = localStorage.getItem('primaryColor');
 	const withTextColor = localStorage.getItem('textColor');
 	setAppColor(withPrimatyColor, withTextColor);
@@ -46,34 +47,51 @@ function App() {
 	}
 
 	return (
-		<div className="App">
-			<Routes>
-				<Route element={<NoAuth />}>
-					<Route path="/login" element={<LoginScreen />} />
-					<Route path="/register" element={<RegisterScreen />} />
-					<Route
-						path="/organization-register"
-						element={<OrganizationRegisterScreen />}
-					/>
-					<Route path="/" element={<LandingPage />} />
-					<Route path="*" element={<ErrorPage />} />
-				</Route>
-				<Route element={<RequireAuth />}>
-					<Route path="/home" element={<HomeScreen />} />
-					<Route path="/courses" element={<CoursesScreen />} />
-					<Route path="/courses/:courseId" element={<CourseScreen />} />
-					<Route path="/leaderboard" element={<LeaderboardScreen />} />
-					<Route path="/messages" element={<MessagesScreen />} />
-					<Route path="/users" element={<UsersScreen />} />
-					<Route path="/profile" element={<ProfileScreen />} />
-					<Route path="/students-data" element={<StudentsData />} />
-					<Route path="/exams" element={<ExamsScreen />} />
-					<Route path="/exam/:examId" element={<ExamScreen />} />
-					<Route path="/create-exam" element={<CreateExamScreen />} />
-					<Route path="*" element={<ErrorPage />} />
-				</Route>
-			</Routes>
-		</div>
+		<Routes>
+			<Route element={<NoAuth />}>
+				<Route path="/:organizationId/login" element={<LoginScreen />} />
+				<Route path="/register" element={<RegisterScreen />} />
+				<Route
+					path="/organization-register"
+					element={<OrganizationRegisterScreen />}
+				/>
+				<Route path="/" element={<LandingPage />} />
+				<Route path="*" element={<ErrorPage />} />
+			</Route>
+
+			<Route element={<RequireAuth />}>
+				<Route
+					path="/:organizationId"
+					element={<Navigate to={`/${organizationName}/home`} replace />}
+				/>
+				<Route path="/:organizationId/home" element={<HomeScreen />} />
+				<Route path="/:organizationId/courses" element={<CoursesScreen />} />
+				<Route
+					path="/:organizationId/courses/:courseId"
+					element={<CourseScreen />}
+				/>
+				<Route
+					path="/:organizationId/leaderboard"
+					element={<LeaderboardScreen />}
+				/>
+				<Route path="/:organizationId/messages" element={<MessagesScreen />} />
+				<Route path="/:organizationId/users" element={<UsersScreen />} />
+				<Route path="/:organizationId/profile" element={<ProfileScreen />} />
+				<Route
+					path="/:organizationId/students-data"
+					element={<StudentsData />}
+				/>
+				<Route path="/:organizationId/exams" element={<ExamsScreen />} />
+				<Route path="/:organizationId/exam/:examId" element={<ExamScreen />} />
+				<Route
+					path="/:organizationId/create-exam"
+					element={<CreateExamScreen />}
+				/>
+				<Route path="*/404" element={<ErrorPage />} />
+				<Route path="*" element={<ErrorPage />} />
+			</Route>
+			<Route path="*" element={<ErrorPage />} />
+		</Routes>
 	);
 }
 

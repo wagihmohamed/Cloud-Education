@@ -7,7 +7,7 @@ import {
 	CustomToast,
 } from 'components';
 import * as Yup from 'yup';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { orginizationLogin } from 'services/auth';
 import { useAuth } from 'zustandStore';
@@ -18,6 +18,7 @@ import { ApiError } from 'models';
 export const LoginScreen = () => {
 	const navigate = useNavigate();
 	const { setToken } = useAuth();
+	const { organizationId } = useParams();
 	const { mutate: login, isLoading } = useMutation({
 		mutationFn: () => {
 			return orginizationLogin('BFCAI', {
@@ -26,7 +27,7 @@ export const LoginScreen = () => {
 			});
 		},
 		onSuccess: ({ token }) => {
-			navigate('/home', { replace: true });
+			navigate(`/${organizationId}/home`, { replace: true });
 			setToken(token);
 			toast.success(<CustomToast title="Successfuly Login" />);
 		},

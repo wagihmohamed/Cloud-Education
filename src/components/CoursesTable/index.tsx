@@ -82,7 +82,7 @@ export const CoursesTable = ({
 
 	const handleNavigate = (id: string) => {
 		if (disableActions) return;
-		navigate(`/courses/${id}`);
+		navigate(`${id}`);
 	};
 
 	const handleShowEditCourse = (course: CoursesBody) => {

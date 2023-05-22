@@ -23,7 +23,7 @@ const styles = {
 export const LandingPageNavigation = () => {
 	const navItems = [
 		{ text: 'Sign Up', path: '/register' },
-		{ text: 'Log in', path: '/login' },
+		// { text: 'Log in', path: '/login' },
 	];
 
 	return (

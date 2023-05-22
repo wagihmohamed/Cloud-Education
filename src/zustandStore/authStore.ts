@@ -20,10 +20,12 @@ const useAuthStore = create<AuthStore>()(
 				set({ token });
 			},
 			logout: () => {
+				const organizationId = localStorage.getItem('organizationId');
 				localStorage.removeItem('token');
 				set({ token: null });
 				queryClient.clear();
-				router.navigate('/login');
+				router.navigate(`/${organizationId}/login`);
+				localStorage.removeItem('organizationId');
 			},
 		}),
 		{
