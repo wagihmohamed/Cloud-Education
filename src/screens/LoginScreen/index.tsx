@@ -14,9 +14,11 @@ import { useAuth } from 'zustandStore';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 import { ApiError } from 'models';
+import { useGetOrganizationName } from 'hooks';
 
 export const LoginScreen = () => {
 	const navigate = useNavigate();
+	const { organizationName } = useGetOrganizationName();
 	const { setToken } = useAuth();
 	const { organizationId } = useParams();
 	const { mutate: login, isLoading } = useMutation({
@@ -107,7 +109,8 @@ export const LoginScreen = () => {
 			</CustomAuthContainer>
 			<CustomAuthContainer mt={10} px={2} py={2}>
 				<Typography variant="h5" textAlign="center">
-					Don't have an account? <Link to="/register">Register</Link>
+					Don't have an account?
+					<Link to={`/${organizationName}/register`}> Register</Link>
 				</Typography>
 			</CustomAuthContainer>
 		</Box>

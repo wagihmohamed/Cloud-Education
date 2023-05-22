@@ -50,7 +50,7 @@ function App() {
 		<Routes>
 			<Route element={<NoAuth />}>
 				<Route path="/:organizationId/login" element={<LoginScreen />} />
-				<Route path="/register" element={<RegisterScreen />} />
+				<Route path="/:organizationId/register" element={<RegisterScreen />} />
 				<Route
 					path="/organization-register"
 					element={<OrganizationRegisterScreen />}

@@ -22,7 +22,7 @@ const styles = {
 
 export const LandingPageNavigation = () => {
 	const navItems = [
-		{ text: 'Sign Up', path: '/register' },
+		{ text: 'Create Organizataion', path: '/organization-register' },
 		// { text: 'Log in', path: '/login' },
 	];
 

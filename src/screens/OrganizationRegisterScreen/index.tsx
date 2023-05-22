@@ -7,66 +7,17 @@ import {
 	CustomTextField,
 } from 'components';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { phoneRegExp } from 'utlis/phoneRegExp';
-import { Link } from 'react-router-dom';
 import Select from 'react-select';
 import { countriesOptions, organizationOptions } from 'mockup';
+import {
+	organizationRegisterInitialValues,
+	organizationRegisterValidationSchema,
+} from './formikUtlis';
 
 export const OrganizationRegisterScreen = () => {
 	const orgRegisterFormik = useFormik({
-		initialValues: {
-			name: '',
-			type: {
-				value: '',
-				label: '',
-			},
-			orgDomain: '',
-			orgDomainName: '',
-			orgPhone: '',
-			country: {
-				value: '',
-				label: '',
-			},
-			orgAddress: '',
-			adminFirstName: '',
-			adminLastName: '',
-			adminEmail: '',
-			adminPhone: '',
-			adminPassword: '',
-			adminConfirmPassword: '',
-		},
-		validationSchema: Yup.object({
-			name: Yup.string().required('Required'),
-			type: Yup.object().shape({
-				value: Yup.string().required('Required'),
-				label: Yup.string().required('Required'),
-			}),
-			orgDomain: Yup.string().required('Required'),
-			orgDomainName: Yup.string().required('Required'),
-			orgPhone: Yup.string()
-				.matches(phoneRegExp, 'Phone number is not valid')
-				.required('Required'),
-			country: Yup.object().shape({
-				value: Yup.string().required('Required'),
-				label: Yup.string().required('Required'),
-			}),
-			orgAddress: Yup.string().required('Required'),
-			adminFirstName: Yup.string().required('Required'),
-			adminLastName: Yup.string().required('Required'),
-			adminEmail: Yup.string()
-				.email('Invalid email address')
-				.required('Required'),
-			adminPhone: Yup.string()
-				.matches(phoneRegExp, 'Phone number is not valid')
-				.required('Required'),
-			adminPassword: Yup.string()
-				.min(4, 'Password must be +4')
-				.required('Required'),
-			adminConfirmPassword: Yup.string()
-				.oneOf([Yup.ref('adminPassword'), undefined], 'Passwords must match')
-				.required('Required'),
-		}),
+		initialValues: organizationRegisterInitialValues,
+		validationSchema: organizationRegisterValidationSchema,
 		onSubmit: () => {},
 	});
 
@@ -370,12 +321,6 @@ export const OrganizationRegisterScreen = () => {
 						</Grid>
 					</Grid>
 				</form>
-			</CustomAuthContainer>
-			<CustomAuthContainer mt={2} px={2} py={1}>
-				<Typography variant="h5" textAlign="center">
-					Already have an account?
-					<Link to="/"> Login</Link>
-				</Typography>
 			</CustomAuthContainer>
 		</Box>
 	);
