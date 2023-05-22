@@ -1,31 +1,15 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { CustomAuthContainer, CustomButton, CustomTextField } from 'components';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { phoneRegExp } from 'utlis/phoneRegExp';
-import { Link } from 'react-router-dom';
+import {
+	registerInistialValues,
+	registerValidationSchema,
+} from './formikUtlis';
+
 export const RegisterScreen = () => {
 	const registerFormik = useFormik({
-		initialValues: {
-			firstName: '',
-			lastName: '',
-			email: '',
-			phoneNumber: '',
-			password: '',
-			confirmPassword: '',
-		},
-		validationSchema: Yup.object({
-			firstName: Yup.string().required('Required'),
-			lastName: Yup.string().required('Required'),
-			email: Yup.string().email('Invalid email address').required('Required'),
-			phoneNumber: Yup.string()
-				.matches(phoneRegExp, 'Phone number is not valid')
-				.required('Required'),
-			password: Yup.string().min(4, 'Password must be +4').required('Required'),
-			confirmPassword: Yup.string()
-				.oneOf([Yup.ref('password'), undefined], 'Passwords must match')
-				.required('Required'),
-		}),
+		initialValues: registerInistialValues,
+		validationSchema: registerValidationSchema,
 		onSubmit: () => {},
 	});
 
@@ -159,12 +143,6 @@ export const RegisterScreen = () => {
 						</Grid>
 					</Grid>
 				</form>
-			</CustomAuthContainer>
-			<CustomAuthContainer mt={10} px={2} py={2}>
-				<Typography variant="h5" textAlign="center">
-					Are you an organization?
-					<Link to="/organization-register"> Register as Organization</Link>
-				</Typography>
 			</CustomAuthContainer>
 		</Box>
 	);

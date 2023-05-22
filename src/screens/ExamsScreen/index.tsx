@@ -13,12 +13,13 @@ import {
 	Box,
 	useMediaQuery,
 } from '@mui/material';
-import { useExamsList } from 'hooks';
+import { useExamsList, useGetOrganizationName } from 'hooks';
 import { isExamDisabled } from 'utlis';
 import { theme } from 'theme';
 
 export const ExamsScreen = () => {
 	const { data: exams = [], isLoading, isError } = useExamsList();
+	const { organizationName } = useGetOrganizationName();
 	const isSmScreen = useMediaQuery(theme.breakpoints.down('lg'));
 	return (
 		<CustomLayout>
@@ -84,7 +85,11 @@ export const ExamsScreen = () => {
 												</Box>
 												<CustomNavLink
 													disabled={isExamDisabled(exam)}
-													to={isExamDisabled(exam) ? '#' : `/exam/${exam.id}`}
+													to={
+														isExamDisabled(exam)
+															? '#'
+															: `/${organizationName}/exam/${exam.id}`
+													}
 													sx={{
 														bgcolor: '#000',
 														color: '#fff',

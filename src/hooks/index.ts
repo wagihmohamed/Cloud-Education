@@ -7,6 +7,7 @@ import { useAddCourse } from './useAddCourse';
 import { useGetExam } from './useGetExam';
 import { useEditCourse } from './useEditCourse';
 import { useDeleteCourse } from './useDeleteCourse';
+import { useGetOrganizationName } from './useGetOrganizationName';
 
 export {
 	useAddUser,
@@ -18,4 +19,5 @@ export {
 	useGetExam,
 	useEditCourse,
 	useDeleteCourse,
+	useGetOrganizationName,
 };

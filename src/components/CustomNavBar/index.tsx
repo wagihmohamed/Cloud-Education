@@ -1,6 +1,9 @@
 import { Box } from '@mui/material';
 import { CustomNavLink } from 'components';
+import { useParams } from 'react-router-dom';
+
 export const CustomNavBar = () => {
+	const { organizationId } = useParams();
 	return (
 		<Box
 			sx={[
@@ -29,18 +32,22 @@ export const CustomNavBar = () => {
 				},
 			]}
 		>
-			<CustomNavLink to="/home">Home</CustomNavLink>
-			<CustomNavLink to="/courses">Courses</CustomNavLink>
-			<CustomNavLink to="/leaderboard">Leaderboard</CustomNavLink>
-			<CustomNavLink to="/messages">Messages</CustomNavLink>
-			<CustomNavLink to="/users">Users</CustomNavLink>
-			<CustomNavLink to="/exams">Exams</CustomNavLink>
-			<CustomNavLink to="/create-exam">Create Exam</CustomNavLink>
-			<CustomNavLink isLast to="/students-data">
+			<CustomNavLink to={`/${organizationId}/home`}>Home</CustomNavLink>
+			<CustomNavLink to={`/${organizationId}/courses`}>Courses</CustomNavLink>
+			<CustomNavLink to={`/${organizationId}/leaderboard`}>
+				Leaderboard
+			</CustomNavLink>
+			<CustomNavLink to={`/${organizationId}/messages`}>Messages</CustomNavLink>
+			<CustomNavLink to={`/${organizationId}/users`}>Users</CustomNavLink>
+			<CustomNavLink to={`/${organizationId}/exams`}>Exams</CustomNavLink>
+			<CustomNavLink to={`/${organizationId}/create-exam`}>
+				Create Exam
+			</CustomNavLink>
+			<CustomNavLink isLast to={`/${organizationId}/students-data`}>
 				Download Students Data
 			</CustomNavLink>
 			<Box mt="auto">
-				<CustomNavLink isLast to="/profile">
+				<CustomNavLink isLast to={`/${organizationId}/profile`}>
 					Profile
 				</CustomNavLink>
 			</Box>
