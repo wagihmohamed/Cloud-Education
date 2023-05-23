@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Grid, Typography, Divider } from '@mui/material';
 import {
 	CustomAuthContainer,
@@ -13,12 +12,40 @@ import {
 	organizationRegisterInitialValues,
 	organizationRegisterValidationSchema,
 } from './formikUtlis';
+import { useRegisterOrganization } from 'hooks';
+import { useNavigate } from 'react-router-dom';
 
 export const OrganizationRegisterScreen = () => {
+	const navigation = useNavigate();
+	const { mutate, isLoading } = useRegisterOrganization({
+		onSuccess: () => {
+			navigation(`/${orgRegisterFormik.values.orgDomainName}/login`);
+		},
+	});
+
 	const orgRegisterFormik = useFormik({
 		initialValues: organizationRegisterInitialValues,
 		validationSchema: organizationRegisterValidationSchema,
-		onSubmit: () => {},
+		onSubmit: (values) => {
+			mutate({
+				organization: {
+					name: values.name,
+					address: values.orgAddress,
+					country: values.country?.value,
+					emailDomain: values.orgDomain,
+					officialPhoneNumber: '+' + values.orgPhone,
+					subdomain: values.orgDomainName,
+					type: values.type?.label,
+				},
+				organizationAdmin: {
+					email: values.adminEmail,
+					password: values.adminPassword,
+					firstName: values.adminFirstName,
+					lastName: values.adminLastName,
+					phoneNumber: values.adminPhone,
+				},
+			});
+		},
 	});
 
 	return (
@@ -58,7 +85,7 @@ export const OrganizationRegisterScreen = () => {
 						<Grid item xs={12} sm={6}>
 							<CustomSelect
 								options={organizationOptions}
-								onChange={(e: any) => {
+								onChange={(e: { value: string; label: string }) => {
 									orgRegisterFormik.setFieldValue('type', e);
 								}}
 								withLabel
@@ -315,7 +342,14 @@ export const OrganizationRegisterScreen = () => {
 						</Grid>
 
 						<Grid item xs={12}>
-							<CustomButton type="submit" fullWidth py="10px" mt={3}>
+							<CustomButton
+								loadingButton
+								loading={isLoading}
+								type="submit"
+								fullWidth
+								py="10px"
+								mt={3}
+							>
 								Sign Up
 							</CustomButton>
 						</Grid>

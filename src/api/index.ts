@@ -3,8 +3,10 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+// REACT_APP_PRODUCTION_SERVER
+// REACT_APP_DEV_SERVER
 export const api = axios.create({
-	baseURL: process.env.REACT_APP_DEV_SERVER,
+	baseURL: process.env.REACT_APP_PRODUCTION_SERVER,
 });
 
 api.interceptors.request.use(
