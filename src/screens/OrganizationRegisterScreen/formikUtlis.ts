@@ -42,9 +42,7 @@ export const organizationRegisterValidationSchema = Yup.object({
 	adminFirstName: Yup.string().required('Required'),
 	adminLastName: Yup.string().required('Required'),
 	adminEmail: Yup.string().email('Invalid email address').required('Required'),
-	adminPhone: Yup.string()
-		.matches(phoneRegExp, 'Phone number is not valid')
-		.required('Required'),
+	adminPhone: Yup.string().required('Required'),
 	adminPassword: Yup.string()
 		.min(4, 'Password must be +4')
 		.required('Required'),

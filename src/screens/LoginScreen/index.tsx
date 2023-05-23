@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Box, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import {
@@ -23,7 +24,7 @@ export const LoginScreen = () => {
 	const { organizationId } = useParams();
 	const { mutate: login, isLoading } = useMutation({
 		mutationFn: () => {
-			return orginizationLogin('BFCAI', {
+			return orginizationLogin(organizationName, {
 				email: loginFormik.values.email,
 				password: loginFormik.values.password,
 			});
@@ -31,6 +32,7 @@ export const LoginScreen = () => {
 		onSuccess: ({ token }) => {
 			navigate(`/${organizationId}/home`, { replace: true });
 			setToken(token);
+			console.log(token);
 			toast.success(<CustomToast title="Successfuly Login" />);
 		},
 		onError: (err: AxiosError<ApiError>) => {

@@ -154,3 +154,43 @@ export interface ExamErrorType {
 		isCorrect?: boolean;
 	}[];
 }
+
+export interface OrganizationRegisterPayload {
+	organization: Organization;
+	organizationAdmin: Admin;
+}
+
+export interface Organization {
+	name: string;
+	type: string;
+	emailDomain: string;
+	subdomain: string;
+	officialPhoneNumber: string;
+	country: string;
+	address: string;
+}
+
+export interface Admin {
+	email: string;
+	password: string;
+	firstName: string;
+	lastName: string;
+	phoneNumber: string;
+}
+
+export interface RegisterOrganizationResponse {
+	status: string;
+	data: Data;
+}
+
+export interface Data {
+	name: string;
+	type: string;
+	emailDomain: string;
+	subdomain: string;
+	officialPhoneNumber: string;
+	country: string;
+	address: string;
+	createdAt: string;
+	updatedAt: string;
+}
