@@ -1,5 +1,5 @@
 import { allCourses } from 'mockup';
-import { CoursesBody } from 'models';
+import { CourseItem } from 'models';
 import * as yup from 'yup';
 
 export const editCourseValidationSchema = yup.object({
@@ -26,22 +26,48 @@ export const editCourseValidationSchema = yup.object({
 	),
 });
 
-export const editCourseInitialValues = (editedCourse: CoursesBody) => {
+export const editCourseInitialValues = (editedCourse: CourseItem) => {
 	const selectedPreequisites = allCourses.filter((course) =>
 		editedCourse?.prerequisites?.includes(course.value)
 	);
 	return {
-		courseName: editedCourse?.courseName || '',
+		courseName: editedCourse?.name || '',
 		category: {
 			value: editedCourse?.category || '',
 			label: editedCourse?.category || '',
 		},
 		description: editedCourse?.description || '',
 		courseStatus: {
-			value: editedCourse?.status || '',
-			label: editedCourse?.status || '',
+			value: editedCourse?.isActive,
+			label: editedCourse?.isActive ? 'Active' : 'Inactive' || '',
 		},
-		courseCode: editedCourse?.courseCode || '',
+		courseCode: editedCourse?.code || '',
 		prerequisites: selectedPreequisites,
 	};
+};
+
+export const editCourseStyles = {
+	courseModal: {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		border: '3px solid #000',
+		bgcolor: 'background.paper',
+		borderRadius: '10px',
+		boxShadow: 24,
+		p: 4,
+		width: '800px',
+		maxHeight: '100vh',
+		maxWidth: '100%',
+		'&::-webkit-scrollbar': {
+			width: '0.4em',
+			background: 'transparent',
+		},
+	},
+	courseModalMd: {
+		width: '85%',
+		margin: 'auto',
+		maxHeight: '88vh',
+	},
 };

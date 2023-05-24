@@ -18,7 +18,7 @@ import {
 	Pagination,
 	TableContainer,
 } from '@mui/material';
-import { CoursesBody } from 'models';
+import { CourseItem } from 'models';
 import {
 	CustomTableCell,
 	CustomTableRow,
@@ -31,17 +31,24 @@ import { useCoursesList, useDeleteCourse, useEditCourse } from 'hooks';
 import { toast } from 'react-toastify';
 
 interface CoursesTableProps {
-	setSelectedCourse: React.Dispatch<React.SetStateAction<CoursesBody>>;
-	selectedCourse: CoursesBody;
+	setSelectedCourse: React.Dispatch<React.SetStateAction<CourseItem>>;
+	selectedCourse: CourseItem;
 }
 
 export const CoursesTable = ({
 	selectedCourse,
 	setSelectedCourse,
 }: CoursesTableProps) => {
-	const { data: courses = [], isLoading, isError } = useCoursesList();
+	const {
+		data: courses = {
+			data: [],
+			status: '',
+		},
+		isLoading,
+		isError,
+	} = useCoursesList();
 
-	const { mutate, isLoading: isEditing } = useEditCourse({
+	const { mutate: toggleCourseStatus, isLoading: isEditing } = useEditCourse({
 		onSuccess: () => {
 			toast.success(<CustomToast title="Status Changed successfully" />);
 		},
@@ -73,10 +80,11 @@ export const CoursesTable = ({
 		if (disableActions) return;
 		deleteCourse(id);
 	};
-	const handleToggleStatus = (editedCourse: CoursesBody) => {
-		mutate({
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const handleToggleStatus = (editedCourse: CourseItem) => {
+		toggleCourseStatus({
 			...editedCourse,
-			status: editedCourse.status === 'active' ? 'inactive' : 'active',
+			isActive: !editedCourse.isActive,
 		});
 	};
 
@@ -85,7 +93,7 @@ export const CoursesTable = ({
 		navigate(`${id}`);
 	};
 
-	const handleShowEditCourse = (course: CoursesBody) => {
+	const handleShowEditCourse = (course: CourseItem) => {
 		if (disableActions) return;
 		setSelectedCourse(course);
 		setIsEditCourseOpen(true);
@@ -139,29 +147,29 @@ export const CoursesTable = ({
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{courses.length === 0 ? (
+							{courses.data.length === 0 ? (
 								<TableRow>
-									<CustomTableCell colSpan={12}>
+									<CustomTableCell cursor="auto" colSpan={12}>
 										<Typography variant="h4" fontWeight="bold">
 											No courses found
 										</Typography>
 									</CustomTableCell>
 								</TableRow>
 							) : (
-								courses.map((row) => (
-									<CustomTableRow key={row.id}>
+								courses.data.map((row) => (
+									<CustomTableRow key={row.code}>
 										<CustomTableCell
 											cursor={disableActions ? 'not-allowed' : 'pointer'}
 											onClick={() => {
-												handleNavigate(row.id);
+												handleNavigate(row.code);
 											}}
 										>
-											{row.courseName}
+											{row.name}
 										</CustomTableCell>
 										<CustomTableCell
 											cursor={disableActions ? 'not-allowed' : 'pointer'}
 											onClick={() => {
-												handleNavigate(row.id);
+												handleNavigate(row.code);
 											}}
 										>
 											{row.category}
@@ -169,19 +177,19 @@ export const CoursesTable = ({
 										<CustomTableCell
 											cursor={disableActions ? 'not-allowed' : 'pointer'}
 											onClick={() => {
-												handleNavigate(row.id);
+												handleNavigate(row.code);
 											}}
 										>
-											{row.lastUpdated}
+											{row.updatedAt}
 										</CustomTableCell>
 										<CustomTableCell
 											cursor={disableActions ? 'not-allowed' : 'pointer'}
 											onClick={() => {
-												handleNavigate(row.id);
+												handleNavigate(row.code);
 											}}
-											color={row.status === 'active' ? '#6aa84f' : '#FF0000'}
+											color={row.isActive ? '#6aa84f' : '#FF0000'}
 										>
-											{row.status}
+											{row.isActive ? 'Active' : 'Inactive'}
 										</CustomTableCell>
 										<CustomTableCell width="200px">
 											<Stack direction="row" justifyContent="space-around">
@@ -201,11 +209,11 @@ export const CoursesTable = ({
 														height: '30px',
 														width: '30px',
 													}}
-													onClick={() => handleDeleteCourse(row.id)}
+													onClick={() => handleDeleteCourse(row.code)}
 													cursor={disableActions ? 'not-allowed' : 'pointer'}
 													color="primary"
 												/>
-												{row.status === 'active' ? (
+												{row.isActive === true ? (
 													<DoDisturbOnOutlined
 														sx={{
 															height: '30px',
@@ -250,7 +258,7 @@ export const CoursesTable = ({
 						</TableBody>
 					</Table>
 				</TableContainer>
-				{courses.length > 0 && (
+				{courses.data?.length > 0 && (
 					<Pagination
 						page={1}
 						count={10}

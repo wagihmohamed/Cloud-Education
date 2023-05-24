@@ -1,13 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { coursesBodyData } from 'mockup';
-import { sleep } from 'utlis';
+import { getListOfCourses } from 'services/getListOfCourses';
 
 export const useCoursesList = () => {
+	const organizationId = localStorage.getItem('organizationId') || '';
 	return useQuery({
 		queryKey: ['courses'],
-		queryFn: async () => {
-			await sleep(2000);
-			return coursesBodyData;
+		queryFn: () => {
+			return getListOfCourses(organizationId);
 		},
 	});
 };

@@ -17,6 +17,7 @@ import {
 import { allCourses, coursesCategoryOptions, courseStatus } from 'mockup';
 import { toast } from 'react-toastify';
 import {
+	addCoursStyles,
 	addCourseInitialValues,
 	addedCourseValidationSchema,
 } from './formikUtlis';
@@ -27,55 +28,9 @@ interface AddCourseModalProps {
 	open: boolean;
 	handleClose: () => void;
 }
-const styles = {
-	courseModal: {
-		position: 'absolute',
-		top: '50%',
-		left: '50%',
-		transform: 'translate(-50%, -50%)',
-		border: '3px solid #000',
-		bgcolor: 'background.paper',
-		borderRadius: '10px',
-		boxShadow: 24,
-		p: 4,
-		width: '800px',
-		maxHeight: '100vh',
-		overflow: 'auto',
-		maxWidth: '100%',
-		'&::-webkit-scrollbar': {
-			width: '0.4em',
-			background: 'transparent',
-		},
-	},
-	courseModalMd: {
-		width: '85%',
-		margin: 'auto',
-		maxHeight: '88vh',
-	},
-};
 
 export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
 	const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
-	const formik = useFormik({
-		initialValues: addCourseInitialValues,
-		validationSchema: addedCourseValidationSchema,
-		onSubmit: (values) => {
-			mutate({
-				id: Math.random().toString(),
-				courseName: values.courseName,
-				category: values.category.label,
-				description: values.description,
-				courseCode: values.courseCode,
-				prerequisites: values.prerequisites.map((prerequisite) => {
-					return prerequisite.value;
-				}),
-				categoryId: values.category.value,
-				lastUpdated: new Date().toLocaleDateString(),
-				status: values.courseStatus.value === 'active' ? 'active' : 'inactive',
-			});
-		},
-	});
-
 	const { mutate, isLoading } = useAddCourse({
 		onSuccess: () => {
 			toast.success(<CustomToast title="Course added successfully" />);
@@ -84,6 +39,24 @@ export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
 		},
 		onError: () => {
 			toast.error(<CustomToast title="Something went wrong" />);
+		},
+	});
+
+	const formik = useFormik({
+		initialValues: addCourseInitialValues,
+		validationSchema: addedCourseValidationSchema,
+		onSubmit: (values) => {
+			mutate({
+				category: values.category.value,
+				code: values.courseCode,
+				description: values.description,
+				name: values.courseName,
+				isActive: values.courseStatus.value,
+				prerequisites:
+					values.prerequisites.length === 1
+						? undefined
+						: values.prerequisites.map((item) => item.value),
+			});
 		},
 	});
 
@@ -99,7 +72,12 @@ export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
 			aria-labelledby="modal-modal-title"
 			aria-describedby="modal-modal-description"
 		>
-			<Box sx={[styles.courseModal, mdScreen ? styles.courseModalMd : null]}>
+			<Box
+				sx={[
+					addCoursStyles.courseModal,
+					mdScreen ? addCoursStyles.courseModalMd : null,
+				]}
+			>
 				<Stack direction="row" justifyContent="space-between">
 					<Typography variant="h4" fontWeight="bold">
 						Add Course
@@ -176,8 +154,22 @@ export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
 						<Grid item xs={12} sm={6}>
 							<CustomSelect
 								onChange={(e: { label: string; value: string }) => {
-									formik.setFieldValue('courseStatus', e);
+									formik.setFieldValue('courseStatus', {
+										label: e.label,
+										value: e.label === 'Active',
+									});
 								}}
+								value={
+									formik.values.courseStatus.value
+										? {
+												label: 'Active',
+												value: 'Active',
+										  }
+										: {
+												label: 'Inactive',
+												value: 'Inactive',
+										  }
+								}
 								options={courseStatus}
 								withLabel
 								label="Status"

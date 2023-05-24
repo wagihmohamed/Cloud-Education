@@ -212,3 +212,19 @@ export interface RegisterUserByOrgId {
 	status: string;
 	token: string;
 }
+
+export interface CourseItem {
+	name: string;
+	description: string;
+	code: string;
+	category: string;
+	isActive: boolean;
+	prerequisites?: string[];
+	createdAt?: string;
+	updatedAt?: string;
+}
+
+export interface CourseResponse {
+	status: string;
+	data: CourseItem[];
+}
