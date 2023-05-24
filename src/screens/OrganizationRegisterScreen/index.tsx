@@ -6,7 +6,6 @@ import {
 	CustomTextField,
 } from 'components';
 import { useFormik } from 'formik';
-import Select from 'react-select';
 import { countriesOptions, organizationOptions } from 'mockup';
 import {
 	organizationRegisterInitialValues,
@@ -152,6 +151,7 @@ export const OrganizationRegisterScreen = () => {
 								InputProps={{
 									startAdornment: (
 										<Typography
+											component="span"
 											variant="subtitle1"
 											fontSize="20px"
 											fontWeight="500"
@@ -172,9 +172,10 @@ export const OrganizationRegisterScreen = () => {
 							/>
 						</Grid>
 
-						<Grid item xs={12} sm={6}>
+						<Grid item xs={12} sm={6} mt={1.6}>
 							<Typography
 								variant="subtitle1"
+								component="span"
 								mt={1}
 								sx={{
 									color: '#000',
@@ -186,28 +187,20 @@ export const OrganizationRegisterScreen = () => {
 							>
 								Country
 							</Typography>
-							<Select
-								styles={{
-									control: (provided) => ({
-										...provided,
-										height: '45px',
-									}),
-								}}
+							<CustomSelect
 								options={countriesOptions}
-								onChange={(e) => {
+								onChange={(e: { value: string; label: string }) => {
 									orgRegisterFormik.setFieldValue('country', e);
 								}}
+								error={
+									orgRegisterFormik.touched.country &&
+									Boolean(orgRegisterFormik.errors.country)
+								}
+								helperText={
+									orgRegisterFormik.touched.country &&
+									orgRegisterFormik.errors.country?.label
+								}
 							/>
-							{orgRegisterFormik.errors?.country &&
-								orgRegisterFormik.touched?.country && (
-									<p className="select-error">
-										{orgRegisterFormik.errors.country.toString() && (
-											<p className="inner-select-error">
-												This Field Is Required
-											</p>
-										)}
-									</p>
-								)}
 						</Grid>
 						<Grid item xs={12}>
 							<CustomTextField
@@ -316,6 +309,7 @@ export const OrganizationRegisterScreen = () => {
 								InputProps={{
 									startAdornment: (
 										<Typography
+											component="span"
 											variant="subtitle1"
 											fontSize="20px"
 											fontWeight="500"
