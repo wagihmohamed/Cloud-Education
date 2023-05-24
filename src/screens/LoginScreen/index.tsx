@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { Box, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import {
@@ -13,7 +12,6 @@ import { useMutation } from '@tanstack/react-query';
 import { orginizationLogin } from 'services/auth';
 import { useAuth } from 'zustandStore';
 import { toast } from 'react-toastify';
-import { AxiosError } from 'axios';
 import { ApiError } from 'models';
 import { useGetOrganizationName } from 'hooks';
 
@@ -32,10 +30,9 @@ export const LoginScreen = () => {
 		onSuccess: ({ token }) => {
 			navigate(`/${organizationId}/home`, { replace: true });
 			setToken(token);
-			console.log(token);
 			toast.success(<CustomToast title="Successfuly Login" />);
 		},
-		onError: (err: AxiosError<ApiError>) => {
+		onError: (err: ApiError) => {
 			toast.error(
 				<CustomToast title="Error Login" message={err.response?.data.message} />
 			);

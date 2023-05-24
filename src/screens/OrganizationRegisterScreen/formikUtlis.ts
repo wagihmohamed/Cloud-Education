@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { phoneRegExp } from 'utlis/phoneRegExp';
 import * as Yup from 'yup';
 
@@ -32,7 +33,11 @@ export const organizationRegisterValidationSchema = Yup.object({
 	orgDomain: Yup.string().required('Required'),
 	orgDomainName: Yup.string().required('Required'),
 	orgPhone: Yup.string()
-		.matches(phoneRegExp, 'Phone number is not valid')
+		.test(
+			'length',
+			'Must be exactly 10 characters',
+			(val) => val?.length === 10
+		)
 		.required('Required'),
 	country: Yup.object().shape({
 		value: Yup.string().required('Required'),
@@ -42,7 +47,13 @@ export const organizationRegisterValidationSchema = Yup.object({
 	adminFirstName: Yup.string().required('Required'),
 	adminLastName: Yup.string().required('Required'),
 	adminEmail: Yup.string().email('Invalid email address').required('Required'),
-	adminPhone: Yup.string().required('Required'),
+	adminPhone: Yup.string()
+		.test(
+			'length',
+			'Must be exactly 10 characters',
+			(val) => val?.length === 10
+		)
+		.required('Required'),
 	adminPassword: Yup.string()
 		.min(4, 'Password must be +4')
 		.required('Required'),

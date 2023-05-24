@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { CustomAuthContainer, CustomButton, CustomTextField } from 'components';
 import { useFormik } from 'formik';
 import {
@@ -85,8 +85,25 @@ export const RegisterScreen = () => {
 								withLabel
 								label="Phone Number"
 								name="phoneNumber"
+								type="number"
 								value={registerFormik.values.phoneNumber}
 								onChange={registerFormik.handleChange}
+								onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+									e.target.value = Math.max(0, parseInt(e.target.value))
+										.toString()
+										.slice(0, 10);
+								}}
+								InputProps={{
+									startAdornment: (
+										<Typography
+											variant="subtitle1"
+											fontSize="20px"
+											fontWeight="500"
+										>
+											+20
+										</Typography>
+									),
+								}}
 								error={
 									registerFormik.touched.phoneNumber &&
 									Boolean(registerFormik.errors.phoneNumber)
@@ -95,7 +112,7 @@ export const RegisterScreen = () => {
 									registerFormik.touched.phoneNumber &&
 									registerFormik.errors.phoneNumber
 								}
-								placeholder="Enter Your Phone Number"
+								placeholder="  1234567890"
 							/>
 						</Grid>
 						<Grid item xs={12} sm={6}>

@@ -2,11 +2,10 @@ import { useMutation } from '@tanstack/react-query';
 import { sleep } from 'utlis';
 import { ApiError, User } from 'models';
 import { usersData } from 'mockup';
-import { AxiosError } from 'axios';
 
 export const useAddUser = (data: {
 	onSuccess: () => void;
-	onError: (error: AxiosError<ApiError>) => void;
+	onError: (error: ApiError) => void;
 }) => {
 	const { onSuccess, onError } = data;
 	return useMutation({
