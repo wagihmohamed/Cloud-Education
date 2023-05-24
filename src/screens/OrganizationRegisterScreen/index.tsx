@@ -81,7 +81,17 @@ export const OrganizationRegisterScreen = () => {
 								placeholder="Enter Organization Name"
 							/>
 						</Grid>
-						<Grid item xs={12} sm={6}>
+						<Grid
+							item
+							xs={12}
+							sm={6}
+							sx={{
+								display: 'flex',
+								flexDirection: 'column',
+								justifyContent: 'center',
+								alignItems: 'stretch',
+							}}
+						>
 							<CustomSelect
 								options={organizationOptions}
 								onChange={(e: { value: string; label: string }) => {
@@ -172,7 +182,17 @@ export const OrganizationRegisterScreen = () => {
 							/>
 						</Grid>
 
-						<Grid item xs={12} sm={6} mt={1.6}>
+						<Grid
+							item
+							xs={12}
+							sm={6}
+							sx={{
+								display: 'flex',
+								flexDirection: 'column',
+								justifyContent: 'center',
+								alignItems: 'stretch',
+							}}
+						>
 							<Typography
 								variant="subtitle1"
 								component="span"
