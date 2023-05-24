@@ -7,13 +7,13 @@ import {
 	CustomLayout,
 } from 'components';
 import AddIcon from '@mui/icons-material/Add';
-import { CoursesBody } from 'models';
+import { CourseItem } from 'models';
 import { theme } from 'theme';
 
 export const CoursesScreen = () => {
 	const [isAddCourseOpen, setIsAddCourseOpen] = useState(false);
-	const [selectedCourse, setSelectedCourse] = useState<CoursesBody>(
-		{} as CoursesBody
+	const [selectedCourse, setSelectedCourse] = useState<CourseItem>(
+		{} as CourseItem
 	);
 	return (
 		<>

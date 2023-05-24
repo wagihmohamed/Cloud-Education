@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-console */
 import {
 	CustomButton,
 	CustomLayout,
@@ -253,8 +251,6 @@ export const CreateExamScreen = () => {
 																									answerIndex + 1
 																								}`}
 																								onChange={(e) => {
-																									console.log(errors);
-
 																									setFieldValue(
 																										`exam.${index}.questionAnswers.${answerIndex}.answer`,
 																										e.target.value

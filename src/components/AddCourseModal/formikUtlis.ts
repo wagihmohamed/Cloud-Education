@@ -19,8 +19,8 @@ export const addedCourseValidationSchema = yup.object({
 	courseCode: yup.string().required('Course code is required'),
 	prerequisites: yup.array().of(
 		yup.object({
-			value: yup.string().required('Prerequisites is required'),
-			label: yup.string().required('Prerequisites is required'),
+			value: yup.string(),
+			label: yup.string(),
 		})
 	),
 });
@@ -33,7 +33,7 @@ export const addCourseInitialValues = {
 	},
 	description: '',
 	courseStatus: {
-		value: '' as CourseStatus,
+		value: false,
 		label: '' as CourseStatus,
 	},
 	courseCode: '',
@@ -43,4 +43,30 @@ export const addCourseInitialValues = {
 			label: '',
 		},
 	],
+};
+
+export const addCoursStyles = {
+	courseModal: {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		border: '3px solid #000',
+		bgcolor: 'background.paper',
+		borderRadius: '10px',
+		boxShadow: 24,
+		p: 4,
+		width: '800px',
+		maxHeight: '100vh',
+		maxWidth: '100%',
+		'&::-webkit-scrollbar': {
+			width: '0.4em',
+			background: 'transparent',
+		},
+	},
+	courseModalMd: {
+		width: '85%',
+		margin: 'auto',
+		maxHeight: '88vh',
+	},
 };

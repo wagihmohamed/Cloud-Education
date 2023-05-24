@@ -9,9 +9,10 @@ import {
 } from 'components';
 import { allCourses, coursesCategoryOptions, courseStatus } from 'mockup';
 import { useFormik } from 'formik';
-import { CoursesBody } from 'models';
+import { CourseItem } from 'models';
 import {
 	editCourseInitialValues,
+	editCourseStyles,
 	editCourseValidationSchema,
 } from './formikUtils';
 import { toast } from 'react-toastify';
@@ -21,41 +22,15 @@ import { theme } from 'theme';
 interface EditCourseModalProps {
 	open: boolean;
 	handleClose: () => void;
-	editedCourse: CoursesBody;
+	editedCourse: CourseItem;
 }
-const styles = {
-	courseModal: {
-		position: 'absolute',
-		top: '50%',
-		left: '50%',
-		transform: 'translate(-50%, -50%)',
-		border: '3px solid #000',
-		bgcolor: 'background.paper',
-		borderRadius: '10px',
-		boxShadow: 24,
-		p: 4,
-		width: '800px',
-		maxHeight: '100vh',
-		overflow: 'auto',
-		maxWidth: '100%',
-		'&::-webkit-scrollbar': {
-			width: '0.4em',
-			background: 'transparent',
-		},
-	},
-	courseModalMd: {
-		width: '85%',
-		margin: 'auto',
-		maxHeight: '88vh',
-	},
-};
 
 export const EditCourseModal = ({
 	handleClose,
 	open,
 	editedCourse,
 }: EditCourseModalProps) => {
-	const { mutate, isLoading } = useEditCourse({
+	const { mutate: editCourse, isLoading } = useEditCourse({
 		onSuccess: () => {
 			toast.success(<CustomToast title="Course edited successfully" />);
 			formik.resetForm();
@@ -75,16 +50,16 @@ export const EditCourseModal = ({
 		initialValues: editCourseInitialValues(editedCourse),
 		validationSchema: editCourseValidationSchema,
 		onSubmit: (values) => {
-			mutate({
-				...editedCourse,
-				courseName: values.courseName,
+			editCourse({
+				name: values.courseName,
 				category: values.category.label,
 				description: values.description,
-				status: values.courseStatus.value,
-				courseCode: values.courseCode,
-				prerequisites: values.prerequisites.map(
-					(prerequisite) => prerequisite.value
-				),
+				isActive: values.courseStatus.value,
+				code: values.courseCode,
+				prerequisites:
+					values.prerequisites.length === 0
+						? undefined
+						: values.prerequisites.map((prerequisite) => prerequisite.value),
 			});
 		},
 	});
@@ -102,7 +77,12 @@ export const EditCourseModal = ({
 			aria-labelledby="modal-modal-title"
 			aria-describedby="modal-modal-description"
 		>
-			<Box sx={[styles.courseModal, mdScreen ? styles.courseModalMd : null]}>
+			<Box
+				sx={[
+					editCourseStyles.courseModal,
+					mdScreen ? editCourseStyles.courseModalMd : null,
+				]}
+			>
 				<Stack direction="row" justifyContent="space-between">
 					<Typography variant="h4" fontWeight="bold">
 						Edit Course
@@ -180,9 +160,22 @@ export const EditCourseModal = ({
 						<Grid item xs={12} sm={6}>
 							<CustomSelect
 								onChange={(e: { label: string; value: string }) => {
-									formik.setFieldValue('courseStatus', e);
+									formik.setFieldValue('courseStatus', {
+										label: e.label,
+										value: e.label === 'Active',
+									});
 								}}
-								value={formik.values.courseStatus}
+								value={
+									formik.values.courseStatus.value
+										? {
+												label: 'Active',
+												value: 'Active',
+										  }
+										: {
+												label: 'Inactive',
+												value: 'Inactive',
+										  }
+								}
 								options={courseStatus}
 								withLabel
 								label="Status"
@@ -201,6 +194,7 @@ export const EditCourseModal = ({
 								value={formik.values.courseCode}
 								id="courseCode"
 								name="courseCode"
+								disabled
 								onChange={formik.handleChange}
 								withLabel
 								label="Course Code"

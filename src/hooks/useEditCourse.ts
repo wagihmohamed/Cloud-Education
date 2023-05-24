@@ -1,29 +1,26 @@
-import { useMutation } from '@tanstack/react-query';
-import { sleep } from 'utlis';
-import { ApiError, CoursesBody } from 'models';
-import { coursesBodyData } from 'mockup';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { ApiError, CourseItem } from 'models';
+import { AxiosError } from 'axios';
+import { editCourseByCode } from 'services';
 
 export const useEditCourse = (data: {
 	onSuccess: () => void;
-	onError: (error: ApiError) => void;
+	onError: (error: AxiosError<ApiError>) => void;
 }) => {
 	const { onSuccess, onError } = data;
+	const queryClient = useQueryClient();
 	return useMutation({
-		mutationFn: async (course: CoursesBody) => {
-			await sleep(2000);
-			const index = coursesBodyData.findIndex((item) => item.id === course.id);
-			coursesBodyData[index] = {
-				...coursesBodyData[index],
-				courseName: course.courseName,
-				category: course.category,
-				description: course.description,
-				status: course.status,
-				courseCode: course.courseCode,
-				prerequisites: course.prerequisites,
-			};
-			return course;
+		mutationFn: async (course: CourseItem) => {
+			return editCourseByCode({
+				course,
+				orgnizationId: localStorage.getItem('organizationId') || '',
+				courseCode: course.code,
+			});
 		},
-		onSuccess,
+		onSuccess: () => {
+			queryClient.invalidateQueries(['courses']);
+			onSuccess();
+		},
 		onError,
 	});
 };
