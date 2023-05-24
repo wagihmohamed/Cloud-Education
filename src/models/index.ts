@@ -1,7 +1,7 @@
 /** @format */
 
 import { OutputBlockData } from '@editorjs/editorjs';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 export type CourseStatus = 'active' | 'inactive';
 
@@ -196,4 +196,19 @@ export interface Data {
 	address: string;
 	createdAt: string;
 	updatedAt: string;
+}
+
+export interface RegisterUserByOrgIdPayload {
+	email: string;
+	password: string;
+	firstName: string;
+	lastName: string;
+	phoneNumber: string;
+}
+
+export type RegisterUserByOrgIdResponse = AxiosResponse<RegisterUserByOrgId>;
+
+export interface RegisterUserByOrgId {
+	status: string;
+	token: string;
 }

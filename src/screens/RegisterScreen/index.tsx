@@ -5,12 +5,36 @@ import {
 	registerInistialValues,
 	registerValidationSchema,
 } from './formikUtlis';
+import { useGetOrganizationName, useUserRegister } from 'hooks';
+import { useAuth } from 'zustandStore';
+import { useNavigate } from 'react-router-dom';
 
 export const RegisterScreen = () => {
+	const { organizationName } = useGetOrganizationName();
+	const navigate = useNavigate();
+	const { setToken } = useAuth();
+
+	const { mutate: registerUser, isLoading } = useUserRegister({
+		onSuccess: (res) => {
+			setToken(res.data.token);
+			navigate(`/${organizationName}/home`, { replace: true });
+		},
+	});
 	const registerFormik = useFormik({
 		initialValues: registerInistialValues,
 		validationSchema: registerValidationSchema,
-		onSubmit: () => {},
+		onSubmit: (values) => {
+			registerUser({
+				orgId: organizationName,
+				userData: {
+					firstName: values.firstName,
+					email: values.email,
+					lastName: values.lastName,
+					password: values.password,
+					phoneNumber: '+20' + values.phoneNumber,
+				},
+			});
+		},
 	});
 
 	return (
@@ -154,7 +178,14 @@ export const RegisterScreen = () => {
 							/>
 						</Grid>
 						<Grid item xs={12}>
-							<CustomButton type="submit" fullWidth py="15px" mt={3}>
+							<CustomButton
+								loadingButton
+								loading={isLoading}
+								type="submit"
+								fullWidth
+								py="15px"
+								mt={3}
+							>
 								Sign Up
 							</CustomButton>
 						</Grid>
