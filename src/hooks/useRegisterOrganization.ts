@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { OrganizationRegisterPayload } from 'models';
+import { ApiError, OrganizationRegisterPayload } from 'models';
 import { toast } from 'react-toastify';
 import { registerOrganizationService } from 'services';
 
@@ -13,13 +13,13 @@ export const useRegisterOrganization = ({
 			return registerOrganizationService(orgData);
 		},
 		onSuccess: (data) => {
-			if (data.data.status === 'success') {
+			if (data?.data.status === 'success') {
 				onSuccess();
 				toast.success(`Organization created successfully`);
 			}
 		},
-		onError: () => {
-			toast.error('Something went wrong');
+		onError: (error: ApiError) => {
+			toast.error(error.response?.data.message || 'Something went wrong');
 		},
 	});
 };

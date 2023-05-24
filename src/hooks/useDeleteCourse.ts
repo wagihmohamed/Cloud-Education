@@ -2,11 +2,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { sleep } from 'utlis';
 import { ApiError } from 'models';
 import { coursesBodyData } from 'mockup';
-import { AxiosError } from 'axios';
 
 export const useDeleteCourse = (data: {
 	onSuccess: () => void;
-	onError: (error: AxiosError<ApiError>) => void;
+	onError: (error: ApiError) => void;
 }) => {
 	const queryClient = useQueryClient();
 	const { onSuccess, onError } = data;

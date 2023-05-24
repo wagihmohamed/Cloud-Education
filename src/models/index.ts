@@ -1,6 +1,7 @@
 /** @format */
 
 import { OutputBlockData } from '@editorjs/editorjs';
+import { AxiosError } from 'axios';
 
 export type CourseStatus = 'active' | 'inactive';
 
@@ -118,7 +119,9 @@ export interface ExamListItem {
 	imageUrl: string;
 }
 
-export interface ApiError {
+export type ApiError = AxiosError<BaseApiError>;
+
+interface BaseApiError {
 	message: string;
 	status: string;
 }

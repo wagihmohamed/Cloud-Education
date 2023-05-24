@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const OrganizationRegisterScreen = () => {
 	const navigation = useNavigate();
-	const { mutate, isLoading } = useRegisterOrganization({
+	const { mutate: registerOrganization, isLoading } = useRegisterOrganization({
 		onSuccess: () => {
 			navigation(`/${orgRegisterFormik.values.orgDomainName}/login`);
 		},
@@ -27,13 +27,13 @@ export const OrganizationRegisterScreen = () => {
 		initialValues: organizationRegisterInitialValues,
 		validationSchema: organizationRegisterValidationSchema,
 		onSubmit: (values) => {
-			mutate({
+			registerOrganization({
 				organization: {
 					name: values.name,
 					address: values.orgAddress,
 					country: values.country?.value,
 					emailDomain: values.orgDomain,
-					officialPhoneNumber: '+' + values.orgPhone,
+					officialPhoneNumber: '+20' + String(values.orgPhone),
 					subdomain: values.orgDomainName,
 					type: values.type?.label,
 				},
@@ -42,7 +42,7 @@ export const OrganizationRegisterScreen = () => {
 					password: values.adminPassword,
 					firstName: values.adminFirstName,
 					lastName: values.adminLastName,
-					phoneNumber: values.adminPhone,
+					phoneNumber: '+20' + String(values.adminPhone),
 				},
 			});
 		},
@@ -115,7 +115,7 @@ export const OrganizationRegisterScreen = () => {
 									orgRegisterFormik.touched.orgDomain &&
 									orgRegisterFormik.errors.orgDomain
 								}
-								placeholder="ex. @fci.bu.edu.eg"
+								placeholder="ex. fci.bu.edu.eg"
 							/>
 						</Grid>
 						<Grid item xs={12} sm={6}>
@@ -133,7 +133,7 @@ export const OrganizationRegisterScreen = () => {
 									orgRegisterFormik.touched.orgDomainName &&
 									orgRegisterFormik.errors.orgDomainName
 								}
-								placeholder="ex. https://www.orgname.cloud-educatioin.com"
+								placeholder="ex. BFCAI"
 							/>
 						</Grid>
 						<Grid item xs={12} sm={6}>
@@ -144,6 +144,22 @@ export const OrganizationRegisterScreen = () => {
 								type="number"
 								value={orgRegisterFormik.values.orgPhone}
 								onChange={orgRegisterFormik.handleChange}
+								onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+									e.target.value = Math.max(0, parseInt(e.target.value))
+										.toString()
+										.slice(0, 10);
+								}}
+								InputProps={{
+									startAdornment: (
+										<Typography
+											variant="subtitle1"
+											fontSize="20px"
+											fontWeight="500"
+										>
+											+20
+										</Typography>
+									),
+								}}
 								error={
 									orgRegisterFormik.touched.orgPhone &&
 									Boolean(orgRegisterFormik.errors.orgPhone)
@@ -152,7 +168,7 @@ export const OrganizationRegisterScreen = () => {
 									orgRegisterFormik.touched.orgPhone &&
 									orgRegisterFormik.errors.orgPhone
 								}
-								placeholder="Enter Organization Phone Number"
+								placeholder="  1234567890"
 							/>
 						</Grid>
 
@@ -289,8 +305,25 @@ export const OrganizationRegisterScreen = () => {
 								withLabel
 								label="Phone Number"
 								name="adminPhone"
+								type="number"
 								value={orgRegisterFormik.values.adminPhone}
 								onChange={orgRegisterFormik.handleChange}
+								onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+									e.target.value = Math.max(0, parseInt(e.target.value))
+										.toString()
+										.slice(0, 10);
+								}}
+								InputProps={{
+									startAdornment: (
+										<Typography
+											variant="subtitle1"
+											fontSize="20px"
+											fontWeight="500"
+										>
+											+20
+										</Typography>
+									),
+								}}
 								error={
 									orgRegisterFormik.touched.adminPhone &&
 									Boolean(orgRegisterFormik.errors.adminPhone)
@@ -299,7 +332,7 @@ export const OrganizationRegisterScreen = () => {
 									orgRegisterFormik.touched.adminPhone &&
 									orgRegisterFormik.errors.adminPhone
 								}
-								placeholder="Enter Admin Phone Number"
+								placeholder=" Admin Phone Number"
 							/>
 						</Grid>
 						<Grid item xs={12} sm={6}>
