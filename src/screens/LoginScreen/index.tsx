@@ -30,7 +30,9 @@ export const LoginScreen = () => {
 		onSuccess: ({ token }) => {
 			navigate(`/${organizationId}/home`, { replace: true });
 			setToken(token);
-			toast.success(<CustomToast title="Successfuly Login" />);
+			toast.success(
+				<CustomToast title="Successfuly Login" message="Welcome to LMS" />
+			);
 		},
 		onError: (err: ApiError) => {
 			toast.error(
