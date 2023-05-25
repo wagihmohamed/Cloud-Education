@@ -13,10 +13,10 @@ export const RequireAuth = () => {
 };
 
 export const NoAuth = () => {
-	const { token } = useAuth();
+	const { token, subDomain } = useAuth();
 	const { organizationId } = useParams();
 	const { organizationName } = useGetOrganizationName();
-	const paramAuth = organizationName || organizationId;
+	const paramAuth = organizationName || organizationId || subDomain;
 	return (
 		<>{token ? <Navigate to={`/${paramAuth}/home`} replace /> : <Outlet />}</>
 	);
