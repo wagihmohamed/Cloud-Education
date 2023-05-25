@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { coursesTableColumns } from 'mockup';
-import { Stack } from '@mui/system';
 import {
 	DoDisturbOnOutlined,
 	HighlightOffOutlined,
@@ -17,6 +16,7 @@ import {
 	Typography,
 	Pagination,
 	TableContainer,
+	Stack,
 } from '@mui/material';
 import { CourseItem } from 'models';
 import {
@@ -28,7 +28,7 @@ import {
 } from 'components';
 import { useNavigate } from 'react-router-dom';
 import { useCoursesList, useDeleteCourse, useEditCourse } from 'hooks';
-import { toast } from 'react-toastify';
+import { handleFormateDate } from 'utlis';
 
 interface CoursesTableProps {
 	setSelectedCourse: React.Dispatch<React.SetStateAction<CourseItem>>;
@@ -49,9 +49,6 @@ export const CoursesTable = ({
 	} = useCoursesList();
 
 	const { mutate: toggleCourseStatus, isLoading: isEditing } = useEditCourse({
-		onSuccess: () => {
-			toast.success(<CustomToast title="Status Changed successfully" />);
-		},
 		onError: (err) => {
 			<CustomToast
 				title="Something went wrong"
@@ -61,9 +58,6 @@ export const CoursesTable = ({
 	});
 
 	const { mutate: deleteCourse, isLoading: isDeleting } = useDeleteCourse({
-		onSuccess: () => {
-			toast.success(<CustomToast title="Course Deleted successfully" />);
-		},
 		onError: (err) => {
 			<CustomToast
 				title="Something went wrong"
@@ -80,7 +74,7 @@ export const CoursesTable = ({
 		if (disableActions) return;
 		deleteCourse(id);
 	};
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 	const handleToggleStatus = (editedCourse: CourseItem) => {
 		toggleCourseStatus({
 			...editedCourse,
@@ -180,7 +174,7 @@ export const CoursesTable = ({
 												handleNavigate(row.code);
 											}}
 										>
-											{row.updatedAt}
+											{handleFormateDate(row.updatedAt)}
 										</CustomTableCell>
 										<CustomTableCell
 											cursor={disableActions ? 'not-allowed' : 'pointer'}
