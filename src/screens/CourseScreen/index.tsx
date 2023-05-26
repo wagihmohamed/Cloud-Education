@@ -1,17 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useState, useMemo } from 'react';
-import { Box, Grid, Typography } from '@mui/material';
-import {
-	CustomButton,
-	CustomEditor,
-	CustomLayout,
-	CustomTextField,
-} from 'components';
+
+import AddIcon from '@mui/icons-material/Add';
+import { Box, Button, Grid, Input, Stack, TextField } from '@mui/material';
+import { CourseTab, CustomEditor, CustomLayout } from 'components';
 import { useParams } from 'react-router-dom';
 import { useCourses } from 'zustandStore';
 
 export const CourseScreen = () => {
+	const [triggerAddButton, setTriggerButton] = useState(false);
 	const { courseId } = useParams();
 	const { addCourse, courses } = useCourses();
 	const [courseTitle, setCourseTitle] = useState('');
@@ -24,107 +21,86 @@ export const CourseScreen = () => {
 	const getSelectedCourse = () => {
 		return courses.find((course) => course.id === selectedCourseId);
 	};
-
+	const addSubjects = () => {
+		setTriggerButton((prev) => !prev);
+		if (courseTitle) {
+			addCourse({
+				id: (courses.length + 1).toString(),
+				course: [
+					{
+						id: new Date().getTime().toString(),
+						type: 'paragraph',
+						data: {
+							blocks: [
+								{
+									type: 'header',
+									data: {
+										text: 'Header',
+										level: 2,
+									},
+								},
+							],
+							version: '2.22.2',
+						},
+					},
+				],
+				title: courseTitle,
+			});
+			setCourseTitle('');
+		}
+	};
 	return (
 		<CustomLayout>
-			<Box
-				sx={{
-					mt: 4,
-					ml: 3,
-					mr: 2,
-				}}
-			>
-				<Grid columnSpacing="10px" container spacing={4}>
-					<Grid
-						mt={3}
+			<Box sx={{ padding: '1' }}>
+				<Stack direction={'row'}>
+					<Stack
+						flexGrow={'1'}
+						direction={'row'}
 						sx={{
-							border: '3px solid #000',
-							height: 'max-content',
-							borderRadius: '10px',
-							p: 2,
-							pb: 8,
+							bgcolor: '#ced4da',
+							maxWidth: '100%',
+							overflowX: 'scroll',
+							'&::-webkit-scrollbar': {
+								height: '2px',
+							},
 						}}
-						item
-						xs={12}
-						md={2}
 					>
-						<Box>
-							<Typography
-								textAlign="center"
-								mt={2}
-								sx={{
-									textDecoration: 'underline',
-								}}
-								fontWeight="bold"
-								fontSize={25}
-								variant="h5"
-							>
-								Course Subjects
-							</Typography>
-							<CustomTextField
-								placeholder="Subject Name"
-								value={courseTitle}
-								onChange={(e) => setCourseTitle(e.target.value)}
-								mt={2}
+						{courses.map((course) => (
+							<CourseTab
+								key={course.id}
+								title={course.title}
+								id={course.id}
+								selectedCourseId={selectedCourseId}
+								setSelectedCourseId={setSelectedCourseId}
 							/>
-							<CustomButton
-								mt={2}
-								fullWidth
-								onClick={() => {
-									if (courseTitle) {
-										addCourse({
-											id: (courses.length + 1).toString(),
-											course: [
-												{
-													id: new Date().getTime().toString(),
-													type: 'paragraph',
-													data: {
-														blocks: [
-															{
-																type: 'header',
-																data: {
-																	text: 'Header',
-																	level: 2,
-																},
-															},
-														],
-														version: '2.22.2',
-													},
-												},
-											],
-											title: courseTitle,
-										});
-
-										setCourseTitle('');
-									}
-								}}
-							>
-								Adde Subject
-							</CustomButton>
-							{courses.map((course) => (
-								<Typography
-									onClick={() => setSelectedCourseId(course.id)}
-									fontWeight={
-										course.id === selectedCourseId ? 'bold' : 'normal'
-									}
-									mt={2}
-									my={2}
-									sx={{
-										width: '100%',
-										cursor: 'pointer',
-										fontSize: '1.2rem',
-									}}
-									key={course.id}
-								>
-									&#x2022; {course.title}
-								</Typography>
-							))}
-						</Box>
-					</Grid>
-					<Grid mt={2} item xs={12} md={8}>
+						))}
+					</Stack>
+					<Button
+						sx={{ bgcolor: '#dee2e6', borderRadius: '0px' }}
+						onClick={addSubjects}
+					>
+						<AddIcon></AddIcon>
+					</Button>
+					{triggerAddButton && (
+						<TextField
+							variant="filled"
+							size="medium"
+							sx={{ padding: '0px', fontSize: '2rem' }}
+							value={courseTitle}
+							onChange={(e) => setCourseTitle(e.target.value)}
+							onKeyDown={(e) => {
+								if (e.key === 'Enter') {
+									addSubjects();
+								}
+							}}
+						></TextField>
+					)}
+				</Stack>
+				<Grid columnSpacing="10px" container spacing={4}>
+					<Grid mt={2} item xs={12} md={12}>
 						{editorJs}
 					</Grid>
-					<Grid
+					{/* <Grid
 						mt={3}
 						sx={{
 							border: '3px solid #000',
@@ -166,7 +142,7 @@ export const CourseScreen = () => {
 									)
 							)}
 						</Box>
-					</Grid>
+					</Grid> */}
 				</Grid>
 			</Box>
 		</CustomLayout>
