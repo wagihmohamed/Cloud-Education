@@ -31,5 +31,6 @@ api.interceptors.response.use(
 		if (error.response?.status === 500) {
 			toast.error('Something went wrong, please try again later');
 		}
+		return Promise.reject(error);
 	}
 );
