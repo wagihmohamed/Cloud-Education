@@ -16,6 +16,9 @@ export const CourseTab = ({
 		<Button
 			onClick={() => setSelectedCourseId(id)}
 			sx={{
+				overflow: 'hidden',
+				whiteSpace: 'nowrap',
+				textOverflow: 'ellipsis',
 				bgcolor: '#dee2e6',
 				color: '#696969',
 				borderRadius: '0',

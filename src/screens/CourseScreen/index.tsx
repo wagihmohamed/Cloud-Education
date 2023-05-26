@@ -62,6 +62,7 @@ export const CourseScreen = () => {
 							overflowX: 'scroll',
 							'&::-webkit-scrollbar': {
 								height: '2px',
+								color: 'balck',
 							},
 						}}
 					>
@@ -79,12 +80,13 @@ export const CourseScreen = () => {
 								<TextField
 									inputProps={{
 										style: {
-											padding: 8.5,
+											padding: '9px',
+											fontSize: '1rem',
 										},
 									}}
 									variant="filled"
 									size="medium"
-									sx={{ padding: '0px', fontSize: '2rem' }}
+									sx={{ padding: '0px', fontSize: '2rem', minWidth: '200px' }}
 									value={courseTitle}
 									onChange={(e) => setCourseTitle(e.target.value)}
 									onKeyDown={(e) => {
