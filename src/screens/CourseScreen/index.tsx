@@ -74,27 +74,34 @@ export const CourseScreen = () => {
 								setSelectedCourseId={setSelectedCourseId}
 							/>
 						))}
+						<Stack direction={'row'}>
+							{triggerAddButton && (
+								<TextField
+									inputProps={{
+										style: {
+											padding: 8.5,
+										},
+									}}
+									variant="filled"
+									size="medium"
+									sx={{ padding: '0px', fontSize: '2rem' }}
+									value={courseTitle}
+									onChange={(e) => setCourseTitle(e.target.value)}
+									onKeyDown={(e) => {
+										if (e.key === 'Enter') {
+											addSubjects();
+										}
+									}}
+								></TextField>
+							)}
+							<Button
+								sx={{ bgcolor: '#dee2e6', borderRadius: '0px' }}
+								onClick={addSubjects}
+							>
+								<AddIcon></AddIcon>
+							</Button>
+						</Stack>
 					</Stack>
-					<Button
-						sx={{ bgcolor: '#dee2e6', borderRadius: '0px' }}
-						onClick={addSubjects}
-					>
-						<AddIcon></AddIcon>
-					</Button>
-					{triggerAddButton && (
-						<TextField
-							variant="filled"
-							size="medium"
-							sx={{ padding: '0px', fontSize: '2rem' }}
-							value={courseTitle}
-							onChange={(e) => setCourseTitle(e.target.value)}
-							onKeyDown={(e) => {
-								if (e.key === 'Enter') {
-									addSubjects();
-								}
-							}}
-						></TextField>
-					)}
 				</Stack>
 				<Grid columnSpacing="10px" container spacing={4}>
 					<Grid mt={2} item xs={12} md={12}>
