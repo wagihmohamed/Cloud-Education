@@ -27,9 +27,9 @@ export const LoginScreen = () => {
 				password: loginFormik.values.password,
 			});
 		},
-		onSuccess: ({ token }) => {
+		onSuccess: (res) => {
 			navigate(`/${organizationId}/home`, { replace: true });
-			setToken(token);
+			setToken(res?.token);
 			toast.success(
 				<CustomToast title="Successfuly Login" message="Welcome to LMS" />
 			);
