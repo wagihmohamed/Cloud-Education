@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState, useMemo, useEffect, useRef } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { courseComments } from 'mockup';
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
@@ -21,7 +20,6 @@ import {
 	CustomEditor,
 	CustomLayout,
 	CourseContentItem,
-	CustomButton,
 } from 'components';
 import { useParams } from 'react-router-dom';
 import { useCourses } from 'zustandStore';
@@ -156,7 +154,7 @@ export const CourseScreen = () => {
 						sx={{ margin: '1rem auto', width: '90%' }}
 						value={comment}
 						onChange={(e) => {
-							setComment((prev) => e.target.value);
+							setComment(e.target.value);
 						}}
 						onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
 							addingCommentHandler(e)
