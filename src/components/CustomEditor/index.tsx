@@ -7,6 +7,7 @@ import { EDITOR_JS_TOOLS } from './constants';
 import Image from '@editorjs/image';
 import './styles.css';
 import { useCourses } from 'zustandStore';
+import { Stack } from '@mui/material';
 
 interface EditorCore {
 	destroy(): Promise<void>;
@@ -74,8 +75,8 @@ export const CustomEditor = ({ id }: CustomEditorProps) => {
 	};
 
 	return (
-		<>
-			<CustomButton ml={8} mb={3} px={7} onClick={handleSave}>
+		<Stack direction={'column'} alignItems={'center'}>
+			<CustomButton ml={8} mb={3} px={7} onClick={handleSave} >
 				Save Edit
 			</CustomButton>
 			<ReactEditorJS
@@ -105,6 +106,6 @@ export const CustomEditor = ({ id }: CustomEditorProps) => {
 				onReady={habdleToggleExam}
 			/>
 			<div id="editorjs" />
-		</>
+		</Stack>
 	);
 };
