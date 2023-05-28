@@ -36,7 +36,8 @@ import { SettingsModal } from './SettingsModal';
 import { RequireAuth, NoAuth } from './RequireAuth';
 import { CustomToast } from './CustomToast';
 import { LoadingErrorPlaceholder } from './LoadingErrorPlaceholder';
-
+import { CourseTab } from './CourseTab';
+import { CourseContentItem } from './CourseContentItem';
 export {
 	LandingPageCard,
 	Footer,
@@ -75,4 +76,6 @@ export {
 	NoAuth,
 	LoadingErrorPlaceholder,
 	CustomDrawer,
+	CourseTab,
+	CourseContentItem,
 };

@@ -19,8 +19,10 @@ import { studentsTableBodyData } from './studentsTableBodyData';
 import { examDummyData } from './examDummyData';
 import { mockExams } from './examsList';
 import { landingPageMainSections } from './landingPage';
+import { courseComments } from './coursesComments';
 export {
 	countriesOptions,
+	courseComments,
 	messages,
 	messagesList,
 	notificationList,
