@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useMemo, useRef } from 'react';
 import { courseComments } from 'mockup';
 import PersonIcon from '@mui/icons-material/Person';
@@ -12,7 +12,6 @@ import {
 	Button,
 	Drawer,
 	Grid,
-	Modal,
 	Stack,
 	TextField,
 	Typography,
@@ -22,8 +21,6 @@ import {
 	CustomEditor,
 	CustomLayout,
 	CourseContentItem,
-	CustomTextField,
-	CustomButton,
 	FeedbackModal,
 } from 'components';
 import { useParams } from 'react-router-dom';
@@ -128,7 +125,7 @@ export const CourseScreen = () => {
 			</Button>
 			<FeedbackModal
 				opneModal={openModal}
-				handleOpenModal={handleOpenModal}
+				setOpenModal={setOpenModal}
 				feedback={feedback}
 				setFeedBack={setFeedBack}
 				feedbackSubmitHandler={feedbackSubmitHandler}

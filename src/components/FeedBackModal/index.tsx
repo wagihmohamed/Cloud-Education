@@ -6,20 +6,23 @@ interface ModalInterface {
 	opneModal: boolean;
 	feedback?: string;
 	setFeedBack: React.Dispatch<React.SetStateAction<string>>;
-	handleOpenModal: React.MouseEventHandler<HTMLButtonElement>;
+	setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 	feedbackSubmitHandler: () => void;
 }
 export const FeedbackModal = ({
 	opneModal,
-	handleOpenModal,
+	setOpenModal,
 	feedback,
 	setFeedBack,
 	feedbackSubmitHandler,
 }: ModalInterface) => {
+	const handleModalState = () => {
+		setOpenModal((prev) => !prev);
+	};
 	return (
 		<Modal
 			open={opneModal}
-			onClose={handleOpenModal}
+			onClose={handleModalState}
 			aria-labelledby="modal-modal-title"
 			aria-describedby="modal-modal-description"
 		>
@@ -29,7 +32,7 @@ export const FeedbackModal = ({
 					padding: '3rem',
 					outline: '0',
 					borderRadius: '15px',
-					top: '30%',
+					top: '40%',
 					left: '50%',
 					transform: 'translate(-50%, -50%)',
 					width: '50%',
@@ -51,6 +54,7 @@ export const FeedbackModal = ({
 					Rating Course and Submit Feedback
 				</Typography>
 				<CustomTextField
+					placeholder="add feedback to course"
 					multiline
 					rows={4}
 					onChange={(e) => {
@@ -68,7 +72,7 @@ export const FeedbackModal = ({
 						variant="contained"
 						color="error"
 						sx={{ width: '100px' }}
-						onClick={handleOpenModal}
+						onClick={handleModalState}
 					>
 						Cancel
 					</Button>
