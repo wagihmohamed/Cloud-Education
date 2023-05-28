@@ -5,12 +5,14 @@ import { useState, useMemo, useRef } from 'react';
 import { courseComments } from 'mockup';
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
+import StarIcon from '@mui/icons-material/Star';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import {
 	Box,
 	Button,
 	Drawer,
 	Grid,
+	Modal,
 	Stack,
 	TextField,
 	Typography,
@@ -20,6 +22,9 @@ import {
 	CustomEditor,
 	CustomLayout,
 	CourseContentItem,
+	CustomTextField,
+	CustomButton,
+	FeedbackModal,
 } from 'components';
 import { useParams } from 'react-router-dom';
 import { useCourses } from 'zustandStore';
@@ -29,6 +34,8 @@ interface CommentObj {
 	content: string;
 }
 export const CourseScreen = () => {
+	const [openModal, setOpenModal] = useState(false);
+	const [feedback, setFeedBack] = useState('');
 	const [triggerAddButton, setTriggerButton] = useState(false);
 	const { courseId } = useParams();
 	const { addCourse, courses } = useCourses();
@@ -90,6 +97,15 @@ export const CourseScreen = () => {
 			}, 100);
 		}
 	};
+	const handleOpenModal = () => {
+		setOpenModal((prev: boolean) => !prev);
+	};
+	const feedbackSubmitHandler = () => {
+		if (feedback) {
+			///send feedback
+		}
+		setFeedBack('');
+	};
 	return (
 		<Box sx={{ position: 'absolute' }}>
 			<Button
@@ -110,6 +126,13 @@ export const CourseScreen = () => {
 			>
 				<ChatBubbleIcon sx={{ color: '#e9ecef' }} />
 			</Button>
+			<FeedbackModal
+				opneModal={openModal}
+				handleOpenModal={handleOpenModal}
+				feedback={feedback}
+				setFeedBack={setFeedBack}
+				feedbackSubmitHandler={feedbackSubmitHandler}
+			/>
 			<CustomLayout>
 				<Drawer
 					anchor="right"
@@ -215,79 +238,107 @@ export const CourseScreen = () => {
 							</Stack>
 						</Stack>
 					</Stack>
-					<Box
+					<Stack
 						sx={{
-							border: '3px solid #000',
-							borderRadius: '10px',
-							p: 2,
-							pb: 4,
-							width: '80%',
-							margin: '2rem auto',
+							width: '70%',
+							margin: '3rem auto',
 							[theme.breakpoints.down('md')]: {
 								width: '90%',
 							},
 						}}
 					>
-						<Stack direction={'column'} spacing={4}>
-							<Box>
-								<Typography
-									textAlign="center"
-									mt={2}
-									sx={{
-										textDecoration: 'underline',
-									}}
-									fontWeight="bold"
-									fontSize={25}
-									variant="h4"
-								>
-									Course Contnet
-								</Typography>
-								{getSelectedCourse()?.course.map((course) => {
-									return (
-										course.type === 'header' && (
-											<CourseContentItem
-												txt={course.data.text}
-												key={course.id}
-											/>
-										)
-									);
-								})}
-								{courseContentList.map((content) => {
-									return <CourseContentItem txt={content} key={content} />;
-								})}
-							</Box>
-							<TextField
-								value={courseContent}
-								onChange={(e) => setCourseContent(e.target.value)}
-								onKeyDown={(e) => {
-									if (e.key === 'Enter') {
-										if (courseContent.length > 0) {
-											setCourseContentList((prev) => [...prev, courseContent]);
+						<Button
+							sx={{
+								bgcolor: 'black',
+								color: 'white',
+								fontWeight: 'bold',
+								padding: '.5rem 2rem',
+								borderRadius: '10px',
+								maxWidth: '200px',
+								boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
+								'&:hover': {
+									backgroundColor: 'black',
+								},
+							}}
+							onClick={handleOpenModal}
+						>
+							<StarIcon sx={{ color: 'yellow', marginRight: '5px' }} />
+							Rating & feedback
+						</Button>
+						<Box
+							sx={{
+								border: '3px solid #000',
+								borderRadius: '10px',
+								margin: '1rem auto',
+								p: 2,
+								pb: 4,
+								width: '100%',
+							}}
+						>
+							<Stack direction={'column'} spacing={4}>
+								<Box>
+									<Typography
+										textAlign="center"
+										mt={2}
+										sx={{
+											textDecoration: 'underline',
+										}}
+										fontWeight="bold"
+										fontSize={25}
+										variant="h4"
+									>
+										Course Contnet
+									</Typography>
+									{getSelectedCourse()?.course.map((course) => {
+										return (
+											course.type === 'header' && (
+												<CourseContentItem
+													txt={course.data.text}
+													key={course.id}
+												/>
+											)
+										);
+									})}
+									{courseContentList.map((content) => {
+										return <CourseContentItem txt={content} key={content} />;
+									})}
+								</Box>
+								<TextField
+									value={courseContent}
+									onChange={(e) => setCourseContent(e.target.value)}
+									onKeyDown={(e) => {
+										if (e.key === 'Enter') {
+											if (courseContent.length > 0) {
+												setCourseContentList((prev) => [
+													...prev,
+													courseContent,
+												]);
+											}
+											setCourseContent('');
 										}
-										setCourseContent('');
-									}
-								}}
-								placeholder="add course feature ,content &#10149;"
-								inputProps={{
-									style: {
-										padding: '10px',
-										fontSize: '1.2rem',
-									},
-								}}
-								variant="filled"
-								size="medium"
-								sx={{
-									alignSelf: 'flex-start',
-									width: '50%',
-									[theme.breakpoints.down('md')]: {
-										width: '80%',
-										alignSelf: 'center',
-									},
-									margin: 'auto',
-								}}
-							></TextField>
-						</Stack>
-					</Box>
+									}}
+									placeholder="add course feature ,content &#10149;"
+									inputProps={{
+										style: {
+											padding: '10px',
+											fontSize: '1.2rem',
+										},
+									}}
+									variant="filled"
+									size="medium"
+									sx={{
+										alignSelf: 'flex-start',
+										width: '50%',
+										[theme.breakpoints.down('md')]: {
+											width: '80%',
+											alignSelf: 'center',
+										},
+										margin: 'auto',
+									}}
+								></TextField>
+							</Stack>
+						</Box>
+					</Stack>
 					<Grid columnSpacing="10px" container spacing={4}>
 						<Grid mt={2} item xs={12} md={12} sx={{ margin: '0 1rem' }}>
 							{editorJs}
