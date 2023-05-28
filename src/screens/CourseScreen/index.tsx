@@ -107,7 +107,7 @@ export const CourseScreen = () => {
 		setFeedBack('');
 	};
 	return (
-		<Box sx={{ position: 'absolute' }}>
+		<Box>
 			<Button
 				sx={{
 					position: 'fixed',
