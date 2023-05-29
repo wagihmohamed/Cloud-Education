@@ -228,3 +228,8 @@ export interface CourseResponse {
 	status: string;
 	data: CourseItem[];
 }
+
+export interface Comment {
+	id: string;
+	content: string;
+}

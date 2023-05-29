@@ -1,38 +1,24 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState, useMemo, useRef } from 'react';
-import { courseComments } from 'mockup';
-import PersonIcon from '@mui/icons-material/Person';
+import { useState, useMemo } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import StarIcon from '@mui/icons-material/Star';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
-import {
-	Box,
-	Button,
-	Drawer,
-	Grid,
-	Stack,
-	TextField,
-	Typography,
-} from '@mui/material';
+import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
 import {
 	CourseTab,
 	CustomEditor,
 	CustomLayout,
 	CourseContentItem,
 	FeedbackModal,
+	CustomButton,
+	CourseComments,
 } from 'components';
 import { useParams } from 'react-router-dom';
 import { useCourses } from 'zustandStore';
 import { theme } from 'theme';
-interface CommentObj {
-	id: string;
-	content: string;
-}
 export const CourseScreen = () => {
-	const [openModal, setOpenModal] = useState(false);
-	const [feedback, setFeedBack] = useState('');
 	const [triggerAddButton, setTriggerButton] = useState(false);
 	const { courseId } = useParams();
 	const { addCourse, courses } = useCourses();
@@ -40,9 +26,8 @@ export const CourseScreen = () => {
 	const [courseContent, setCourseContent] = useState('');
 	const [courseContentList, setCourseContentList] = useState<string[]>([]);
 	const [selectedCourseId, setSelectedCourseId] = useState(courses[0].id);
-	const [commentsList, setCommentsList] =
-		useState<CommentObj[]>(courseComments);
-	const [comment, setComment] = useState<string>();
+	const [openModal, setOpenModal] = useState(false);
+	const [openComments, setOpenComments] = useState(false);
 	const editorJs = useMemo(() => {
 		return <CustomEditor id={selectedCourseId} />;
 	}, [selectedCourseId]);
@@ -77,32 +62,6 @@ export const CourseScreen = () => {
 			setCourseTitle('');
 		}
 	};
-	const containerRef = useRef<HTMLDivElement>(null);
-	const [drawerState, setDrawerState] = useState(false);
-	const addingCommentHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === 'Enter' && comment) {
-			const commmentObj = {
-				id: new Date().getTime().toString(),
-				content: comment,
-			};
-			setCommentsList((prev) => [...prev, commmentObj]);
-			setComment('');
-			setTimeout(() => {
-				if (containerRef.current) {
-					containerRef.current.scrollTop = containerRef.current.scrollHeight;
-				}
-			}, 100);
-		}
-	};
-	const handleOpenModal = () => {
-		setOpenModal((prev: boolean) => !prev);
-	};
-	const feedbackSubmitHandler = () => {
-		if (feedback) {
-			///send feedback
-		}
-		setFeedBack('');
-	};
 	return (
 		<Box>
 			<Button
@@ -118,69 +77,17 @@ export const CourseScreen = () => {
 					boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
 				}}
 				onClick={() => {
-					setDrawerState(true);
+					setOpenComments(true);
 				}}
 			>
 				<ChatBubbleIcon sx={{ color: '#e9ecef' }} />
 			</Button>
-			<FeedbackModal
-				opneModal={openModal}
-				setOpenModal={setOpenModal}
-				feedback={feedback}
-				setFeedBack={setFeedBack}
-				feedbackSubmitHandler={feedbackSubmitHandler}
-			/>
+			<FeedbackModal opneModal={openModal} setOpenModal={setOpenModal} />
 			<CustomLayout>
-				<Drawer
-					anchor="right"
-					open={drawerState}
-					onClose={() => setDrawerState(false)}
-				>
-					<Typography variant="h3" sx={{ margin: '1rem auto' }}>
-						Comments :-
-					</Typography>
-					<Stack
-						ref={containerRef}
-						width={'400px'}
-						sx={{
-							padding: '.8rem',
-							alignItems: 'center',
-							height: '90%',
-							overflowY: 'scroll',
-						}}
-					>
-						{commentsList.map(({ id, content }) => {
-							return (
-								<Stack
-									key={id}
-									direction={'row'}
-									alignItems={'flex-start'}
-									sx={{
-										width: '95%',
-										margin: '1rem auto',
-										padding: '10px',
-										borderRadius: '5px',
-										border: 'solid black 2px',
-									}}
-								>
-									<PersonIcon sx={{ marginRight: '5px' }} />
-									{content}
-								</Stack>
-							);
-						})}
-					</Stack>
-					<TextField
-						placeholder="add your comment and hit Enter &#10149;"
-						sx={{ margin: '1rem auto', width: '90%' }}
-						value={comment}
-						onChange={(e) => {
-							setComment(e.target.value);
-						}}
-						onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
-							addingCommentHandler(e)
-						}
-					></TextField>
-				</Drawer>
+				<CourseComments
+					openComments={openComments}
+					setOpenComments={setOpenComments}
+				></CourseComments>
 				<Box sx={{ padding: '1' }}>
 					<Stack direction={'row'}>
 						<Stack
@@ -226,12 +133,14 @@ export const CourseScreen = () => {
 										}}
 									></TextField>
 								)}
-								<Button
-									sx={{ bgcolor: '#dee2e6', borderRadius: '0px' }}
+								<CustomButton
+									textcolor="black"
+									bgColor="#dee2e6"
+									borderRadius={'0'}
 									onClick={addSubjects}
 								>
 									<AddIcon></AddIcon>
-								</Button>
+								</CustomButton>
 							</Stack>
 						</Stack>
 					</Stack>
@@ -244,24 +153,22 @@ export const CourseScreen = () => {
 							},
 						}}
 					>
-						<Button
+						<CustomButton
+							width={'200px'}
 							sx={{
-								bgcolor: 'black',
-								color: 'white',
 								fontWeight: 'bold',
 								padding: '.5rem 2rem',
 								borderRadius: '10px',
-								maxWidth: '200px',
 								boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
 								'&:hover': {
 									backgroundColor: 'black',
 								},
 							}}
-							onClick={handleOpenModal}
+							onClick={() => setOpenModal(true)}
 						>
 							<StarIcon sx={{ color: 'yellow', marginRight: '5px' }} />
 							Rating & feedback
-						</Button>
+						</CustomButton>
 						<Box
 							sx={{
 								border: '3px solid #000',

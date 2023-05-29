@@ -1,31 +1,21 @@
-import { Box, Button, Modal, Stack, Typography } from '@mui/material';
+import { Box, Modal, Stack, Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import { CustomTextField } from 'components';
+import { CustomButton, CustomTextField } from 'components';
 import { theme } from 'theme';
+import { useState } from 'react';
 interface ModalInterface {
 	opneModal: boolean;
-	feedback?: string;
-	setFeedBack: React.Dispatch<React.SetStateAction<string>>;
 	setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-	feedbackSubmitHandler: () => void;
 }
-export const FeedbackModal = ({
-	opneModal,
-	setOpenModal,
-	feedback,
-	setFeedBack,
-	feedbackSubmitHandler,
-}: ModalInterface) => {
-	const handleModalState = () => {
-		setOpenModal((prev) => !prev);
+export const FeedbackModal = ({ opneModal, setOpenModal }: ModalInterface) => {
+	const [feedback, setFeedback] = useState('');
+	const feedbackSubmitHandler = () => {
+		//send feedback
+
+		setFeedback('');
 	};
 	return (
-		<Modal
-			open={opneModal}
-			onClose={handleModalState}
-			aria-labelledby="modal-modal-title"
-			aria-describedby="modal-modal-description"
-		>
+		<Modal open={opneModal} onClose={() => setOpenModal(false)}>
 			<Box
 				sx={{
 					position: 'absolute',
@@ -58,31 +48,31 @@ export const FeedbackModal = ({
 					multiline
 					rows={4}
 					onChange={(e) => {
-						setFeedBack(e.target.value);
+						setFeedback(e.target.value);
 					}}
 					value={feedback}
-				></CustomTextField>
+				/>
 				<Stack
 					direction={'row'}
 					margin={'1rem auto'}
-					justifyContent={'center'}
+					justifyContent={'space-between'}
 					spacing={4}
 				>
-					<Button
-						variant="contained"
-						color="error"
+					<CustomButton
+						fullWidth
+						warning={true}
 						sx={{ width: '100px' }}
-						onClick={handleModalState}
+						onClick={() => setOpenModal(false)}
 					>
 						Cancel
-					</Button>
-					<Button
-						variant="contained"
+					</CustomButton>
+					<CustomButton
+						fullWidth
 						endIcon={<SendIcon />}
 						onClick={feedbackSubmitHandler}
 					>
 						Submit
-					</Button>
+					</CustomButton>
 				</Stack>
 			</Box>
 		</Modal>
