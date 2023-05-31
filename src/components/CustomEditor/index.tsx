@@ -72,6 +72,9 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 					Save Edit
 				</CustomButton>
 			)}
+			<CustomButton ml={8} mb={3} px={7} width={'200px'} onClick={handleSave} sx={{alignSelf:'center'}} >
+				Save Edit
+			</CustomButton>
 			<ReactEditorJS
 				autofocus={true}
 				onInitialize={handleInitialize}
