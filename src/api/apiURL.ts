@@ -69,3 +69,11 @@ export const updateCourseSectionBySectionIdEndpoint = (
 ) => {
 	return `/api/${orgnizationId}/courses/${courseCode}/sections/${sectionOrder}`;
 };
+
+export const getCommentsByCourseCodeEndpoint = (
+	orgnizationId: string,
+	courseCode: string,
+	sectionOrder: number
+) => {
+	return `/api/${orgnizationId}/courses/${courseCode}/sections/${sectionOrder}/comments`;
+};

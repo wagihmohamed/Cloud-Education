@@ -4,6 +4,7 @@ import landingpageimage3 from './images/landingpage_image3.jpg';
 import landingimageCaseStudy from './images/landingpage-casestudy.jpg';
 import ProfileImg from './images/profile_img.png';
 import ErrorImage from './images/error.jpg';
+import EmptyComments from './images/empty-caht.png';
 export {
 	landingpageimage1,
 	landingpageimage2,
@@ -11,4 +12,5 @@ export {
 	landingimageCaseStudy,
 	ProfileImg,
 	ErrorImage,
+	EmptyComments,
 };
