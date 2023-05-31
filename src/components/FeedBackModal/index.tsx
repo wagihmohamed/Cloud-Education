@@ -53,9 +53,9 @@ export const FeedbackModal = ({ opneModal, setOpenModal }: ModalInterface) => {
 					value={feedback}
 				/>
 				<Stack
-					direction={'row'}
-					margin={'1rem auto'}
-					justifyContent={'space-between'}
+					direction="row"
+					margin="1rem auto"
+					justifyContent="space-between"
 					spacing={4}
 				>
 					<CustomButton

@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import { Button, ButtonProps, CircularProgress } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-
 interface CustomButtonProps extends ButtonProps {
 	children: ReactNode;
 	mx?: number | string;
@@ -66,9 +65,8 @@ export const CustomButton = ({
 						mr,
 						py,
 						fontWeight: (active && 700) || 400,
-						bgcolor: bgColor
-							? bgColor
-							: (warning && '#d32f2f') || bgColor || 'primary.main',
+						bgcolor:
+							bgColor || (warning && '#d32f2f') || bgColor || 'primary.main',
 						color: textcolor ? textcolor : 'white',
 						fontSize: '20px',
 						'&:hover': {

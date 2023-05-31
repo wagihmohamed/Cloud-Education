@@ -41,8 +41,8 @@ export const CourseComments = ({
 			onClose={() => setOpenComments(false)}
 		>
 			<CustomButton
-				width={'100px'}
-				m={'1rem'}
+				width="100px"
+				m="1rem"
 				warning={true}
 				onClick={() => setOpenComments(false)}
 			>
@@ -68,8 +68,8 @@ export const CourseComments = ({
 					return (
 						<Stack
 							key={id}
-							direction={'row'}
-							alignItems={'flex-start'}
+							direction="row"
+							alignItems="flex-start"
 							sx={{
 								width: '95%',
 								margin: '1rem auto',
@@ -85,10 +85,10 @@ export const CourseComments = ({
 				})}
 			</Stack>
 			<Stack
-				direction={'row'}
+				direction="row"
 				sx={{ p: '1rem' }}
-				justifyContent={'space-between'}
-				alignItems={'center'}
+				justifyContent="space-between"
+				alignItems="center"
 				spacing={1}
 			>
 				<CustomTextField
@@ -103,7 +103,7 @@ export const CourseComments = ({
 					}}
 				/>
 				<CustomButton
-					py={'6px'}
+					py="6px"
 					bgColor="#388e3c"
 					onClick={() => addingNewComment()}
 				>

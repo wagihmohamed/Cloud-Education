@@ -75,6 +75,9 @@ export const CourseScreen = () => {
 					bgcolor: '#c1121f',
 					zIndex: '100',
 					boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
+					'&:hover': {
+						bgcolor: '#c1121f',
+					},
 				}}
 				onClick={() => {
 					setOpenComments(true);
@@ -87,12 +90,12 @@ export const CourseScreen = () => {
 				<CourseComments
 					openComments={openComments}
 					setOpenComments={setOpenComments}
-				></CourseComments>
+				/>
 				<Box sx={{ padding: '1' }}>
-					<Stack direction={'row'}>
+					<Stack direction="row">
 						<Stack
-							flexGrow={'1'}
-							direction={'row'}
+							flexGrow="1"
+							direction="row"
 							sx={{
 								bgcolor: '#ced4da',
 								maxWidth: '100%',
@@ -112,7 +115,7 @@ export const CourseScreen = () => {
 									setSelectedCourseId={setSelectedCourseId}
 								/>
 							))}
-							<Stack direction={'row'}>
+							<Stack direction="row">
 								{triggerAddButton && (
 									<TextField
 										inputProps={{
@@ -131,7 +134,7 @@ export const CourseScreen = () => {
 												addSubjects();
 											}
 										}}
-									></TextField>
+									/>
 								)}
 								<CustomButton
 									textcolor="black"
@@ -139,7 +142,7 @@ export const CourseScreen = () => {
 									borderRadius={'0'}
 									onClick={addSubjects}
 								>
-									<AddIcon></AddIcon>
+									<AddIcon />
 								</CustomButton>
 							</Stack>
 						</Stack>
@@ -239,7 +242,7 @@ export const CourseScreen = () => {
 										},
 										margin: 'auto',
 									}}
-								></TextField>
+								/>
 							</Stack>
 						</Box>
 					</Stack>
