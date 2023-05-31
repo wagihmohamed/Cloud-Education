@@ -77,3 +77,11 @@ export const getCommentsByCourseCodeEndpoint = (
 ) => {
 	return `/api/${orgnizationId}/courses/${courseCode}/sections/${sectionOrder}/comments`;
 };
+
+export const addCommentByCourseCodeEndpoint = (
+	orgnizationId: string,
+	courseCode: string,
+	sectionOrder: number
+) => {
+	return `/api/${orgnizationId}/courses/${courseCode}/sections/${sectionOrder}/comments`;
+};

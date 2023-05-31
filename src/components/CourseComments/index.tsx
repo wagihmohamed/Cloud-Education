@@ -1,15 +1,13 @@
 import { Drawer, Stack, Typography } from '@mui/material';
 import { useState, useRef } from 'react';
 import PersonIcon from '@mui/icons-material/Person';
-import { Comment } from 'models';
-import { courseComments } from 'mockup';
 import { theme } from 'theme';
 import {
 	CustomTextField,
 	LoadingErrorPlaceholder,
 	CustomButton,
 } from 'components';
-import { useGetCommentsBySectionId } from 'hooks';
+import { useAddComment, useGetCommentsBySectionId } from 'hooks';
 import { useParams } from 'react-router-dom';
 import { EmptyComments } from 'assets';
 
@@ -25,6 +23,16 @@ export const CourseComments = ({
 	sectionId,
 }: CourseCommentsInterface) => {
 	const { courseId } = useParams();
+	const { isLoading: isAddCommentLoading, mutate: addComment } = useAddComment({
+		onSuccess: () => {
+			setComment('');
+			setTimeout(() => {
+				if (containerRef.current) {
+					containerRef.current.scrollTop = containerRef.current.scrollHeight;
+				}
+			}, 100);
+		},
+	});
 	const {
 		data: comments = {
 			status: '',
@@ -33,25 +41,17 @@ export const CourseComments = ({
 		isLoading,
 		isError,
 	} = useGetCommentsBySectionId(courseId || '', sectionId);
-	const [commentsList, setCommentsList] = useState<Comment[]>(courseComments);
 	const [comment, setComment] = useState<string>();
 	const containerRef = useRef<HTMLDivElement>(null);
-	const addingNewComment = () => {
-		if (comment) {
-			const newComment: Comment = {
-				id: new Date().getTime().toString(),
-				content: comment,
-			};
-			const newComments: Comment[] = [...commentsList, newComment];
-			setCommentsList(newComments);
-			setComment('');
-			setTimeout(() => {
-				if (containerRef.current) {
-					containerRef.current.scrollTop = containerRef.current.scrollHeight;
-				}
-			}, 100);
-		}
+
+	const handleAddComment = () => {
+		addComment({
+			content: comment || '',
+			courseCode: courseId || '',
+			sectionOrder: sectionId,
+		});
 	};
+
 	return (
 		<Drawer
 			anchor="right"
@@ -134,13 +134,18 @@ export const CourseComments = ({
 						setComment(e.target.value);
 					}}
 					onKeyDown={(e) => {
-						if (e.key == 'Enter') addingNewComment();
+						if (e.key == 'Enter' && comment) {
+							handleAddComment();
+						}
 					}}
 				/>
 				<CustomButton
 					py="6px"
 					bgColor="#388e3c"
-					onClick={() => addingNewComment()}
+					loading={isAddCommentLoading}
+					loadingButton
+					disabled={isAddCommentLoading}
+					onClick={handleAddComment}
 				>
 					Send
 				</CustomButton>
