@@ -61,3 +61,11 @@ export const getCourseByCourseCode = (
 ) => {
 	return `/api/${orgnizationId}/courses/${courseCode}/sections/${sectionOrder}`;
 };
+
+export const updateCourseSectionBySectionIdEndpoint = (
+	orgnizationId: string,
+	courseCode: string,
+	sectionOrder: number
+) => {
+	return `/api/${orgnizationId}/courses/${courseCode}/sections/${sectionOrder}`;
+};

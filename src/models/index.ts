@@ -264,3 +264,16 @@ export interface CourseContentResponse {
 		content: OutputBlockData[] | null;
 	};
 }
+
+export interface UpdateCourseSectionPayload {
+	title: string;
+	content: OutputBlockData[];
+}
+
+export interface UpdateCourseSectionResponse {
+	status: string;
+	data: {
+		title: string;
+		content: OutputBlockData[];
+	};
+}

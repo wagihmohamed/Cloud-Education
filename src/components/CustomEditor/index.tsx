@@ -1,4 +1,4 @@
-/*eslint-disable */
+/* eslint-disable */
 import { OutputData } from '@editorjs/editorjs';
 import { CustomButton } from 'components/CustomButton';
 import { useCallback, useRef, useState } from 'react';
@@ -6,10 +6,11 @@ import { createReactEditorJS } from 'react-editor-js';
 import { EDITOR_JS_TOOLS } from './constants';
 import Image from '@editorjs/image';
 import './styles.css';
-import { useAuth, useCourses } from 'zustandStore';
+import { useAuth } from 'zustandStore';
 import { Stack } from '@mui/material';
-import { useGetCourseContent } from 'hooks';
+import { useEditCourseSection, useGetCourseContent } from 'hooks';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 interface EditorCore {
 	destroy(): Promise<void>;
@@ -28,6 +29,17 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 	const { courseId } = useParams();
 	const [iseEditorReady, setIsEditorReady] = useState(false);
 
+	const { mutate: saveConent } = useEditCourseSection({
+		onSuccess: () => {
+			toast.success('Content Saved Successfully');
+		},
+		onError: (err) => {
+			toast.error(err.response?.data?.message || 'Something went wrong');
+		},
+		courseCodeDep: courseId || '',
+		sectionOrderDep: id || 1,
+	});
+
 	const {
 		data: courseContent = {
 			status: '',
@@ -42,9 +54,8 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 		sectionOrder: id || 1,
 		isReady: iseEditorReady,
 	});
-	const { isTeacher } = useAuth();
+	const { isTeacher, isAdmin } = useAuth();
 	const editorCore = useRef<EditorCore | null>(null);
-	const { saveCourse } = useCourses();
 
 	const handleInitialize = useCallback((instance: any) => {
 		editorCore.current = instance;
@@ -52,9 +63,10 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 
 	const handleSave = useCallback(async () => {
 		const savedData = await editorCore?.current?.save();
-		saveCourse({
-			id,
-			course: savedData?.blocks || [],
+		saveConent({
+			content: savedData?.blocks || [],
+			courseCode: courseId || '',
+			sectionOrder: id || 1,
 		});
 	}, [id]);
 
@@ -76,18 +88,19 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 
 	return (
 		<Stack direction={'column'}>
-			{isTeacher && (
-				<CustomButton
-					ml={8}
-					mb={3}
-					px={7}
-					width={'200px'}
-					onClick={handleSave}
-					sx={{ alignSelf: 'center' }}
-				>
-					Save Edit
-				</CustomButton>
-			)}
+			{isTeacher ||
+				(isAdmin && (
+					<CustomButton
+						ml={8}
+						mb={3}
+						px={7}
+						width={'200px'}
+						onClick={handleSave}
+						sx={{ alignSelf: 'center' }}
+					>
+						Save Edit
+					</CustomButton>
+				))}
 			<ReactEditorJS
 				autofocus={true}
 				onInitialize={handleInitialize}
@@ -117,7 +130,7 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 					],
 				}}
 				onReady={() => setIsEditorReady(true)}
-				readOnly={!isTeacher}
+				readOnly={!isTeacher && !isAdmin}
 			/>
 			<div id="editorjs" />
 		</Stack>

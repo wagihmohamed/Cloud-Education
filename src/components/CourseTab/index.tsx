@@ -44,7 +44,11 @@ export const CourseTab = ({
 		});
 
 	const { mutate: deleteSection, isLoading: isDeleteLoading } =
-		useDeleteCourseSection({});
+		useDeleteCourseSection({
+			onSuccess: () => {
+				setSelectedCourseId((prev) => (parseInt(prev || '0') - 1).toString());
+			},
+		});
 
 	const [courseTitle, setCourseTitle] = useState('');
 	const [triggerAddButton, setTriggerButton] = useState(false);
