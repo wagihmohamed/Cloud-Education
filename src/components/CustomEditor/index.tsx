@@ -6,7 +6,7 @@ import { createReactEditorJS } from 'react-editor-js';
 import { EDITOR_JS_TOOLS } from './constants';
 import Image from '@editorjs/image';
 import './styles.css';
-import { useCourses } from 'zustandStore';
+import { useAuth, useCourses } from 'zustandStore';
 import { Stack } from '@mui/material';
 
 interface EditorCore {
@@ -20,16 +20,15 @@ interface EditorCore {
 }
 
 interface CustomEditorProps {
-	id?: string;
+	id?: number;
 }
 
 const ReactEditorJS = createReactEditorJS();
 
-export const CustomEditor = ({ id }: CustomEditorProps) => {
+export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
+	const { isTeacher } = useAuth();
 	const editorCore = useRef<EditorCore | null>(null);
 	const { courses, saveCourse } = useCourses();
-
-	const isExam = true;
 
 	const handleInitialize = useCallback((instance: any) => {
 		editorCore.current = instance;
@@ -39,24 +38,9 @@ export const CustomEditor = ({ id }: CustomEditorProps) => {
 		const savedData = await editorCore?.current?.save();
 		saveCourse({
 			id,
-			course: savedData?.blocks as any,
+			course: savedData?.blocks || [],
 		});
 	}, [id]);
-
-	const habdleToggleExam = useCallback(() => {
-		if (isExam) {
-			const editableElements = document.querySelectorAll('h1');
-			editableElements.forEach((el) => {
-				el.removeAttribute('contenteditable');
-				document.createElement('input');
-			});
-			const iconSettings = document.querySelectorAll(
-				'.ce-toolbar__settings-btn'
-			);
-			iconSettings.forEach((el) => el.remove());
-		}
-		return;
-	}, [isExam]);
 
 	const handleImageUpload = async (file: any) => {
 		const formData = new FormData();
@@ -76,6 +60,18 @@ export const CustomEditor = ({ id }: CustomEditorProps) => {
 
 	return (
 		<Stack direction={'column'}>
+			{isTeacher && (
+				<CustomButton
+					ml={8}
+					mb={3}
+					px={7}
+					width={'200px'}
+					onClick={handleSave}
+					sx={{ alignSelf: 'center' }}
+				>
+					Save Edit
+				</CustomButton>
+			)}
 			<CustomButton ml={8} mb={3} px={7} width={'200px'} onClick={handleSave} sx={{alignSelf:'center'}} >
 				Save Edit
 			</CustomButton>
@@ -97,13 +93,13 @@ export const CustomEditor = ({ id }: CustomEditorProps) => {
 				}}
 				value={{
 					time: 1635603431943,
-					blocks: courses.find((course) => course.id === id)?.course || [],
+					blocks: courses[0].course || [],
 				}}
 				defaultValue={{
 					time: 1635603431943,
-					blocks: courses.find((course) => course.id === id)?.course || [],
+					blocks: courses[0].course || [],
 				}}
-				onReady={habdleToggleExam}
+				readOnly={!isTeacher}
 			/>
 			<div id="editorjs" />
 		</Stack>

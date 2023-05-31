@@ -5,3 +5,6 @@ export * from './getListOfCourses';
 export * from './addCourseByOrgId';
 export * from './editCourseByCode';
 export * from './deleteCourseByCode';
+export * from './getCourseSectionsByCourseCode';
+export * from './addCourseSectionService';
+export * from './deleteCourseSectionService';

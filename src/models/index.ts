@@ -85,20 +85,20 @@ export interface Choice {
 export type ExamType = 'essay' | 'choice';
 
 export type Course = {
-	id?: string;
+	id?: number;
 	title: string;
 	course: OutputBlockData[];
 };
 
 export interface CoursePayload {
-	id?: string;
+	id?: number;
 	title?: string;
 	course: OutputBlockData[];
 }
 
 export interface InitialStateType {
 	courses: {
-		id?: string;
+		id?: number;
 		title: string;
 		course: OutputBlockData[];
 	}[];
@@ -232,4 +232,26 @@ export interface CourseResponse {
 export interface Comment {
 	id: string;
 	content: string;
+}
+
+export interface CourseSectionsResponse {
+	status: string;
+	data: CourseSections[];
+}
+
+export interface CourseSections {
+	title: string;
+	order: number;
+}
+
+export interface AddCourseSectionPayload {
+	title: string;
+}
+
+export interface AddCourseSectionResponse {
+	status: string;
+	data: {
+		title: string;
+		order: number;
+	};
 }

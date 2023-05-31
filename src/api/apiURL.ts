@@ -31,3 +31,25 @@ export const deleteCourseByCodeEndpoint = (
 ) => {
 	return `/api/${orgnizationId}/courses/${courseCode}`;
 };
+
+export const getCourseSectionsByCourseCodeEndpoint = (
+	orgnizationId: string,
+	courseCode: string
+) => {
+	return `/api/${orgnizationId}/courses/${courseCode}/sections`;
+};
+
+export const addCourseSectionByCourseCodeEndpoint = (
+	orgnizationId: string,
+	courseCode: string
+) => {
+	return `/api/${orgnizationId}/courses/${courseCode}/sections`;
+};
+
+export const editCourseSectionBySectionIdEndpoint = (
+	orgnizationId: string,
+	courseCode: string,
+	sectionOrder: number
+) => {
+	return `/api/${orgnizationId}/courses/${courseCode}/sections/${sectionOrder}`;
+};
