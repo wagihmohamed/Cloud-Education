@@ -29,8 +29,6 @@ export const CustomEditor = ({ id }: CustomEditorProps) => {
 	const editorCore = useRef<EditorCore | null>(null);
 	const { courses, saveCourse } = useCourses();
 
-	const isExam = true;
-
 	const handleInitialize = useCallback((instance: any) => {
 		editorCore.current = instance;
 	}, []);
@@ -39,24 +37,9 @@ export const CustomEditor = ({ id }: CustomEditorProps) => {
 		const savedData = await editorCore?.current?.save();
 		saveCourse({
 			id,
-			course: savedData?.blocks as any,
+			course: savedData?.blocks || [],
 		});
 	}, [id]);
-
-	const habdleToggleExam = useCallback(() => {
-		if (isExam) {
-			const editableElements = document.querySelectorAll('h1');
-			editableElements.forEach((el) => {
-				el.removeAttribute('contenteditable');
-				document.createElement('input');
-			});
-			const iconSettings = document.querySelectorAll(
-				'.ce-toolbar__settings-btn'
-			);
-			iconSettings.forEach((el) => el.remove());
-		}
-		return;
-	}, [isExam]);
 
 	const handleImageUpload = async (file: any) => {
 		const formData = new FormData();
@@ -76,7 +59,7 @@ export const CustomEditor = ({ id }: CustomEditorProps) => {
 
 	return (
 		<Stack direction={'column'} alignItems={'center'}>
-			<CustomButton ml={8} mb={3} px={7} onClick={handleSave} >
+			<CustomButton ml={8} mb={3} px={7} onClick={handleSave}>
 				Save Edit
 			</CustomButton>
 			<ReactEditorJS
@@ -103,7 +86,7 @@ export const CustomEditor = ({ id }: CustomEditorProps) => {
 					time: 1635603431943,
 					blocks: courses.find((course) => course.id === id)?.course || [],
 				}}
-				onReady={habdleToggleExam}
+				readOnly
 			/>
 			<div id="editorjs" />
 		</Stack>
