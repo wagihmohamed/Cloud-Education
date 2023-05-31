@@ -1,15 +1,21 @@
-import { Drawer, Stack, Typography } from '@mui/material';
+import { Drawer, Stack, Typography, Box, Avatar } from '@mui/material';
 import { useState, useRef } from 'react';
-import PersonIcon from '@mui/icons-material/Person';
+import { Delete } from '@mui/icons-material';
 import { theme } from 'theme';
 import {
 	CustomTextField,
 	LoadingErrorPlaceholder,
 	CustomButton,
 } from 'components';
-import { useAddComment, useGetCommentsBySectionId } from 'hooks';
+import {
+	useAddComment,
+	useDeleteComment,
+	useGetCommentsBySectionId,
+} from 'hooks';
 import { useParams } from 'react-router-dom';
 import { EmptyComments } from 'assets';
+import { toast } from 'react-toastify';
+import { useAuth } from 'zustandStore';
 
 interface CourseCommentsInterface {
 	sectionId: number;
@@ -23,6 +29,8 @@ export const CourseComments = ({
 	sectionId,
 }: CourseCommentsInterface) => {
 	const { courseId } = useParams();
+	const { email } = useAuth();
+	const { mutate: deleteComment } = useDeleteComment({});
 	const { isLoading: isAddCommentLoading, mutate: addComment } = useAddComment({
 		onSuccess: () => {
 			setComment('');
@@ -31,6 +39,9 @@ export const CourseComments = ({
 					containerRef.current.scrollTop = containerRef.current.scrollHeight;
 				}
 			}, 100);
+		},
+		onError: (err) => {
+			toast.error(err.response?.data.message || 'Something went wrong');
 		},
 	});
 	const {
@@ -41,7 +52,7 @@ export const CourseComments = ({
 		isLoading,
 		isError,
 	} = useGetCommentsBySectionId(courseId || '', sectionId);
-	const [comment, setComment] = useState<string>();
+	const [comment, setComment] = useState<string>('');
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	const handleAddComment = () => {
@@ -74,14 +85,21 @@ export const CourseComments = ({
 					</>
 				}
 			>
-				<CustomButton
-					width="100px"
-					m="1rem"
-					warning={true}
-					onClick={() => setOpenComments(false)}
+				<Box
+					sx={{
+						width: '100%',
+						bgcolor: '#f2f2f2',
+					}}
 				>
-					Close
-				</CustomButton>
+					<CustomButton
+						width="100px"
+						m="1rem"
+						warning={true}
+						onClick={() => setOpenComments(false)}
+					>
+						Close
+					</CustomButton>
+				</Box>
 				<Stack
 					ref={containerRef}
 					sx={{
@@ -89,6 +107,7 @@ export const CourseComments = ({
 						alignItems: 'center',
 						height: '90%',
 						overflowY: 'scroll',
+						bgcolor: '#f2f2f2',
 						width: '600px',
 						[theme.breakpoints.down('md')]: {
 							width: '100%',
@@ -98,22 +117,59 @@ export const CourseComments = ({
 					<Typography variant="h3" sx={{ margin: '1rem auto' }}>
 						Comments :-
 					</Typography>
-					{comments.data.map(({ id, content }) => {
+					{comments.data.map(({ id, content, user }) => {
 						return (
 							<Stack
 								key={id}
-								direction="row"
-								alignItems="flex-start"
+								display="flex"
+								flexDirection="row"
+								justifyContent="space-between"
+								alignItems="center"
 								sx={{
 									width: '95%',
 									margin: '1rem auto',
 									padding: '10px',
 									borderRadius: '5px',
 									border: 'solid black 2px',
+									bgcolor: '#fff',
+									boxShadow:
+										'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px',
 								}}
 							>
-								<PersonIcon sx={{ marginRight: '5px' }} />
-								{content}
+								<Box
+									sx={{
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'flex-start',
+									}}
+								>
+									<Avatar>
+										{user.firstName[0]}
+										{user.lastName[0]}
+									</Avatar>
+									<Typography ml={2} textAlign="center">
+										{content}
+									</Typography>
+								</Box>
+								{email === user.email && (
+									<Delete
+										onClick={() =>
+											deleteComment({
+												courseCode: courseId || '',
+												sectionOrder: sectionId,
+												commentId: id,
+											})
+										}
+										sx={{
+											cursor: 'pointer',
+											color: '#d32f2f',
+											':hover': {
+												color: 'red',
+											},
+											ml: 'auto',
+										}}
+									/>
+								)}
 							</Stack>
 						);
 					})}
@@ -121,7 +177,7 @@ export const CourseComments = ({
 			</LoadingErrorPlaceholder>
 			<Stack
 				direction="row"
-				sx={{ p: '1rem' }}
+				sx={{ p: '1rem', bgcolor: '#f2f2f2' }}
 				justifyContent="space-between"
 				alignItems="center"
 				spacing={1}
@@ -130,6 +186,7 @@ export const CourseComments = ({
 					placeholder="add your comment and hit Enter &#10149;"
 					sx={{ margin: '1rem auto', width: '90%' }}
 					value={comment}
+					autoComplete="off"
 					onChange={(e) => {
 						setComment(e.target.value);
 					}}

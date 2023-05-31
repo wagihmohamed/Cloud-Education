@@ -85,3 +85,12 @@ export const addCommentByCourseCodeEndpoint = (
 ) => {
 	return `/api/${orgnizationId}/courses/${courseCode}/sections/${sectionOrder}/comments`;
 };
+
+export const deleteCommentByCourseCodeEndpoint = (
+	orgnizationId: string,
+	courseCode: string,
+	sectionOrder: number,
+	commentId: string
+) => {
+	return `/api/${orgnizationId}/courses/${courseCode}/sections/${sectionOrder}/comments/${commentId}`;
+};

@@ -277,3 +277,32 @@ export interface UpdateCourseSectionResponse {
 		content: OutputBlockData[];
 	};
 }
+
+export interface DeleteCommentResponse {
+	status: string;
+	message: string;
+}
+
+export interface AddCommentPayload {
+	content: string;
+}
+
+export interface AddCommentResponse {
+	status: string;
+	data: CommentInfo;
+}
+
+export interface CommentInfo {
+	id: string;
+	createdAt: string;
+	updatedAt: string;
+	content: string;
+	user: UserDetails;
+}
+
+export interface UserDetails {
+	id: string;
+	firstName: string;
+	lastName: string;
+	email: string;
+}

@@ -59,9 +59,10 @@ export const LoadingErrorPlaceholder = ({
 					flexDirection: 'column',
 					justifyContent: 'center',
 					alignItems: 'center',
+					bgcolor: '#f2f2f2',
 				}}
 			>
-				<img src={emptyImg} alt="empty" />
+				<img src={emptyImg} alt="No comments" />
 				{emptyText}
 			</Box>
 		);
