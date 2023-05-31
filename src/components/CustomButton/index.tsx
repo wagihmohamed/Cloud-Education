@@ -1,10 +1,12 @@
 import { ReactNode } from 'react';
 import { Button, ButtonProps, CircularProgress } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-
 interface CustomButtonProps extends ButtonProps {
 	children: ReactNode;
 	mx?: number | string;
+	borderRadius?: number | string;
+	bgColor?: string;
+	textcolor?: string;
 	px?: number | string;
 	py?: number | string;
 	width?: number | string;
@@ -17,12 +19,12 @@ interface CustomButtonProps extends ButtonProps {
 	m?: number | string;
 	active?: boolean;
 	warning?: boolean;
-	bgColor?: string;
 	loadingButton?: boolean;
 	loading?: boolean;
 }
 export const CustomButton = ({
 	children,
+	borderRadius,
 	mx,
 	px,
 	width,
@@ -37,6 +39,7 @@ export const CustomButton = ({
 	py,
 	warning = false,
 	bgColor,
+	textcolor,
 	loadingButton = false,
 	loading,
 	...props
@@ -62,8 +65,9 @@ export const CustomButton = ({
 						mr,
 						py,
 						fontWeight: (active && 700) || 400,
-						bgcolor: (warning && '#d32f2f') || bgColor || 'primary.main',
-						color: 'white',
+						bgcolor:
+							bgColor || (warning && '#d32f2f') || bgColor || 'primary.main',
+						color: textcolor ? textcolor : 'white',
 						fontSize: '20px',
 						'&:hover': {
 							bgcolor: (warning && '#e06d6d') || bgColor || 'primary.main',
@@ -71,7 +75,7 @@ export const CustomButton = ({
 						'&:disabled': {
 							bgcolor: '#9e9e9e',
 						},
-						borderRadius: '20px',
+						borderRadius: borderRadius ? borderRadius : '20px',
 					}}
 				>
 					{children}

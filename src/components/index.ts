@@ -38,6 +38,8 @@ import { CustomToast } from './CustomToast';
 import { LoadingErrorPlaceholder } from './LoadingErrorPlaceholder';
 import { CourseTab } from './CourseTab';
 import { CourseContentItem } from './CourseContentItem';
+import { FeedbackModal } from './FeedBackModal';
+import { CourseComments } from './CourseComments';
 export {
 	LandingPageCard,
 	Footer,
@@ -78,4 +80,6 @@ export {
 	CustomDrawer,
 	CourseTab,
 	CourseContentItem,
+	FeedbackModal,
+	CourseComments,
 };
