@@ -1,12 +1,11 @@
-/*eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-import { Drawer, Stack, TextField, Typography } from '@mui/material';
+import { Drawer, Stack, Typography } from '@mui/material';
 import { useState, useRef } from 'react';
 import PersonIcon from '@mui/icons-material/Person';
 import { Comment } from 'models';
 import { courseComments } from 'mockup';
+import { CustomButton } from 'components/CustomButton';
+import { theme } from 'theme';
+import { CustomTextField } from 'components/CustomTextField';
 interface CourseCommentsInterface {
 	openComments: boolean;
 	setOpenComments: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,9 +18,8 @@ export const CourseComments = ({
 	const [commentsList, setCommentsList] = useState<Comment[]>(courseComments);
 	const [comment, setComment] = useState<string>();
 	const containerRef = useRef<HTMLDivElement>(null);
-
-	const addingCommentHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === 'Enter' && comment) {
+	const addingNewComment = () => {
+		if (comment) {
 			const newComment: Comment = {
 				id: new Date().getTime().toString(),
 				content: comment,
@@ -42,19 +40,30 @@ export const CourseComments = ({
 			open={openComments}
 			onClose={() => setOpenComments(false)}
 		>
-			<Typography variant="h3" sx={{ margin: '1rem auto' }}>
-				Comments :-
-			</Typography>
+			<CustomButton
+				width={'100px'}
+				m={'1rem'}
+				warning={true}
+				onClick={() => setOpenComments(false)}
+			>
+				Close
+			</CustomButton>
 			<Stack
 				ref={containerRef}
-				width={'400px'}
 				sx={{
 					padding: '.8rem',
 					alignItems: 'center',
 					height: '90%',
 					overflowY: 'scroll',
+					width: '600px',
+					[theme.breakpoints.down('md')]: {
+						width: '100%',
+					},
 				}}
 			>
+				<Typography variant="h3" sx={{ margin: '1rem auto' }}>
+					Comments :-
+				</Typography>
 				{commentsList.map(({ id, content }) => {
 					return (
 						<Stack
@@ -75,17 +84,32 @@ export const CourseComments = ({
 					);
 				})}
 			</Stack>
-			<TextField
-				placeholder="add your comment and hit Enter &#10149;"
-				sx={{ margin: '1rem auto', width: '90%' }}
-				value={comment}
-				onChange={(e) => {
-					setComment(e.target.value);
-				}}
-				onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
-					addingCommentHandler(e)
-				}
-			></TextField>
+			<Stack
+				direction={'row'}
+				sx={{ p: '1rem' }}
+				justifyContent={'space-between'}
+				alignItems={'center'}
+				spacing={1}
+			>
+				<CustomTextField
+					placeholder="add your comment and hit Enter &#10149;"
+					sx={{ margin: '1rem auto', width: '90%' }}
+					value={comment}
+					onChange={(e) => {
+						setComment(e.target.value);
+					}}
+					onKeyDown={(e) => {
+						if (e.key == 'Enter') addingNewComment();
+					}}
+				/>
+				<CustomButton
+					py={'6px'}
+					bgColor="#388e3c"
+					onClick={() => addingNewComment()}
+				>
+					Send
+				</CustomButton>
+			</Stack>
 		</Drawer>
 	);
 };
