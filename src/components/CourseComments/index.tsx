@@ -1,12 +1,24 @@
-import { Drawer, Stack, Typography } from '@mui/material';
+import { Drawer, Stack, Typography, Box, Avatar } from '@mui/material';
 import { useState, useRef } from 'react';
-import PersonIcon from '@mui/icons-material/Person';
-import { Comment } from 'models';
-import { courseComments } from 'mockup';
-import { CustomButton } from 'components/CustomButton';
+import { Delete } from '@mui/icons-material';
 import { theme } from 'theme';
-import { CustomTextField } from 'components/CustomTextField';
+import {
+	CustomTextField,
+	LoadingErrorPlaceholder,
+	CustomButton,
+} from 'components';
+import {
+	useAddComment,
+	useDeleteComment,
+	useGetCommentsBySectionId,
+} from 'hooks';
+import { useParams } from 'react-router-dom';
+import { EmptyComments } from 'assets';
+import { toast } from 'react-toastify';
+import { useAuth } from 'zustandStore';
+
 interface CourseCommentsInterface {
+	sectionId: number;
 	openComments: boolean;
 	setOpenComments: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -14,79 +26,158 @@ interface CourseCommentsInterface {
 export const CourseComments = ({
 	openComments,
 	setOpenComments,
+	sectionId,
 }: CourseCommentsInterface) => {
-	const [commentsList, setCommentsList] = useState<Comment[]>(courseComments);
-	const [comment, setComment] = useState<string>();
-	const containerRef = useRef<HTMLDivElement>(null);
-	const addingNewComment = () => {
-		if (comment) {
-			const newComment: Comment = {
-				id: new Date().getTime().toString(),
-				content: comment,
-			};
-			const newComments: Comment[] = [...commentsList, newComment];
-			setCommentsList(newComments);
+	const { courseId } = useParams();
+	const { email } = useAuth();
+	const { mutate: deleteComment } = useDeleteComment({});
+	const { isLoading: isAddCommentLoading, mutate: addComment } = useAddComment({
+		onSuccess: () => {
 			setComment('');
 			setTimeout(() => {
 				if (containerRef.current) {
 					containerRef.current.scrollTop = containerRef.current.scrollHeight;
 				}
 			}, 100);
-		}
+		},
+		onError: (err) => {
+			toast.error(err.response?.data.message || 'Something went wrong');
+		},
+	});
+	const {
+		data: comments = {
+			status: '',
+			data: [],
+		},
+		isLoading,
+		isError,
+	} = useGetCommentsBySectionId(courseId || '', sectionId);
+	const [comment, setComment] = useState<string>('');
+	const containerRef = useRef<HTMLDivElement>(null);
+
+	const handleAddComment = () => {
+		addComment({
+			content: comment || '',
+			courseCode: courseId || '',
+			sectionOrder: sectionId,
+		});
 	};
+
 	return (
 		<Drawer
 			anchor="right"
 			open={openComments}
 			onClose={() => setOpenComments(false)}
 		>
-			<CustomButton
-				width="100px"
-				m="1rem"
-				warning={true}
-				onClick={() => setOpenComments(false)}
+			<LoadingErrorPlaceholder
+				width="600px"
+				isLoading={isLoading}
+				isError={isError}
+				isEmpty={comments.data.length === 0}
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+				emptyImg={EmptyComments}
+				emptyText={
+					<>
+						<Typography variant="h3" sx={{ margin: '2rem auto' }}>
+							No comments yet
+						</Typography>
+						<Typography variant="h3">Be the first to comment</Typography>
+					</>
+				}
 			>
-				Close
-			</CustomButton>
-			<Stack
-				ref={containerRef}
-				sx={{
-					padding: '.8rem',
-					alignItems: 'center',
-					height: '90%',
-					overflowY: 'scroll',
-					width: '600px',
-					[theme.breakpoints.down('md')]: {
+				<Box
+					sx={{
 						width: '100%',
-					},
-				}}
-			>
-				<Typography variant="h3" sx={{ margin: '1rem auto' }}>
-					Comments :-
-				</Typography>
-				{commentsList.map(({ id, content }) => {
-					return (
-						<Stack
-							key={id}
-							direction="row"
-							alignItems="flex-start"
-							sx={{
-								width: '95%',
-								margin: '1rem auto',
-								padding: '10px',
-								borderRadius: '5px',
-								border: 'solid black 2px',
-							}}
-						>
-							<PersonIcon sx={{ marginRight: '5px' }} />
-							{content}
-						</Stack>
-					);
-				})}
-			</Stack>
+						bgcolor: '#f2f2f2',
+					}}
+				>
+					<CustomButton
+						width="100px"
+						m="1rem"
+						warning={true}
+						onClick={() => setOpenComments(false)}
+					>
+						Close
+					</CustomButton>
+				</Box>
+				<Stack
+					ref={containerRef}
+					sx={{
+						padding: '.8rem',
+						alignItems: 'center',
+						height: '90%',
+						overflowY: 'scroll',
+						bgcolor: '#f2f2f2',
+						width: '600px',
+						[theme.breakpoints.down('md')]: {
+							width: '100%',
+						},
+					}}
+				>
+					<Typography variant="h3" sx={{ margin: '1rem auto' }}>
+						Comments :-
+					</Typography>
+					{comments.data.map(({ id, content, user }) => {
+						return (
+							<Stack
+								key={id}
+								display="flex"
+								flexDirection="row"
+								justifyContent="space-between"
+								alignItems="center"
+								sx={{
+									width: '95%',
+									margin: '1rem auto',
+									padding: '10px',
+									borderRadius: '5px',
+									border: 'solid black 2px',
+									bgcolor: '#fff',
+									boxShadow:
+										'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px',
+								}}
+							>
+								<Box
+									sx={{
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'flex-start',
+									}}
+								>
+									<Avatar>
+										{user.firstName[0]}
+										{user.lastName[0]}
+									</Avatar>
+									<Typography ml={2} textAlign="center">
+										{content}
+									</Typography>
+								</Box>
+								{email === user.email && (
+									<Delete
+										onClick={() =>
+											deleteComment({
+												courseCode: courseId || '',
+												sectionOrder: sectionId,
+												commentId: id,
+											})
+										}
+										sx={{
+											cursor: 'pointer',
+											color: '#d32f2f',
+											':hover': {
+												color: 'red',
+											},
+											ml: 'auto',
+										}}
+									/>
+								)}
+							</Stack>
+						);
+					})}
+				</Stack>
+			</LoadingErrorPlaceholder>
 			<Stack
 				direction="row"
-				sx={{ p: '1rem' }}
+				sx={{ p: '1rem', bgcolor: '#f2f2f2' }}
 				justifyContent="space-between"
 				alignItems="center"
 				spacing={1}
@@ -95,17 +186,23 @@ export const CourseComments = ({
 					placeholder="add your comment and hit Enter &#10149;"
 					sx={{ margin: '1rem auto', width: '90%' }}
 					value={comment}
+					autoComplete="off"
 					onChange={(e) => {
 						setComment(e.target.value);
 					}}
 					onKeyDown={(e) => {
-						if (e.key == 'Enter') addingNewComment();
+						if (e.key == 'Enter' && comment) {
+							handleAddComment();
+						}
 					}}
 				/>
 				<CustomButton
 					py="6px"
 					bgColor="#388e3c"
-					onClick={() => addingNewComment()}
+					loading={isAddCommentLoading}
+					loadingButton
+					disabled={isAddCommentLoading}
+					onClick={handleAddComment}
 				>
 					Send
 				</CustomButton>

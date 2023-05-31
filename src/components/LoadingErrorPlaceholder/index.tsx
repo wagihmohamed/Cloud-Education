@@ -19,6 +19,10 @@ interface LoadingErrorPlaceholderProps {
 	isError: boolean;
 	height?: string;
 	children: React.ReactNode;
+	width?: string;
+	isEmpty?: boolean;
+	emptyImg?: string;
+	emptyText?: React.ReactNode;
 }
 
 export const LoadingErrorPlaceholder = ({
@@ -26,17 +30,40 @@ export const LoadingErrorPlaceholder = ({
 	isLoading,
 	height = '90vh',
 	children,
+	width,
+	isEmpty,
+	emptyImg,
+	emptyText,
 }: LoadingErrorPlaceholderProps) => {
 	if (isLoading) {
 		return (
 			<Box
-				width="100%"
+				width={width || '100%'}
 				height={height}
 				display="flex"
 				justifyContent="center"
 				alignItems="center"
 			>
 				<CircularProgress />
+			</Box>
+		);
+	}
+
+	if (isEmpty && !isLoading) {
+		return (
+			<Box
+				sx={{
+					height,
+					width: width || '100%',
+					display: 'flex',
+					flexDirection: 'column',
+					justifyContent: 'center',
+					alignItems: 'center',
+					bgcolor: '#f2f2f2',
+				}}
+			>
+				<img src={emptyImg} alt="No comments" />
+				{emptyText}
 			</Box>
 		);
 	}

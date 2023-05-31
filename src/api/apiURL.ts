@@ -69,3 +69,28 @@ export const updateCourseSectionBySectionIdEndpoint = (
 ) => {
 	return `/api/${orgnizationId}/courses/${courseCode}/sections/${sectionOrder}`;
 };
+
+export const getCommentsByCourseCodeEndpoint = (
+	orgnizationId: string,
+	courseCode: string,
+	sectionOrder: number
+) => {
+	return `/api/${orgnizationId}/courses/${courseCode}/sections/${sectionOrder}/comments`;
+};
+
+export const addCommentByCourseCodeEndpoint = (
+	orgnizationId: string,
+	courseCode: string,
+	sectionOrder: number
+) => {
+	return `/api/${orgnizationId}/courses/${courseCode}/sections/${sectionOrder}/comments`;
+};
+
+export const deleteCommentByCourseCodeEndpoint = (
+	orgnizationId: string,
+	courseCode: string,
+	sectionOrder: number,
+	commentId: string
+) => {
+	return `/api/${orgnizationId}/courses/${courseCode}/sections/${sectionOrder}/comments/${commentId}`;
+};

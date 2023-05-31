@@ -67,6 +67,7 @@ export const CourseScreen = () => {
 			<FeedbackModal opneModal={openModal} setOpenModal={setOpenModal} />
 			<CustomLayout>
 				<CourseComments
+					sectionId={parseInt(selectedCourseId || '')}
 					openComments={openComments}
 					setOpenComments={setOpenComments}
 				/>

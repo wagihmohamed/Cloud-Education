@@ -10,3 +10,6 @@ export * from './addCourseSectionService';
 export * from './deleteCourseSectionService';
 export * from './getCourseContentByCourseCodeService';
 export * from './updateCourseSectionService';
+export * from './getCommentsBySectioId';
+export * from './addCommentService';
+export * from './deleteCommentService';
