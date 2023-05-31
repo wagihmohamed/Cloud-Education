@@ -255,3 +255,25 @@ export interface AddCourseSectionResponse {
 		order: number;
 	};
 }
+
+export interface CourseContentResponse {
+	status: string;
+	data: {
+		title: string;
+		order: number;
+		content: OutputBlockData[] | null;
+	};
+}
+
+export interface UpdateCourseSectionPayload {
+	title: string;
+	content: OutputBlockData[];
+}
+
+export interface UpdateCourseSectionResponse {
+	status: string;
+	data: {
+		title: string;
+		content: OutputBlockData[];
+	};
+}

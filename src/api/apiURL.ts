@@ -53,3 +53,19 @@ export const editCourseSectionBySectionIdEndpoint = (
 ) => {
 	return `/api/${orgnizationId}/courses/${courseCode}/sections/${sectionOrder}`;
 };
+
+export const getCourseByCourseCode = (
+	orgnizationId: string,
+	courseCode: string,
+	sectionOrder = 1
+) => {
+	return `/api/${orgnizationId}/courses/${courseCode}/sections/${sectionOrder}`;
+};
+
+export const updateCourseSectionBySectionIdEndpoint = (
+	orgnizationId: string,
+	courseCode: string,
+	sectionOrder: number
+) => {
+	return `/api/${orgnizationId}/courses/${courseCode}/sections/${sectionOrder}`;
+};

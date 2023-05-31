@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useMemo } from 'react';
 import { Star, ChatBubble } from '@mui/icons-material';
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
@@ -14,16 +11,29 @@ import {
 	CourseComments,
 } from 'components';
 import { useParams } from 'react-router-dom';
-import { useCourses } from 'zustandStore';
 import { theme } from 'theme';
+import { useGetCourseContent } from 'hooks';
 
 export const CourseScreen = () => {
 	const { courseId } = useParams();
-	const { courses } = useCourses();
-	const [courseContentList, setCourseContentList] = useState<string[]>([]);
 	const [selectedCourseId, setSelectedCourseId] = useState<string | undefined>(
-		''
+		'1'
 	);
+
+	const {
+		data: courseContent = {
+			status: '',
+			data: {
+				content: [],
+				order: 0,
+				title: '',
+			},
+		},
+	} = useGetCourseContent({
+		courseCode: courseId || '',
+		sectionOrder: parseInt(selectedCourseId || '') || 1,
+	});
+
 	const [openModal, setOpenModal] = useState(false);
 	const [openComments, setOpenComments] = useState(false);
 
@@ -106,47 +116,47 @@ export const CourseScreen = () => {
 							<Star sx={{ color: 'yellow', marginRight: '5px' }} />
 							Rating & feedback
 						</CustomButton>
-						<Box
-							sx={{
-								border: '3px solid #000',
-								borderRadius: '10px',
-								margin: '1rem auto',
-								maxWidth: 600,
-								p: 2,
-								pb: 4,
-								width: '100%',
-							}}
-						>
-							<Stack direction={'column'} spacing={4}>
-								<Box>
-									<Typography
-										textAlign="center"
-										mt={2}
-										sx={{
-											textDecoration: 'underline',
-										}}
-										fontWeight="bold"
-										fontSize={25}
-										variant="h4"
-									>
-										Course Contnet
-									</Typography>
-									{courses[0].course.map((course) => {
-										return (
-											course.type === 'header' && (
-												<CourseContentItem
-													txt={course.data.text}
-													key={course.id}
-												/>
-											)
-										);
-									})}
-									{courseContentList.map((content) => {
-										return <CourseContentItem txt={content} key={content} />;
-									})}
-								</Box>
-							</Stack>
-						</Box>
+						{courseContent?.data.content ? (
+							<Box
+								sx={{
+									border: '3px solid #000',
+									borderRadius: '10px',
+									margin: '1rem auto',
+									maxWidth: 600,
+									p: 2,
+									pb: 4,
+									width: '100%',
+								}}
+							>
+								<Stack direction={'column'} spacing={4}>
+									<Box>
+										<Typography
+											textAlign="center"
+											mt={2}
+											sx={{
+												textDecoration: 'underline',
+											}}
+											fontWeight="bold"
+											fontSize={25}
+											variant="h4"
+										>
+											Course Contnet
+										</Typography>
+										{courseContent?.data.content?.map((course) => {
+											return (
+												course.type === 'header' && (
+													<CourseContentItem
+														// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+														txt={course.data.text as string}
+														key={course.id}
+													/>
+												)
+											);
+										})}
+									</Box>
+								</Stack>
+							</Box>
+						) : null}
 					</Stack>
 					<Grid columnSpacing="10px" container spacing={4}>
 						<Grid mt={2} item xs={12} md={12} sx={{ margin: '0 1rem' }}>
