@@ -1,34 +1,173 @@
-import { Button } from '@mui/material';
+import { Box, Button, Skeleton, Stack, TextField } from '@mui/material';
+import { CustomButton } from 'components/CustomButton';
+import { Add, Check, Delete } from '@mui/icons-material';
+import {
+	useAddCourseSection,
+	useGetCourseSections,
+	useDeleteCourseSection,
+} from 'hooks';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 interface CourseTabInterface {
-	id?: string;
 	selectedCourseId?: string;
-	title?: string;
 	setSelectedCourseId: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export const CourseTab = ({
-	id,
-	selectedCourseId,
-	title,
+	selectedCourseId = '',
 	setSelectedCourseId,
 }: CourseTabInterface) => {
+	const { courseId } = useParams();
+	const {
+		isLoading,
+		data: sections = {
+			status: '',
+			data: [],
+		},
+	} = useGetCourseSections({
+		courseCode: courseId || '',
+	});
+
+	const { mutate: addSection, isLoading: isAddCourseLoading } =
+		useAddCourseSection({
+			onSuccess: () => {
+				toast.success('Section Added Successfully');
+				setCourseTitle('');
+				setTriggerButton(false);
+			},
+			onError: (err) => {
+				toast.error(err.response?.data.message || 'Error Adding Section');
+				setTriggerButton(false);
+			},
+		});
+
+	const { mutate: deleteSection, isLoading: isDeleteLoading } =
+		useDeleteCourseSection({});
+
+	const [courseTitle, setCourseTitle] = useState('');
+	const [triggerAddButton, setTriggerButton] = useState(false);
+	const isActionsLoading = isAddCourseLoading || isDeleteLoading;
+
+	if (isLoading) {
+		return <Skeleton animation="wave" width="100%" height="30px" />;
+	}
+
+	const handleAddSection = () => {
+		if (courseTitle === '') {
+			toast.error('Section Title is required');
+			return;
+		}
+		addSection({
+			courseCode: courseId || '',
+			title: courseTitle,
+		});
+	};
+
 	return (
-		<Button
-			onClick={() => setSelectedCourseId(id)}
+		<Box
 			sx={{
-				overflow: 'hidden',
-				whiteSpace: 'nowrap',
-				textOverflow: 'ellipsis',
-				bgcolor: '#dee2e6',
-				color: '#696969',
-				borderRadius: '0',
-				fontSize: '1rem',
-				minWidth: '200px',
-				borderInline: '#696969 solid 1px',
-				fontWeight: id === selectedCourseId ? 'bold' : 'normal',
+				opacity: isActionsLoading ? '0.5' : '1',
+				display: 'flex',
+				width: '100%',
 			}}
 		>
-			{title}
-		</Button>
+			{sections.data.map((section) => (
+				<>
+					<Button
+						key={section.order}
+						onClick={() => {
+							setSelectedCourseId(section.order.toString());
+						}}
+						sx={{
+							overflow: 'hidden',
+							whiteSpace: 'nowrap',
+							textOverflow: 'ellipsis',
+							bgcolor: '#dee2e6',
+							color: '#696969',
+							borderRadius: '0',
+							borderRight: 'none !important',
+							textTransform: 'none',
+							fontSize: '1rem',
+							minWidth: '200px',
+							borderInline: '#696969 solid 1px',
+							fontWeight:
+								section.order === parseInt(selectedCourseId)
+									? 'bold'
+									: 'normal',
+						}}
+					>
+						{section.title}
+					</Button>
+					<Delete
+						sx={{
+							width: '1.5rem',
+							height: '100%',
+							cursor: 'pointer',
+							alignSelf: 'center',
+							bgcolor: '#dee2e6',
+							color: '#d32f2f',
+							':hover': {
+								color: 'red',
+							},
+						}}
+						onClick={() => {
+							deleteSection({
+								courseCode: courseId || '',
+								sectionOrder: section.order,
+							});
+						}}
+					/>
+				</>
+			))}
+			<Stack direction="row">
+				{triggerAddButton && (
+					<TextField
+						inputProps={{
+							style: {
+								padding: '9px',
+								fontSize: '1rem',
+							},
+						}}
+						variant="filled"
+						size="medium"
+						placeholder="Add Section"
+						sx={{ padding: '0px', fontSize: '2rem', minWidth: '200px' }}
+						value={courseTitle}
+						onChange={(e) => setCourseTitle(e.target.value)}
+						onKeyDown={(e) => {
+							if (e.key === 'Enter') {
+								setTriggerButton((prev) => !prev);
+							}
+						}}
+					/>
+				)}
+				<CustomButton
+					loadingButton
+					loading={isAddCourseLoading}
+					textcolor="black"
+					bgColor="#dee2e6"
+					borderRadius={'0'}
+					ml={2}
+					onClick={() => {
+						if (triggerAddButton) {
+							handleAddSection();
+						}
+						setTriggerButton((prev) => !prev);
+					}}
+				>
+					{
+						<>
+							{triggerAddButton ? (
+								<Check sx={{ fontSize: '1.5rem', bgcolor: 'transparent' }} />
+							) : (
+								<Add sx={{ fontSize: '1.5rem', bgcolor: 'transparent' }} />
+							)}
+						</>
+					}
+				</CustomButton>
+			</Stack>
+		</Box>
 	);
 };

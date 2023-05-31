@@ -11,7 +11,7 @@ interface StoreState {
 const initialState: InitialStateType = {
 	courses: [
 		{
-			id: '1',
+			id: 0,
 			title: 'Default Course',
 			course: editorDummyData,
 		},

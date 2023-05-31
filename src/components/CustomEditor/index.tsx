@@ -6,7 +6,7 @@ import { createReactEditorJS } from 'react-editor-js';
 import { EDITOR_JS_TOOLS } from './constants';
 import Image from '@editorjs/image';
 import './styles.css';
-import { useCourses } from 'zustandStore';
+import { useAuth, useCourses } from 'zustandStore';
 import { Stack } from '@mui/material';
 
 interface EditorCore {
@@ -20,12 +20,13 @@ interface EditorCore {
 }
 
 interface CustomEditorProps {
-	id?: string;
+	id?: number;
 }
 
 const ReactEditorJS = createReactEditorJS();
 
-export const CustomEditor = ({ id }: CustomEditorProps) => {
+export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
+	const { isTeacher } = useAuth();
 	const editorCore = useRef<EditorCore | null>(null);
 	const { courses, saveCourse } = useCourses();
 
@@ -58,10 +59,19 @@ export const CustomEditor = ({ id }: CustomEditorProps) => {
 	};
 
 	return (
-		<Stack direction={'column'} alignItems={'center'}>
-			<CustomButton ml={8} mb={3} px={7} onClick={handleSave}>
-				Save Edit
-			</CustomButton>
+		<Stack direction={'column'}>
+			{isTeacher && (
+				<CustomButton
+					ml={8}
+					mb={3}
+					px={7}
+					width={'200px'}
+					onClick={handleSave}
+					sx={{ alignSelf: 'center' }}
+				>
+					Save Edit
+				</CustomButton>
+			)}
 			<ReactEditorJS
 				autofocus={true}
 				onInitialize={handleInitialize}
@@ -80,13 +90,13 @@ export const CustomEditor = ({ id }: CustomEditorProps) => {
 				}}
 				value={{
 					time: 1635603431943,
-					blocks: courses.find((course) => course.id === id)?.course || [],
+					blocks: courses[0].course || [],
 				}}
 				defaultValue={{
 					time: 1635603431943,
-					blocks: courses.find((course) => course.id === id)?.course || [],
+					blocks: courses[0].course || [],
 				}}
-				readOnly
+				readOnly={!isTeacher}
 			/>
 			<div id="editorjs" />
 		</Stack>
