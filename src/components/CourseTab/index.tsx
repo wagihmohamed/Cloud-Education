@@ -6,7 +6,7 @@ import {
 	useGetCourseSections,
 	useDeleteCourseSection,
 } from 'hooks';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -74,9 +74,9 @@ export const CourseTab = ({
 			}}
 		>
 			{sections.data.map((section) => (
-				<>
+				<Fragment key={Math.random()}>
 					<Button
-						key={section.order}
+						disabled={isActionsLoading}
 						onClick={() => {
 							setSelectedCourseId(section.order.toString());
 						}}
@@ -119,7 +119,7 @@ export const CourseTab = ({
 							});
 						}}
 					/>
-				</>
+				</Fragment>
 			))}
 			<Stack direction="row">
 				{triggerAddButton && (
@@ -137,8 +137,8 @@ export const CourseTab = ({
 						value={courseTitle}
 						onChange={(e) => setCourseTitle(e.target.value)}
 						onKeyDown={(e) => {
-							if (e.key === 'Enter') {
-								setTriggerButton((prev) => !prev);
+							if (e.key === 'Enter' && triggerAddButton) {
+								handleAddSection();
 							}
 						}}
 					/>
@@ -151,7 +151,7 @@ export const CourseTab = ({
 					borderRadius={'0'}
 					ml={2}
 					onClick={() => {
-						if (triggerAddButton) {
+						if (triggerAddButton && courseTitle) {
 							handleAddSection();
 						}
 						setTriggerButton((prev) => !prev);

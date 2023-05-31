@@ -13,6 +13,7 @@ import { useUserRegister } from './useUserRegister';
 import { useGetCourseSections } from './useGetCourseSections';
 import { useAddCourseSection } from './useAddCourseSection';
 import { useDeleteCourseSection } from './useDeleteCourseSection';
+import { useGetCourseContent } from './useGetCourseContent';
 
 export {
 	useAddUser,
@@ -30,4 +31,5 @@ export {
 	useGetCourseSections,
 	useAddCourseSection,
 	useDeleteCourseSection,
+	useGetCourseContent,
 };

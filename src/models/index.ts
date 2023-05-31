@@ -255,3 +255,12 @@ export interface AddCourseSectionResponse {
 		order: number;
 	};
 }
+
+export interface CourseContentResponse {
+	status: string;
+	data: {
+		title: string;
+		order: number;
+		content: OutputBlockData[] | null;
+	};
+}
