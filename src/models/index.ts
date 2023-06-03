@@ -237,6 +237,8 @@ export interface UpdateCoursePayload {
 
 export interface CourseResponse {
 	status: string;
+	page: number;
+	pagesCount: number;
 	data: CourseItem[];
 }
 
