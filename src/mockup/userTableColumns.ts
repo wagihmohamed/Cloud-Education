@@ -1,19 +1,19 @@
 export const userTableColumns = [
 	{
-		id: 'user',
-		label: 'User',
+		id: 'username',
+		label: 'User Name',
 	},
 	{
 		id: 'role',
 		label: 'Role',
 	},
 	{
-		id: 'lastLogin',
-		label: 'Last Login',
+		id: 'email',
+		label: 'Email',
 	},
 	{
-		id: 'status',
-		label: 'Status',
+		id: 'phoneNumber',
+		label: 'Phone Number',
 	},
 	{
 		id: 'options',

@@ -110,3 +110,13 @@ export const getCoursesCodesByOrgIdEndpoint = ({
 }) => {
 	return `/api/${orgnizationId}/coursesCodes?exclude=${exclude}`;
 };
+
+export const getUsersByOrgIdEndpoint = ({
+	orgnizationId,
+	page,
+}: {
+	orgnizationId: string;
+	page: number;
+}) => {
+	return `/api/${orgnizationId}/users?page=${page}`;
+};

@@ -330,3 +330,21 @@ export interface CourseCode {
 	code: string;
 	name: string;
 }
+
+export interface UsersResponse {
+	status: string;
+	page: number;
+	pagesCount: number;
+	data: UserItem[];
+}
+
+export type UserRoles = 'ADMIN' | 'TEACHER' | 'LEARNER';
+
+export interface UserItem {
+	firstName: string;
+	lastName: string;
+	email: string;
+	phoneNumber: string;
+	role: UserRoles;
+	courses: CourseCode[];
+}

@@ -14,3 +14,4 @@ export * from './getCommentsBySectioId';
 export * from './addCommentService';
 export * from './deleteCommentService';
 export * from './getCoursesCode';
+export * from './getUsersList';
