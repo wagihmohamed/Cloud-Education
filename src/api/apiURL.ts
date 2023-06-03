@@ -10,8 +10,14 @@ export const userRegisterByOrgIdEndpoint = (orgnizationId: string) => {
 	return `/api/${orgnizationId}/auth/signup`;
 };
 
-export const getCoursesByOrgIdEndpoint = (orgnizationId: string) => {
-	return `/api/${orgnizationId}/courses`;
+export const getCoursesByOrgIdEndpoint = ({
+	orgnizationId,
+	page,
+}: {
+	orgnizationId: string;
+	page: number;
+}) => {
+	return `/api/${orgnizationId}/courses?page=${page}`;
 };
 
 export const addCourseByOrgIdEndpoint = (orgnizationId: string) => {

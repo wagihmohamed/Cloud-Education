@@ -39,14 +39,19 @@ export const CoursesTable = ({
 	selectedCourse,
 	setSelectedCourse,
 }: CoursesTableProps) => {
+	const [currentPage, setCurrentPage] = useState(1);
 	const {
 		data: courses = {
 			data: [],
 			status: '',
+			page: 1,
+			pagesCount: 1,
 		},
 		isLoading,
 		isError,
-	} = useCoursesList();
+	} = useCoursesList({
+		page: currentPage,
+	});
 
 	const { mutate: toggleCourseStatus, isLoading: isEditing } = useEditCourse({
 		onError: (err) => {
@@ -257,8 +262,12 @@ export const CoursesTable = ({
 				</TableContainer>
 				{courses.data?.length > 0 && (
 					<Pagination
-						page={1}
-						count={10}
+						page={currentPage}
+						count={courses.pagesCount}
+						onChange={(_, value) => {
+							if (disableActions) return;
+							setCurrentPage(value);
+						}}
 						sx={{
 							mt: 4,
 							display: 'flex',
