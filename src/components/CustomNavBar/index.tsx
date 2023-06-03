@@ -10,9 +10,9 @@ export const CustomNavBar = () => {
 				{
 					display: 'flex',
 					flexDirection: 'column',
-					width: '100px',
+					width: '130px',
 					height: '100%',
-					borderRight: '2px solid #000',
+					borderRight: '2px solid #202033',
 					bgcolor: 'white',
 					position: 'fixed',
 					top: 0,

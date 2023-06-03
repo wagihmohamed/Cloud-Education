@@ -20,7 +20,12 @@ export const NotificationList = ({
 						my: '20px',
 						py: '20px',
 						bgcolor: 'white',
-						border: '3px solid #000',
+						border: '3px solid #382d8b',
+						cursor: 'pointer',
+						'&:hover': {
+							bgcolor: '#eaf4fe',
+							color: 'text.primary',
+						},
 					}}
 					key={message.id}
 				>
