@@ -78,6 +78,9 @@ export const CoursesTable = ({
 	const handleToggleStatus = (editedCourse: CourseItem) => {
 		toggleCourseStatus({
 			...editedCourse,
+			prerequisites: editedCourse.prerequisites?.map(
+				(prerequisite) => prerequisite.code
+			),
 			isActive: !editedCourse.isActive,
 		});
 	};

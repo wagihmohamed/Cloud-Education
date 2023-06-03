@@ -1,5 +1,5 @@
 import { api } from 'api';
-import { CourseItem } from 'models';
+import { CourseItem, UpdateCoursePayload } from 'models';
 import { AxiosResponse } from 'axios';
 import { editCourseByCodeEndpoint } from 'api/apiURL';
 
@@ -9,12 +9,12 @@ export const editCourseByCode = async ({
 	courseCode,
 }: {
 	orgnizationId: string;
-	course: CourseItem;
+	course: UpdateCoursePayload;
 	courseCode: string;
 }) => {
-	const response = await api.patch<CourseItem, AxiosResponse<CourseItem>>(
-		editCourseByCodeEndpoint(orgnizationId, courseCode),
-		course
-	);
+	const response = await api.patch<
+		UpdateCoursePayload,
+		AxiosResponse<CourseItem>
+	>(editCourseByCodeEndpoint(orgnizationId, courseCode), course);
 	return response.data;
 };

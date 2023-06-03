@@ -94,3 +94,13 @@ export const deleteCommentByCourseCodeEndpoint = (
 ) => {
 	return `/api/${orgnizationId}/courses/${courseCode}/sections/${sectionOrder}/comments/${commentId}`;
 };
+
+export const getCoursesCodesByOrgIdEndpoint = ({
+	orgnizationId,
+	exclude,
+}: {
+	orgnizationId: string;
+	exclude?: string;
+}) => {
+	return `/api/${orgnizationId}/coursesCodes?exclude=${exclude}`;
+};

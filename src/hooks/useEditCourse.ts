@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { ApiError, CourseItem } from 'models';
+import { ApiError, UpdateCoursePayload } from 'models';
 import { AxiosError } from 'axios';
 import { editCourseByCode } from 'services';
 import { toast } from 'react-toastify';
@@ -11,7 +11,7 @@ export const useEditCourse = (data: {
 	const { onSuccess = () => {}, onError } = data;
 	const queryClient = useQueryClient();
 	return useMutation({
-		mutationFn: async (course: CourseItem) => {
+		mutationFn: async (course: UpdateCoursePayload) => {
 			return editCourseByCode({
 				course,
 				orgnizationId: localStorage.getItem('organizationId') || '',
@@ -20,7 +20,7 @@ export const useEditCourse = (data: {
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries(['courses']);
-			toast.success('Status Changed successfully');
+			toast.success('Course updated successfully');
 			onSuccess();
 		},
 		onError,

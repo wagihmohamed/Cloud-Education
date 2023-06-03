@@ -7,7 +7,7 @@ import {
 	CustomButton,
 	CustomToast,
 } from 'components';
-import { allCourses, coursesCategoryOptions, courseStatus } from 'mockup';
+import { coursesCategoryOptions, courseStatus } from 'mockup';
 import { useFormik } from 'formik';
 import { CourseItem } from 'models';
 import {
@@ -16,8 +16,9 @@ import {
 	editCourseValidationSchema,
 } from './formikUtils';
 import { toast } from 'react-toastify';
-import { useEditCourse } from 'hooks';
+import { useEditCourse, useGetCoursesCode } from 'hooks';
 import { theme } from 'theme';
+import { transformCoursesList } from 'utlis';
 
 interface EditCourseModalProps {
 	open: boolean;
@@ -30,6 +31,14 @@ export const EditCourseModal = ({
 	open,
 	editedCourse,
 }: EditCourseModalProps) => {
+	const {
+		data: coursesList = {
+			data: [],
+			status: '',
+		},
+		isLoading: isCoursesListLoading,
+	} = useGetCoursesCode(editedCourse.code);
+
 	const { mutate: editCourse, isLoading } = useEditCourse({
 		onSuccess: () => {
 			toast.success(<CustomToast title="Course edited successfully" />);
@@ -56,10 +65,7 @@ export const EditCourseModal = ({
 				description: values.description,
 				isActive: values.courseStatus.value,
 				code: values.courseCode,
-				prerequisites:
-					values.prerequisites.length === 0
-						? undefined
-						: values.prerequisites.map((prerequisite) => prerequisite.value),
+				prerequisites: values.prerequisites.map((item) => item.value),
 			});
 		},
 	});
@@ -209,11 +215,12 @@ export const EditCourseModal = ({
 						<Grid item xs={12} sm={6}>
 							<CustomSelect
 								isMulti
+								isLoading={isCoursesListLoading}
 								onChange={(e: { label: string; value: string }) => {
 									formik.setFieldValue('prerequisites', e);
 								}}
 								value={formik.values.prerequisites}
-								options={allCourses}
+								options={transformCoursesList(coursesList.data)}
 								withLabel
 								label="Prerequisites"
 								error={

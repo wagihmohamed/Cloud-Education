@@ -1,5 +1,5 @@
 import { api } from 'api';
-import { CourseItem } from 'models';
+import { CourseItem, UpdateCoursePayload } from 'models';
 import { addCourseByOrgIdEndpoint } from 'api/apiURL';
 import { AxiosResponse } from 'axios';
 
@@ -8,11 +8,11 @@ export const addCourseByOrgId = async ({
 	orgnizationId,
 }: {
 	orgnizationId: string;
-	course: CourseItem;
+	course: UpdateCoursePayload;
 }) => {
-	const response = await api.post<CourseItem, AxiosResponse<CourseItem>>(
-		addCourseByOrgIdEndpoint(orgnizationId),
-		course
-	);
+	const response = await api.post<
+		UpdateCoursePayload,
+		AxiosResponse<CourseItem>
+	>(addCourseByOrgIdEndpoint(orgnizationId), course);
 	return response.data;
 };
