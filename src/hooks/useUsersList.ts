@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import { usersData } from 'mockup';
-import { sleep } from 'utlis';
+import { getUsersList } from 'services';
 
-export const useUsersList = () => {
+export const useUsersList = (page = 1) => {
 	return useQuery({
-		queryKey: ['users'],
+		queryKey: ['users', localStorage.getItem('organizationId') || '', page],
 		queryFn: async () => {
-			await sleep(1500);
-			return usersData;
+			return getUsersList({
+				orgnizationId: localStorage.getItem('organizationId') || '',
+				page: 1,
+			});
 		},
 	});
 };

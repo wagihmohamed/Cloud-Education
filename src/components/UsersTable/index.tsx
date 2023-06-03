@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 import {
 	Table,
@@ -24,39 +25,23 @@ import {
 	CustomTableRow,
 	LoadingErrorPlaceholder,
 } from 'components';
-import { User } from 'models';
+import { User, UserItem } from 'models';
 import { useUsersList } from 'hooks';
 
-interface UsersTableProps {
-	usersBodyData: User[];
-	setUsersBodyData: React.Dispatch<React.SetStateAction<User[]>>;
-}
-
-export const UsersTable = ({
-	setUsersBodyData,
-	usersBodyData,
-}: UsersTableProps) => {
-	const { data: users = [], isLoading, isError } = useUsersList();
+export const UsersTable = () => {
+	const [currentPage, setCurrentPage] = useState(1);
+	const {
+		data: users = {
+			data: [],
+			page: 1,
+			pagesCount: 1,
+			status: '',
+		},
+		isLoading,
+		isError,
+	} = useUsersList(currentPage);
 	const [isEditUserOpen, setIsEditUserOpen] = useState(false);
-	const [selectedUser, setSelectedUser] = useState<User>({} as User);
-
-	const handleToggleUserStatus = (id: string) => {
-		setUsersBodyData((prev) =>
-			prev.map((user) => {
-				if (user.id === id) {
-					return {
-						...user,
-						status: user.status === 'active' ? 'inactive' : 'active',
-					};
-				}
-				return user;
-			})
-		);
-	};
-
-	const handleDeleteUser = (id: string) => {
-		setUsersBodyData((prev) => prev.filter((user) => user.id !== id));
-	};
+	const [selectedUser, setSelectedUser] = useState<UserItem>({} as UserItem);
 
 	return (
 		<>
@@ -103,7 +88,7 @@ export const UsersTable = ({
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{users.length === 0 ? (
+							{users.data.length === 0 ? (
 								<TableRow>
 									<CustomTableCell colSpan={12}>
 										<Typography variant="h4" fontWeight="bold">
@@ -112,18 +97,14 @@ export const UsersTable = ({
 									</CustomTableCell>
 								</TableRow>
 							) : (
-								users.map((row) => (
-									<CustomTableRow key={row.id}>
+								users.data.map((row) => (
+									<CustomTableRow key={row.email}>
 										<CustomTableCell>
 											{row.firstName} {row.lastName}
 										</CustomTableCell>
 										<CustomTableCell>{row.role}</CustomTableCell>
-										<CustomTableCell>{row.lastLogin}</CustomTableCell>
-										<CustomTableCell
-											color={row.status === 'active' ? '#6aa84f' : '#FF0000'}
-										>
-											{row.status}
-										</CustomTableCell>
+										<CustomTableCell>{row.email}</CustomTableCell>
+										<CustomTableCell>{row.phoneNumber}</CustomTableCell>
 										<CustomTableCell width="200px">
 											<Stack direction="row" justifyContent="space-around">
 												<SettingsOutlined
@@ -145,9 +126,9 @@ export const UsersTable = ({
 													}}
 													cursor="pointer"
 													color="primary"
-													onClick={() => handleDeleteUser(row.id)}
+													// onClick={() => handleDeleteUser(row.email)}
 												/>
-												{row.status === 'active' ? (
+												{row.email === 'active' ? (
 													<DoDisturbOnOutlined
 														sx={{
 															height: '30px',
@@ -155,7 +136,7 @@ export const UsersTable = ({
 														}}
 														cursor="pointer"
 														color="primary"
-														onClick={() => handleToggleUserStatus(row.id)}
+														// onClick={() => handleToggleUserStatus(row.email)}
 													/>
 												) : (
 													<CheckCircleOutlineOutlined
@@ -165,7 +146,7 @@ export const UsersTable = ({
 														}}
 														cursor="pointer"
 														color="primary"
-														onClick={() => handleToggleUserStatus(row.id)}
+														// onClick={() => handleToggleUserStatus(row.email)}
 													/>
 												)}
 												<PeopleAltOutlined
@@ -184,10 +165,11 @@ export const UsersTable = ({
 						</TableBody>
 					</Table>
 				</TableContainer>
-				{usersBodyData.length > 0 && (
+				{users.data.length > 0 && (
 					<Pagination
-						page={1}
-						count={10}
+						page={users.page}
+						count={users.pagesCount}
+						onChange={(_, page) => setCurrentPage(page)}
 						sx={{
 							m: '1rem 2rem 2rem',
 							display: 'flex',
@@ -198,7 +180,6 @@ export const UsersTable = ({
 				<EditUserModal
 					open={isEditUserOpen}
 					editedUser={selectedUser}
-					handleSave={setUsersBodyData}
 					handleClose={() => setIsEditUserOpen(false)}
 				/>
 			</LoadingErrorPlaceholder>

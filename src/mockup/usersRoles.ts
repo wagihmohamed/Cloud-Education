@@ -1,10 +1,16 @@
-export const usersRoles = [
+import { UserRoles } from 'models';
+
+export const usersRoles: { label: string; value: UserRoles }[] = [
 	{
 		label: 'Teacher',
-		value: 'teacher',
+		value: 'TEACHER',
 	},
 	{
-		label: 'Student',
-		value: 'student',
+		label: 'Learner',
+		value: 'LEARNER',
+	},
+	{
+		label: 'Admin',
+		value: 'ADMIN',
 	},
 ];

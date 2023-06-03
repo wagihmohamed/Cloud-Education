@@ -14,72 +14,33 @@ import {
 	CustomToast,
 } from 'components';
 import { useFormik } from 'formik';
-import { usersRoles, usersStatus } from 'mockup';
-import { User, UserRole } from 'models';
-import { editUserInitialValues, editUserValidationSchema } from './formikUtils';
+import { usersRoles } from 'mockup';
+import { UserItem } from 'models';
+import {
+	editUserInitialValues,
+	editUserValidationSchema,
+	editUserstyles,
+} from './formikUtils';
 import { toast } from 'react-toastify';
 import { theme } from 'theme';
 
 interface EditUserModalProps {
 	open: boolean;
 	handleClose: () => void;
-	editedUser: User;
-	handleSave: React.Dispatch<React.SetStateAction<User[]>>;
+	editedUser: UserItem;
 }
-const styles = {
-	usersModal: {
-		position: 'absolute',
-		top: '50%',
-		left: '50%',
-		transform: 'translate(-50%, -50%)',
-		border: '3px solid #000',
-		bgcolor: 'background.paper',
-		borderRadius: '10px',
-		boxShadow: 24,
-		p: 4,
-		width: '800px',
-		maxHeight: '100vh',
-		overflow: 'auto',
-		maxWidth: '100%',
-		'&::-webkit-scrollbar': {
-			width: '0.4em',
-			background: 'transparent',
-		},
-	},
-	usersModalMd: {
-		width: '85%',
-		margin: 'auto',
-		maxHeight: '88vh',
-	},
-};
+
 export const EditUserModal = ({
 	handleClose,
 	open,
 	editedUser,
-	handleSave,
 }: EditUserModalProps) => {
+	const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
 	const formik = useFormik({
 		enableReinitialize: true,
 		initialValues: editUserInitialValues(editedUser),
 		validationSchema: editUserValidationSchema,
 		onSubmit: () => {
-			handleSave((prev) => {
-				const newUsers = prev.map((user) => {
-					if (user.id === editedUser.id) {
-						return {
-							...user,
-							firstName: formik.values.firstName,
-							lastName: formik.values.lastName,
-							email: formik.values.email,
-							phoneNumber: formik.values.phoneNumber,
-							role: formik.values.role.label as UserRole,
-							status: formik.values.status.value,
-						};
-					}
-					return user;
-				});
-				return newUsers;
-			});
 			toast.success(<CustomToast title="User edited successfully" />);
 			handleClose();
 		},
@@ -88,7 +49,7 @@ export const EditUserModal = ({
 		handleClose();
 		formik.resetForm();
 	};
-	const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
+
 	return (
 		<Modal
 			open={open}
@@ -96,7 +57,12 @@ export const EditUserModal = ({
 			aria-labelledby="modal-modal-title"
 			aria-describedby="modal-modal-description"
 		>
-			<Box sx={[styles.usersModal, mdScreen ? styles.usersModalMd : null]}>
+			<Box
+				sx={[
+					editUserstyles.usersModal,
+					mdScreen ? editUserstyles.usersModalMd : null,
+				]}
+			>
 				<Stack direction="row" justifyContent="space-between">
 					<Typography variant="h4" fontWeight="bold">
 						Edit User
@@ -176,20 +142,21 @@ export const EditUserModal = ({
 								}
 							/>
 						</Grid>
-						<Grid item xs={12} sm={6}>
+						<Grid item xs={12} sm={12}>
 							<CustomSelect
 								onChange={(e: { label: string; value: string }) => {
 									formik.setFieldValue('role', e);
 								}}
 								options={usersRoles}
 								value={formik.values.role}
+								disabled={formik.values.role.value === 'ADMIN'}
 								withLabel
 								label="Role"
 								error={formik.touched.role && Boolean(formik.errors.role)}
 								helperText={formik.touched.role && formik.errors.role?.label}
 							/>
 						</Grid>
-						<Grid item xs={12} sm={6}>
+						{/* <Grid item xs={12} sm={6}>
 							<CustomSelect
 								onChange={(e: { label: string; value: string }) => {
 									formik.setFieldValue('status', e);
@@ -203,7 +170,7 @@ export const EditUserModal = ({
 									formik.touched.status && formik.errors.status?.label
 								}
 							/>
-						</Grid>
+						</Grid> */}
 					</Grid>
 					<Stack direction="row" gap={10} justifyContent="space-between" mt={4}>
 						<CustomButton type="submit" fullWidth color="error">
