@@ -41,12 +41,14 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 	});
 
 	const {
+		isLoading,
 		data: courseContent = {
 			status: '',
 			data: {
 				content: [],
 				order: 0,
 				title: '',
+				ownerEmail: '',
 			},
 		},
 	} = useGetCourseContent({
@@ -54,7 +56,7 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 		sectionOrder: id || 1,
 		isReady: iseEditorReady,
 	});
-	const { isTeacher, isAdmin } = useAuth();
+	const { email, isAdmin } = useAuth();
 	const editorCore = useRef<EditorCore | null>(null);
 
 	const handleInitialize = useCallback((instance: any) => {
@@ -88,8 +90,8 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 
 	return (
 		<Stack direction={'column'}>
-			{isTeacher ||
-				(isAdmin && (
+			{email === courseContent.data.ownerEmail ||
+				(isAdmin && !isLoading && (
 					<CustomButton
 						ml={8}
 						mb={3}
@@ -130,7 +132,9 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 					],
 				}}
 				onReady={() => setIsEditorReady(true)}
-				readOnly={!isTeacher && !isAdmin}
+				readOnly={
+					email === courseContent.data.ownerEmail || isAdmin ? false : true
+				}
 			/>
 			<div id="editorjs" />
 		</Stack>

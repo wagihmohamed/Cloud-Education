@@ -14,15 +14,16 @@ import {
 	CustomButton,
 	CustomToast,
 } from 'components';
-import { allCourses, coursesCategoryOptions, courseStatus } from 'mockup';
+import { coursesCategoryOptions, courseStatus } from 'mockup';
 import { toast } from 'react-toastify';
 import {
 	addCoursStyles,
 	addCourseInitialValues,
 	addedCourseValidationSchema,
 } from './formikUtlis';
-import { useAddCourse } from 'hooks';
+import { useAddCourse, useGetCoursesCode } from 'hooks';
 import { theme } from 'theme';
+import { transformCoursesList } from 'utlis';
 
 interface AddCourseModalProps {
 	open: boolean;
@@ -31,6 +32,13 @@ interface AddCourseModalProps {
 
 export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
 	const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
+	const {
+		data: coursesList = {
+			data: [],
+			status: '',
+		},
+		isLoading: isCoursesListLoading,
+	} = useGetCoursesCode();
 	const { mutate, isLoading } = useAddCourse({
 		onSuccess: () => {
 			toast.success(<CustomToast title="Course added successfully" />);
@@ -53,8 +61,9 @@ export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
 				name: values.courseName,
 				isActive: values.courseStatus.value,
 				prerequisites:
-					values.prerequisites.length === 1
-						? undefined
+					values.prerequisites.length === 1 &&
+					values.prerequisites[0].value === ''
+						? []
 						: values.prerequisites.map((item) => item.value),
 			});
 		},
@@ -202,10 +211,11 @@ export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
 						<Grid item xs={12} sm={6}>
 							<CustomSelect
 								isMulti
+								isLoading={isCoursesListLoading}
 								onChange={(e: { label: string; value: string }) => {
 									formik.setFieldValue('prerequisites', e);
 								}}
-								options={allCourses}
+								options={transformCoursesList(coursesList.data)}
 								withLabel
 								label="Prerequisites"
 								error={

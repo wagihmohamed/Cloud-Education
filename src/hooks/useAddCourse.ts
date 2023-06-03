@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { ApiError, CourseItem } from 'models';
+import { ApiError, UpdateCoursePayload } from 'models';
 import { addCourseByOrgId } from 'services';
 
 export const useAddCourse = (data: {
@@ -9,7 +9,7 @@ export const useAddCourse = (data: {
 	const { onSuccess, onError } = data;
 	const queryClient = useQueryClient();
 	return useMutation({
-		mutationFn: (course: CourseItem) => {
+		mutationFn: (course: UpdateCoursePayload) => {
 			return addCourseByOrgId({
 				course,
 				orgnizationId: localStorage.getItem('organizationId') || '',
@@ -17,7 +17,7 @@ export const useAddCourse = (data: {
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries(['courses']);
-
+			queryClient.invalidateQueries(['coursesCodes']);
 			onSuccess();
 		},
 		onError,

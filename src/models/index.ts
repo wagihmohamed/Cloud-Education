@@ -219,6 +219,17 @@ export interface CourseItem {
 	code: string;
 	category: string;
 	isActive: boolean;
+	prerequisites?: CourseCode[];
+	createdAt?: string;
+	updatedAt?: string;
+}
+
+export interface UpdateCoursePayload {
+	name: string;
+	description: string;
+	code: string;
+	category: string;
+	isActive: boolean;
 	prerequisites?: string[];
 	createdAt?: string;
 	updatedAt?: string;
@@ -262,6 +273,7 @@ export interface CourseContentResponse {
 		title: string;
 		order: number;
 		content: OutputBlockData[] | null;
+		ownerEmail: string;
 	};
 }
 
@@ -305,4 +317,14 @@ export interface UserDetails {
 	firstName: string;
 	lastName: string;
 	email: string;
+}
+
+export interface CourseCodesListResponse {
+	status: string;
+	data: CourseCode[];
+}
+
+export interface CourseCode {
+	code: string;
+	name: string;
 }

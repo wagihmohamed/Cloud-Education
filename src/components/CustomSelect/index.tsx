@@ -18,6 +18,7 @@ interface CustomSelectProps {
 	width?: string;
 	maxWidth?: string;
 	name?: string;
+	isLoading?: boolean;
 }
 
 export const CustomSelect = ({
@@ -34,6 +35,7 @@ export const CustomSelect = ({
 	width,
 	name,
 	maxWidth,
+	isLoading,
 }: CustomSelectProps) => {
 	const { primaryColor } = useSettings();
 	return (
@@ -56,6 +58,8 @@ export const CustomSelect = ({
 			<Select
 				value={value}
 				name={name}
+				isLoading={isLoading}
+				loadingMessage={() => 'Loading...'}
 				isMulti={isMulti}
 				isDisabled={disabled}
 				placeholder={placeholder ?? `Select ${label ?? ''}`}

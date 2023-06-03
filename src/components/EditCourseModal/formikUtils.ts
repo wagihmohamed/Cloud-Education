@@ -1,4 +1,3 @@
-import { allCourses } from 'mockup';
 import { CourseItem } from 'models';
 import * as yup from 'yup';
 
@@ -27,9 +26,6 @@ export const editCourseValidationSchema = yup.object({
 });
 
 export const editCourseInitialValues = (editedCourse: CourseItem) => {
-	const selectedPreequisites = allCourses.filter((course) =>
-		editedCourse?.prerequisites?.includes(course.value)
-	);
 	return {
 		courseName: editedCourse?.name || '',
 		category: {
@@ -42,7 +38,13 @@ export const editCourseInitialValues = (editedCourse: CourseItem) => {
 			label: editedCourse?.isActive ? 'Active' : 'Inactive' || '',
 		},
 		courseCode: editedCourse?.code || '',
-		prerequisites: selectedPreequisites,
+		prerequisites:
+			editedCourse.prerequisites?.map((prerequisite) => {
+				return {
+					value: prerequisite.code,
+					label: prerequisite.name,
+				};
+			}) || [],
 	};
 };
 
