@@ -14,7 +14,7 @@ export const editUserInitialValues = (editedUser: UserItem) => {
 		firstName: editedUser.firstName || '',
 		lastName: editedUser.lastName || '',
 		email: editedUser.email || '',
-		phoneNumber: editedUser.phoneNumber || '',
+		phoneNumber: parseInt(editedUser.phoneNumber.slice(2)) || '',
 		role: userRole || {
 			value: '' || '',
 			label: '' || '',
@@ -23,6 +23,14 @@ export const editUserInitialValues = (editedUser: UserItem) => {
 		// 	value: editedUser.status || '',
 		// 	label: editedUser.status || '',
 		// },
+		status: {
+			label: 'Active',
+			value: 'Active',
+		},
+		courses: editedUser.courses.map((course) => ({
+			value: course.code,
+			label: course.name,
+		})) || [{ value: '', label: '' }],
 	};
 };
 
@@ -33,7 +41,14 @@ export const editUserValidationSchema = yup.object({
 		.string()
 		.email('Invalid E-mail format')
 		.required('Email is required'),
-	phoneNumber: yup.string().required('Phone number is required'),
+	phoneNumber: yup
+		.string()
+		.test(
+			'length',
+			'Must be exactly 10 characters',
+			(val) => val?.length === 10
+		)
+		.required('Required'),
 	role: yup
 		.object({
 			value: yup.string().required('Role is required'),
@@ -61,7 +76,6 @@ export const editUserstyles = {
 		p: 4,
 		width: '800px',
 		maxHeight: '100vh',
-		overflow: 'auto',
 		maxWidth: '100%',
 		'&::-webkit-scrollbar': {
 			width: '0.4em',

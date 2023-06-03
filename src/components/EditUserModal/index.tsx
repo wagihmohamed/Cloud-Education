@@ -7,14 +7,9 @@ import {
 	useMediaQuery,
 } from '@mui/material';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import {
-	CustomButton,
-	CustomSelect,
-	CustomTextField,
-	CustomToast,
-} from 'components';
+import { CustomButton, CustomSelect, CustomTextField } from 'components';
 import { useFormik } from 'formik';
-import { usersRoles } from 'mockup';
+import { usersRoles, usersStatus } from 'mockup';
 import { UserItem } from 'models';
 import {
 	editUserInitialValues,
@@ -23,6 +18,7 @@ import {
 } from './formikUtils';
 import { toast } from 'react-toastify';
 import { theme } from 'theme';
+import { useEditUser, useGetCoursesCode } from 'hooks';
 
 interface EditUserModalProps {
 	open: boolean;
@@ -36,13 +32,38 @@ export const EditUserModal = ({
 	editedUser,
 }: EditUserModalProps) => {
 	const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
+	const {
+		data: coursesList = {
+			data: [],
+			status: '',
+		},
+		isLoading: isCoursesListLoading,
+	} = useGetCoursesCode();
+	const { mutate: editUser, isLoading: isEditLoading } = useEditUser({
+		onError: (err) => {
+			toast.error(err.response?.data.message || 'Something went wrong');
+		},
+		onSuccess: () => {
+			handleClose();
+			formik.resetForm();
+			handleCloseModal();
+		},
+	});
 	const formik = useFormik({
 		enableReinitialize: true,
 		initialValues: editUserInitialValues(editedUser),
 		validationSchema: editUserValidationSchema,
 		onSubmit: () => {
-			toast.success(<CustomToast title="User edited successfully" />);
-			handleClose();
+			editUser({
+				userId: '1265ffd6-6f3f-4c62-9c62-9cca-9d8e518befd8',
+				user: {
+					courses: [],
+					firstName: formik.values.firstName,
+					lastName: formik.values.lastName,
+					phoneNumber: '+20' + formik.values.phoneNumber.toString(),
+					role: formik.values.role.value === 'LEARNER' ? 'STUDENT' : 'TEACHER',
+				},
+			});
 		},
 	});
 	const handleCloseModal = () => {
@@ -89,7 +110,7 @@ export const EditUserModal = ({
 							<CustomTextField
 								value={formik.values.firstName}
 								id="firstName"
-								name="first name"
+								name="firstName"
 								onChange={formik.handleChange}
 								withLabel
 								label="First Name"
@@ -131,6 +152,23 @@ export const EditUserModal = ({
 								id="phoneNumber"
 								name="phoneNumber"
 								onChange={formik.handleChange}
+								type="number"
+								onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+									e.target.value = Math.max(0, parseInt(e.target.value))
+										.toString()
+										.slice(0, 10);
+								}}
+								InputProps={{
+									startAdornment: (
+										<Typography
+											variant="subtitle1"
+											fontSize="20px"
+											fontWeight="500"
+										>
+											+20
+										</Typography>
+									),
+								}}
 								withLabel
 								label="Phone Number"
 								error={
@@ -142,7 +180,27 @@ export const EditUserModal = ({
 								}
 							/>
 						</Grid>
-						<Grid item xs={12} sm={12}>
+						<Grid item xs={12}>
+							<CustomSelect
+								isLoading={isCoursesListLoading}
+								isMulti
+								onChange={(e: { label: string; value: string }) => {
+									formik.setFieldValue('courses', e);
+								}}
+								options={coursesList.data.map((course) => ({
+									label: course.name,
+									value: course.code,
+								}))}
+								value={formik.values.courses}
+								withLabel
+								label="Courses"
+								error={formik.touched.status && Boolean(formik.errors.status)}
+								helperText={
+									formik.touched.status && formik.errors.status?.label
+								}
+							/>
+						</Grid>
+						<Grid item xs={12} sm={6}>
 							<CustomSelect
 								onChange={(e: { label: string; value: string }) => {
 									formik.setFieldValue('role', e);
@@ -156,8 +214,9 @@ export const EditUserModal = ({
 								helperText={formik.touched.role && formik.errors.role?.label}
 							/>
 						</Grid>
-						{/* <Grid item xs={12} sm={6}>
+						<Grid item xs={12} sm={6}>
 							<CustomSelect
+								disabled
 								onChange={(e: { label: string; value: string }) => {
 									formik.setFieldValue('status', e);
 								}}
@@ -170,10 +229,16 @@ export const EditUserModal = ({
 									formik.touched.status && formik.errors.status?.label
 								}
 							/>
-						</Grid> */}
+						</Grid>
 					</Grid>
 					<Stack direction="row" gap={10} justifyContent="space-between" mt={4}>
-						<CustomButton type="submit" fullWidth color="error">
+						<CustomButton
+							loading={isEditLoading}
+							loadingButton
+							type="submit"
+							fullWidth
+							color="error"
+						>
 							Submit
 						</CustomButton>
 						<CustomButton

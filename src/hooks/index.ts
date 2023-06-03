@@ -19,6 +19,7 @@ import { useGetCommentsBySectionId } from './useGetCommentsBySectionId';
 import { useAddComment } from './useAddComment';
 import { useDeleteComment } from './useDeleteComment';
 import { useGetCoursesCode } from './useGetCoursesCode';
+import { useEditUser } from './useEditUser';
 
 export {
 	useAddUser,
@@ -42,4 +43,5 @@ export {
 	useAddComment,
 	useDeleteComment,
 	useGetCoursesCode,
+	useEditUser,
 };
