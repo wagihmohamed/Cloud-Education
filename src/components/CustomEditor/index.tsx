@@ -90,19 +90,18 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 
 	return (
 		<Stack direction={'column'}>
-			{email === courseContent.data.ownerEmail ||
-				(isAdmin && !isLoading && (
-					<CustomButton
-						ml={8}
-						mb={3}
-						px={7}
-						width={'200px'}
-						onClick={handleSave}
-						sx={{ alignSelf: 'center' }}
-					>
-						Save Edit
-					</CustomButton>
-				))}
+			{(courseContent.data.ownerEmail === email || isAdmin) && (
+				<CustomButton
+					ml={8}
+					mb={3}
+					px={7}
+					width={'200px'}
+					onClick={handleSave}
+					sx={{ alignSelf: 'center' }}
+				>
+					Save Edit
+				</CustomButton>
+			)}
 			<ReactEditorJS
 				autofocus={true}
 				onInitialize={handleInitialize}
@@ -133,7 +132,7 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 				}}
 				onReady={() => setIsEditorReady(true)}
 				readOnly={
-					email === courseContent.data.ownerEmail || isAdmin ? false : true
+					email !== courseContent.data.ownerEmail && !isAdmin && !isLoading
 				}
 			/>
 			<div id="editorjs" />

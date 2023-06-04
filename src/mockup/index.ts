@@ -8,7 +8,7 @@ import { coursesCategoryOptions } from './coursesCategoryOptions';
 import { coursesTableColumns } from './coursesColumnData';
 import { userTableColumns } from './userTableColumns';
 import { usersData } from './usersData';
-import { usersRoles } from './usersRoles';
+import { usersRoles, editUserRoles } from './usersRoles';
 import { usersStatus } from './usersStatus';
 import { caseStudyStatments } from './caseStudyStatments';
 import { messages } from './messages';
@@ -43,4 +43,5 @@ export {
 	examDummyData,
 	mockExams,
 	landingPageMainSections,
+	editUserRoles,
 };
