@@ -140,3 +140,13 @@ export const deleteUserByIdEndpoint = ({
 }) => {
 	return `/api/${orgnizationId}/users/${userId}`;
 };
+
+export const submitReviewByCourseCodeEndpoint = ({
+	orgnizationId,
+	courseCode,
+}: {
+	orgnizationId: string;
+	courseCode: string;
+}) => {
+	return `/api/${orgnizationId}/courses/${courseCode}/reviews`;
+};
