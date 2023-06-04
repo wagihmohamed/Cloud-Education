@@ -17,3 +17,6 @@ export * from './getCoursesCode';
 export * from './getUsersList';
 export * from './editUserById';
 export * from './deleteUserById';
+export * from './addReviewService';
+export * from './getUserById';
+export * from './uploadImageService';

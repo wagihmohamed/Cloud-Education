@@ -1,18 +1,34 @@
-import { Box, Modal, Stack, Typography } from '@mui/material';
+import { Box, Modal, Stack, Typography, Rating } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { CustomButton, CustomTextField } from 'components';
 import { theme } from 'theme';
 import { useState } from 'react';
+import { useAddReview } from 'hooks';
+import { useParams } from 'react-router-dom';
+
 interface ModalInterface {
 	opneModal: boolean;
 	setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const FeedbackModal = ({ opneModal, setOpenModal }: ModalInterface) => {
-	const [feedback, setFeedback] = useState('');
-	const feedbackSubmitHandler = () => {
-		//send feedback
+	const { courseId } = useParams();
+	const { mutate: addReview, isLoading } = useAddReview({
+		onSuccess: () => {
+			setOpenModal(false);
+			setReview('');
+		},
+	});
+	const [review, setReview] = useState('');
+	const [rating, setRating] = useState<number | null>(1);
 
-		setFeedback('');
+	const handleAddReview = () => {
+		if (rating && review) {
+			addReview({
+				review,
+				courseCode: courseId || '',
+				rating: rating === null ? 1 : rating * 2,
+			});
+		}
 	};
 	return (
 		<Modal open={opneModal} onClose={() => setOpenModal(false)}>
@@ -43,14 +59,43 @@ export const FeedbackModal = ({ opneModal, setOpenModal }: ModalInterface) => {
 				>
 					Rating Course and Submit Feedback
 				</Typography>
+				<Box
+					sx={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						my: '2rem',
+					}}
+				>
+					<Rating
+						name="simple-controlled"
+						value={rating}
+						onChange={(_, newValue) => {
+							setRating(newValue);
+						}}
+						precision={0.5}
+						sx={{
+							'& .MuiRating-iconEmpty': {
+								fontSize: '3rem',
+							},
+							'& .MuiRating-iconFilled': {
+								fontSize: '3rem',
+							},
+							'& .MuiRating-iconHover': {
+								fontSize: '3rem',
+							},
+						}}
+					/>
+				</Box>
 				<CustomTextField
 					placeholder="add feedback to course"
 					multiline
 					rows={4}
+					size="medium"
+					value={review}
 					onChange={(e) => {
-						setFeedback(e.target.value);
+						setReview(e.target.value);
 					}}
-					value={feedback}
 				/>
 				<Stack
 					direction="row"
@@ -69,7 +114,9 @@ export const FeedbackModal = ({ opneModal, setOpenModal }: ModalInterface) => {
 					<CustomButton
 						fullWidth
 						endIcon={<SendIcon />}
-						onClick={feedbackSubmitHandler}
+						onClick={handleAddReview}
+						loading={isLoading}
+						loadingButton
 					>
 						Submit
 					</CustomButton>
