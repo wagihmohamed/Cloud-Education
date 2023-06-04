@@ -20,6 +20,7 @@ import { useAddComment } from './useAddComment';
 import { useDeleteComment } from './useDeleteComment';
 import { useGetCoursesCode } from './useGetCoursesCode';
 import { useEditUser } from './useEditUser';
+import { useDeleteUser } from './useDeleteUsers';
 
 export {
 	useAddUser,
@@ -44,4 +45,5 @@ export {
 	useDeleteComment,
 	useGetCoursesCode,
 	useEditUser,
+	useDeleteUser,
 };

@@ -1,9 +1,9 @@
-import { usersRoles } from 'mockup';
+import { editUserRoles } from 'mockup';
 import { UserItem } from 'models';
 import * as yup from 'yup';
 
 export const editUserInitialValues = (editedUser: UserItem) => {
-	const userRole = usersRoles.find(
+	const userRole = editUserRoles.find(
 		(role) => role.value === editedUser.role
 	) || {
 		value: '' || '',
@@ -14,20 +14,16 @@ export const editUserInitialValues = (editedUser: UserItem) => {
 		firstName: editedUser.firstName || '',
 		lastName: editedUser.lastName || '',
 		email: editedUser.email || '',
-		phoneNumber: parseInt(editedUser.phoneNumber.slice(2)) || '',
+		phoneNumber: parseInt(editedUser.phoneNumber?.slice(2)) || '',
 		role: userRole || {
 			value: '' || '',
 			label: '' || '',
 		},
-		// status: {
-		// 	value: editedUser.status || '',
-		// 	label: editedUser.status || '',
-		// },
 		status: {
 			label: 'Active',
 			value: 'Active',
 		},
-		courses: editedUser.courses.map((course) => ({
+		courses: editedUser.courses?.map((course) => ({
 			value: course.code,
 			label: course.name,
 		})) || [{ value: '', label: '' }],
@@ -55,12 +51,6 @@ export const editUserValidationSchema = yup.object({
 			label: yup.string().required('Role is required'),
 		})
 		.required('Role is required'),
-	// status: yup
-	// 	.object({
-	// 		value: yup.string().required('Status is required'),
-	// 		label: yup.string().required('Status is required'),
-	// 	})
-	// 	.required('Status is required'),
 });
 
 export const editUserstyles = {

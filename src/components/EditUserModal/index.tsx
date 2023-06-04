@@ -9,8 +9,8 @@ import {
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { CustomButton, CustomSelect, CustomTextField } from 'components';
 import { useFormik } from 'formik';
-import { usersRoles, usersStatus } from 'mockup';
-import { UserItem } from 'models';
+import { editUserRoles } from 'mockup';
+import { UserItem, UserRoles } from 'models';
 import {
 	editUserInitialValues,
 	editUserValidationSchema,
@@ -53,15 +53,15 @@ export const EditUserModal = ({
 		enableReinitialize: true,
 		initialValues: editUserInitialValues(editedUser),
 		validationSchema: editUserValidationSchema,
-		onSubmit: () => {
+		onSubmit: (values) => {
 			editUser({
-				userId: '1265ffd6-6f3f-4c62-9c62-9cca-9d8e518befd8',
+				userId: editedUser.id,
 				user: {
-					courses: [],
-					firstName: formik.values.firstName,
-					lastName: formik.values.lastName,
-					phoneNumber: '+20' + formik.values.phoneNumber.toString(),
-					role: formik.values.role.value === 'LEARNER' ? 'STUDENT' : 'TEACHER',
+					courses: values.courses.map((course) => course.value),
+					firstName: values.firstName,
+					lastName: values.lastName,
+					phoneNumber: '+20' + values.phoneNumber.toString(),
+					role: values.role.value as UserRoles,
 				},
 			});
 		},
@@ -180,7 +180,7 @@ export const EditUserModal = ({
 								}
 							/>
 						</Grid>
-						<Grid item xs={12}>
+						<Grid item xs={6} sm={6}>
 							<CustomSelect
 								isLoading={isCoursesListLoading}
 								isMulti
@@ -205,29 +205,13 @@ export const EditUserModal = ({
 								onChange={(e: { label: string; value: string }) => {
 									formik.setFieldValue('role', e);
 								}}
-								options={usersRoles}
+								options={editUserRoles}
 								value={formik.values.role}
 								disabled={formik.values.role.value === 'ADMIN'}
 								withLabel
 								label="Role"
 								error={formik.touched.role && Boolean(formik.errors.role)}
 								helperText={formik.touched.role && formik.errors.role?.label}
-							/>
-						</Grid>
-						<Grid item xs={12} sm={6}>
-							<CustomSelect
-								disabled
-								onChange={(e: { label: string; value: string }) => {
-									formik.setFieldValue('status', e);
-								}}
-								options={usersStatus}
-								value={formik.values.status}
-								withLabel
-								label="Status"
-								error={formik.touched.status && Boolean(formik.errors.status)}
-								helperText={
-									formik.touched.status && formik.errors.status?.label
-								}
 							/>
 						</Grid>
 					</Grid>
