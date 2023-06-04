@@ -357,3 +357,8 @@ export interface EditUserPayload {
 	role: UserRoles;
 	courses: string[];
 }
+
+export interface UserByIdResponse {
+	status: string;
+	data: UserItem;
+}

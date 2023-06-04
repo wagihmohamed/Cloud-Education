@@ -19,6 +19,7 @@ import {
 import { toast } from 'react-toastify';
 import { theme } from 'theme';
 import { useEditUser, useGetCoursesCode } from 'hooks';
+import { useAuth } from 'zustandStore';
 
 interface EditUserModalProps {
 	open: boolean;
@@ -32,6 +33,7 @@ export const EditUserModal = ({
 	editedUser,
 }: EditUserModalProps) => {
 	const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
+	const { isTeacher, isAdmin } = useAuth();
 	const {
 		data: coursesList = {
 			data: [],
@@ -44,6 +46,7 @@ export const EditUserModal = ({
 			toast.error(err.response?.data.message || 'Something went wrong');
 		},
 		onSuccess: () => {
+			toast.success('User updated successfully');
 			handleClose();
 			formik.resetForm();
 			handleCloseModal();
@@ -70,6 +73,8 @@ export const EditUserModal = ({
 		handleClose();
 		formik.resetForm();
 	};
+
+	const disableEdit = !isTeacher || !isAdmin;
 
 	return (
 		<Modal
@@ -108,6 +113,7 @@ export const EditUserModal = ({
 					>
 						<Grid item xs={12} sm={6}>
 							<CustomTextField
+								disabled={disableEdit}
 								value={formik.values.firstName}
 								id="firstName"
 								name="firstName"
@@ -122,6 +128,7 @@ export const EditUserModal = ({
 						</Grid>
 						<Grid item xs={12} sm={6}>
 							<CustomTextField
+								disabled={disableEdit}
 								value={formik.values.lastName}
 								id="lastName"
 								name="lastName"
@@ -136,6 +143,7 @@ export const EditUserModal = ({
 						</Grid>
 						<Grid item xs={12} sm={6}>
 							<CustomTextField
+								disabled={disableEdit}
 								value={formik.values.email}
 								id="email"
 								name="email"
@@ -148,6 +156,7 @@ export const EditUserModal = ({
 						</Grid>
 						<Grid item xs={12} sm={6}>
 							<CustomTextField
+								disabled={disableEdit}
 								value={formik.values.phoneNumber}
 								id="phoneNumber"
 								name="phoneNumber"
@@ -216,7 +225,7 @@ export const EditUserModal = ({
 										  ]
 										: formik.values.role
 								}
-								disabled={editedUser.role === 'ADMIN'}
+								disabled={editedUser.role === 'ADMIN' || disableEdit}
 								withLabel
 								label="Role"
 								error={formik.touched.role && Boolean(formik.errors.role)}

@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { editUserById } from 'services';
 import { EditUserPayload, ApiError } from 'models';
-import { toast } from 'react-toastify';
 
 export const useEditUser = (data: {
 	onSuccess?: () => void;
@@ -25,7 +24,7 @@ export const useEditUser = (data: {
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries(['users']);
-			toast.success('User updated successfully');
+			queryClient.invalidateQueries(['getUserById']);
 			onSuccess();
 		},
 		onError: (error: ApiError) => {

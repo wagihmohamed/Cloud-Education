@@ -150,3 +150,23 @@ export const submitReviewByCourseCodeEndpoint = ({
 }) => {
 	return `/api/${orgnizationId}/courses/${courseCode}/reviews`;
 };
+
+export const getUserByIdEndpoint = ({
+	orgnizationId,
+	userId,
+}: {
+	orgnizationId: string;
+	userId: string;
+}) => {
+	return `/api/${orgnizationId}/users/${userId}`;
+};
+
+export const uploadImageEndpoint = ({
+	orgnizationId,
+	courseCode,
+}: {
+	orgnizationId: string;
+	courseCode: string;
+}) => {
+	return `/api/${orgnizationId}/courses/${courseCode}/uploadImage`;
+};
