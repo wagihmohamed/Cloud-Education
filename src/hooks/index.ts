@@ -22,6 +22,7 @@ import { useGetCoursesCode } from './useGetCoursesCode';
 import { useEditUser } from './useEditUser';
 import { useDeleteUser } from './useDeleteUsers';
 import { useAddReview } from './useAddReview';
+import { useGetUserById } from './useGetUserById';
 
 export {
 	useAddUser,
@@ -48,4 +49,5 @@ export {
 	useEditUser,
 	useDeleteUser,
 	useAddReview,
+	useGetUserById,
 };

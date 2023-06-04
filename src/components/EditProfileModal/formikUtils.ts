@@ -1,57 +1,55 @@
-import { usersRoles } from 'mockup';
-import { allLevels } from 'mockup/allLevels';
-import { UserInfo } from 'models';
+import { UserItem } from 'models';
 import * as yup from 'yup';
 
-export const editProfileInitialValues = (editedProfile: UserInfo) => {
-	const userRole = usersRoles.find((role) => role.label === editedProfile.role);
-	const userLevel = allLevels.find(
-		(level) => level.label === editedProfile.currentLevel
-	);
+export const editProfileInitialValues = (editedProfile: UserItem) => {
 	return {
 		firstName: editedProfile.firstName || '',
 		lastName: editedProfile.lastName || '',
-		phoneNumber: editedProfile.phoneNumber || '',
+		phoneNumber: parseInt(editedProfile.phoneNumber?.slice(2)) || '',
 		email: editedProfile.email || '',
-		GPA: editedProfile.GPA || 0,
-		role: userRole ?? {
-			value: '' || '',
-			label: '' || '',
-		},
-		currentLevel: userLevel ?? {
-			value: '' || '',
-			label: '' || '',
-		},
-		creditHours: editedProfile.creditHours || '',
 	};
 };
 
 export const editProfileValidationSchema = yup.object({
 	firstName: yup.string().required('First name is required'),
 	lastName: yup.string().required('Last name is required'),
-	phoneNumber: yup.string().required('Phone number is required'),
+	phoneNumber: yup
+		.string()
+		.test(
+			'length',
+			'Must be exactly 10 characters',
+			(val) => val?.length === 10
+		)
+		.required('Required'),
 	email: yup
 		.string()
 		.email('Invalid E-mail format')
 		.required('Email is required'),
-	GPA: yup
-		.number()
-		.typeError('GPA must be a number')
-		.min(0, 'GPA cant be less than 0')
-		.max(4, 'GPA cant be more than 4')
-		.positive('GPA cant be negative')
-		.required('GPA is required'),
-	role: yup
-		.object({
-			value: yup.string().required('Role is required'),
-			label: yup.string().required('Role is required'),
-		})
-		.required('Role is required'),
-	currentLevel: yup
-		.object({
-			value: yup.string().required('Current level is required'),
-			label: yup.string().required('Current level is required'),
-		})
-		.required('Current level is required'),
-	creditHours: yup.string().required('Credit hours is required'),
 });
+
+export const profileStyles = {
+	profileForm: {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		border: '3px solid #000',
+		bgcolor: 'background.paper',
+		borderRadius: '10px',
+		boxShadow: 24,
+		p: 4,
+		width: '800px',
+		maxHeight: '100vh',
+		overflow: 'auto',
+		maxWidth: '100%',
+		'&::-webkit-scrollbar': {
+			width: '0.4em',
+			background: 'transparent',
+		},
+	},
+	profileFormMd: {
+		width: '85%',
+		margin: 'auto',
+		maxHeight: '88vh',
+	},
+};

@@ -11,6 +11,7 @@ import { Stack } from '@mui/material';
 import { useEditCourseSection, useGetCourseContent } from 'hooks';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { uploadImage } from 'services';
 
 interface EditorCore {
 	destroy(): Promise<void>;
@@ -73,17 +74,15 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 	}, [id]);
 
 	const handleImageUpload = async (file: any) => {
-		const formData = new FormData();
-		formData.append('file', file);
-		const response = await fetch(' https://api.bayfiles.com/upload', {
-			method: 'POST',
-			body: formData,
+		const response1 = await uploadImage({
+			image: file,
+			orgnizationId: localStorage.getItem('organizationId') || '',
+			courseCode: courseId || '',
 		});
-		const data = await response.json();
 		return {
 			success: 1,
 			file: {
-				url: data.url,
+				url: response1.file.url,
 			},
 		};
 	};
