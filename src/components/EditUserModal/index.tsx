@@ -206,8 +206,17 @@ export const EditUserModal = ({
 									formik.setFieldValue('role', e);
 								}}
 								options={editUserRoles}
-								value={formik.values.role}
-								disabled={formik.values.role.value === 'ADMIN'}
+								value={
+									editedUser.role === 'ADMIN'
+										? [
+												{
+													label: editedUser.role,
+													value: editedUser.role,
+												},
+										  ]
+										: formik.values.role
+								}
+								disabled={editedUser.role === 'ADMIN'}
 								withLabel
 								label="Role"
 								error={formik.touched.role && Boolean(formik.errors.role)}
