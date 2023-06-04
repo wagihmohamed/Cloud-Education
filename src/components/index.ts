@@ -17,7 +17,6 @@ import { Footer } from './Footer';
 import { CustomLink } from './MUIStyledComponents/CustomLink';
 import { LandingPageNavigation } from './LandingPageNavigation';
 import { LandingPageSection } from './LandingPageSection';
-import { AddUserModal } from './AddUserModal';
 import { EditProfileModal } from './EditProfileModal';
 import { ConfirmPasswordModal } from './ConfirmPasswordModal';
 import { CustomEditor } from './CustomEditor';
@@ -62,7 +61,6 @@ export {
 	AddCourseModal,
 	UsersTable,
 	EditUserModal,
-	AddUserModal,
 	CustomTableRow,
 	CustomTableCell,
 	MessageContainer,

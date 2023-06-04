@@ -338,13 +338,22 @@ export interface UsersResponse {
 	data: UserItem[];
 }
 
-export type UserRoles = 'ADMIN' | 'TEACHER' | 'LEARNER';
+export type UserRoles = 'ADMIN' | 'TEACHER' | 'LEARNER' | 'TEACHER' | 'STUDENT';
 
 export interface UserItem {
+	id: string;
 	firstName: string;
 	lastName: string;
 	email: string;
 	phoneNumber: string;
 	role: UserRoles;
 	courses: CourseCode[];
+}
+
+export interface EditUserPayload {
+	firstName: string;
+	lastName: string;
+	phoneNumber: string;
+	role: UserRoles;
+	courses: string[];
 }
