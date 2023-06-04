@@ -170,3 +170,13 @@ export const uploadImageEndpoint = ({
 }) => {
 	return `/api/${orgnizationId}/courses/${courseCode}/uploadImage`;
 };
+
+export const uploadVideoEndpoint = ({
+	orgnizationId,
+	courseCode,
+}: {
+	orgnizationId: string;
+	courseCode: string;
+}) => {
+	return `/api/${orgnizationId}/courses/${courseCode}/uploadVideo`;
+};
