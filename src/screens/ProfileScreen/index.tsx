@@ -9,7 +9,9 @@ import {
 import { ProfileImg } from 'assets';
 import { UserInfo } from 'models';
 import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { theme } from 'theme';
+import { useAuth } from 'zustandStore';
 const InfoLabel = styled(Typography)(() => ({
 	fontWeight: 'bold',
 	fontSize: '1.5rem',
@@ -53,6 +55,7 @@ const styles = {
 	avatarStyle: { width: 170, height: 170, border: '3px solid #000' },
 };
 export const ProfileScreen = () => {
+	const { logout } = useAuth();
 	const [isEditProfileShown, setIsEditProfileShown] = useState(false);
 	const [isSettingsShown, setIsSettingsShown] = useState(false);
 	const [userIfo, setUserInfo] = useState<UserInfo>({
@@ -75,7 +78,15 @@ export const ProfileScreen = () => {
 					mx: '10px',
 				}}
 			>
-				<Box sx={styles.settingButton}>
+				<Box
+					sx={{
+						...styles.settingButton,
+						display: 'flex',
+						flexDirection: 'row',
+						alignItems: 'center',
+						gap: '1rem',
+					}}
+				>
 					<CustomButton
 						onClick={() => {
 							setIsSettingsShown(true);
@@ -84,6 +95,15 @@ export const ProfileScreen = () => {
 						startIcon={<SettingsIcon />}
 					>
 						Settings
+					</CustomButton>
+					<CustomButton
+						onClick={() => {
+							logout();
+						}}
+						px={5}
+						startIcon={<LogoutIcon />}
+					>
+						Logout
 					</CustomButton>
 				</Box>
 				<Box sx={styles.infoProfileContainer}>
