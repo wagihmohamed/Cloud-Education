@@ -50,7 +50,15 @@ const useAuthStore = create<AuthStore>()(
 			logout: () => {
 				const organizationId = localStorage.getItem('organizationId');
 				localStorage.removeItem('token');
-				set({ token: null });
+				set({
+					token: null,
+					email: '',
+					isAdmin: false,
+					isStudent: false,
+					isTeacher: false,
+					role: '',
+					subDomain: '',
+				});
 				queryClient.clear();
 				router.navigate(`/${organizationId}/login`);
 			},
