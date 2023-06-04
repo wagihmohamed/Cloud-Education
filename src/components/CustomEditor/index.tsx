@@ -11,7 +11,8 @@ import { Stack } from '@mui/material';
 import { useEditCourseSection, useGetCourseContent } from 'hooks';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { uploadImage } from 'services';
+import { uploadImage, uploadVideo } from 'services';
+import VideoTool from '@weekwood/editorjs-video';
 
 interface EditorCore {
 	destroy(): Promise<void>;
@@ -74,7 +75,7 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 	}, [id]);
 
 	const handleImageUpload = async (file: any) => {
-		const response1 = await uploadImage({
+		const response = await uploadImage({
 			image: file,
 			orgnizationId: localStorage.getItem('organizationId') || '',
 			courseCode: courseId || '',
@@ -82,7 +83,21 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 		return {
 			success: 1,
 			file: {
-				url: response1.file.url,
+				url: response.file.url,
+			},
+		};
+	};
+
+	const handleVideoUpload = async (file: any) => {
+		const response = await uploadVideo({
+			video: file,
+			orgnizationId: localStorage.getItem('organizationId') || '',
+			courseCode: courseId || '',
+		});
+		return {
+			success: 1,
+			file: {
+				url: response.file.url,
 			},
 		};
 	};
@@ -108,6 +123,18 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 				holder="editorjs"
 				tools={{
 					...EDITOR_JS_TOOLS,
+					video: {
+						class: VideoTool,
+						config: {
+							uploader: {
+								uploadByFile: handleVideoUpload,
+							},
+							player: {
+								controls: true,
+								autoplay: false,
+							},
+						},
+					},
 					image: {
 						class: Image,
 						config: {
