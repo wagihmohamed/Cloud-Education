@@ -14,3 +14,14 @@ export const usersRoles: { label: string; value: UserRoles }[] = [
 		value: 'ADMIN',
 	},
 ];
+
+export const editUserRoles: { label: string; value: UserRoles }[] = [
+	{
+		label: 'Teacher',
+		value: 'TEACHER',
+	},
+	{
+		label: 'Student',
+		value: 'STUDENT',
+	},
+];

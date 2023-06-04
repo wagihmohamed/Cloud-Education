@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 import {
 	Table,
@@ -14,13 +13,7 @@ import {
 	Pagination,
 	TableContainer,
 } from '@mui/material';
-import {
-	DoDisturbOnOutlined,
-	HighlightOffOutlined,
-	SettingsOutlined,
-	PeopleAltOutlined,
-	CheckCircleOutlineOutlined,
-} from '@mui/icons-material';
+import { Delete, PeopleAltOutlined, Edit } from '@mui/icons-material';
 import { userTableColumns } from 'mockup';
 import {
 	EditUserModal,
@@ -29,7 +22,7 @@ import {
 	LoadingErrorPlaceholder,
 } from 'components';
 import { UserItem } from 'models';
-import { useUsersList } from 'hooks';
+import { useDeleteUser, useUsersList } from 'hooks';
 
 export const UsersTable = () => {
 	const [currentPage, setCurrentPage] = useState(1);
@@ -43,6 +36,7 @@ export const UsersTable = () => {
 		isLoading,
 		isError,
 	} = useUsersList(currentPage);
+	const { mutate: deleteUser, isLoading: isDeleteLoading } = useDeleteUser({});
 	const [isEditUserOpen, setIsEditUserOpen] = useState(false);
 	const [selectedUser, setSelectedUser] = useState<UserItem>({} as UserItem);
 
@@ -61,6 +55,7 @@ export const UsersTable = () => {
 							overflowY: 'auto',
 							borderSpacing: '0 15px !important',
 							borderCollapse: 'separate',
+							opacity: isDeleteLoading ? 0.5 : 1,
 						}}
 					>
 						<TableHead
@@ -108,9 +103,9 @@ export const UsersTable = () => {
 										<CustomTableCell>{row.role}</CustomTableCell>
 										<CustomTableCell>{row.email}</CustomTableCell>
 										<CustomTableCell>{row.phoneNumber}</CustomTableCell>
-										<CustomTableCell width="200px">
+										<CustomTableCell width="170px">
 											<Stack direction="row" justifyContent="space-around">
-												<SettingsOutlined
+												<Edit
 													sx={{
 														height: '30px',
 														width: '30px',
@@ -122,37 +117,22 @@ export const UsersTable = () => {
 														setSelectedUser(row);
 													}}
 												/>
-												<HighlightOffOutlined
+												<Delete
 													sx={{
 														height: '30px',
 														width: '30px',
-														color: 'text.secondary',
+														':hover': {
+															color: '#d32f2f',
+														},
 													}}
 													cursor="pointer"
 													color="primary"
-													// onClick={() => handleDeleteUser(row.email)}
+													onClick={() =>
+														deleteUser({
+															userId: row.id,
+														})
+													}
 												/>
-												{row.email === 'active' ? (
-													<DoDisturbOnOutlined
-														sx={{
-															height: '30px',
-															width: '30px',
-															color: 'secondary.main',
-														}}
-														cursor="pointer"
-														// onClick={() => handleToggleUserStatus(row.email)}
-													/>
-												) : (
-													<CheckCircleOutlineOutlined
-														sx={{
-															height: '30px',
-															width: '30px',
-															color: 'secondary.main',
-														}}
-														cursor="pointer"
-														// onClick={() => handleToggleUserStatus(row.email)}
-													/>
-												)}
 												<PeopleAltOutlined
 													sx={{
 														height: '30px',

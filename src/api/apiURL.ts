@@ -120,3 +120,23 @@ export const getUsersByOrgIdEndpoint = ({
 }) => {
 	return `/api/${orgnizationId}/users?page=${page}`;
 };
+
+export const editUserByIdEndpoint = ({
+	orgnizationId,
+	userId,
+}: {
+	orgnizationId: string;
+	userId: string;
+}) => {
+	return `/api/${orgnizationId}/users/${userId}`;
+};
+
+export const deleteUserByIdEndpoint = ({
+	orgnizationId,
+	userId,
+}: {
+	orgnizationId: string;
+	userId: string;
+}) => {
+	return `/api/${orgnizationId}/users/${userId}`;
+};

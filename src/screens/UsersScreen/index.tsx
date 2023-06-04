@@ -1,17 +1,9 @@
-import { useState } from 'react';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import {
-	AddUserModal,
-	CustomButton,
-	CustomLayout,
-	UsersTable,
-} from 'components';
-import AddIcon from '@mui/icons-material/Add';
+import { CustomLayout, UsersTable } from 'components';
 import { theme } from 'theme';
 
 export const UsersScreen = () => {
-	const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
 	return (
 		<CustomLayout>
 			<Box
@@ -33,20 +25,9 @@ export const UsersScreen = () => {
 					<Typography fontWeight="bold" variant="h4" flexGrow={'1'}>
 						All Users
 					</Typography>
-					<CustomButton
-						onClick={() => setIsAddUserModalOpen(true)}
-						px={3}
-						startIcon={<AddIcon />}
-					>
-						Add User
-					</CustomButton>
 				</Box>
 				<UsersTable />
 			</Box>
-			<AddUserModal
-				open={isAddUserModalOpen}
-				handleClose={() => setIsAddUserModalOpen(false)}
-			/>
 		</CustomLayout>
 	);
 };
