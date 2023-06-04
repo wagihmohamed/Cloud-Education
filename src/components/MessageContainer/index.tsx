@@ -12,11 +12,13 @@ export const MessageContainer = ({
 		<Stack
 			alignSelf={userId == message.id ? 'flex-end' : 'flex-start'}
 			sx={{
-				color: 'white',
+				color: 'text.main',
+				bgcolor: '#ebf3ff',
 				width: '40%',
-				bgcolor: '#000',
 				padding: '1rem 2rem',
 				margin: '1rem .5rem',
+				borderRadius: '5px',
+				border: 'solid 2px green',
 			}}
 		>
 			{message.message}

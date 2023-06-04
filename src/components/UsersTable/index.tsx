@@ -28,7 +28,7 @@ import {
 	CustomTableRow,
 	LoadingErrorPlaceholder,
 } from 'components';
-import { User, UserItem } from 'models';
+import { UserItem } from 'models';
 import { useUsersList } from 'hooks';
 
 export const UsersTable = () => {
@@ -114,9 +114,9 @@ export const UsersTable = () => {
 													sx={{
 														height: '30px',
 														width: '30px',
+														color: 'text.primary',
 													}}
 													cursor="pointer"
-													color="primary"
 													onClick={() => {
 														setIsEditUserOpen(true);
 														setSelectedUser(row);
@@ -126,6 +126,7 @@ export const UsersTable = () => {
 													sx={{
 														height: '30px',
 														width: '30px',
+														color: 'text.secondary',
 													}}
 													cursor="pointer"
 													color="primary"
@@ -136,9 +137,9 @@ export const UsersTable = () => {
 														sx={{
 															height: '30px',
 															width: '30px',
+															color: 'secondary.main',
 														}}
 														cursor="pointer"
-														color="primary"
 														// onClick={() => handleToggleUserStatus(row.email)}
 													/>
 												) : (
@@ -146,9 +147,9 @@ export const UsersTable = () => {
 														sx={{
 															height: '30px',
 															width: '30px',
+															color: 'secondary.main',
 														}}
 														cursor="pointer"
-														color="primary"
 														// onClick={() => handleToggleUserStatus(row.email)}
 													/>
 												)}
@@ -158,7 +159,6 @@ export const UsersTable = () => {
 														width: '30px',
 													}}
 													cursor="pointer"
-													color="primary"
 												/>
 											</Stack>
 										</CustomTableCell>

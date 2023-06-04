@@ -25,8 +25,6 @@ interface EditUserModalProps {
 	open: boolean;
 	handleClose: () => void;
 }
-// sx={[styles.coursesModel, mdScreen ? styles.coursesModelMd : null]}
-// const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
 const styles = {
 	usersModal: {
 		position: 'absolute',
@@ -107,7 +105,13 @@ export const AddUserModal = ({ handleClose, open }: EditUserModalProps) => {
 			aria-labelledby="modal-modal-title"
 			aria-describedby="modal-modal-description"
 		>
-			<Box sx={[styles.usersModal, mdScreen ? styles.usersModalMd : null]}>
+			<Box
+				sx={[
+					styles.usersModal,
+					mdScreen ? styles.usersModalMd : null,
+					{ bgcolor: 'background.default' },
+				]}
+			>
 				<Stack direction="row" justifyContent="space-between">
 					<Typography variant="h4" fontWeight="bold">
 						Add User
