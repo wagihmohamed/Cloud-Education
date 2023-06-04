@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { coursesTableColumns } from 'mockup';
 import {
 	DoDisturbOnOutlined,
-	HighlightOffOutlined,
 	SettingsOutlined,
 	PeopleAltOutlined,
 	CheckCircleOutlineOutlined,
+	DeleteOutlined,
 } from '@mui/icons-material';
 import {
 	Table,
@@ -206,14 +206,17 @@ export const CoursesTable = ({
 													cursor={disableActions ? 'not-allowed' : 'pointer'}
 													color="primary"
 												/>
-												<HighlightOffOutlined
+												<DeleteOutlined
 													sx={{
 														height: '30px',
 														width: '30px',
+														':hover': {
+															color: '#d32f2f',
+														},
 													}}
+													color="primary"
 													onClick={() => handleDeleteCourse(row.code)}
 													cursor={disableActions ? 'not-allowed' : 'pointer'}
-													color="primary"
 												/>
 												{row.isActive === true ? (
 													<DoDisturbOnOutlined
