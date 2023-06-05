@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, SxProps, Theme } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import { useSettings } from 'zustandStore';
@@ -27,19 +28,19 @@ export const CustomNavLink = ({
 					width: '100%',
 					py: '28px',
 					px: '14px',
-					backgroundColor: isActive ? primaryColor : '#fff',
+					backgroundColor: isActive ? '#25a244' : '#f0f0',
 					textTransform: 'none',
-					color: isActive ? '#fff' : '#000',
+					color: isActive ? '#fff' : 'text.primary',
 					fontSize: '18px',
 					'&:hover': {
-						bgcolor: '#323232',
-						color: '#fff',
+						bgcolor: '#eaf4fe',
+						color: 'text.primary',
 					},
 					'&:disabled': {
 						color: 'gray',
 					},
 					borderRadius: '0',
-					borderTop: '2px solid #000',
+					borderTop: '2px solid #382d8b',
 					borderBottom: isLast ? '2px solid #000' : 'none',
 					...sx,
 				}}

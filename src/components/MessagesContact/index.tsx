@@ -28,25 +28,31 @@ export const Contact = ({
 			py={'1rem'}
 			px={'1rem'}
 			sx={{
+				width: '100%',
 				cursor: 'pointer',
-				border: '2px solid black',
-				bgcolor: contactDetails.userId === active ? '#000' : '#fff',
+				borderBlock: '1px solid black',
+				bgcolor: contactDetails.userId === active ? '#d8f3dc' : '#fff',
 				color: contactDetails.userId === active ? '#fff' : '#000',
 				fontSize: '20px',
 				'&:hover': {
-					bgcolor: '#323232',
-					color: 'white',
+					bgcolor: '#ebf3ff',
+					color: 'text.primary',
 				},
 			}}
 		>
 			<Box>
-				<Typography variant="h5">{contactDetails.contactName}</Typography>
+				<Typography variant="h5" sx={{ fontWeight: '500', color: '#382d8b' }}>
+					{contactDetails.contactName}
+				</Typography>
 				<Typography variant="body1">
 					{contactDetails.chat.at(-1)?.message}
 				</Typography>
 			</Box>
 			<Box>
-				<Typography variant="body2">
+				<Typography
+					variant="body2"
+					sx={{ fontWeight: '500', color: '#2d6a4f' }}
+				>
 					{getFullDate(contactDetails.chat.at(-1)?.date)}
 				</Typography>
 			</Box>

@@ -15,7 +15,7 @@ const styles = {
 		height: '100%',
 		display: 'flex',
 		flexDirection: 'column',
-		ml: '100px',
+		ml: '130px',
 	},
 	childrenContainerMd: {
 		ml: '0px',

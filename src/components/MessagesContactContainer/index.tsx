@@ -29,7 +29,7 @@ export const ContactsContainer = ({
 		<Box
 			sx={[
 				{
-					bgcolor: 'white',
+					bgcolor: 'background.default',
 					height: '100vh',
 					border: '2px solid black',
 					overflowY: 'scroll',
