@@ -33,6 +33,7 @@ export const EditUserModal = ({
 	editedUser,
 }: EditUserModalProps) => {
 	const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const { isTeacher, isAdmin } = useAuth();
 	const {
 		data: coursesList = {
@@ -74,7 +75,7 @@ export const EditUserModal = ({
 		formik.resetForm();
 	};
 
-	const disableEdit = !isTeacher || !isAdmin;
+	const disableEdit = isTeacher;
 
 	return (
 		<Modal
