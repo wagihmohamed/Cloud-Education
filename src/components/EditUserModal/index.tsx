@@ -9,7 +9,7 @@ import {
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { CustomButton, CustomSelect, CustomTextField } from 'components';
 import { useFormik } from 'formik';
-import { editUserRoles } from 'mockup';
+import { usersRoles } from 'mockup';
 import { UserItem, UserRoles } from 'models';
 import {
 	editUserInitialValues,
@@ -214,18 +214,9 @@ export const EditUserModal = ({
 								onChange={(e: { label: string; value: string }) => {
 									formik.setFieldValue('role', e);
 								}}
-								options={editUserRoles}
-								value={
-									editedUser.role === 'ADMIN'
-										? [
-												{
-													label: editedUser.role,
-													value: editedUser.role,
-												},
-										  ]
-										: formik.values.role
-								}
-								disabled={editedUser.role === 'ADMIN' || disableEdit}
+								options={usersRoles}
+								value={formik.values.role}
+								disabled={formik.values.role.value === 'ADMIN'}
 								withLabel
 								label="Role"
 								error={formik.touched.role && Boolean(formik.errors.role)}

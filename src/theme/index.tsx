@@ -1,15 +1,38 @@
+/** @format */
+
 import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
 	palette: {
 		primary: {
-			main: localStorage.getItem('primaryColor') ?? '#000000',
+			main: '#023e8a',
+		},
+		secondary: {
+			main: '#66bb6a',
+		},
+		background: {
+			default: '#f8f9fa',
+		},
+		text: {
+			primary: '#202033',
+			secondary: '#c1121f',
 		},
 	},
 	typography: {
 		allVariants: {
-			color: '#000',
+			color: '#202033',
 		},
-		fontFamily: ['Patrick Hand', 'cursive'].join(','),
+		fontFamily: [
+			'-apple-system',
+			'BlinkMacSystemFont',
+			'"Segoe UI"',
+			'Roboto',
+			'"Helvetica Neue"',
+			'Arial',
+			'sans-serif',
+			'"Apple Color Emoji"',
+			'"Segoe UI Emoji"',
+			'"Segoe UI Symbol"',
+		].join(','),
 	},
 });

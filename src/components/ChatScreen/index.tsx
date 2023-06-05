@@ -41,7 +41,7 @@ export const ChatScreen = ({
 		return (
 			<Stack flexGrow={1} direction={'column'}>
 				<Box py={'1rem'} px={'2rem'} sx={{ bgcolor: 'primary.main' }}>
-					<Typography variant="h3" sx={{ color: 'white' }}>
+					<Typography variant="h4" sx={{ color: 'white', fontWeight: 'bold' }}>
 						{selectedChat.contactName}
 					</Typography>
 				</Box>

@@ -106,9 +106,9 @@ export const UsersTable = () => {
 													sx={{
 														height: '30px',
 														width: '30px',
+														color: 'text.primary',
 													}}
 													cursor="pointer"
-													color="primary"
 													onClick={() => {
 														setIsEditUserOpen(true);
 														setSelectedUser(row);
@@ -136,7 +136,6 @@ export const UsersTable = () => {
 														width: '30px',
 													}}
 													cursor="pointer"
-													color="primary"
 												/>
 											</Stack>
 										</CustomTableCell>
