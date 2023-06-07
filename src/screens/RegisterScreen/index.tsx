@@ -44,7 +44,7 @@ export const RegisterScreen = () => {
 					Registeration
 				</Typography>
 			</Box>
-			<CustomAuthContainer>
+			<CustomAuthContainer m="auto">
 				<form onSubmit={registerFormik.handleSubmit}>
 					<Grid container spacing={2} rowSpacing="15px" columnSpacing="20px">
 						<Grid item xs={12} sm={6}>
@@ -173,13 +173,13 @@ export const RegisterScreen = () => {
 								type="password"
 							/>
 						</Grid>
-						<Grid item xs={12}>
+						<Grid item xs={6}>
 							<CustomButton
 								loadingButton
 								loading={isLoading}
 								type="submit"
 								fullWidth
-								py="15px"
+								py="10px"
 								mt={3}
 							>
 								Sign Up
