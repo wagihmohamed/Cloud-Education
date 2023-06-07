@@ -14,6 +14,7 @@ import { ExamScreen } from './ExamScreen';
 import { ErrorPage } from './ErrorPage';
 import { ExamsScreen } from './ExamsScreen';
 import { CreateExamScreen } from './CreateExamScreen';
+import { LearningCoursesScreen } from './LearnCoursesScreen';
 
 export {
 	LoginScreen,
@@ -32,4 +33,5 @@ export {
 	ErrorPage,
 	ExamsScreen,
 	CreateExamScreen,
+	LearningCoursesScreen,
 };

@@ -70,7 +70,7 @@ export const ExamScreen = () => {
 		<CustomLayout>
 			<Box
 				sx={{
-					backgroundColor: '#fff',
+					bgcolor: 'background.default',
 					mx: '4rem',
 					my: '3rem',
 					[theme.breakpoints.down('md')]: {

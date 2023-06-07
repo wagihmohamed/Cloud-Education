@@ -27,7 +27,7 @@ export const ExamsScreen = () => {
 				sx={{
 					mt: 4,
 					mx: '2.5rem',
-					bgcolor: 'white',
+					bgcolor: 'background.default',
 				}}
 			>
 				<Box>
@@ -40,7 +40,7 @@ export const ExamsScreen = () => {
 						{!isError &&
 							!isLoading &&
 							exams.map((exam) => (
-								<Grid item xs={12} sm={6} md={4} key={exam.id}>
+								<Grid item xs={12} sm={6} md={6} lg={4} key={exam.id}>
 									<Card sx={{ opacity: isExamDisabled(exam) ? 0.5 : 1 }}>
 										<CardMedia
 											component="img"

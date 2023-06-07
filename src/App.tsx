@@ -18,6 +18,7 @@ import {
 	ErrorPage,
 	ExamsScreen,
 	CreateExamScreen,
+	LearningCoursesScreen,
 } from 'screens';
 import { setAppColor } from 'utlis';
 import { CircularProgress, Box } from '@mui/material';
@@ -76,6 +77,10 @@ function App() {
 				/>
 				<Route path="/:organizationId/messages" element={<MessagesScreen />} />
 				<Route path="/:organizationId/users" element={<UsersScreen />} />
+				<Route
+					path="/:organizationId/learning-courses"
+					element={<LearningCoursesScreen />}
+				/>
 				<Route path="/:organizationId/profile" element={<ProfileScreen />} />
 				<Route
 					path="/:organizationId/students-data"
