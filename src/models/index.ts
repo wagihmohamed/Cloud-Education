@@ -362,3 +362,17 @@ export interface UserByIdResponse {
 	status: string;
 	data: UserItem;
 }
+
+export interface ExamsItem {
+	id: string;
+	name: string;
+	description: string;
+	duration: number;
+	startTime: string;
+	endTime: string;
+}
+
+export interface ExamsListResponse {
+	status: number;
+	data: ExamsItem[];
+}

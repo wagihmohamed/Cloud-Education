@@ -45,10 +45,15 @@ export const ExamsScreen = () => {
 										<CardMedia
 											component="img"
 											height="200"
-											image={exam.imageUrl}
-											alt={exam.title}
+											image={
+												'https://img.freepik.com/free-photo/writing-note-business-education-concept_1421-28.jpg?w=1380&t=st=1686151011~exp=1686151611~hmac=16efa5deb1ccdeb8a1299b8989d85bc641a91f35a40d62dd4c05391f3c732d0c'
+											}
+											alt={exam.name}
 										/>
-										<CardHeader title={exam.title} subheader={exam.class} />
+										<CardHeader
+											title={exam.name}
+											subheader={exam.description}
+										/>
 										<CardContent sx={{ padding: '0px 16px 16px' }}>
 											<Box
 												display="flex"
@@ -66,44 +71,46 @@ export const ExamsScreen = () => {
 														color="text.secondary"
 														fontSize="1.2rem"
 													>
-														Grade: {exam.grade || 'Not graded'}
+														Grade: Not graded
+													</Typography>
+													<Typography
+														variant="body2"
+														color="text.secondary"
+														fontSize="1.2rem"
+														my={1}
+													>
+														Start date: {exam.startTime}
 													</Typography>
 													<Typography
 														variant="body2"
 														color="text.secondary"
 														fontSize="1.2rem"
 													>
-														Start date: {exam.startDate.toLocaleDateString()}
-													</Typography>
-													<Typography
-														variant="body2"
-														color="text.secondary"
-														fontSize="1.2rem"
-													>
-														End date: {exam.endDate.toLocaleDateString()}
+														End date: {exam.endTime}
 													</Typography>
 												</Box>
-												<CustomNavLink
-													disabled={isExamDisabled(exam)}
-													to={
-														isExamDisabled(exam)
-															? '#'
-															: `/${organizationName}/exam/${exam.id}`
-													}
-													sx={{
-														bgcolor: '#000',
-														color: '#fff',
-														borderRadius: 2,
-														height: 40,
-														px: 5,
-														'&:hover': {
-															bgcolor: '#000',
-														},
-													}}
-												>
-													Start
-												</CustomNavLink>
 											</Box>
+											<CustomNavLink
+												disabled={isExamDisabled(exam)}
+												to={
+													isExamDisabled(exam)
+														? '#'
+														: `/${organizationName}/exam/${exam.id}`
+												}
+												sx={{
+													bgcolor: '#000',
+													color: '#fff',
+													borderRadius: 2,
+													height: 40,
+													px: 5,
+													'&:hover': {
+														bgcolor: '#000',
+													},
+													mt: 2,
+												}}
+											>
+												Start
+											</CustomNavLink>
 										</CardContent>
 									</Card>
 								</Grid>
