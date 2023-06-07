@@ -180,3 +180,7 @@ export const uploadVideoEndpoint = ({
 }) => {
 	return `/api/${orgnizationId}/courses/${courseCode}/uploadVideo`;
 };
+
+export const getExamsListEndpoint = (orgnizationId: string) => {
+	return `/api/${orgnizationId}/exams`;
+};

@@ -1,13 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { mockExams } from 'mockup';
-import { sleep } from 'utlis';
+import { getExamsListService } from 'services';
 
 export const useExamsList = () => {
+	const orgName = localStorage.getItem('organizationId') || '';
 	return useQuery({
 		queryKey: ['exams'],
 		queryFn: async () => {
-			await sleep(1500);
-			return mockExams;
+			return getExamsListService(orgName);
 		},
 	});
 };
