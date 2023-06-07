@@ -1,6 +1,10 @@
-import { ExamListItem } from 'models';
+import { ExamsItem } from 'models';
+import { parseISO, isBefore, isAfter } from 'date-fns';
 
-export const isExamDisabled = (exam: ExamListItem) => {
+export const isExamDisabled = (exam: ExamsItem) => {
 	const today = new Date();
-	return exam.startDate > today || exam.endDate < today;
+	const start = parseISO(exam.startTime);
+	const end = parseISO(exam.endTime);
+
+	return isBefore(today, start) || isAfter(today, end);
 };
