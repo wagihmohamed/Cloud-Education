@@ -38,16 +38,12 @@ export const RegisterScreen = () => {
 	});
 
 	return (
-		<Box
-			sx={{
-				display: 'flex',
-				flex: 1,
-				justifyContent: 'center',
-				alignItems: 'center',
-				py: '3rem',
-				flexDirection: 'column',
-			}}
-		>
+		<>
+			<Box sx={{ bgcolor: '#023e8a', my: '2rem', py: '2rem' }}>
+				<Typography variant="h3" px="3rem" fontWeight="bold" color="white">
+					Registeration
+				</Typography>
+			</Box>
 			<CustomAuthContainer>
 				<form onSubmit={registerFormik.handleSubmit}>
 					<Grid container spacing={2} rowSpacing="15px" columnSpacing="20px">
@@ -192,6 +188,6 @@ export const RegisterScreen = () => {
 					</Grid>
 				</form>
 			</CustomAuthContainer>
-		</Box>
+		</>
 	);
 };

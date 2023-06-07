@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import { useFormik } from 'formik';
 import {
 	CustomButton,
@@ -14,6 +14,7 @@ import { useAuth } from 'zustandStore';
 import { toast } from 'react-toastify';
 import { ApiError } from 'models';
 import { useGetOrganizationName } from 'hooks';
+import { theme } from 'theme';
 
 export const LoginScreen = () => {
 	const navigate = useNavigate();
@@ -54,19 +55,16 @@ export const LoginScreen = () => {
 			login();
 		},
 	});
+	const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
 
 	return (
-		<Box
-			sx={{
-				display: 'flex',
-				flex: 1,
-				justifyContent: 'center',
-				alignItems: 'center',
-				height: '100vh',
-				flexDirection: 'column',
-			}}
-		>
-			<CustomAuthContainer>
+		<>
+			<Box sx={{ bgcolor: '#023e8a', my: '3rem', py: '2rem' }}>
+				<Typography variant="h3" px="3rem" fontWeight="bold" color="white">
+					Registeration
+				</Typography>
+			</Box>
+			<CustomAuthContainer m="2rem auto" maxWidth={mdScreen ? '90%' : '50%'}>
 				<form onSubmit={loginFormik.handleSubmit}>
 					<CustomTextField
 						withLabel
@@ -108,12 +106,12 @@ export const LoginScreen = () => {
 					</CustomButton>
 				</form>
 			</CustomAuthContainer>
-			<CustomAuthContainer mt={10} px={2} py={2}>
+			<CustomAuthContainer m={'auto'} px={2} py={2} width="400px">
 				<Typography variant="h5" textAlign="center">
 					Don't have an account?
 					<Link to={`/${organizationName}/register`}> Register</Link>
 				</Typography>
 			</CustomAuthContainer>
-		</Box>
+		</>
 	);
 };
