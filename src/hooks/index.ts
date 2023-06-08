@@ -25,6 +25,7 @@ import { useAddReview } from './useAddReview';
 import { useGetUserById } from './useGetUserById';
 import { useCreateExam } from './useCreateExam';
 import { useGetExamItem } from './useGetExamItem';
+import { useSubmitAnswer } from './useSubmitAnswer';
 
 export {
 	useAddUser,
@@ -54,4 +55,5 @@ export {
 	useGetUserById,
 	useCreateExam,
 	useGetExamItem,
+	useSubmitAnswer,
 };

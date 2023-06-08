@@ -198,3 +198,10 @@ export const getExamByExamIdEndpoint = (
 ) => {
 	return `/api/${orgnizationId}/exams/${examId}`;
 };
+
+export const submitExamByExamIdEndpoint = (
+	orgnizationId: string,
+	examId: string
+) => {
+	return `/api/${orgnizationId}/exams/${examId}/answers`;
+};
