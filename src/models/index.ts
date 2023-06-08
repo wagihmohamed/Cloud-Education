@@ -341,7 +341,7 @@ export interface UsersResponse {
 	data: UserItem[];
 }
 
-export type UserRoles = 'ADMIN' | 'TEACHER' | 'LEARNER' | 'TEACHER' | 'STUDENT';
+export type UserRoles = 'ADMIN' | 'TEACHER' | 'TEACHER' | 'STUDENT';
 
 export interface UserItem {
 	id: string;

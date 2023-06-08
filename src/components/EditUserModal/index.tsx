@@ -75,7 +75,7 @@ export const EditUserModal = ({
 		formik.resetForm();
 	};
 
-	const disableEdit = isTeacher;
+	const disableEdit = !isAdmin;
 
 	return (
 		<Modal
@@ -217,7 +217,7 @@ export const EditUserModal = ({
 								}}
 								options={usersRoles}
 								value={formik.values.role}
-								disabled={formik.values.role.value === 'ADMIN'}
+								disabled={!isAdmin}
 								withLabel
 								label="Role"
 								error={formik.touched.role && Boolean(formik.errors.role)}
