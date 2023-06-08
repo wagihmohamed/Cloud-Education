@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
+import { useState, useRef } from 'react';
 import {
 	CustomButton,
 	CustomLayout,
 	CustomSelect,
 	CustomTextField,
 } from 'components';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Grid, Stack, Typography } from '@mui/material';
 import { Formik, Form, FieldArray } from 'formik';
 import {
 	CheckCircleOutlineOutlined,
@@ -15,15 +15,55 @@ import {
 import { addExamInitialValues, addExamValidationSchema } from './formikUtils';
 import { ExamErrorType } from 'models';
 import { toast } from 'react-toastify';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+import { DateRangePicker } from 'react-date-range';
+import { useCoursesList, useCreateExam } from 'hooks';
+import { format } from 'date-fns';
 
 export const CreateExamScreen = () => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const formikRef = useRef<any>(null);
+	const {
+		data: coursesCodes = {
+			data: [],
+			page: 0,
+			pagesCount: 0,
+			status: '',
+		},
+	} = useCoursesList({
+		page: 1,
+	});
+	const { mutate: createExam, isLoading } = useCreateExam({
+		onSuccess: () => {
+			toast.success('Exam Created Successfully');
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+			formikRef.current.resetForm();
+		},
+		onError: (error) => {
+			toast.error(error.response?.data?.message || 'Something went wrong');
+		},
+	});
+	const [state, setState] = useState([
+		{
+			startDate: new Date(),
+			endDate: new Date(new Date().setDate(new Date().getDate() + 7)),
+			key: 'selection',
+		},
+	]);
+
+	const handleChangeRange = (item: {
+		selection: { startDate: Date; endDate: Date; key: string };
+	}) => {
+		setState([item.selection]);
+	};
+
 	return (
 		<CustomLayout>
 			<Box
 				sx={{
 					mt: 4,
 					mx: 5,
-					bgcolor: 'white',
 				}}
 			>
 				<h1>Add Exam Screen</h1>
@@ -33,6 +73,7 @@ export const CreateExamScreen = () => {
 					onSubmit={() => {}}
 					validateOnMount={true}
 					validateOnChange={true}
+					innerRef={formikRef}
 				>
 					{({
 						values,
@@ -42,22 +83,124 @@ export const CreateExamScreen = () => {
 						setFieldValue,
 						isValid,
 						isSubmitting,
-						resetForm,
 					}) => (
 						<Form>
-							<FieldArray name="exam">
+							<Grid container spacing={2} mb={2}>
+								<Grid item sm={12} md={6}>
+									<CustomTextField
+										name="name"
+										value={values.name}
+										placeholder="Exam Name"
+										type="text"
+										withLabel
+										label="Exam Name"
+										onChange={handleChange}
+										error={touched.name && Boolean(errors.name)}
+										helperText={touched.name && errors.name}
+									/>
+								</Grid>
+								<Grid item sm={12} md={6}>
+									<CustomTextField
+										name="duration"
+										value={values.duration === 0 ? '' : values.duration}
+										placeholder="Duration in minutes"
+										type="number"
+										withLabel
+										label="Duration (in minutes)"
+										onChange={handleChange}
+										error={touched.duration && Boolean(errors.duration)}
+										helperText={touched.duration && errors.duration}
+									/>
+								</Grid>
+								<Grid item sm={12} md={6}>
+									<Typography variant="h6" mb={1}>
+										Exam Available Period
+									</Typography>
+									<DateRangePicker
+										editableDateInputs={true}
+										moveRangeOnFirstSelection={false}
+										ranges={state}
+										dateDisplayFormat="yyyy-MM-dd"
+										className="filter-rangeee"
+										onChange={(item: {
+											selection: {
+												startDate: Date;
+												endDate: Date;
+												key: string;
+											};
+										}) => {
+											handleChangeRange(item);
+											setFieldValue('startTime', item.selection.startDate);
+											setFieldValue('endTime', item.selection.endDate);
+										}}
+									/>
+									{touched.startTime &&
+										touched.endTime &&
+										errors.startTime &&
+										errors.endTime && (
+											<Typography
+												mt={1}
+												variant="body2"
+												sx={{
+													color: '#d32f2f',
+													ml: 2,
+												}}
+											>
+												{errors.startTime}
+											</Typography>
+										)}
+								</Grid>
+								<Grid item sm={12} md={6}>
+									<CustomTextField
+										name="description"
+										value={values.description}
+										placeholder="Exam Description"
+										type="text"
+										multiline
+										rows={6}
+										withLabel
+										label="Description"
+										onChange={handleChange}
+										error={touched.description && Boolean(errors.description)}
+										helperText={touched.description && errors.description}
+									/>
+									<CustomSelect
+										options={coursesCodes.data.map((course) => ({
+											value: course.code,
+											label: course.name,
+										}))}
+										name="courseCode"
+										value={
+											values.courseCode.value === ''
+												? undefined
+												: values.courseCode
+										}
+										placeholder="Course Code"
+										withLabel
+										label="Course Code"
+										onChange={(e: { label: string; value: string }) => {
+											setFieldValue('courseCode', e);
+										}}
+										error={touched.courseCode && Boolean(errors.courseCode)}
+										helperText={touched.courseCode && errors.courseCode?.label}
+									/>
+								</Grid>
+							</Grid>
+							<FieldArray name="questions">
 								{({ remove, push }) => (
 									<div>
-										{values.exam.length > 0 &&
-											values.exam.map((exam, index) => (
+										{values.questions.length > 0 &&
+											values.questions.map((_, index) => (
 												<Box
 													sx={{
+														mt: 2,
 														border: '1px solid rgba(0, 0, 0, 0.1)',
 														pt: 2,
 														px: 2,
 														pb: 4,
 														mb: 2,
 														borderRadius: '15px',
+														bgcolor: 'white',
 														boxShadow:
 															'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px',
 													}}
@@ -81,29 +224,31 @@ export const CreateExamScreen = () => {
 																	height: '30px',
 																	cursor: 'pointer',
 																	display:
-																		values.exam.length === 1 ? 'none' : 'block',
+																		values.questions.length === 1
+																			? 'none'
+																			: 'block',
 																}}
 															/>
 														</Box>
 														<CustomTextField
-															name={`exam.${index}.questionTitle`}
-															value={values.exam[index].questionTitle}
+															name={`questions.${index}.questionText`}
+															value={values.questions[index].questionText}
 															placeholder="Question Title"
 															type="text"
 															withLabel
 															label={`Question ${index + 1}`}
 															onChange={handleChange}
 															error={
-																touched.exam?.[index]?.questionTitle &&
+																touched.questions?.[index]?.questionText &&
 																Boolean(
-																	(errors.exam?.[index] as ExamErrorType)
-																		?.questionTitle
+																	(errors.questions?.[index] as ExamErrorType)
+																		?.questionText
 																)
 															}
 															helperText={
-																touched.exam?.[index]?.questionTitle &&
-																(errors.exam?.[index] as ExamErrorType)
-																	?.questionTitle
+																touched.questions?.[index]?.questionText &&
+																(errors.questions?.[index] as ExamErrorType)
+																	?.questionText
 															}
 														/>
 														<div>
@@ -115,10 +260,10 @@ export const CreateExamScreen = () => {
 																withLabel
 																label="Question Type"
 																value={{
-																	value: values.exam[index].questionType,
-																	label: values.exam[index].questionType,
+																	value: values.questions[index].questionType,
+																	label: values.questions[index].questionType,
 																}}
-																name={`exam.${index}.questionType`}
+																name={`questions.${index}.questionType`}
 																placeholder="Question Type"
 																onChange={(e: {
 																	label: string;
@@ -126,72 +271,73 @@ export const CreateExamScreen = () => {
 																}) => {
 																	if (e.value === 'mcq') {
 																		setFieldValue(
-																			`exam.${index}.essayAnswer`,
+																			`questions.${index}.questionAnswer`,
 																			undefined
 																		);
 																		setFieldValue(
-																			`exam.${index}.questionAnswers`,
+																			`questions.${index}.questionChoices`,
 																			[
 																				{
-																					answer: '',
+																					choiceText: '',
 																					isCorrect: false,
 																				},
 																				{
-																					answer: '',
+																					choiceText: '',
 																					isCorrect: false,
 																				},
 																				{
-																					answer: '',
+																					choiceText: '',
 																					isCorrect: false,
 																				},
 																			]
 																		);
 																		setFieldValue(
-																			`exam.${index}.questionType`,
+																			`questions.${index}.questionType`,
 																			e.value
 																		);
 																	} else if (e.value === 'essay') {
 																		setFieldValue(
-																			`exam.${index}.questionType`,
+																			`questions.${index}.questionType`,
 																			e.value
 																		);
 																		setFieldValue(
-																			`exam.${index}.questionAnswers`,
+																			`questions.${index}.questionChoices`,
 																			undefined
 																		);
 																		setFieldValue(
-																			`exam.${index}.essayAnswer`,
+																			`questions.${index}.questionAnswer`,
 																			''
 																		);
 																	}
 																}}
 															/>
 														</div>
-														{values.exam[index].questionType === 'essay' && (
+														{values.questions[index].questionType ===
+															'essay' && (
 															<CustomTextField
-																name={`exam.${index}.essayAnswer`}
-																value={values.exam[index].essayAnswer}
+																name={`questions.${index}.questionAnswer`}
+																value={values.questions[index].questionAnswer}
 																placeholder="Essay Answer"
 																type="text"
 																withLabel
 																label={`Essay Answer ${index + 1}`}
 																onChange={handleChange}
 																error={
-																	touched.exam?.[index]?.essayAnswer &&
+																	touched.questions?.[index]?.questionAnswer &&
 																	Boolean(
-																		(errors.exam?.[index] as ExamErrorType)
-																			?.essayAnswer
+																		(errors.questions?.[index] as ExamErrorType)
+																			?.questionAnswer
 																	)
 																}
 																helperText={
-																	touched.exam?.[index]?.essayAnswer &&
-																	(errors.exam?.[index] as ExamErrorType)
-																		?.essayAnswer
+																	touched.questions?.[index]?.questionAnswer &&
+																	(errors.questions?.[index] as ExamErrorType)
+																		?.questionAnswer
 																}
 															/>
 														)}
 													</Stack>
-													{values.exam[index].questionType === 'mcq' && (
+													{values.questions[index].questionType === 'mcq' && (
 														<>
 															<Typography
 																sx={{
@@ -202,21 +348,19 @@ export const CreateExamScreen = () => {
 																	fontSize: '1.2rem',
 																}}
 															>
-																{(touched.exam?.[index]?.questionAnswers &&
-																	(errors.exam?.[index] as ExamErrorType)
-																		?.questionAnswers?.[0]?.answer) ||
-																	(
-																		errors.exam?.[index] as ExamErrorType
-																	)?.questionAnswers?.toString()}
+																{(errors.questions?.[index] as ExamErrorType)
+																	?.questionChoices &&
+																	touched.questions?.[index]?.questionChoices &&
+																	'Please fill all the answers and mark the correct answer'}
 															</Typography>
 															<Stack>
 																<label
-																	htmlFor={`exam.${index}.questionAnswers`}
+																	htmlFor={`questions.${index}.questionChoices`}
 																>
 																	Question {index + 1} Answers
 																</label>
 																<FieldArray
-																	name={`exam.${index}.questionAnswers`}
+																	name={`questions.${index}.questionChoices`}
 																>
 																	{({
 																		remove: removeAnswer,
@@ -224,12 +368,13 @@ export const CreateExamScreen = () => {
 																	}) => (
 																		<Stack display="flex" flexBasis="column">
 																			{(
-																				values.exam[index].questionAnswers ?? []
+																				values.questions[index]
+																					.questionChoices ?? []
 																			).length > 0 &&
 																				(
-																					values.exam[index].questionAnswers ??
-																					[]
-																				).map((answer, answerIndex) => (
+																					values.questions[index]
+																						.questionChoices ?? []
+																				).map((__, answerIndex) => (
 																					<Box
 																						sx={{
 																							display: 'flex',
@@ -241,7 +386,7 @@ export const CreateExamScreen = () => {
 																					>
 																						<Box width="99%">
 																							<CustomTextField
-																								name={`exam.${index}.questionAnswers.${answerIndex}`}
+																								name={`questions.${index}.questionChoices.${answerIndex}`}
 																								placeholder={`Answer ${
 																									answerIndex + 1
 																								}`}
@@ -252,61 +397,61 @@ export const CreateExamScreen = () => {
 																								}`}
 																								onChange={(e) => {
 																									setFieldValue(
-																										`exam.${index}.questionAnswers.${answerIndex}.answer`,
+																										`questions.${index}.questionChoices.${answerIndex}.choiceText`,
 																										e.target.value
 																									);
 																								}}
 																								fullWidth
 																								error={
-																									touched.exam?.[index]
-																										?.questionAnswers &&
+																									touched.questions?.[index]
+																										?.questionChoices &&
 																									Boolean(
 																										(
-																											errors.exam?.[
+																											errors.questions?.[
 																												index
 																											] as ExamErrorType
-																										)?.questionAnswers?.[
+																										)?.questionChoices?.[
 																											answerIndex
-																										]?.answer ||
+																										]?.choiceText ||
 																											(
-																												errors.exam?.[
+																												errors.questions?.[
 																													index
 																												] as ExamErrorType
-																											)?.questionAnswers?.[
+																											)?.questionChoices?.[
 																												answerIndex
 																											]?.isCorrect
 																									)
 																								}
 																								helperText={
-																									(touched.exam?.[index]
-																										?.questionAnswers &&
+																									(touched.questions?.[index]
+																										?.questionChoices &&
 																										(
-																											errors.exam?.[
+																											errors.questions?.[
 																												index
 																											] as ExamErrorType
-																										)?.questionAnswers?.[
+																										)?.questionChoices?.[
 																											answerIndex
-																										]?.answer) ||
+																										]?.choiceText) ||
 																									(
-																										errors.exam?.[
+																										errors.questions?.[
 																											index
 																										] as ExamErrorType
-																									)?.questionAnswers?.[
+																									)?.questionChoices?.[
 																										answerIndex
 																									]?.isCorrect
 																								}
 																							/>
 																						</Box>
-																						{values.exam[index]
-																							?.questionAnswers?.[answerIndex]
+																						{values.questions[index]
+																							?.questionChoices?.[answerIndex]
 																							.isCorrect ? (
 																							<DoDisturbOnOutlined
-																								onClick={() =>
+																								onClick={() => {
 																									setFieldValue(
-																										`exam.${index}.questionAnswers.${answerIndex}.isCorrect`,
+																										`questions.${index}.questionChoices.${answerIndex}.isCorrect`,
 																										false
-																									)
-																								}
+																									);
+																								}}
 																								sx={{
 																									width: '30px',
 																									height: '30px',
@@ -317,38 +462,50 @@ export const CreateExamScreen = () => {
 																							/>
 																						) : (
 																							<CheckCircleOutlineOutlined
-																								onClick={() =>
+																								onClick={() => {
 																									setFieldValue(
-																										'exam',
-																										(values.exam ?? []).map(
-																											(ans, ansIdx) => ({
-																												...ans,
-																												questionAnswers:
-																													ansIdx === index
-																														? ans.questionAnswers?.map(
+																										'questions',
+																										values.questions.map(
+																											(
+																												question,
+																												questionIndex
+																											) => {
+																												if (
+																													questionIndex ===
+																													index
+																												) {
+																													return {
+																														...question,
+																														questionChoices:
+																															question.questionChoices?.map(
 																																(
-																																	mcqAns,
-																																	mcaAnsIdx
-																																) => ({
-																																	...mcqAns,
-																																	isCorrect:
-																																		mcaAnsIdx ===
+																																	ans,
+																																	ansIdx
+																																) => {
+																																	if (
+																																		ansIdx ===
 																																		answerIndex
-																																			? true
-																																			: false,
-																																})
-																														  )
-																														: ans.questionAnswers?.map(
-																																(mcqAns) => ({
-																																	...mcqAns,
-																																	isCorrect:
-																																		false,
-																																})
-																														  ),
-																											})
+																																	) {
+																																		return {
+																																			...ans,
+																																			isCorrect:
+																																				true,
+																																		};
+																																	}
+																																	return {
+																																		...ans,
+																																		isCorrect:
+																																			false,
+																																	};
+																																}
+																															),
+																													};
+																												}
+																												return question;
+																											}
 																										)
-																									)
-																								}
+																									);
+																								}}
 																								sx={{
 																									width: '30px',
 																									height: '30px',
@@ -376,7 +533,7 @@ export const CreateExamScreen = () => {
 																				type="button"
 																				onClick={() =>
 																					pushAnswer({
-																						answer: '',
+																						choiceText: '',
 																						isCorrect: false,
 																					})
 																				}
@@ -401,14 +558,14 @@ export const CreateExamScreen = () => {
 											type="button"
 											mt={2}
 											bgColor="#4CAF50"
-											onClick={() =>
+											onClick={() => {
 												push({
-													questionTitle: '',
-													essayAnswer: '',
+													questionText: '',
+													questionAnswer: '',
 													questionType: 'essay',
-												})
-											}
-											disabled={!isValid || !values.exam.length}
+												});
+											}}
+											disabled={!isValid || !values.questions.length}
 										>
 											Add Question
 										</CustomButton>
@@ -416,11 +573,44 @@ export const CreateExamScreen = () => {
 								)}
 							</FieldArray>
 							<CustomButton
-								onClick={async () => {
-									if (!isValid || !values.exam.length || isSubmitting) return;
-									await new Promise((r) => setTimeout(r, 1500));
-									toast.success('Exam Added Successfully');
-									resetForm();
+								loadingButton
+								loading={isLoading}
+								onClick={() => {
+									if (!isValid || !values.questions.length || isSubmitting)
+										return;
+									const newEndTime = new Date(values.endTime);
+									const newStartTime = new Date(values.startTime);
+									createExam({
+										courseCode: values.courseCode.value,
+										exam: {
+											description: values.description,
+											duration: values.duration,
+											endTime: format(newEndTime, 'yyyy-MM-dd'),
+											startTime: format(newStartTime, 'yyyy-MM-dd'),
+											name: values.name,
+											questions: values.questions.map((question) => {
+												if (question.questionType === 'essay') {
+													return {
+														questionText: question.questionText,
+														questionType: question.questionType,
+														questionAnswer: question.questionAnswer,
+													};
+												}
+												return {
+													questionText: question.questionText,
+													questionType: question.questionType,
+													questionChoices: question.questionChoices?.map(
+														(choice) => {
+															return {
+																choiceText: choice.choiceText,
+																isCorrect: choice.isCorrect,
+															};
+														}
+													),
+												};
+											}),
+										},
+									});
 								}}
 								type="submit"
 								fullWidth
