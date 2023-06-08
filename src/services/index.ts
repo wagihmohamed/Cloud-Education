@@ -23,3 +23,4 @@ export * from './uploadImageService';
 export * from './uploadVideo';
 export * from './getExamsList';
 export * from './createExamService';
+export * from './getExamById';

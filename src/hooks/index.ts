@@ -24,6 +24,7 @@ import { useDeleteUser } from './useDeleteUsers';
 import { useAddReview } from './useAddReview';
 import { useGetUserById } from './useGetUserById';
 import { useCreateExam } from './useCreateExam';
+import { useGetExamItem } from './useGetExamItem';
 
 export {
 	useAddUser,
@@ -52,4 +53,5 @@ export {
 	useAddReview,
 	useGetUserById,
 	useCreateExam,
+	useGetExamItem,
 };
