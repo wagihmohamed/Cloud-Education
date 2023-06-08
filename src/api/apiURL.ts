@@ -191,3 +191,10 @@ export const createExamByCourseCodeEndpoint = (
 ) => {
 	return `/api/${orgnizationId}/courses/${courseCode}/exams`;
 };
+
+export const getExamByExamIdEndpoint = (
+	orgnizationId: string,
+	examId: string
+) => {
+	return `/api/${orgnizationId}/exams/${examId}`;
+};

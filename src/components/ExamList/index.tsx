@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
 	Box,
 	FormControlLabel,
@@ -13,7 +14,7 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { pink } from '@mui/material/colors';
-import { useGetExam } from 'hooks';
+import { useGetExamItem } from 'hooks';
 import { useParams } from 'react-router-dom';
 import { ExamError } from 'models';
 import { theme } from 'theme';
@@ -21,20 +22,26 @@ import { theme } from 'theme';
 export const ExamList = () => {
 	const { examId } = useParams();
 	const {
+		isError,
 		data: examData = {
-			examQuestions: [],
-			examDescription: '',
-			examId: '',
-			examName: '',
-			examDurationInMinutes: 100,
+			data: {
+				description: '',
+				duration: 0,
+				endTime: '',
+				id: '',
+				name: '',
+				questions: [],
+				startTime: '',
+			},
 		},
 		isLoading,
-		isError,
-	} = useGetExam(examId || '');
-	const examQuestions = examData.examQuestions.map((question) => {
+	} = useGetExamItem(examId || '');
+
+	const examQuestions = examData.data.questions.map((question) => {
 		return {
-			questionId: question.questionId,
-			answer: '',
+			questionText: question.questionText,
+			questionType: question.questionType,
+			questionAnswer: '',
 		};
 	});
 	const formik = useFormik({
@@ -45,20 +52,23 @@ export const ExamList = () => {
 			examQuestions: Yup.array().of(
 				Yup.object()
 					.shape({
-						questionId: Yup.string().required('This field is required'),
-						answer: Yup.string().required('Your answer is required'),
+						questionText: Yup.string().required('This field is required'),
+						questionType: Yup.string().required('This field is required'),
+						questionAnswer: Yup.string().required('Your answer is required'),
 					})
 					.required('Your answer is required')
 			),
 		}),
-		onSubmit: () => {},
+		onSubmit: (values) => {
+			console.log(values);
+		},
 	});
 
 	const updateArrayItem = (index: number, value: string) => {
 		const newArray = [...formik.values.examQuestions];
 		newArray[index] = {
 			...newArray[index],
-			answer: value,
+			questionAnswer: value,
 		};
 		formik.setFieldValue('examQuestions', newArray);
 	};
@@ -79,19 +89,19 @@ export const ExamList = () => {
 					fontWeight="bold"
 					variant="h4"
 				>
-					{examData.examName}
+					{examData.data.name}
 				</Typography>
 				<Typography my={2} fontWeight="bold" variant="h5">
-					{examData.examDescription}
+					{examData.data.description}
 				</Typography>
 				<Typography my={2} fontWeight="bold" variant="h6">
-					Exam Duration: {examData.examDurationInMinutes} minutes.
+					Exam Duration: {examData.data.duration} minutes.
 				</Typography>
 				<Box>
-					{examData.examQuestions.map((question, idx) => {
+					{examData.data.questions.map((question, idx) => {
 						return (
 							<Box
-								key={question.questionId}
+								key={question.questionText}
 								sx={{
 									mt: 2,
 									mx: 5,
@@ -104,7 +114,7 @@ export const ExamList = () => {
 								}}
 							>
 								<Box my={3}>
-									{question.questionType === 'choice' ? (
+									{question.questionType === 'mcq' ? (
 										<Box>
 											<Typography fontWeight="bold" variant="h6">
 												{idx + 1} - {question.questionText}
@@ -112,7 +122,7 @@ export const ExamList = () => {
 											{question.questionChoices?.map((choise) => {
 												return (
 													<Box
-														key={choise.choiceId}
+														key={choise.choiceText}
 														sx={{
 															mt: 2,
 															mx: 5,
@@ -121,17 +131,12 @@ export const ExamList = () => {
 													>
 														<RadioGroup
 															aria-labelledby="demo-controlled-radio-buttons-group"
-															name={question.questionId}
+															name={question.questionText}
 															value={
-																formik.values.examQuestions[
-																	parseInt(question.questionId) - 1
-																]?.answer
+																formik.values.examQuestions[idx]?.questionAnswer
 															}
 															onChange={(e) =>
-																updateArrayItem(
-																	parseInt(question.questionId) - 1,
-																	e.target.value
-																)
+																updateArrayItem(idx, e.target.value)
 															}
 														>
 															<FormControlLabel
@@ -144,7 +149,7 @@ export const ExamList = () => {
 																				Boolean(
 																					(
 																						formik.errors.examQuestions?.[
-																							parseInt(question.questionId) - 1
+																							idx
 																						] as ExamError
 																					)?.answer
 																				)
@@ -161,7 +166,7 @@ export const ExamList = () => {
 																				Boolean(
 																					(
 																						formik.errors.examQuestions?.[
-																							parseInt(question.questionId) - 1
+																							idx
 																						] as ExamError
 																					)?.answer
 																				)
@@ -179,7 +184,7 @@ export const ExamList = () => {
 											})}
 										</Box>
 									) : (
-										<Box key={question.questionId}>
+										<Box key={question.questionText}>
 											<Typography fontWeight="bold" variant="h6">
 												{idx + 1} - {question.questionText}
 											</Typography>
@@ -188,35 +193,20 @@ export const ExamList = () => {
 												rows={4}
 												placeholder="Enter your answer"
 												fullWidth
-												value={
-													formik.values.examQuestions[
-														parseInt(question.questionId) - 1
-													]?.answer
-												}
+												value={formik.values.examQuestions[idx]?.questionAnswer}
 												error={
 													formik.touched.examQuestions &&
 													Boolean(
-														(
-															formik.errors.examQuestions?.[
-																parseInt(question.questionId) - 1
-															] as ExamError
-														)?.answer
+														(formik.errors.examQuestions?.[idx] as ExamError)
+															?.answer
 													)
 												}
 												helperText={
 													formik.touched.examQuestions &&
-													(
-														formik.errors.examQuestions?.[
-															parseInt(question.questionId) - 1
-														] as ExamError
-													)?.answer
+													(formik.errors.examQuestions?.[idx] as ExamError)
+														?.answer
 												}
-												onChange={(e) =>
-													updateArrayItem(
-														parseInt(question.questionId) - 1,
-														e.target.value
-													)
-												}
+												onChange={(e) => updateArrayItem(idx, e.target.value)}
 											/>
 										</Box>
 									)}
