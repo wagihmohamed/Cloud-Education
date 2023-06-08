@@ -34,6 +34,9 @@ export const CustomNavBar = () => {
 		>
 			<CustomNavLink to={`/${organizationId}/home`}>Home</CustomNavLink>
 			<CustomNavLink to={`/${organizationId}/courses`}>Courses</CustomNavLink>
+			<CustomNavLink to={`/${organizationId}/learning-courses`}>
+				Learning Courses
+			</CustomNavLink>
 			<CustomNavLink to={`/${organizationId}/leaderboard`}>
 				Leaderboard
 			</CustomNavLink>
