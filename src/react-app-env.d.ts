@@ -18,3 +18,4 @@ declare module '@editorjs/warning';
 declare module '@editorjs/code';
 declare module '@editorjs/link';
 declare module '@weekwood/editorjs-video';
+declare module 'react-date-range';

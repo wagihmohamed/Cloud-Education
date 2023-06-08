@@ -2,22 +2,46 @@ import { ExamInitialValues } from 'models';
 import * as Yup from 'yup';
 
 export const addExamInitialValues: ExamInitialValues = {
-	exam: [
+	name: '',
+	description: '',
+	duration: 0,
+	endTime: '',
+	startTime: '',
+	courseCode: {
+		label: '',
+		value: '',
+	},
+	questions: [
 		{
-			questionTitle: '',
-			essayAnswer: '',
+			questionText: '',
+			questionAnswer: '',
 			questionType: 'essay',
 		},
 	],
 };
 
 export const addExamValidationSchema = Yup.object({
-	exam: Yup.array().of(
+	courseCode: Yup.object({
+		value: Yup.string().required('Course Code is required'),
+		label: Yup.string().required('Course Code is required'),
+	}),
+	name: Yup.string()
+		.min(6, 'Name must be at least 6 characters')
+		.required('Name is required'),
+	description: Yup.string()
+		.min(6, 'Description must be at least 6 characters')
+		.required('Description is required'),
+	duration: Yup.number()
+		.min(10, 'Duration must be at least 10 minute')
+		.required('Duration is required'),
+	startTime: Yup.string().required('Start Time is required'),
+	endTime: Yup.string().required('End Time is required'),
+	questions: Yup.array().of(
 		Yup.object({
-			questionTitle: Yup.string()
+			questionText: Yup.string()
 				.min(6, 'Question Title must be at least 6 characters')
 				.required('Question Title is required'),
-			essayAnswer: Yup.string().when(
+			questionAnswer: Yup.string().when(
 				'questionType',
 				(questionType: string[], schema) => {
 					if (questionType[0] === 'essay') {
@@ -29,14 +53,14 @@ export const addExamValidationSchema = Yup.object({
 				}
 			),
 			questionType: Yup.string().oneOf(['essay', 'mcq'], 'Required'),
-			questionAnswers: Yup.array().when(
+			questionChoices: Yup.array().when(
 				'questionType',
 				(questionType: string[], schema) => {
 					if (questionType[0] === 'mcq') {
 						return Yup.array()
 							.of(
 								Yup.object({
-									answer: Yup.string()
+									choiceText: Yup.string()
 										.min(2, 'MCQ Answer must be at least 2 characters')
 										.required('Answer is required'),
 									isCorrect: Yup.boolean().required(

@@ -2,6 +2,7 @@
 
 import { OutputBlockData } from '@editorjs/editorjs';
 import { AxiosError, AxiosResponse } from 'axios';
+import { ExamQuestionType } from 'services';
 
 export type CourseStatus = 'active' | 'inactive';
 
@@ -138,22 +139,24 @@ export interface MCQType {
 }
 
 export interface ExamInitialValues {
-	exam: [
-		{
-			questionTitle: '';
-			essayAnswer: '';
-			questionType: QuestionType;
-			questionAnswers?: MCQType[];
-		}
-	];
+	name: string;
+	description: string;
+	duration: number;
+	startTime: string;
+	endTime: string;
+	courseCode: {
+		value: string;
+		label: string;
+	};
+	questions: ExamQuestionType[];
 }
 
 export interface ExamErrorType {
-	questionTitle: string;
-	essayAnswer?: string;
+	questionText: string;
+	questionAnswer?: string;
 	questionType: string;
-	questionAnswers?: {
-		answer?: string;
+	questionChoices?: {
+		choiceText?: string;
 		isCorrect?: boolean;
 	}[];
 }

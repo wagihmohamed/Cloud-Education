@@ -184,3 +184,10 @@ export const uploadVideoEndpoint = ({
 export const getExamsListEndpoint = (orgnizationId: string) => {
 	return `/api/${orgnizationId}/exams`;
 };
+
+export const createExamByCourseCodeEndpoint = (
+	orgnizationId: string,
+	courseCode: string
+) => {
+	return `/api/${orgnizationId}/courses/${courseCode}/exams`;
+};
