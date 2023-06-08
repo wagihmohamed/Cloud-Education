@@ -21,7 +21,7 @@ export const CustomAuthContainer = ({
 	mx,
 	px = '40px',
 	py = '30px',
-	width = '800px',
+	width,
 	maxWidth = '80%',
 	pl,
 	pr,

@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, Divider } from '@mui/material';
+import { Box, Grid, Typography, Divider, useMediaQuery } from '@mui/material';
 import {
 	CustomAuthContainer,
 	CustomButton,
@@ -13,7 +13,7 @@ import {
 } from './formikUtlis';
 import { useRegisterOrganization } from 'hooks';
 import { useNavigate } from 'react-router-dom';
-
+import { theme } from 'theme';
 export const OrganizationRegisterScreen = () => {
 	const navigation = useNavigate();
 	const { mutate: registerOrganization, isLoading } = useRegisterOrganization({
@@ -47,23 +47,21 @@ export const OrganizationRegisterScreen = () => {
 		},
 	});
 
+	const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
 	return (
-		<Box
-			sx={{
-				display: 'flex',
-				flex: 1,
-				justifyContent: 'center',
-				alignItems: 'center',
-				height: '100vh',
-				flexDirection: 'column',
-				pt: orgRegisterFormik.isValid ? '0px' : '200px',
-				mb: orgRegisterFormik.isValid ? '0px' : '200px',
-			}}
-		>
-			<CustomAuthContainer py="10px">
+		<>
+			<Box sx={{ bgcolor: '#023e8a', my: '3rem', py: '2rem' }}>
+				<Typography variant="h3" px="3rem" fontWeight="bold" color="white">
+					Registeration
+				</Typography>
+			</Box>
+			<CustomAuthContainer
+				m={'0 auto 2rem'}
+				maxWidth={mdScreen ? '90%' : '80%'}
+			>
 				<form onSubmit={orgRegisterFormik.handleSubmit}>
 					<Grid container spacing={2} rowSpacing="5px" columnSpacing="20px">
-						<Grid item xs={12} sm={6}>
+						<Grid item xs={12} sm={12}>
 							<CustomTextField
 								withLabel
 								label="Name"
@@ -240,7 +238,6 @@ export const OrganizationRegisterScreen = () => {
 								placeholder="Enter Organization Address"
 							/>
 						</Grid>
-
 						<Box width="100%">
 							<Typography
 								pl="20px"
@@ -387,8 +384,7 @@ export const OrganizationRegisterScreen = () => {
 								type="password"
 							/>
 						</Grid>
-
-						<Grid item xs={12}>
+						<Grid item xs={8} m="auto">
 							<CustomButton
 								loadingButton
 								loading={isLoading}
@@ -403,6 +399,6 @@ export const OrganizationRegisterScreen = () => {
 					</Grid>
 				</form>
 			</CustomAuthContainer>
-		</Box>
+		</>
 	);
 };
