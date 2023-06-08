@@ -6,8 +6,8 @@ export const usersRoles: { label: string; value: UserRoles }[] = [
 		value: 'TEACHER',
 	},
 	{
-		label: 'Learner',
-		value: 'LEARNER',
+		label: 'Student',
+		value: 'STUDENT',
 	},
 	{
 		label: 'Admin',
