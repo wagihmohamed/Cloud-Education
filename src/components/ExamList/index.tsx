@@ -14,13 +14,25 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { pink } from '@mui/material/colors';
-import { useGetExamItem } from 'hooks';
-import { useParams } from 'react-router-dom';
+import { useGetExamItem, useSubmitAnswer } from 'hooks';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ExamError } from 'models';
 import { theme } from 'theme';
+import { Answer } from 'services';
+import { toast } from 'react-toastify';
 
 export const ExamList = () => {
+	const navigate = useNavigate();
 	const { examId } = useParams();
+	const { mutate: submitAnswers, isLoading: isSubmitLoading } = useSubmitAnswer(
+		{
+			onSuccess: () => {
+				navigate('/exams');
+				toast.success('Your answers submitted successfully');
+			},
+		}
+	);
+
 	const {
 		isError,
 		data: examData = {
@@ -37,7 +49,7 @@ export const ExamList = () => {
 		isLoading,
 	} = useGetExamItem(examId || '');
 
-	const examQuestions = examData.data.questions.map((question) => {
+	const examQuestions: Answer[] = examData.data.questions.map((question) => {
 		return {
 			questionText: question.questionText,
 			questionType: question.questionType,
@@ -60,7 +72,10 @@ export const ExamList = () => {
 			),
 		}),
 		onSubmit: (values) => {
-			console.log(values);
+			submitAnswers({
+				examId: examId || '',
+				answers: values.examQuestions,
+			});
 		},
 	});
 
@@ -115,7 +130,7 @@ export const ExamList = () => {
 							>
 								<Box my={3}>
 									{question.questionType === 'mcq' ? (
-										<Box>
+										<Box width="max-content">
 											<Typography fontWeight="bold" variant="h6">
 												{idx + 1} - {question.questionText}
 											</Typography>
@@ -218,6 +233,8 @@ export const ExamList = () => {
 						fullWidth
 						py={2}
 						mt={4}
+						loading={isSubmitLoading}
+						loadingButton
 						onClick={() => {
 							formik.handleSubmit();
 						}}
