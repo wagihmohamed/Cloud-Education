@@ -41,7 +41,6 @@ export const EditCourseModal = ({
 
 	const { mutate: editCourse, isLoading } = useEditCourse({
 		onSuccess: () => {
-			toast.success(<CustomToast title="Course edited successfully" />);
 			formik.resetForm();
 			handleClose();
 		},

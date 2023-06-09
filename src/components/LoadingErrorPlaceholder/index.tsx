@@ -28,7 +28,7 @@ interface LoadingErrorPlaceholderProps {
 export const LoadingErrorPlaceholder = ({
 	isError,
 	isLoading,
-	height = '90vh',
+	height = '100vh',
 	children,
 	width,
 	isEmpty,
@@ -62,7 +62,14 @@ export const LoadingErrorPlaceholder = ({
 					bgcolor: '#f2f2f2',
 				}}
 			>
-				<img src={emptyImg} alt="No comments" />
+				<img
+					src={emptyImg}
+					style={{
+						width: '400px',
+						height: '400px',
+					}}
+					alt="No comments"
+				/>
 				{emptyText}
 			</Box>
 		);

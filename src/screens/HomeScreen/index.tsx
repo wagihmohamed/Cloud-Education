@@ -21,8 +21,8 @@ export const HomeScreen = () => {
 		userId: loggedUserId,
 	});
 	return (
-		<LoadingErrorPlaceholder isLoading={isLoading} isError={isError}>
-			<CustomLayout>
+		<CustomLayout>
+			<LoadingErrorPlaceholder isLoading={isLoading} isError={isError}>
 				<Stack
 					sx={{
 						flexDirection: 'row',
@@ -59,7 +59,7 @@ export const HomeScreen = () => {
 					/>
 					<NotificationList title="Messages" messagesList={messagesList} />
 				</Box>
-			</CustomLayout>
-		</LoadingErrorPlaceholder>
+			</LoadingErrorPlaceholder>
+		</CustomLayout>
 	);
 };

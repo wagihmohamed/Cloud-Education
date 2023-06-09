@@ -3,7 +3,6 @@ import { coursesTableColumns } from 'mockup';
 import {
 	DoDisturbOnOutlined,
 	SettingsOutlined,
-	PeopleAltOutlined,
 	CheckCircleOutlineOutlined,
 	DeleteOutlined,
 } from '@mui/icons-material';
@@ -17,6 +16,7 @@ import {
 	Pagination,
 	TableContainer,
 	Stack,
+	Rating,
 } from '@mui/material';
 import { CourseItem } from 'models';
 import {
@@ -29,6 +29,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useCoursesList, useDeleteCourse, useEditCourse } from 'hooks';
 import { handleFormateDate } from 'utlis';
+import { useAuth } from 'zustandStore';
 
 interface CoursesTableProps {
 	setSelectedCourse: React.Dispatch<React.SetStateAction<CourseItem>>;
@@ -39,6 +40,7 @@ export const CoursesTable = ({
 	selectedCourse,
 	setSelectedCourse,
 }: CoursesTableProps) => {
+	const { isTeacher } = useAuth();
 	const [currentPage, setCurrentPage] = useState(1);
 	const {
 		data: courses = {
@@ -182,6 +184,14 @@ export const CoursesTable = ({
 												handleNavigate(row.code);
 											}}
 										>
+											<Rating value={row.rating} readOnly />
+										</CustomTableCell>
+										<CustomTableCell
+											cursor={disableActions ? 'not-allowed' : 'pointer'}
+											onClick={() => {
+												handleNavigate(row.code);
+											}}
+										>
 											{handleFormateDate(row.updatedAt)}
 										</CustomTableCell>
 										<CustomTableCell
@@ -206,19 +216,21 @@ export const CoursesTable = ({
 													cursor={disableActions ? 'not-allowed' : 'pointer'}
 													color="primary"
 												/>
-												<DeleteOutlined
-													sx={{
-														height: '30px',
-														width: '30px',
-														':hover': {
-															color: '#d32f2f',
-														},
-													}}
-													color="primary"
-													onClick={() => handleDeleteCourse(row.code)}
-													cursor={disableActions ? 'not-allowed' : 'pointer'}
-												/>
-												{row.isActive === true ? (
+												{!isTeacher && (
+													<DeleteOutlined
+														sx={{
+															height: '30px',
+															width: '30px',
+															':hover': {
+																color: '#d32f2f',
+															},
+														}}
+														color="primary"
+														onClick={() => handleDeleteCourse(row.code)}
+														cursor={disableActions ? 'not-allowed' : 'pointer'}
+													/>
+												)}
+												{row.isActive === true && !isTeacher ? (
 													<DoDisturbOnOutlined
 														sx={{
 															height: '30px',
@@ -233,28 +245,24 @@ export const CoursesTable = ({
 														color="primary"
 													/>
 												) : (
-													<CheckCircleOutlineOutlined
-														sx={{
-															height: '30px',
-															width: '30px',
-														}}
-														onClick={() => {
-															if (!isEditing) {
-																handleToggleStatus(row);
+													!isTeacher && (
+														<CheckCircleOutlineOutlined
+															sx={{
+																height: '30px',
+																width: '30px',
+															}}
+															onClick={() => {
+																if (!isEditing) {
+																	handleToggleStatus(row);
+																}
+															}}
+															cursor={
+																disableActions ? 'not-allowed' : 'pointer'
 															}
-														}}
-														cursor={disableActions ? 'not-allowed' : 'pointer'}
-														color="primary"
-													/>
+															color="primary"
+														/>
+													)
 												)}
-												<PeopleAltOutlined
-													sx={{
-														height: '30px',
-														width: '30px',
-													}}
-													cursor={disableActions ? 'not-allowed' : 'pointer'}
-													color="primary"
-												/>
 											</Stack>
 										</CustomTableCell>
 									</CustomTableRow>

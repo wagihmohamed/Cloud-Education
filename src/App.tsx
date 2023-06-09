@@ -71,22 +71,18 @@ function App() {
 						path="/:organizationId/learning-courses"
 						element={<LearningCoursesScreen />}
 					/>
-					<Route
-						path="/:organizationId/courses/:courseId"
-						element={<CourseScreen />}
-					/>
 				</Route>
-
+				<Route
+					path="/:organizationId/courses/:courseId"
+					element={<CourseScreen />}
+				/>
 				<Route element={<AdminTeacherRoute />}>
 					<Route
 						path="/:organizationId/students-data"
 						element={<StudentsData />}
 					/>
 					<Route path="/:organizationId/courses" element={<CoursesScreen />} />
-					<Route
-						path="/:organizationId/courses/:courseId"
-						element={<CourseScreen />}
-					/>
+
 					<Route
 						path="/:organizationId/create-exam"
 						element={<CreateExamScreen />}
