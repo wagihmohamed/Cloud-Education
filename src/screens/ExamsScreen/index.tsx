@@ -41,7 +41,14 @@ export const ExamsScreen = () => {
 							!isLoading &&
 							exams.map((exam) => (
 								<Grid item xs={12} sm={6} md={6} lg={4} key={exam.id}>
-									<Card sx={{ opacity: isExamDisabled(exam) ? 0.5 : 1 }}>
+									<Card
+										sx={{
+											opacity:
+												isExamDisabled(exam) || Boolean(exam.examResult?.length)
+													? 0.5
+													: 1,
+										}}
+									>
 										<CardMedia
 											component="img"
 											height="200"
@@ -71,8 +78,20 @@ export const ExamsScreen = () => {
 														color="text.secondary"
 														fontSize="1.2rem"
 													>
-														Grade: Not graded
+														Grade:{' '}
+														{exam.examResult?.[0]?.score !== undefined
+															? exam.examResult?.[0]?.score
+															: 'Not Graded yet'}
 													</Typography>
+													{exam.examResult?.[0]?.status && (
+														<Typography
+															variant="body2"
+															color="text.secondary"
+															fontSize="1.2rem"
+														>
+															Status: {exam.examResult?.[0]?.status}
+														</Typography>
+													)}
 													<Typography
 														variant="body2"
 														color="text.secondary"
@@ -91,8 +110,12 @@ export const ExamsScreen = () => {
 												</Box>
 											</Box>
 											<CustomNavLink
-												disabled={isExamDisabled(exam)}
+												disabled={
+													isExamDisabled(exam) ||
+													Boolean(exam.examResult?.length)
+												}
 												to={
+													Boolean(exam.examResult?.length) ||
 													isExamDisabled(exam)
 														? '#'
 														: `/${organizationName}/exam/${exam.id}`
