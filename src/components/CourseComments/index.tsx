@@ -74,14 +74,17 @@ export const CourseComments = ({
 				isLoading={isLoading}
 				isError={isError}
 				isEmpty={comments.data.length === 0}
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-				emptyImg={EmptyComments}
+				emptyImg={EmptyComments as string}
+				imgWidth="300px"
+				imgHeight="300px"
 				emptyText={
 					<>
-						<Typography variant="h3" sx={{ margin: '2rem auto' }}>
+						<Typography variant="h4" fontWeight="bold">
 							No comments yet
 						</Typography>
-						<Typography variant="h3">Be the first to comment</Typography>
+						<Typography variant="h4" fontWeight="bold">
+							Be the first to comment
+						</Typography>
 					</>
 				}
 			>

@@ -104,7 +104,7 @@ export const ProfileScreen = () => {
 								sx={{
 									position: 'absolute',
 									bottom: '-24%',
-									left: '10%',
+									left: '9%',
 								}}
 								component="span"
 								variant="contained"
@@ -124,13 +124,13 @@ export const ProfileScreen = () => {
 						<Stack sx={profileStyles.infoProfileRow}>
 							<InfoLabel>
 								First Name :
-								<Typography sx={profileStyles.infoLabelData}>
+								<Typography component="span" sx={profileStyles.infoLabelData}>
 									{profileData.data.firstName}
 								</Typography>
 							</InfoLabel>
 							<InfoLabel>
 								Last Name:
-								<Typography sx={profileStyles.infoLabelData}>
+								<Typography component="span" sx={profileStyles.infoLabelData}>
 									{profileData.data.lastName}
 								</Typography>
 							</InfoLabel>
@@ -139,13 +139,13 @@ export const ProfileScreen = () => {
 							<Stack sx={profileStyles.infoProfileRow}>
 								<InfoLabel>
 									Phone Number :
-									<Typography sx={profileStyles.infoLabelData}>
+									<Typography component="span" sx={profileStyles.infoLabelData}>
 										{profileData.data.phoneNumber}
 									</Typography>
 								</InfoLabel>
 								<InfoLabel>
 									Email :{' '}
-									<Typography sx={profileStyles.infoLabelData}>
+									<Typography component="span" sx={profileStyles.infoLabelData}>
 										{profileData.data.email}
 									</Typography>
 									.
@@ -153,7 +153,7 @@ export const ProfileScreen = () => {
 							</Stack>
 							<InfoLabel>
 								Role :
-								<Typography sx={profileStyles.infoLabelData}>
+								<Typography component="span" sx={profileStyles.infoLabelData}>
 									{profileData.data.role}
 								</Typography>
 							</InfoLabel>

@@ -3,7 +3,7 @@ import landingpageimage2 from './images/landingpage_image2.jpg';
 import landingpageimage3 from './images/landingpage_image3.jpg';
 import landingimageCaseStudy from './images/landingpage-casestudy.jpg';
 import ProfileImg from './images/profile_img.png';
-import ErrorImage from './images/error.jpg';
+import ErrorImage from './images/error.png';
 import EmptyComments from './images/empty-caht.png';
 import EmptyCourses from './images/empty-courses.png';
 export {

@@ -11,7 +11,6 @@ const StyledBox = styled(Box)(({ theme }) => ({
 	alignItems: 'center',
 	justifyContent: 'center',
 	padding: theme.spacing(5),
-	backgroundColor: 'white',
 }));
 
 interface LoadingErrorPlaceholderProps {
@@ -23,6 +22,8 @@ interface LoadingErrorPlaceholderProps {
 	isEmpty?: boolean;
 	emptyImg?: string;
 	emptyText?: React.ReactNode;
+	imgWidth?: string;
+	imgHeight?: string;
 }
 
 export const LoadingErrorPlaceholder = ({
@@ -34,6 +35,8 @@ export const LoadingErrorPlaceholder = ({
 	isEmpty,
 	emptyImg,
 	emptyText,
+	imgWidth = '400px',
+	imgHeight = '400px',
 }: LoadingErrorPlaceholderProps) => {
 	if (isLoading) {
 		return (
@@ -65,8 +68,8 @@ export const LoadingErrorPlaceholder = ({
 				<img
 					src={emptyImg}
 					style={{
-						width: '400px',
-						height: '400px',
+						width: imgWidth,
+						height: imgHeight,
 					}}
 					alt="No comments"
 				/>
