@@ -1,37 +1,17 @@
-import { LoginScreen } from './LoginScreen';
-import { RegisterScreen } from './RegisterScreen';
-import { HomeScreen } from './HomeScreen';
-import { OrganizationRegisterScreen } from './OrganizationRegisterScreen';
-import { CoursesScreen } from './CoursesScreen';
-import { LeaderboardScreen } from './LeaderboardScreen';
-import { ProfileScreen } from './ProfileScreen';
-import { MessagesScreen } from './MessagesScreen';
-import { CourseScreen } from './CourseScreen';
-import { UsersScreen } from './UsersScreen';
-import { LandingPage } from './LandingPage';
-import { StudentsData } from './StudentsData';
-import { ExamScreen } from './ExamScreen';
-import { ErrorPage } from './ErrorPage';
-import { ExamsScreen } from './ExamsScreen';
-import { CreateExamScreen } from './CreateExamScreen';
-import { LearningCoursesScreen } from './LearnCoursesScreen';
-
-export {
-	LoginScreen,
-	RegisterScreen,
-	HomeScreen,
-	OrganizationRegisterScreen,
-	CoursesScreen,
-	LeaderboardScreen,
-	ProfileScreen,
-	MessagesScreen,
-	CourseScreen,
-	LandingPage,
-	UsersScreen,
-	StudentsData,
-	ExamScreen,
-	ErrorPage,
-	ExamsScreen,
-	CreateExamScreen,
-	LearningCoursesScreen,
-};
+export * from './LoginScreen';
+export * from './RegisterScreen';
+export * from './HomeScreen';
+export * from './OrganizationRegisterScreen';
+export * from './CoursesScreen';
+export * from './LeaderboardScreen';
+export * from './ProfileScreen';
+export * from './MessagesScreen';
+export * from './CourseScreen';
+export * from './UsersScreen';
+export * from './LandingPage';
+export * from './StudentsData';
+export * from './ExamScreen';
+export * from './ErrorPage';
+export * from './ExamsScreen';
+export * from './CreateExamScreen';
+export * from './LearnCoursesScreen';

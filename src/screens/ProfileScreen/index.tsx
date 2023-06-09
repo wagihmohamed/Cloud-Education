@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useState } from 'react';
-import { Avatar, Box, Stack, Typography, styled } from '@mui/material';
+import { Avatar, Box, Stack, Typography, styled, Button } from '@mui/material';
 import {
 	CustomButton,
 	CustomLayout,
@@ -8,13 +7,12 @@ import {
 	LoadingErrorPlaceholder,
 	SettingsModal,
 } from 'components';
-import { ProfileImg } from 'assets';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { theme } from 'theme';
 import { useAuth } from 'zustandStore';
-import { useGetUserById } from 'hooks';
+import { useGetUserById, useUpdateProfileImage } from 'hooks';
 import { UserItem } from 'models';
+import { profileStyles } from './utils';
 
 const InfoLabel = styled(Typography)(() => ({
 	fontWeight: '700',
@@ -28,52 +26,7 @@ const InfoLabel = styled(Typography)(() => ({
 	marginTop: 5,
 	marginBottom: 5,
 }));
-const styles = {
-	avatarStyle: {
-		width: 200,
-		height: 200,
-		position: 'absolute',
-		top: '50%',
-		left: '6%',
-		border: 'solid 10px white',
-	},
-	infoProfileContainer: {
-		display: 'flex',
-		padding: '1rem',
-		width: '70%',
-		[theme.breakpoints.down('md')]: {
-			width: '90%',
-		},
-		gap: '1rem',
-		bgcolor: '#e9ecef',
-		margin: '2rem auto',
-		borderRadius: '10px',
-		flexDirection: 'column',
-	},
-	settingButton: {
-		display: 'flex',
-		flexDirection: 'row-reverse',
-		gap: '1rem',
-		margin: '2rem',
-	},
-	infoLabelData: {
-		fontSize: '1.4rem',
-		color: '#382d8b',
-		fontWeight: '500',
-	},
-	infoProfileRow: {
-		justifyContent: 'space-between',
-		flexDirection: 'row',
-		[theme.breakpoints.down('lg')]: { flexDirection: 'column' },
-	},
-	heading: {
-		position: 'relative',
-		background: ' linear-gradient(90deg,#219ebc,#03045e)',
-		marginBottom: '4rem',
-		width: '100%',
-		height: '30vh',
-	},
-};
+
 export const ProfileScreen = () => {
 	const { logout, id: loggedUserId } = useAuth();
 	const {
@@ -85,11 +38,18 @@ export const ProfileScreen = () => {
 	} = useGetUserById({
 		userId: loggedUserId,
 	});
+
+	const { mutate: updateUserImage, isLoading: isUpdateLoading } =
+		useUpdateProfileImage(loggedUserId);
 	const [isEditProfileShown, setIsEditProfileShown] = useState(false);
 	const [isSettingsShown, setIsSettingsShown] = useState(false);
 
 	return (
-		<CustomLayout>
+		<CustomLayout
+			sx={{
+				opacity: isUpdateLoading ? 0.5 : 1,
+			}}
+		>
 			<LoadingErrorPlaceholder isLoading={isLoading} isError={isError}>
 				<Box
 					sx={{
@@ -97,8 +57,8 @@ export const ProfileScreen = () => {
 						flexDirection: 'column',
 					}}
 				>
-					<Box sx={styles.heading}>
-						<Box sx={styles.settingButton}>
+					<Box sx={profileStyles.heading}>
+						<Box sx={profileStyles.settingButton}>
 							<CustomButton
 								onClick={() => {
 									setIsSettingsShown(true);
@@ -122,34 +82,70 @@ export const ProfileScreen = () => {
 								Logout
 							</CustomButton>
 						</Box>
-						<Avatar src={ProfileImg as string} sx={styles.avatarStyle} />
+						<Avatar
+							src={profileData.data.profilePicture || ''}
+							sx={profileStyles.avatarStyle}
+						/>
+						<input
+							accept="image/*"
+							style={{ display: 'none' }}
+							id="raised-button-file"
+							multiple
+							type="file"
+							onChange={(e) => {
+								updateUserImage({
+									image: e.target.files?.[0] as File,
+									userId: loggedUserId,
+								});
+							}}
+						/>
+						<label htmlFor="raised-button-file">
+							<Button
+								sx={{
+									position: 'absolute',
+									bottom: '-24%',
+									left: '10%',
+								}}
+								component="span"
+								variant="contained"
+							>
+								Upload
+							</Button>
+						</label>
+						<input
+							accept="image/*"
+							style={{ display: 'none' }}
+							id="raised-button-file"
+							multiple
+							type="file"
+						/>
 					</Box>
-					<Box sx={styles.infoProfileContainer}>
-						<Stack sx={styles.infoProfileRow}>
+					<Box sx={profileStyles.infoProfileContainer}>
+						<Stack sx={profileStyles.infoProfileRow}>
 							<InfoLabel>
 								First Name :
-								<Typography sx={styles.infoLabelData}>
+								<Typography sx={profileStyles.infoLabelData}>
 									{profileData.data.firstName}
 								</Typography>
 							</InfoLabel>
 							<InfoLabel>
 								Last Name:
-								<Typography sx={styles.infoLabelData}>
+								<Typography sx={profileStyles.infoLabelData}>
 									{profileData.data.lastName}
 								</Typography>
 							</InfoLabel>
 						</Stack>
 						<Box>
-							<Stack sx={styles.infoProfileRow}>
+							<Stack sx={profileStyles.infoProfileRow}>
 								<InfoLabel>
 									Phone Number :
-									<Typography sx={styles.infoLabelData}>
+									<Typography sx={profileStyles.infoLabelData}>
 										{profileData.data.phoneNumber}
 									</Typography>
 								</InfoLabel>
 								<InfoLabel>
 									Email :{' '}
-									<Typography sx={styles.infoLabelData}>
+									<Typography sx={profileStyles.infoLabelData}>
 										{profileData.data.email}
 									</Typography>
 									.
@@ -157,7 +153,7 @@ export const ProfileScreen = () => {
 							</Stack>
 							<InfoLabel>
 								Role :
-								<Typography sx={styles.infoLabelData}>
+								<Typography sx={profileStyles.infoLabelData}>
 									{profileData.data.role}
 								</Typography>
 							</InfoLabel>

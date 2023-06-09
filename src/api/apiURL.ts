@@ -205,3 +205,10 @@ export const submitExamByExamIdEndpoint = (
 ) => {
 	return `/api/${orgnizationId}/exams/${examId}/answers`;
 };
+
+export const updateUserProfilePictureEndpoint = (
+	orgnizationId: string,
+	userId: string
+) => {
+	return `/api/${orgnizationId}/users/${userId}/profile-image`;
+};

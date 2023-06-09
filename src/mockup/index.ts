@@ -1,47 +1,22 @@
-import { countriesOptions } from './countriesOptions';
-import { notificationList } from './notificationList';
-import { organizationOptions } from './organizationOptions';
-import { allCourses } from './allCourses';
-import { courseStatus } from './courseStatus';
-import { coursesBodyData } from './coursesBodyData';
-import { coursesCategoryOptions } from './coursesCategoryOptions';
-import { coursesTableColumns } from './coursesColumnData';
-import { userTableColumns } from './userTableColumns';
-import { usersData } from './usersData';
-import { usersRoles, editUserRoles } from './usersRoles';
-import { usersStatus } from './usersStatus';
-import { caseStudyStatments } from './caseStudyStatments';
-import { messages } from './messages';
-import { messagesList } from './messagesList';
-import { studentsDataOptions } from './studentsData';
-import { studentsTableHead } from './studentsTableHead';
-import { studentsTableBodyData } from './studentsTableBodyData';
-import { examDummyData } from './examDummyData';
-import { mockExams } from './examsList';
-import { landingPageMainSections } from './landingPage';
-import { courseComments } from './coursesComments';
-export {
-	countriesOptions,
-	courseComments,
-	messages,
-	messagesList,
-	notificationList,
-	organizationOptions,
-	allCourses,
-	courseStatus,
-	coursesBodyData,
-	coursesCategoryOptions,
-	coursesTableColumns,
-	userTableColumns,
-	usersData,
-	usersRoles,
-	usersStatus,
-	caseStudyStatments,
-	studentsDataOptions,
-	studentsTableHead,
-	studentsTableBodyData,
-	examDummyData,
-	mockExams,
-	landingPageMainSections,
-	editUserRoles,
-};
+export * from './countriesOptions';
+export * from './notificationList';
+export * from './organizationOptions';
+export * from './allCourses';
+export * from './courseStatus';
+export * from './coursesBodyData';
+export * from './coursesCategoryOptions';
+export * from './coursesColumnData';
+export * from './userTableColumns';
+export * from './usersData';
+export * from './usersRoles';
+export * from './usersStatus';
+export * from './caseStudyStatments';
+export * from './messages';
+export * from './messagesList';
+export * from './studentsData';
+export * from './studentsTableHead';
+export * from './studentsTableBodyData';
+export * from './examDummyData';
+export * from './examsList';
+export * from './landingPage';
+export * from './coursesComments';

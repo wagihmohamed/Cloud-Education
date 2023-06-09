@@ -351,6 +351,7 @@ export interface UserItem {
 	phoneNumber: string;
 	role: UserRoles;
 	courses: CourseCode[];
+	profilePicture: string | null;
 }
 
 export interface EditUserPayload {
