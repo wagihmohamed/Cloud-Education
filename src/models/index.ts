@@ -376,6 +376,10 @@ export interface ExamsItem {
 	duration: number;
 	startTime: string;
 	endTime: string;
+	examResult?: {
+		status: string;
+		score: number;
+	}[];
 }
 
 export interface ExamsListResponse {
