@@ -225,6 +225,8 @@ export interface CourseItem {
 	prerequisites?: CourseCode[];
 	createdAt?: string;
 	updatedAt?: string;
+	rating: number;
+	ratingCount: number;
 }
 
 export interface UpdateCoursePayload {

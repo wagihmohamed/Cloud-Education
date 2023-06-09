@@ -58,7 +58,7 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 		sectionOrder: id || 1,
 		isReady: iseEditorReady,
 	});
-	const { email, isAdmin } = useAuth();
+	const { email, isAdmin, isStudent, isTeacher } = useAuth();
 	const editorCore = useRef<EditorCore | null>(null);
 
 	const handleInitialize = useCallback((instance: any) => {
@@ -158,7 +158,7 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 				}}
 				onReady={() => setIsEditorReady(true)}
 				readOnly={
-					email !== courseContent.data.ownerEmail && !isAdmin && !isLoading
+					!isAdmin && !(isTeacher && email === courseContent.data.ownerEmail)
 				}
 			/>
 			<div id="editorjs" />
