@@ -25,3 +25,4 @@ export * from './getExamsList';
 export * from './createExamService';
 export * from './getExamById';
 export * from './submitAnswer';
+export * from './uploadUserImage';

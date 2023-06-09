@@ -1,59 +1,29 @@
-import { useExamsList } from './useExamsList';
-import { useUsersList } from './useUsersList';
-import { useAddUser } from './useAddUser';
-import { useValidateToken } from './useValidateToken';
-import { useCoursesList } from './useCoursesList';
-import { useAddCourse } from './useAddCourse';
-import { useGetExam } from './useGetExam';
-import { useEditCourse } from './useEditCourse';
-import { useDeleteCourse } from './useDeleteCourse';
-import { useGetOrganizationName } from './useGetOrganizationName';
-import { useRegisterOrganization } from './useRegisterOrganization';
-import { useUserRegister } from './useUserRegister';
-import { useGetCourseSections } from './useGetCourseSections';
-import { useAddCourseSection } from './useAddCourseSection';
-import { useDeleteCourseSection } from './useDeleteCourseSection';
-import { useGetCourseContent } from './useGetCourseContent';
-import { useEditCourseSection } from './useEditCourseSection';
-import { useGetCommentsBySectionId } from './useGetCommentsBySectionId';
-import { useAddComment } from './useAddComment';
-import { useDeleteComment } from './useDeleteComment';
-import { useGetCoursesCode } from './useGetCoursesCode';
-import { useEditUser } from './useEditUser';
-import { useDeleteUser } from './useDeleteUsers';
-import { useAddReview } from './useAddReview';
-import { useGetUserById } from './useGetUserById';
-import { useCreateExam } from './useCreateExam';
-import { useGetExamItem } from './useGetExamItem';
-import { useSubmitAnswer } from './useSubmitAnswer';
-
-export {
-	useAddUser,
-	useExamsList,
-	useUsersList,
-	useValidateToken,
-	useCoursesList,
-	useAddCourse,
-	useGetExam,
-	useEditCourse,
-	useDeleteCourse,
-	useGetOrganizationName,
-	useRegisterOrganization,
-	useUserRegister,
-	useGetCourseSections,
-	useAddCourseSection,
-	useDeleteCourseSection,
-	useGetCourseContent,
-	useEditCourseSection,
-	useGetCommentsBySectionId,
-	useAddComment,
-	useDeleteComment,
-	useGetCoursesCode,
-	useEditUser,
-	useDeleteUser,
-	useAddReview,
-	useGetUserById,
-	useCreateExam,
-	useGetExamItem,
-	useSubmitAnswer,
-};
+export * from './useExamsList';
+export * from './useUsersList';
+export * from './useAddUser';
+export * from './useValidateToken';
+export * from './useCoursesList';
+export * from './useAddCourse';
+export * from './useGetExam';
+export * from './useEditCourse';
+export * from './useDeleteCourse';
+export * from './useGetOrganizationName';
+export * from './useRegisterOrganization';
+export * from './useUserRegister';
+export * from './useGetCourseSections';
+export * from './useAddCourseSection';
+export * from './useDeleteCourseSection';
+export * from './useGetCourseContent';
+export * from './useEditCourseSection';
+export * from './useGetCommentsBySectionId';
+export * from './useAddComment';
+export * from './useDeleteComment';
+export * from './useGetCoursesCode';
+export * from './useEditUser';
+export * from './useDeleteUsers';
+export * from './useAddReview';
+export * from './useGetUserById';
+export * from './useCreateExam';
+export * from './useGetExamItem';
+export * from './useSubmitAnswer';
+export * from './useUpdateProfileImage';
