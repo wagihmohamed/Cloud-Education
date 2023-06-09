@@ -2,6 +2,7 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { uniLogo } from './uniLogo';
+import { format } from 'date-fns';
 
 export const downloadPdf = (
 	tableId: string,
@@ -41,7 +42,6 @@ export const downloadPdf = (
 					) {
 						const rowIndex = data.row.index;
 						const img = document.getElementsByTagName('img')[rowIndex];
-						const dim = data.cell.height - data.cell.padding('vertical');
 						const textPos = data.cell;
 						const centerX = textPos.x + data.cell.width / 2;
 						doc.addImage(img.src, centerX - 3, textPos.y, 4, 4);
@@ -61,8 +61,8 @@ export const downloadPdf = (
 			);
 			doc.text(heads, pageWidth / 3.65, 30, 'center');
 			doc.text(
-				'Date: ' + new Date().toLocaleDateString(),
-				pageWidth / 7.92,
+				'Date: ' + format(new Date(), 'yyyy-MM-dd'),
+				pageWidth / 7,
 				35,
 				'center'
 			);
