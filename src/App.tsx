@@ -1,5 +1,10 @@
-import { NoAuth, RequireAuth } from 'components';
-import { useGetOrganizationName, useValidateToken } from 'hooks';
+import {
+	AdminTeacherRoute,
+	NoAuth,
+	RequireAuth,
+	StudentRoute,
+} from 'components';
+import { useValidateToken } from 'hooks';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import {
 	HomeScreen,
@@ -27,7 +32,7 @@ import { useAuth } from 'zustandStore';
 function App() {
 	const { isLoading } = useValidateToken();
 	const { token } = useAuth();
-	const { organizationName } = useGetOrganizationName();
+	const organizationName = localStorage.getItem('organizationId') || '';
 	const withPrimatyColor = localStorage.getItem('primaryColor');
 	const withTextColor = localStorage.getItem('textColor');
 	setAppColor(withPrimatyColor, withTextColor);
@@ -61,37 +66,51 @@ function App() {
 			</Route>
 
 			<Route element={<RequireAuth />}>
+				<Route element={<StudentRoute />}>
+					<Route
+						path="/:organizationId/learning-courses"
+						element={<LearningCoursesScreen />}
+					/>
+					<Route
+						path="/:organizationId/courses/:courseId"
+						element={<CourseScreen />}
+					/>
+				</Route>
+
+				<Route element={<AdminTeacherRoute />}>
+					<Route
+						path="/:organizationId/students-data"
+						element={<StudentsData />}
+					/>
+					<Route path="/:organizationId/courses" element={<CoursesScreen />} />
+					<Route
+						path="/:organizationId/courses/:courseId"
+						element={<CourseScreen />}
+					/>
+					<Route
+						path="/:organizationId/create-exam"
+						element={<CreateExamScreen />}
+					/>
+					<Route path="/:organizationId/users" element={<UsersScreen />} />
+				</Route>
+
 				<Route
 					path="/:organizationId"
 					element={<Navigate to={`/${organizationName}/home`} replace />}
 				/>
 				<Route path="/:organizationId/home" element={<HomeScreen />} />
-				<Route path="/:organizationId/courses" element={<CoursesScreen />} />
-				<Route
-					path="/:organizationId/courses/:courseId"
-					element={<CourseScreen />}
-				/>
+
 				<Route
 					path="/:organizationId/leaderboard"
 					element={<LeaderboardScreen />}
 				/>
 				<Route path="/:organizationId/messages" element={<MessagesScreen />} />
-				<Route path="/:organizationId/users" element={<UsersScreen />} />
-				<Route
-					path="/:organizationId/learning-courses"
-					element={<LearningCoursesScreen />}
-				/>
+
 				<Route path="/:organizationId/profile" element={<ProfileScreen />} />
-				<Route
-					path="/:organizationId/students-data"
-					element={<StudentsData />}
-				/>
+
 				<Route path="/:organizationId/exams" element={<ExamsScreen />} />
 				<Route path="/:organizationId/exam/:examId" element={<ExamScreen />} />
-				<Route
-					path="/:organizationId/create-exam"
-					element={<CreateExamScreen />}
-				/>
+
 				<Route path="*/404" element={<ErrorPage />} />
 				<Route path="*" element={<ErrorPage />} />
 			</Route>

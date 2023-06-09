@@ -13,12 +13,11 @@ import { orginizationLogin } from 'services/auth';
 import { useAuth } from 'zustandStore';
 import { toast } from 'react-toastify';
 import { ApiError } from 'models';
-import { useGetOrganizationName } from 'hooks';
 import { theme } from 'theme';
 
 export const LoginScreen = () => {
 	const navigate = useNavigate();
-	const { organizationName } = useGetOrganizationName();
+	const organizationName = localStorage.getItem('organizationId') || '';
 	const { setToken } = useAuth();
 	const { organizationId } = useParams();
 	const { mutate: login, isLoading } = useMutation({

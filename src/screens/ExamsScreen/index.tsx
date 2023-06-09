@@ -13,13 +13,13 @@ import {
 	Box,
 	useMediaQuery,
 } from '@mui/material';
-import { useExamsList, useGetOrganizationName } from 'hooks';
+import { useExamsList } from 'hooks';
 import { isExamDisabled } from 'utlis';
 import { theme } from 'theme';
 
 export const ExamsScreen = () => {
 	const { data: exams = [], isLoading, isError } = useExamsList();
-	const { organizationName } = useGetOrganizationName();
+	const organizationName = localStorage.getItem('organizationId') || '';
 	const isSmScreen = useMediaQuery(theme.breakpoints.down('lg'));
 	return (
 		<CustomLayout>
