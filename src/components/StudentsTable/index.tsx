@@ -1,10 +1,11 @@
-import { useCallback, useState } from 'react';
-import { CustomButton, CustomTableCell, CustomTableRow } from 'components';
+import {
+	CustomButton,
+	CustomTableCell,
+	CustomTableRow,
+	LoadingErrorPlaceholder,
+} from 'components';
 import {
 	Box,
-	FormControlLabel,
-	FormGroup,
-	Switch,
 	Table,
 	TableBody,
 	TableCell,
@@ -13,72 +14,29 @@ import {
 	TableRow,
 	Typography,
 } from '@mui/material';
-import { studentsTableBodyData, studentsTableHead } from 'mockup';
-import { StudnetsAttendanceTableBodyData } from 'models';
+import { studentsTableHead } from 'mockup';
 import { downloadPdf } from 'utlis';
-import { closeImg, tickImg } from 'utlis/base64imgs';
 import { theme } from 'theme';
+import { useUsersList } from 'hooks';
+
 export const StudentsTable = () => {
-	const [showDummyData, setShowDummyData] = useState(true);
-	const [attendanceData, setAttendanceData] = useState<
-		StudnetsAttendanceTableBodyData[]
-	>(studentsTableBodyData);
-
-	const checkIfStudentAttended = useCallback(
-		(attended: string) => {
-			const attendInt = parseInt(attended);
-			if (attendInt === 1) {
-				return (
-					<img
-						src={tickImg}
-						style={{
-							width: '20px',
-							height: '20px',
-						}}
-					/>
-				);
-			} else if (attendInt === 0) {
-				return (
-					<img
-						src={closeImg}
-						style={{
-							width: '20px',
-							height: '20px',
-						}}
-					/>
-				);
-			} else {
-				return '';
-			}
+	const {
+		data: users = {
+			data: [],
+			page: 1,
+			pagesCount: 1,
+			status: '',
 		},
-		[attendanceData, setAttendanceData, studentsTableBodyData, showDummyData]
-	);
-
-	const resetAttendance = useCallback(() => {
-		setAttendanceData((prev) =>
-			prev.map((student) => {
-				return {
-					...student,
-					week1: '',
-					week2: '',
-					week3: '',
-					week4: '',
-					bounses: '',
-				};
-			})
-		);
-	}, [setAttendanceData, studentsTableBodyData, attendanceData]);
-
-	const handleToggleDummyData = () => {
-		if (showDummyData) {
-			resetAttendance();
-		} else {
-			setAttendanceData(studentsTableBodyData);
-		}
-	};
+		isLoading,
+		isError,
+	} = useUsersList(1);
 
 	return (
-		<>
+		<LoadingErrorPlaceholder
+			height="50vh"
+			isError={isError}
+			isLoading={isLoading}
+		>
 			<Box
 				sx={{
 					mx: '2rem',
@@ -94,23 +52,6 @@ export const StudentsTable = () => {
 					},
 				}}
 			>
-				<FormGroup>
-					<FormControlLabel
-						sx={{
-							width: 'max-content',
-						}}
-						control={
-							<Switch
-								checked={showDummyData}
-								onChange={(e) => {
-									setShowDummyData(e.target.checked);
-									handleToggleDummyData();
-								}}
-							/>
-						}
-						label="Show with dummy data"
-					/>
-				</FormGroup>
 				<CustomButton
 					px={4}
 					onClick={() => {
@@ -119,7 +60,7 @@ export const StudentsTable = () => {
 							'Students Attendance',
 							'Ahmed Shalaby',
 							'Internet of Things',
-							showDummyData === true ? true : false
+							false
 						);
 					}}
 				>
@@ -164,7 +105,7 @@ export const StudentsTable = () => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{attendanceData.length === 0 ? (
+						{users.data.length === 0 ? (
 							<TableRow>
 								<CustomTableCell colSpan={12}>
 									<Typography variant="h4" fontWeight="bold">
@@ -173,29 +114,27 @@ export const StudentsTable = () => {
 								</CustomTableCell>
 							</TableRow>
 						) : (
-							attendanceData.map((row) => (
-								<CustomTableRow hover={false} key={row.number}>
-									<CustomTableCell>{row.number}</CustomTableCell>
-									<CustomTableCell>{row.name}</CustomTableCell>
-									<CustomTableCell>
-										{checkIfStudentAttended(row.week1)}
-									</CustomTableCell>
-									<CustomTableCell>
-										{checkIfStudentAttended(row.week2)}
-									</CustomTableCell>
-									<CustomTableCell>
-										{checkIfStudentAttended(row.week3)}
-									</CustomTableCell>
-									<CustomTableCell>
-										{checkIfStudentAttended(row.week4)}
-									</CustomTableCell>
-									<CustomTableCell>{row.bounses}</CustomTableCell>
-								</CustomTableRow>
-							))
+							users.data
+								.filter(
+									(user) => user.role !== 'ADMIN' && user.role !== 'TEACHER'
+								)
+								.map((row, idx) => (
+									<CustomTableRow hover={false} key={row.id}>
+										<CustomTableCell>{idx + 1}</CustomTableCell>
+										<CustomTableCell>
+											{row.firstName} {row.lastName}
+										</CustomTableCell>
+										<CustomTableCell></CustomTableCell>
+										<CustomTableCell></CustomTableCell>
+										<CustomTableCell></CustomTableCell>
+										<CustomTableCell></CustomTableCell>
+										<CustomTableCell></CustomTableCell>
+									</CustomTableRow>
+								))
 						)}
 					</TableBody>
 				</Table>
 			</TableContainer>
-		</>
+		</LoadingErrorPlaceholder>
 	);
 };
