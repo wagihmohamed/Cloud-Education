@@ -5,14 +5,14 @@ import {
 	registerInistialValues,
 	registerValidationSchema,
 } from './formikUtlis';
-import { useGetOrganizationName, useUserRegister } from 'hooks';
+import { useUserRegister } from 'hooks';
 import { useAuth } from 'zustandStore';
 import { useNavigate } from 'react-router-dom';
 
 export const RegisterScreen = () => {
-	const { organizationName } = useGetOrganizationName();
 	const navigate = useNavigate();
 	const { setToken } = useAuth();
+	const organizationName = localStorage.getItem('organizationId') || '';
 
 	const { mutate: registerUser, isLoading } = useUserRegister({
 		onSuccess: (res) => {

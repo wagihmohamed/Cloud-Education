@@ -1,9 +1,12 @@
 import { Box } from '@mui/material';
 import { CustomNavLink } from 'components';
 import { useParams } from 'react-router-dom';
+import { useAuth } from 'zustandStore';
 
 export const CustomNavBar = () => {
+	const { isAdmin, isStudent, isTeacher } = useAuth();
 	const { organizationId } = useParams();
+	const isTeacherOrAdmin = isAdmin || isTeacher;
 	return (
 		<Box
 			sx={[
@@ -33,22 +36,34 @@ export const CustomNavBar = () => {
 			]}
 		>
 			<CustomNavLink to={`/${organizationId}/home`}>Home</CustomNavLink>
-			<CustomNavLink to={`/${organizationId}/courses`}>Courses</CustomNavLink>
-			<CustomNavLink to={`/${organizationId}/learning-courses`}>
-				Learning Courses
-			</CustomNavLink>
+			{!isStudent && (
+				<CustomNavLink to={`/${organizationId}/courses`}>Courses</CustomNavLink>
+			)}
+			{!isTeacherOrAdmin && (
+				<CustomNavLink to={`/${organizationId}/learning-courses`}>
+					Learning Courses
+				</CustomNavLink>
+			)}
 			<CustomNavLink to={`/${organizationId}/leaderboard`}>
 				Leaderboard
 			</CustomNavLink>
 			<CustomNavLink to={`/${organizationId}/messages`}>Messages</CustomNavLink>
-			<CustomNavLink to={`/${organizationId}/users`}>Users</CustomNavLink>
-			<CustomNavLink to={`/${organizationId}/exams`}>Exams</CustomNavLink>
-			<CustomNavLink to={`/${organizationId}/create-exam`}>
-				Create Exam
+			{!isStudent && (
+				<CustomNavLink to={`/${organizationId}/users`}>Users</CustomNavLink>
+			)}
+			<CustomNavLink to={`/${organizationId}/exams`} isLast={isStudent}>
+				Exams
 			</CustomNavLink>
-			<CustomNavLink isLast to={`/${organizationId}/students-data`}>
-				Download Students Data
-			</CustomNavLink>
+			{!isStudent && (
+				<CustomNavLink to={`/${organizationId}/create-exam`}>
+					Create Exam
+				</CustomNavLink>
+			)}
+			{!isStudent && (
+				<CustomNavLink isLast to={`/${organizationId}/students-data`}>
+					Download Students Data
+				</CustomNavLink>
+			)}
 			<Box mt="auto">
 				<CustomNavLink isLast to={`/${organizationId}/profile`}>
 					Profile

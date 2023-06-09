@@ -7,7 +7,6 @@ export * from './useAddCourse';
 export * from './useGetExam';
 export * from './useEditCourse';
 export * from './useDeleteCourse';
-export * from './useGetOrganizationName';
 export * from './useRegisterOrganization';
 export * from './useUserRegister';
 export * from './useGetCourseSections';

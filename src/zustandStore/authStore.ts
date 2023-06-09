@@ -25,6 +25,10 @@ interface TokenDecoded {
 	id: string;
 }
 
+const pathname = window.location.pathname;
+const organizationName = pathname.split('/');
+localStorage.setItem('organizationId', organizationName[1]);
+
 const useAuthStore = create<AuthStore>()(
 	persist(
 		(set) => ({
@@ -39,6 +43,7 @@ const useAuthStore = create<AuthStore>()(
 			setToken: (token) => {
 				localStorage.setItem('token', token);
 				const decodedToken: TokenDecoded = jwt_decode(token);
+				localStorage.setItem('organizationId', decodedToken.subdomain);
 				const { email, subdomain, role } = decodedToken;
 				set({
 					email,
