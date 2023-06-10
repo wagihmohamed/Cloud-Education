@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { Box, Grid, Typography, Divider, useMediaQuery } from '@mui/material';
 import {
 	CustomAuthContainer,
@@ -14,11 +15,27 @@ import {
 import { useRegisterOrganization } from 'hooks';
 import { useNavigate } from 'react-router-dom';
 import { theme } from 'theme';
+import emailjs from '@emailjs/browser';
+import { toast } from 'react-toastify';
+
 export const OrganizationRegisterScreen = () => {
+	const formRef = useRef<HTMLFormElement>(null);
 	const navigation = useNavigate();
 	const { mutate: registerOrganization, isLoading } = useRegisterOrganization({
 		onSuccess: () => {
 			navigation(`/${orgRegisterFormik.values.orgDomainName}/login`);
+			emailjs
+				.sendForm(
+					'service_h35e5lq',
+					'template_crzlgvq',
+					formRef.current || '',
+					'gph-9qyRzO28IYQOe'
+				)
+				.then(() => {
+					toast.success(
+						'WE have sent you an email countaining your cerdentials'
+					);
+				});
 		},
 	});
 
@@ -46,7 +63,6 @@ export const OrganizationRegisterScreen = () => {
 			});
 		},
 	});
-
 	const mdScreen = useMediaQuery(theme.breakpoints.down('md'));
 	return (
 		<>
@@ -59,7 +75,7 @@ export const OrganizationRegisterScreen = () => {
 				m={'0 auto 2rem'}
 				maxWidth={mdScreen ? '90%' : '80%'}
 			>
-				<form onSubmit={orgRegisterFormik.handleSubmit}>
+				<form ref={formRef} onSubmit={orgRegisterFormik.handleSubmit}>
 					<Grid container spacing={2} rowSpacing="5px" columnSpacing="20px">
 						<Grid item xs={12} sm={12}>
 							<CustomTextField

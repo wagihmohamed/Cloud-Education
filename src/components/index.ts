@@ -36,3 +36,4 @@ export * from './CourseTab';
 export * from './CourseContentItem';
 export * from './FeedBackModal';
 export * from './CourseComments';
+export * from './Email';

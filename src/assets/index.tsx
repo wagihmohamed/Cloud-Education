@@ -6,6 +6,8 @@ import ProfileImg from './images/profile_img.png';
 import ErrorImage from './images/error.png';
 import EmptyComments from './images/empty-caht.png';
 import EmptyCourses from './images/empty-courses.png';
+import BFCAILogo from './images/bfcai_logo.png';
+import EmailFooter from './images/email-footer.png';
 export {
 	landingpageimage1,
 	landingpageimage2,
@@ -15,4 +17,6 @@ export {
 	ErrorImage,
 	EmptyComments,
 	EmptyCourses,
+	BFCAILogo,
+	EmailFooter,
 };

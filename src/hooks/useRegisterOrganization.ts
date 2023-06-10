@@ -12,11 +12,9 @@ export const useRegisterOrganization = ({
 		mutationFn: (orgData: OrganizationRegisterPayload) => {
 			return registerOrganizationService(orgData);
 		},
-		onSuccess: (data) => {
-			if (data?.data.status === 'success') {
-				onSuccess();
-				toast.success(`Organization created successfully`);
-			}
+		onSuccess: () => {
+			onSuccess();
+			toast.success(`Organization created successfully`);
 		},
 		onError: (error: ApiError) => {
 			toast.error(error.response?.data.message || 'Something went wrong');
