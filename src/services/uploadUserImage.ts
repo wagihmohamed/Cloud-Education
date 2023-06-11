@@ -9,13 +9,14 @@ interface UploadImageResponse {
 }
 
 export const uploadUserImage = async ({
+	orgnizationId,
 	image,
 	userId,
 }: {
+	orgnizationId: string;
 	image: File;
 	userId: string;
 }) => {
-	const orgnizationId = localStorage.getItem('organizationId') || '';
 	const formData = new FormData();
 	formData.append('image', image);
 	const response = await api.put<UploadImageResponse>(

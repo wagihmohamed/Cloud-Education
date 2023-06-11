@@ -1,16 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 import { getCourseSectionsByCourseCode } from 'services';
+import { useAuth } from 'zustandStore';
 
 export const useGetCourseSections = ({
 	courseCode,
 }: {
 	courseCode: string;
 }) => {
-	const organizationId = localStorage.getItem('organizationId') || '';
+	const { subDomain } = useAuth();
 	return useQuery({
 		queryKey: ['courseSections'],
 		queryFn: () => {
-			return getCourseSectionsByCourseCode(organizationId, courseCode);
+			return getCourseSectionsByCourseCode(subDomain, courseCode);
 		},
 	});
 };

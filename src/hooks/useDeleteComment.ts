@@ -2,11 +2,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteCommentService } from 'services';
 import { toast } from 'react-toastify';
 import { ApiError } from 'models';
+import { useAuth } from 'zustandStore';
 
 export const useDeleteComment = (data: {
 	onSuccess?: () => void;
 	onError?: (error: ApiError) => void;
 }) => {
+	const { subDomain } = useAuth();
 	const queryClient = useQueryClient();
 	const { onSuccess = () => {}, onError = () => {} } = data;
 	return useMutation({
@@ -20,7 +22,7 @@ export const useDeleteComment = (data: {
 			sectionOrder: number;
 		}) => {
 			return deleteCommentService(
-				localStorage.getItem('organizationId') || '',
+				subDomain,
 				courseCode,
 				sectionOrder,
 				commentId

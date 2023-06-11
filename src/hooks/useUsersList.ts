@@ -1,12 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { getUsersList } from 'services';
+import { useAuth } from 'zustandStore';
 
 export const useUsersList = (page = 1) => {
+	const { subDomain } = useAuth();
 	return useQuery({
-		queryKey: ['users', localStorage.getItem('organizationId') || '', page],
+		queryKey: ['users', subDomain || '', page],
 		queryFn: async () => {
 			return getUsersList({
-				orgnizationId: localStorage.getItem('organizationId') || '',
+				orgnizationId: subDomain,
 				page: 1,
 			});
 		},

@@ -1,15 +1,15 @@
-/* eslint-disable no-console */
 import { useQuery } from '@tanstack/react-query';
 import { getUserById } from 'services';
+import { useAuth } from 'zustandStore';
 
 export const useGetUserById = ({ userId }: { userId: string }) => {
-	const orgnizationId = localStorage.getItem('organizationId') || '';
+	const { subDomain } = useAuth();
 
 	return useQuery({
 		queryKey: ['getUserById', userId],
 		queryFn: () =>
 			getUserById({
-				orgnizationId,
+				orgnizationId: subDomain,
 				userId,
 			}),
 	});

@@ -7,6 +7,7 @@ import { Box, Drawer, IconButton, StackProps } from '@mui/material';
 import { useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import MessageIcon from '@mui/icons-material/Message';
+import { useSettings } from 'zustandStore';
 interface MainViewContainerProps {
 	children: React.ReactNode;
 	iconName?: string | undefined;
@@ -29,6 +30,7 @@ export const CustomDrawer = ({
 	iconName,
 	styleProps,
 }: MainViewContainerProps) => {
+	const { primaryColor: primaryCLR } = useSettings();
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const drawerIcon =
 		iconName == 'contactContainer' ? (
@@ -48,9 +50,8 @@ export const CustomDrawer = ({
 			'#FFF',
 			'#ffffffff',
 		];
-		const localStorgeColor = localStorage.getItem('primaryColor');
-		if (localStorgeColor) {
-			primaryColor = localStorage.getItem('primaryColor');
+		if (primaryColor) {
+			primaryColor = primaryCLR;
 			if (whiteColorFormat.includes(primaryColor)) {
 				color = '#000';
 			}

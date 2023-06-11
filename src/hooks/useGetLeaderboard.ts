@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { getLeaderboardData } from 'services';
+import { useAuth } from 'zustandStore';
 
 export const useGetLeaderboard = () => {
-	const orgnizationId = localStorage.getItem('organizationId') || '';
+	const { subDomain } = useAuth();
 	return useQuery({
-		queryKey: ['leaderboard', orgnizationId],
-		queryFn: () => getLeaderboardData(orgnizationId),
+		queryKey: ['leaderboard', subDomain],
+		queryFn: () => getLeaderboardData(subDomain),
 	});
 };

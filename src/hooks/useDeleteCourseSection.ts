@@ -2,11 +2,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { ApiError } from 'models';
 import { toast } from 'react-toastify';
 import { deleteCourseSectionService } from 'services';
+import { useAuth } from 'zustandStore';
 
 export const useDeleteCourseSection = (data: {
 	onSuccess?: () => void;
 	onError?: (error: ApiError) => void;
 }) => {
+	const { subDomain } = useAuth();
 	const queryClient = useQueryClient();
 	const { onSuccess = () => {}, onError = () => {} } = data;
 	return useMutation({
@@ -19,7 +21,7 @@ export const useDeleteCourseSection = (data: {
 		}) => {
 			return deleteCourseSectionService({
 				courseCode,
-				orgnizationId: localStorage.getItem('organizationId') || '',
+				orgnizationId: subDomain,
 				sectionOrder,
 			});
 		},

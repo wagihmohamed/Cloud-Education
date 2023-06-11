@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { ApiError } from 'models';
 import { submitReviewByCourseCode } from 'services';
 import { toast } from 'react-toastify';
+import { useAuth } from 'zustandStore';
 
 interface AddReviewPayload {
 	courseCode: string;
@@ -10,10 +11,11 @@ interface AddReviewPayload {
 }
 
 export const useAddReview = ({ onSuccess }: { onSuccess: () => void }) => {
+	const { subDomain } = useAuth();
 	return useMutation({
 		mutationFn: async ({ courseCode, rating, review }: AddReviewPayload) => {
 			return submitReviewByCourseCode({
-				orgnizationId: localStorage.getItem('organizationId') || '',
+				orgnizationId: subDomain,
 				courseCode,
 				rating,
 				review,

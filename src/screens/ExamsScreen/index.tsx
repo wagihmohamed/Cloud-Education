@@ -18,6 +18,7 @@ import { useExamsList } from 'hooks';
 import { isExamDisabled } from 'utlis';
 import { theme } from 'theme';
 import { useLocation } from 'react-router-dom';
+import { useAuth } from 'zustandStore';
 
 interface LocationType {
 	state: {
@@ -26,13 +27,13 @@ interface LocationType {
 }
 
 export const ExamsScreen = () => {
+	const { subDomain } = useAuth();
 	const state = useLocation();
 	const scrollToRef = useRef<HTMLDivElement>(null);
 	const isSmScreen = useMediaQuery(theme.breakpoints.down('lg'));
 	const { examId } = (state as LocationType).state || {};
 	const { data: exams = [], isLoading, isError } = useExamsList();
 	const [showSelectedStyle, setShowSelectedStyle] = useState(false);
-	const organizationName = localStorage.getItem('organizationId') || '';
 
 	useEffect(() => {
 		if (examId && scrollToRef.current) {
@@ -165,7 +166,7 @@ export const ExamsScreen = () => {
 													exam.examResult?.[0]?.status === 'MISSED' ||
 													isExamDisabled(exam)
 														? '#'
-														: `/${organizationName}/exam/${exam.id}`
+														: `/${subDomain}/exam/${exam.id}`
 												}
 												sx={{
 													bgcolor: '#000',

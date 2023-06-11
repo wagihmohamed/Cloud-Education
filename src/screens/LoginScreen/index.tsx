@@ -16,13 +16,14 @@ import { ApiError } from 'models';
 import { theme } from 'theme';
 
 export const LoginScreen = () => {
-	const navigate = useNavigate();
-	const organizationName = localStorage.getItem('organizationId') || '';
+	const url = window.location.href;
+	const orgName = url.split('/')[3];
 	const { setToken } = useAuth();
+	const navigate = useNavigate();
 	const { organizationId } = useParams();
 	const { mutate: login, isLoading } = useMutation({
 		mutationFn: () => {
-			return orginizationLogin(organizationName, {
+			return orginizationLogin(orgName, {
 				email: loginFormik.values.email,
 				password: loginFormik.values.password,
 			});
@@ -108,7 +109,7 @@ export const LoginScreen = () => {
 			<CustomAuthContainer m={'auto'} px={2} py={2} width="400px">
 				<Typography variant="h5" textAlign="center">
 					Don't have an account?
-					<Link to={`/${organizationName}/register`}> Register</Link>
+					<Link to={`/${orgName}/register`}> Register</Link>
 				</Typography>
 			</CustomAuthContainer>
 		</>

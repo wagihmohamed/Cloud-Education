@@ -10,15 +10,16 @@ export interface Answer {
 }
 
 export const submitAnswer = async ({
+	organizationId,
 	examId,
 	answers,
 }: {
+	organizationId: string;
 	examId: string;
 	answers: Answer[];
 }) => {
-	const orgnizationId = localStorage.getItem('organizationId') || '';
 	const response = await api.post<Answer[], AxiosResponse<Answer[]>>(
-		submitExamByExamIdEndpoint(orgnizationId, examId),
+		submitExamByExamIdEndpoint(organizationId, examId),
 		answers.map((answer) => ({
 			questionText: answer.questionText,
 			questionType: answer.questionType,

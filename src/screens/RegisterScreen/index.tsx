@@ -12,12 +12,12 @@ import { useNavigate } from 'react-router-dom';
 export const RegisterScreen = () => {
 	const navigate = useNavigate();
 	const { setToken } = useAuth();
-	const organizationName = localStorage.getItem('organizationId') || '';
-
+	const url = window.location.href;
+	const orgName = url.split('/')[3];
 	const { mutate: registerUser, isLoading } = useUserRegister({
 		onSuccess: (res) => {
 			setToken(res.data.token);
-			navigate(`/${organizationName}/home`, { replace: true });
+			navigate(`/${orgName}/home`, { replace: true });
 		},
 	});
 	const registerFormik = useFormik({
@@ -25,7 +25,7 @@ export const RegisterScreen = () => {
 		validationSchema: registerValidationSchema,
 		onSubmit: (values) => {
 			registerUser({
-				orgId: organizationName,
+				orgId: orgName,
 				userData: {
 					firstName: values.firstName,
 					email: values.email,

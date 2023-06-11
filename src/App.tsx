@@ -31,8 +31,7 @@ import { useAuth } from 'zustandStore';
 
 function App() {
 	const { isLoading } = useValidateToken();
-	const { token } = useAuth();
-	const organizationName = localStorage.getItem('organizationId') || '';
+	const { token, subDomain } = useAuth();
 	const withPrimatyColor = localStorage.getItem('primaryColor');
 	const withTextColor = localStorage.getItem('textColor');
 	setAppColor(withPrimatyColor, withTextColor);
@@ -92,7 +91,7 @@ function App() {
 
 				<Route
 					path="/:organizationId"
-					element={<Navigate to={`/${organizationName}/home`} replace />}
+					element={<Navigate to={`/${subDomain}/home`} replace />}
 				/>
 				<Route path="/:organizationId/home" element={<HomeScreen />} />
 

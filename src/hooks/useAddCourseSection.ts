@@ -1,11 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { ApiError } from 'models';
 import { addCourseSectionService } from 'services';
+import { useAuth } from 'zustandStore';
 
 export const useAddCourseSection = (data: {
 	onSuccess: () => void;
 	onError: (error: ApiError) => void;
 }) => {
+	const { subDomain } = useAuth();
 	const { onSuccess, onError } = data;
 	const queryClient = useQueryClient();
 	return useMutation({
@@ -18,7 +20,7 @@ export const useAddCourseSection = (data: {
 		}) => {
 			return addCourseSectionService({
 				courseCode,
-				orgnizationId: localStorage.getItem('organizationId') || '',
+				orgnizationId: subDomain,
 				title,
 			});
 		},

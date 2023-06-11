@@ -26,8 +26,7 @@ export interface MCQItemAnswerType {
 	choiceText: string;
 }
 
-export const getExamByIdService = async (examId: string) => {
-	const orgId = localStorage.getItem('organizationId') || '';
+export const getExamByIdService = async (orgId: string, examId: string) => {
 	const response = await api.get<ExamItemResponse>(
 		getExamByExamIdEndpoint(orgId, examId)
 	);

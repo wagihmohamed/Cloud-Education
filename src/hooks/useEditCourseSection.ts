@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateCourseSectionService } from 'services';
 import { ApiError } from 'models';
 import { OutputBlockData } from '@editorjs/editorjs';
+import { useAuth } from 'zustandStore';
 
 export const useEditCourseSection = (data: {
 	onSuccess: () => void;
@@ -9,6 +10,7 @@ export const useEditCourseSection = (data: {
 	courseCodeDep: string;
 	sectionOrderDep: number;
 }) => {
+	const { subDomain } = useAuth();
 	const { onSuccess, onError, courseCodeDep, sectionOrderDep } = data;
 	const queryClient = useQueryClient();
 	return useMutation({
@@ -22,7 +24,7 @@ export const useEditCourseSection = (data: {
 			content: OutputBlockData[];
 		}) => {
 			return updateCourseSectionService(
-				localStorage.getItem('organizationId') || '',
+				subDomain,
 				courseCode,
 				sectionOrder,
 				content
