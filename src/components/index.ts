@@ -37,3 +37,4 @@ export * from './CourseContentItem';
 export * from './FeedBackModal';
 export * from './CourseComments';
 export * from './Email';
+export * from './LeaderboardTable';

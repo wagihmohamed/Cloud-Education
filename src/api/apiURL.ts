@@ -212,3 +212,7 @@ export const updateUserProfilePictureEndpoint = (
 ) => {
 	return `/api/${orgnizationId}/users/${userId}/profile-image`;
 };
+
+export const getLeaderboardDataEndpoint = (orgnizationId: string) => {
+	return `/api/${orgnizationId}/leaderboard`;
+};

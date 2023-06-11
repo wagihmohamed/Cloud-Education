@@ -26,3 +26,4 @@ export * from './useCreateExam';
 export * from './useGetExamItem';
 export * from './useSubmitAnswer';
 export * from './useUpdateProfileImage';
+export * from './useGetLeaderboard';

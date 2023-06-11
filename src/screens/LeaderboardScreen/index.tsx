@@ -1,5 +1,5 @@
 import { Typography, Box } from '@mui/material';
-import { CustomLayout } from 'components';
+import { CustomLayout, LeaderboardTable } from 'components';
 
 export const LeaderboardScreen = () => {
 	return (
@@ -13,6 +13,7 @@ export const LeaderboardScreen = () => {
 				<Typography fontWeight="bold" variant="h4">
 					LeaderboardScreen
 				</Typography>
+				<LeaderboardTable />
 			</Box>
 		</CustomLayout>
 	);

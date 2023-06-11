@@ -12,7 +12,7 @@ export const useSubmitAnswer = ({ onSuccess }: { onSuccess?: () => void }) => {
 			}),
 		onSuccess,
 		onError: (error: ApiError) => {
-			toast.error(error.response?.data.message);
+			toast.error(error.response?.data.message || 'Something went wrong');
 		},
 	});
 };

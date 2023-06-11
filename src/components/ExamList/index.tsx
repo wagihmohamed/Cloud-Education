@@ -44,6 +44,7 @@ export const ExamList = () => {
 				name: '',
 				questions: [],
 				startTime: '',
+				remainingMinutes: 0,
 			},
 		},
 		isLoading,
@@ -111,6 +112,10 @@ export const ExamList = () => {
 				</Typography>
 				<Typography my={2} fontWeight="bold" variant="h6">
 					Exam Duration: {examData.data.duration} minutes.
+				</Typography>
+				<Typography my={2} fontWeight="bold" variant="h6">
+					Remaining Time: {Math.round(examData.data.remainingMinutes || 0)}{' '}
+					minutes.
 				</Typography>
 				<Box>
 					{examData.data.questions.map((question, idx) => {
