@@ -8,6 +8,7 @@ import EmptyComments from './images/empty-caht.png';
 import EmptyCourses from './images/empty-courses.png';
 import BFCAILogo from './images/bfcai_logo.png';
 import EmailFooter from './images/email-footer.png';
+import EmptyNotifications from './images/notification.png';
 export {
 	landingpageimage1,
 	landingpageimage2,
@@ -19,4 +20,5 @@ export {
 	EmptyCourses,
 	BFCAILogo,
 	EmailFooter,
+	EmptyNotifications,
 };

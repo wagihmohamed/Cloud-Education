@@ -30,6 +30,7 @@ export const createExamService = async (
 	courseCode: string,
 	payload: CreateExamPayload
 ) => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const response = await api.post<CreateExamPayload, any>(
 		createExamByCourseCodeEndpoint(orgId, courseCode),
 		payload

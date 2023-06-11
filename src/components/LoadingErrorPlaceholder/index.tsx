@@ -62,7 +62,7 @@ export const LoadingErrorPlaceholder = ({
 					flexDirection: 'column',
 					justifyContent: 'center',
 					alignItems: 'center',
-					bgcolor: '#f2f2f2',
+					bgcolor: 'transparent',
 				}}
 			>
 				<img

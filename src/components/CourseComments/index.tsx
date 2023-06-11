@@ -75,11 +75,11 @@ export const CourseComments = ({
 				isError={isError}
 				isEmpty={comments.data.length === 0}
 				emptyImg={EmptyComments as string}
-				imgWidth="300px"
-				imgHeight="300px"
+				imgWidth="210px"
+				imgHeight="210px"
 				emptyText={
 					<>
-						<Typography variant="h4" fontWeight="bold">
+						<Typography variant="h4" mt={2} fontWeight="bold">
 							No comments yet
 						</Typography>
 						<Typography variant="h4" fontWeight="bold">
