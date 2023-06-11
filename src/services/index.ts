@@ -27,3 +27,4 @@ export * from './getExamById';
 export * from './submitAnswer';
 export * from './uploadUserImage';
 export * from './getLeaderboardService';
+export * from './getNotificationsService';
