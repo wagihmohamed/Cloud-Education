@@ -14,8 +14,7 @@ interface Notification {
 	}[];
 }
 
-export const getNotificationsService = async () => {
-	const orgnizationId = localStorage.getItem('organizationId') || '';
+export const getNotificationsService = async (orgnizationId: string) => {
 	const response = await api.get<Notification>(
 		getNotificationsEndpoint(orgnizationId)
 	);

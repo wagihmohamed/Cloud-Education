@@ -21,14 +21,15 @@ import { useCoursesList } from 'hooks';
 import { EmptyCourses } from 'assets';
 import { useNavigate, Link } from 'react-router-dom';
 import { handleFormateDate } from 'utlis';
+import { useAuth } from 'zustandStore';
 
 const staticBackgourndImg =
 	'https://images.unsplash.com/photo-1532619187608-e5375cab36aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80';
 
 export const LearningCoursesScreen = () => {
+	const { subDomain } = useAuth();
 	const navigate = useNavigate();
 	const [currentPage, setCurrentPage] = useState(1);
-	const organizationId = localStorage.getItem('organizationId') || '';
 	const {
 		data: courses = {
 			data: [],
@@ -161,7 +162,7 @@ export const LearningCoursesScreen = () => {
 										<CustomButton
 											disabled={!course.isActive}
 											onClick={() => {
-												navigate(`/${organizationId}/courses/${course.code}`);
+												navigate(`/${subDomain}/courses/${course.code}`);
 											}}
 											size="medium"
 										>

@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { ApiError } from 'models';
 import { deleteUserByIdService } from 'services';
 import { toast } from 'react-toastify';
+import { useAuth } from 'zustandStore';
 
 export const useDeleteUser = ({
 	onSuccess = () => {},
@@ -10,11 +11,12 @@ export const useDeleteUser = ({
 	onSuccess?: () => void;
 	onError?: (err: ApiError) => void;
 }) => {
+	const { subDomain } = useAuth();
 	const queryClient = useQueryClient();
 	return useMutation({
 		mutationFn: async ({ userId }: { userId: string }) => {
 			return deleteUserByIdService({
-				orgnizationId: localStorage.getItem('organizationId') || '',
+				orgnizationId: subDomain,
 				userId,
 			});
 		},

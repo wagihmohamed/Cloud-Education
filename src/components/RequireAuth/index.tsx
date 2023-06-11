@@ -4,8 +4,7 @@ import { useAuth } from 'zustandStore';
 export const RequireAuth = () => {
 	const { token, subDomain } = useAuth();
 	const { organizationId } = useParams();
-	const organizationName = localStorage.getItem('organizationId') || '';
-	const paramAuth = organizationName || organizationId || subDomain;
+	const paramAuth = organizationId || subDomain;
 	return (
 		<>{token ? <Outlet /> : <Navigate to={`/${paramAuth}/login`} replace />}</>
 	);
@@ -14,8 +13,7 @@ export const RequireAuth = () => {
 export const NoAuth = () => {
 	const { token, subDomain } = useAuth();
 	const { organizationId } = useParams();
-	const organizationName = localStorage.getItem('organizationId') || '';
-	const paramAuth = organizationName || organizationId || subDomain;
+	const paramAuth = organizationId || subDomain;
 	return (
 		<>{token ? <Navigate to={`/${paramAuth}/home`} replace /> : <Outlet />}</>
 	);

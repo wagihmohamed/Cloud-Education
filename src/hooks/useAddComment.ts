@@ -1,11 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addCommentByCourseCode } from 'services';
 import { ApiError } from 'models';
+import { useAuth } from 'zustandStore';
 
 export const useAddComment = (data: {
 	onSuccess?: () => void;
 	onError?: (error: ApiError) => void;
 }) => {
+	const { subDomain } = useAuth();
 	const { onSuccess = () => {}, onError = () => {} } = data;
 	const queryClient = useQueryClient();
 	return useMutation({
@@ -19,6 +21,7 @@ export const useAddComment = (data: {
 			sectionOrder: number;
 		}) => {
 			return addCommentByCourseCode({
+				orgId: subDomain,
 				courseCode,
 				sectionOrder,
 				content,

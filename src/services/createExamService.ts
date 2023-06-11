@@ -26,10 +26,11 @@ export interface MCQAnswerType {
 }
 
 export const createExamService = async (
+	orgId: string,
 	courseCode: string,
 	payload: CreateExamPayload
 ) => {
-	const orgId = localStorage.getItem('organizationId') || '';
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const response = await api.post<CreateExamPayload, any>(
 		createExamByCourseCodeEndpoint(orgId, courseCode),
 		payload

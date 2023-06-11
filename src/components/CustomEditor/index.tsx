@@ -28,6 +28,7 @@ interface CustomEditorProps {
 const ReactEditorJS = createReactEditorJS();
 
 export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
+	const { subDomain } = useAuth();
 	const { courseId } = useParams();
 	const [iseEditorReady, setIsEditorReady] = useState(false);
 
@@ -77,7 +78,7 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 	const handleImageUpload = async (file: any) => {
 		const response = await uploadImage({
 			image: file,
-			orgnizationId: localStorage.getItem('organizationId') || '',
+			orgnizationId: subDomain,
 			courseCode: courseId || '',
 		});
 		return {
@@ -91,7 +92,7 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 	const handleVideoUpload = async (file: any) => {
 		const response = await uploadVideo({
 			video: file,
-			orgnizationId: localStorage.getItem('organizationId') || '',
+			orgnizationId: subDomain,
 			courseCode: courseId || '',
 		});
 		return {
