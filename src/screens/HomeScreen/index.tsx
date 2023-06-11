@@ -5,12 +5,12 @@ import {
 	NotificationList,
 } from 'components';
 import { useGetUserById } from 'hooks';
-import { messagesList, notificationList } from 'mockup';
 import { UserItem } from 'models';
 import { useAuth } from 'zustandStore';
 
 export const HomeScreen = () => {
 	const { id: loggedUserId } = useAuth();
+
 	const {
 		isLoading,
 		isError,
@@ -53,11 +53,7 @@ export const HomeScreen = () => {
 						bgcolor: '#f8f9fa',
 					}}
 				>
-					<NotificationList
-						title="Notifications"
-						messagesList={notificationList}
-					/>
-					<NotificationList title="Messages" messagesList={messagesList} />
+					<NotificationList />
 				</Box>
 			</LoadingErrorPlaceholder>
 		</CustomLayout>

@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import {
 	CustomLayout,
 	CustomNavLink,
@@ -16,11 +17,37 @@ import {
 import { useExamsList } from 'hooks';
 import { isExamDisabled } from 'utlis';
 import { theme } from 'theme';
+import { useLocation } from 'react-router-dom';
+
+interface LocationType {
+	state: {
+		examId: string;
+	};
+}
 
 export const ExamsScreen = () => {
-	const { data: exams = [], isLoading, isError } = useExamsList();
-	const organizationName = localStorage.getItem('organizationId') || '';
+	const state = useLocation();
+	const scrollToRef = useRef<HTMLDivElement>(null);
 	const isSmScreen = useMediaQuery(theme.breakpoints.down('lg'));
+	const { examId } = (state as LocationType).state || {};
+	const { data: exams = [], isLoading, isError } = useExamsList();
+	const [showSelectedStyle, setShowSelectedStyle] = useState(false);
+	const organizationName = localStorage.getItem('organizationId') || '';
+
+	useEffect(() => {
+		if (examId && scrollToRef.current) {
+			setShowSelectedStyle(true);
+			setTimeout(() => {
+				setShowSelectedStyle(false);
+			}, 3000);
+		}
+		scrollToRef.current?.scrollIntoView({
+			behavior: 'smooth',
+			block: 'center',
+			inline: 'center',
+		});
+	}, [examId]);
+
 	return (
 		<CustomLayout>
 			<Box
@@ -42,13 +69,29 @@ export const ExamsScreen = () => {
 							exams.map((exam) => (
 								<Grid item xs={12} sm={6} md={6} lg={4} key={exam.id}>
 									<Card
+										ref={
+											examId === exam.id && scrollToRef
+												? scrollToRef
+												: undefined
+										}
 										sx={{
+											minHeight: '550px',
+											display: 'flex',
+											flexDirection: 'column',
 											opacity:
 												isExamDisabled(exam) ||
 												exam.examResult?.[0]?.status === 'FINISHED' ||
 												exam.examResult?.[0]?.status === 'MISSED'
 													? 0.5
 													: 1,
+											border:
+												showSelectedStyle && examId === exam.id
+													? '3px solid #25a244'
+													: 'none',
+											outline:
+												showSelectedStyle && examId === exam.id
+													? '3px solid #25a244'
+													: 'none',
 										}}
 									>
 										<CardMedia
@@ -133,7 +176,7 @@ export const ExamsScreen = () => {
 													'&:hover': {
 														bgcolor: '#000',
 													},
-													mt: 2,
+													mt: 5,
 												}}
 											>
 												Start
