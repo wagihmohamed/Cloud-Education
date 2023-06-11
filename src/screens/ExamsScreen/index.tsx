@@ -44,7 +44,9 @@ export const ExamsScreen = () => {
 									<Card
 										sx={{
 											opacity:
-												isExamDisabled(exam) || Boolean(exam.examResult?.length)
+												isExamDisabled(exam) ||
+												exam.examResult?.[0]?.status === 'FINISHED' ||
+												exam.examResult?.[0]?.status === 'MISSED'
 													? 0.5
 													: 1,
 										}}
@@ -112,10 +114,12 @@ export const ExamsScreen = () => {
 											<CustomNavLink
 												disabled={
 													isExamDisabled(exam) ||
-													Boolean(exam.examResult?.length)
+													exam.examResult?.[0]?.status === 'FINISHED' ||
+													exam.examResult?.[0]?.status === 'MISSED'
 												}
 												to={
-													Boolean(exam.examResult?.length) ||
+													exam.examResult?.[0]?.status === 'FINISHED' ||
+													exam.examResult?.[0]?.status === 'MISSED' ||
 													isExamDisabled(exam)
 														? '#'
 														: `/${organizationName}/exam/${exam.id}`

@@ -20,3 +20,4 @@ export * from './examDummyData';
 export * from './examsList';
 export * from './landingPage';
 export * from './coursesComments';
+export * from './leaderboardColumns';

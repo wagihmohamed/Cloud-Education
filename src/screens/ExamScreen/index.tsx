@@ -19,6 +19,7 @@ export const ExamScreen = () => {
 				name: '',
 				questions: [],
 				startTime: '',
+				remainingMinutes: 0,
 			},
 		},
 		isLoading,
@@ -95,7 +96,7 @@ export const ExamScreen = () => {
 						{examData.data.name} Exam Screen
 					</Typography>
 					<Countdown
-						date={Date.now() + examData.data.duration * 60 * 1000}
+						date={Date.now() + examData.data.remainingMinutes * 60 * 1000}
 						autoStart={true}
 						renderer={renderer}
 					>

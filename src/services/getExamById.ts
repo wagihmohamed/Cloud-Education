@@ -12,6 +12,7 @@ export interface ExamItemResponse {
 		startTime: string;
 		endTime: string;
 		questions: ExamItemQuestionType[];
+		remainingMinutes: number;
 	};
 }
 

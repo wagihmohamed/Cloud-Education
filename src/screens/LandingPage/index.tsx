@@ -17,6 +17,7 @@ import {
 import { landingimageCaseStudy } from 'assets';
 import { caseStudyStatments, landingPageMainSections } from 'mockup';
 import { theme } from 'theme';
+import { Fragment } from 'react';
 const styles = {
 	casesStyle: {
 		display: 'flex',
@@ -39,17 +40,17 @@ export const LandingPage = () => {
 			<Container maxWidth="xl" sx={{ marginX: 'auto' }}>
 				{landingPageMainSections.map((section, indx) => {
 					return (
-						<>
+						<Fragment key={indx}>
 							<LandingPageSection
 								sectionDirection={section.direction}
-								key={`${indx}`}
+								key={indx}
 								image={section.image}
 								heading={section.heading}
 								txt={section.txt}
 								buttonLabel={section.btn.text}
 							/>
 							<Divider />
-						</>
+						</Fragment>
 					);
 				})}
 				<Stack
