@@ -30,3 +30,4 @@ export * from './useGetLeaderboard';
 export * from './useGetNotifications';
 export * from './useSummarizeText';
 export * from './useGetExamsResultList';
+export * from './useGetExamAnswer';

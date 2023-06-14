@@ -228,3 +228,10 @@ export const summarizeTextEndpoint = (orgnizationId: string) => {
 export const getAnsweredExamsEndpoint = (orgnizationId: string) => {
 	return `/api/${orgnizationId}/exams-results`;
 };
+
+export const getSingleExamResultEndpoint = (
+	orgnizationId: string,
+	examId: string
+) => {
+	return `/api/${orgnizationId}/exams-results/${examId}`;
+};

@@ -17,3 +17,4 @@ export * from './CreateExamScreen';
 export * from './LearnCoursesScreen';
 export * from './SummarizeScreen';
 export * from './ExamResultsScreen';
+export * from './ExamResultScreen';

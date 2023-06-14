@@ -30,3 +30,4 @@ export * from './getLeaderboardService';
 export * from './getNotificationsService';
 export * from './summarizeService';
 export * from './getExamsResults';
+export * from './getSingleExamResultService';

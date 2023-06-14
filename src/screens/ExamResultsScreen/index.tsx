@@ -16,7 +16,7 @@ import {
 import { useGetExamsResultList } from 'hooks';
 import { theme } from 'theme';
 
-export const AnsweredExamsScreen = () => {
+export const ExamsResultScreen = () => {
 	const isSmScreen = useMediaQuery(theme.breakpoints.down('lg'));
 	const {
 		data: examsResults = {

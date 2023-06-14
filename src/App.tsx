@@ -25,7 +25,8 @@ import {
 	CreateExamScreen,
 	LearningCoursesScreen,
 	SummarizeScreen,
-	AnsweredExamsScreen,
+	ExamsResultScreen,
+	ExamResultScreen,
 } from 'screens';
 import { setAppColor } from 'utlis';
 import { CircularProgress, Box } from '@mui/material';
@@ -107,7 +108,11 @@ function App() {
 				/>
 				<Route
 					path="/:organizationId/answered-exams"
-					element={<AnsweredExamsScreen />}
+					element={<ExamsResultScreen />}
+				/>
+				<Route
+					path="/:organizationId/answered-exams/:examId"
+					element={<ExamResultScreen />}
 				/>
 				<Route path="/:organizationId/messages" element={<MessagesScreen />} />
 

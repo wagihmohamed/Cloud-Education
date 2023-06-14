@@ -7,7 +7,7 @@ import { useAuth } from 'zustandStore';
 export const useGetExamsResultList = () => {
 	const { subDomain } = useAuth();
 	return useQuery({
-		queryKey: ['examsResults', subDomain],
+		queryKey: ['examsResults'],
 		queryFn: () => getExamsResults(subDomain),
 		onError: (error: ApiError) => {
 			toast.error(error.response?.data?.message || 'Something went wrong');

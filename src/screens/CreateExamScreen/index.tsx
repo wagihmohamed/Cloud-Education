@@ -112,7 +112,16 @@ export const CreateExamScreen = () => {
 										helperText={touched.duration && errors.duration}
 									/>
 								</Grid>
-								<Grid item sm={12} md={6}>
+								<Grid
+									item
+									sm={7}
+									sx={{
+										display: 'flex',
+										flexDirection: 'column',
+										alignItems: 'center',
+										justifyContent: 'center',
+									}}
+								>
 									<Typography variant="h6" mb={1}>
 										Exam Available Period
 									</Typography>
@@ -150,7 +159,7 @@ export const CreateExamScreen = () => {
 											</Typography>
 										)}
 								</Grid>
-								<Grid item sm={12} md={6}>
+								<Grid item sm={5}>
 									<CustomTextField
 										name="description"
 										value={values.description}
