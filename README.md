@@ -39,6 +39,35 @@ The following libraries and tools were used in the development of this project:
 - [EditorJs](https://editorjs.io/)
 - [React Router Dom](https://reactrouter.com/en/main)
 - [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
+- [EmailJS](https://www.emailjs.com/)
+
+## Features we provide
+
+The following features are provided by the project:
+
+- University can create it own isolated environment.
+- Confirmation email for each Organization.
+- Users from outside the university can register to it.
+- Admin can create a new user or edit an existing one.
+- Lecturer can create a course.
+- Lecturer can add a lesson to a course.
+- Lecturer can add a quiz to a lesson.
+- Lecturer can add a video to a lesson.
+- Lecturer can add a document to a lesson.
+- Lecturer can add a text to a lesson.
+- Lecturer can assign users to a course.
+- Comment for each lesson.
+- Toxic detection for comments.
+- Text sentiment analysis for comments.
+- Students can submit a feedback for a course.
+- Based on the sentiment analysis, the can will be rated.
+- Articles and book summarization.
+- Teachers can create exams.
+- Students can take exams only once and in the duration of the exam.
+- real time exam results.
+- Students can see their grades.
+- Students can see their answers and the expected answers.
+- Notifications system.
 
 ## Getting started
 
