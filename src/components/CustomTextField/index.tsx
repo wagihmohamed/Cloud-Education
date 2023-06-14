@@ -53,7 +53,7 @@ export const CustomTextField = ({
 				{...props}
 				inputProps={{
 					style: {
-						fontSize: 20,
+						fontSize: 19,
 					},
 				}}
 				sx={{

@@ -24,6 +24,7 @@ import {
 	ExamsScreen,
 	CreateExamScreen,
 	LearningCoursesScreen,
+	SummarizeScreen,
 } from 'screens';
 import { setAppColor } from 'utlis';
 import { CircularProgress, Box } from '@mui/material';
@@ -94,6 +95,10 @@ function App() {
 					element={<Navigate to={`/${subDomain}/home`} replace />}
 				/>
 				<Route path="/:organizationId/home" element={<HomeScreen />} />
+				<Route
+					path="/:organizationId/summarize"
+					element={<SummarizeScreen />}
+				/>
 
 				<Route
 					path="/:organizationId/leaderboard"

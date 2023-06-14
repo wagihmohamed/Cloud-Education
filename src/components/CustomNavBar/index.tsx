@@ -51,8 +51,9 @@ export const CustomNavBar = () => {
 			{!isStudent && (
 				<CustomNavLink to={`/${organizationId}/users`}>Users</CustomNavLink>
 			)}
-			<CustomNavLink to={`/${organizationId}/exams`} isLast={isStudent}>
-				Exams
+			<CustomNavLink to={`/${organizationId}/exams`}>Exams</CustomNavLink>
+			<CustomNavLink to={`/${organizationId}/summarize`} isLast={isStudent}>
+				Summarize
 			</CustomNavLink>
 			{!isStudent && (
 				<CustomNavLink to={`/${organizationId}/create-exam`}>
