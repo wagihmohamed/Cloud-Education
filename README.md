@@ -40,6 +40,7 @@ The following libraries and tools were used in the development of this project:
 - [React Router Dom](https://reactrouter.com/en/main)
 - [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
 - [EmailJS](https://www.emailjs.com/)
+- [Vercel](https://vercel.com/)
 
 ## Features we provide
 
@@ -68,6 +69,7 @@ The following features are provided by the project:
 - Students can see their grades.
 - Students can see their answers and the expected answers.
 - Notifications system.
+- Students can see their answers and the expected answers.
 
 ## Getting started
 
