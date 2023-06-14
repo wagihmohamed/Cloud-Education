@@ -11,7 +11,10 @@ export const LeaderboardScreen = () => {
 				}}
 			>
 				<Typography fontWeight="bold" variant="h4">
-					LeaderboardScreen
+					Leaderboard
+				</Typography>
+				<Typography mt={2} variant="h5">
+					Here are the top 10 students with the highest score
 				</Typography>
 				<LeaderboardTable />
 			</Box>
