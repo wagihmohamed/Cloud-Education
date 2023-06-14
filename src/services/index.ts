@@ -29,3 +29,4 @@ export * from './uploadUserImage';
 export * from './getLeaderboardService';
 export * from './getNotificationsService';
 export * from './summarizeService';
+export * from './getExamsResults';

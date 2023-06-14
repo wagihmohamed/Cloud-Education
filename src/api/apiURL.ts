@@ -224,3 +224,7 @@ export const getNotificationsEndpoint = (orgnizationId: string) => {
 export const summarizeTextEndpoint = (orgnizationId: string) => {
 	return `/api/${orgnizationId}/summarize`;
 };
+
+export const getAnsweredExamsEndpoint = (orgnizationId: string) => {
+	return `/api/${orgnizationId}/exams-results`;
+};

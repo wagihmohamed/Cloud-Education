@@ -64,7 +64,7 @@ export const CustomNavBar = () => {
 				to={`/${organizationId}/answered-exams`}
 				isLast={isStudent}
 			>
-				Answered Exams
+				Exams Results
 			</CustomNavLink>
 			{!isStudent && (
 				<CustomNavLink isLast to={`/${organizationId}/students-data`}>
