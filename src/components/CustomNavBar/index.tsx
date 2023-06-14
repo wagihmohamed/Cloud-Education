@@ -52,7 +52,7 @@ export const CustomNavBar = () => {
 				<CustomNavLink to={`/${organizationId}/users`}>Users</CustomNavLink>
 			)}
 			<CustomNavLink to={`/${organizationId}/exams`}>Exams</CustomNavLink>
-			<CustomNavLink to={`/${organizationId}/summarize`} isLast={isStudent}>
+			<CustomNavLink to={`/${organizationId}/summarize`}>
 				Summarize
 			</CustomNavLink>
 			{!isStudent && (
@@ -60,6 +60,12 @@ export const CustomNavBar = () => {
 					Create Exam
 				</CustomNavLink>
 			)}
+			<CustomNavLink
+				to={`/${organizationId}/answered-exams`}
+				isLast={isStudent}
+			>
+				Answered Exams
+			</CustomNavLink>
 			{!isStudent && (
 				<CustomNavLink isLast to={`/${organizationId}/students-data`}>
 					Download Students Data
