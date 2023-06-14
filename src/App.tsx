@@ -73,6 +73,10 @@ function App() {
 						path="/:organizationId/learning-courses"
 						element={<LearningCoursesScreen />}
 					/>
+					<Route
+						path="/:organizationId/answered-exams"
+						element={<ExamsResultScreen />}
+					/>
 				</Route>
 				<Route
 					path="/:organizationId/courses/:courseId"
@@ -106,10 +110,7 @@ function App() {
 					path="/:organizationId/leaderboard"
 					element={<LeaderboardScreen />}
 				/>
-				<Route
-					path="/:organizationId/answered-exams"
-					element={<ExamsResultScreen />}
-				/>
+
 				<Route
 					path="/:organizationId/answered-exams/:examId"
 					element={<ExamResultScreen />}
