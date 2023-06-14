@@ -5,10 +5,12 @@ import {
 	useAddCourseSection,
 	useGetCourseSections,
 	useDeleteCourseSection,
+	useGetCourseContent,
 } from 'hooks';
 import { Fragment, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useAuth, useEditorStore } from 'zustandStore';
 
 interface CourseTabInterface {
 	selectedCourseId?: string;
@@ -19,9 +21,26 @@ export const CourseTab = ({
 	selectedCourseId = '',
 	setSelectedCourseId,
 }: CourseTabInterface) => {
+	const { id } = useEditorStore();
+	const { isAdmin, isTeacher, email } = useAuth();
 	const { courseId } = useParams();
 	const {
 		isLoading,
+		data: courseContent = {
+			status: '',
+			data: {
+				content: [],
+				order: 0,
+				title: '',
+				ownerEmail: '',
+			},
+		},
+	} = useGetCourseContent({
+		courseCode: courseId || '',
+		sectionOrder: id || 1,
+	});
+
+	const {
 		data: sections = {
 			status: '',
 			data: [],
@@ -68,7 +87,8 @@ export const CourseTab = ({
 			title: courseTitle,
 		});
 	};
-
+	const showActions =
+		!isAdmin && isTeacher && email === courseContent.data.ownerEmail;
 	return (
 		<Box
 			sx={{
@@ -104,25 +124,27 @@ export const CourseTab = ({
 					>
 						{section.title}
 					</Button>
-					<Delete
-						sx={{
-							width: '1.5rem',
-							height: '100%',
-							cursor: 'pointer',
-							alignSelf: 'center',
-							bgcolor: '#dee2e6',
-							color: '#d32f2f',
-							':hover': {
-								color: 'red',
-							},
-						}}
-						onClick={() => {
-							deleteSection({
-								courseCode: courseId || '',
-								sectionOrder: section.order,
-							});
-						}}
-					/>
+					{showActions && (
+						<Delete
+							sx={{
+								width: '1.5rem',
+								height: '100%',
+								cursor: 'pointer',
+								alignSelf: 'center',
+								bgcolor: '#dee2e6',
+								color: '#d32f2f',
+								':hover': {
+									color: 'red',
+								},
+							}}
+							onClick={() => {
+								deleteSection({
+									courseCode: courseId || '',
+									sectionOrder: section.order,
+								});
+							}}
+						/>
+					)}
 				</Fragment>
 			))}
 			<Stack direction="row">
@@ -147,30 +169,32 @@ export const CourseTab = ({
 						}}
 					/>
 				)}
-				<CustomButton
-					loadingButton
-					loading={isAddCourseLoading}
-					textcolor="black"
-					bgColor="#dee2e6"
-					borderRadius={'0'}
-					ml={2}
-					onClick={() => {
-						if (triggerAddButton && courseTitle) {
-							handleAddSection();
+				{showActions && (
+					<CustomButton
+						loadingButton
+						loading={isAddCourseLoading}
+						textcolor="black"
+						bgColor="#dee2e6"
+						borderRadius={'0'}
+						ml={2}
+						onClick={() => {
+							if (triggerAddButton && courseTitle) {
+								handleAddSection();
+							}
+							setTriggerButton((prev) => !prev);
+						}}
+					>
+						{
+							<>
+								{triggerAddButton ? (
+									<Check sx={{ fontSize: '1.5rem', bgcolor: 'transparent' }} />
+								) : (
+									<Add sx={{ fontSize: '1.5rem', bgcolor: 'transparent' }} />
+								)}
+							</>
 						}
-						setTriggerButton((prev) => !prev);
-					}}
-				>
-					{
-						<>
-							{triggerAddButton ? (
-								<Check sx={{ fontSize: '1.5rem', bgcolor: 'transparent' }} />
-							) : (
-								<Add sx={{ fontSize: '1.5rem', bgcolor: 'transparent' }} />
-							)}
-						</>
-					}
-				</CustomButton>
+					</CustomButton>
+				)}
 			</Stack>
 		</Box>
 	);

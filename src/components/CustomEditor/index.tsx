@@ -103,9 +103,15 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 		};
 	};
 
+	const disableEditor =
+		!isAdmin && !(isTeacher && email === courseContent.data.ownerEmail);
+
+	const showSaveButton =
+		!isAdmin && isTeacher && email === courseContent.data.ownerEmail;
+
 	return (
 		<Stack direction={'column'}>
-			{(courseContent.data.ownerEmail === email || isAdmin) && (
+			{showSaveButton && (
 				<CustomButton
 					ml={8}
 					mb={3}
@@ -158,9 +164,7 @@ export const CustomEditor = ({ id = 0 }: CustomEditorProps) => {
 					],
 				}}
 				onReady={() => setIsEditorReady(true)}
-				readOnly={
-					!isAdmin && !(isTeacher && email === courseContent.data.ownerEmail)
-				}
+				readOnly={disableEditor}
 			/>
 			<div id="editorjs" />
 		</Stack>

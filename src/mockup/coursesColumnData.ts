@@ -8,13 +8,14 @@ export const coursesTableColumns = [
 		label: 'Category',
 	},
 	{
-		id: 'lastUpdated',
-		label: 'Last Updated',
-	},
-	{
 		id: 'rating',
 		label: 'Rating',
 	},
+	{
+		id: 'lastUpdated',
+		label: 'Last Updated',
+	},
+
 	{
 		id: 'status',
 		label: 'Status',
