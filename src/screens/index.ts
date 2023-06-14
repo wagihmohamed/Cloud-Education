@@ -15,3 +15,4 @@ export * from './ErrorPage';
 export * from './ExamsScreen';
 export * from './CreateExamScreen';
 export * from './LearnCoursesScreen';
+export * from './SummarizeScreen';

@@ -220,3 +220,7 @@ export const getLeaderboardDataEndpoint = (orgnizationId: string) => {
 export const getNotificationsEndpoint = (orgnizationId: string) => {
 	return `/api/${orgnizationId}/notifications`;
 };
+
+export const summarizeTextEndpoint = (orgnizationId: string) => {
+	return `/api/${orgnizationId}/summarize`;
+};
