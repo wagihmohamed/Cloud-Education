@@ -19,6 +19,7 @@ interface ExamAnswerType {
 	questionText: string;
 	questionType: string;
 	questionAnswer: string;
+	modelAnswer: string;
 	isCorrect: boolean;
 }
 

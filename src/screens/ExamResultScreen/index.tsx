@@ -93,13 +93,15 @@ export const ExamResultScreen = () => {
 									label="Your Answer"
 									disabled
 								/>
-								{/* <CustomTextField
+								<CustomTextField
 									value={answer.modelAnswer}
 									type="text"
 									withLabel
-									label="Nodel Answer"
+									label="Model Answer"
+									multiline
+									rows={5}
 									disabled
-								/> */}
+								/>
 							</Stack>
 						</Box>
 					))}
