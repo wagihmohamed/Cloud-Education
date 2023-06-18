@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Typography } from '@mui/material';
 import Select from 'react-select';
-import { useSettings } from 'zustandStore';
 
 interface CustomSelectProps {
 	options: { label: string; value: string }[];
@@ -37,7 +36,6 @@ export const CustomSelect = ({
 	maxWidth,
 	isLoading,
 }: CustomSelectProps) => {
-	const { primaryColor } = useSettings();
 	return (
 		<>
 			{withLabel && (
@@ -45,7 +43,7 @@ export const CustomSelect = ({
 					variant="subtitle1"
 					mt={1}
 					sx={{
-						color: primaryColor,
+						color: '#000',
 						alignSelf: 'flex-start',
 						fontWeight: 'bold',
 						fontSize: '15px',
