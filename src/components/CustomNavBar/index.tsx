@@ -47,7 +47,7 @@ export const CustomNavBar = () => {
 			<CustomNavLink to={`/${organizationId}/leaderboard`}>
 				Leaderboard
 			</CustomNavLink>
-			<CustomNavLink to={`/${organizationId}/messages`}>Messages</CustomNavLink>
+			{/* <CustomNavLink to={`/${organizationId}/messages`}>Messages</CustomNavLink> */}
 			{!isStudent && (
 				<CustomNavLink to={`/${organizationId}/users`}>Users</CustomNavLink>
 			)}
