@@ -160,11 +160,13 @@ export const ExamsScreen = () => {
 												disabled={
 													isExamDisabled(exam) ||
 													exam.examResult?.[0]?.status === 'FINISHED' ||
-													exam.examResult?.[0]?.status === 'MISSED'
+													exam.examResult?.[0]?.status === 'MISSED' ||
+													exam.examResult?.[0]?.status === 'FAILED'
 												}
 												to={
 													exam.examResult?.[0]?.status === 'FINISHED' ||
 													exam.examResult?.[0]?.status === 'MISSED' ||
+													exam.examResult?.[0]?.status === 'FAILED' ||
 													isExamDisabled(exam)
 														? '#'
 														: `/${subDomain}/exam/${exam.id}`
