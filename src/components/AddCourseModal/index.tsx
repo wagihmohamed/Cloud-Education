@@ -77,7 +77,7 @@ export const AddCourseModal = ({ handleClose, open }: AddCourseModalProps) => {
 	return (
 		<Modal
 			open={open}
-			onClose={handleClose}
+			onClose={handleCloseModal}
 			aria-labelledby="modal-modal-title"
 			aria-describedby="modal-modal-description"
 		>

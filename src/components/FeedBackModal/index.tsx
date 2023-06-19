@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 interface ModalInterface {
 	opneModal: boolean;
 	setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+	sectionId: number;
 }
 export const FeedbackModal = ({ opneModal, setOpenModal }: ModalInterface) => {
 	const { courseId } = useParams();
@@ -17,6 +18,8 @@ export const FeedbackModal = ({ opneModal, setOpenModal }: ModalInterface) => {
 			setOpenModal(false);
 			setReview('');
 		},
+		invalidateCourseCode: courseId || '',
+		sectionOrder: 1,
 	});
 	const [review, setReview] = useState('');
 	const [rating, setRating] = useState<number | null>(1);

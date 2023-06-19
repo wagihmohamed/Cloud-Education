@@ -184,7 +184,7 @@ export const CoursesTable = ({
 												handleNavigate(row.code);
 											}}
 										>
-											<Rating value={row.rating} readOnly />
+											<Rating value={row.rating / 2} readOnly />
 										</CustomTableCell>
 										<CustomTableCell
 											cursor={disableActions ? 'not-allowed' : 'pointer'}

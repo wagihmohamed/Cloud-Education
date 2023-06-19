@@ -15,6 +15,7 @@ import {
 	CardActions,
 	Pagination,
 	Rating,
+	Chip,
 } from '@mui/material';
 import { theme } from 'theme';
 import { useCoursesList } from 'hooks';
@@ -120,16 +121,36 @@ export const LearningCoursesScreen = () => {
 												value={course.rating / 2}
 												readOnly
 											/>
-											<Typography
-												variant="body2"
+											<Stack
 												sx={{
-													fontWeight: 'bold',
-													mt: '1rem',
-													color: course.isActive ? '#25a244' : 'red',
+													display: 'flex',
+													flexDirection: 'row',
+													justifyContent: 'flex-start',
+													alignItems: 'center',
+													maxWidth: 'fit-content',
+													gap: 1,
+													mt: 1,
 												}}
 											>
-												{course.isActive ? 'Active' : 'Not Active'}
-											</Typography>
+												<Typography
+													variant="body2"
+													sx={{
+														fontWeight: 'bold',
+
+														color: course.isActive ? '#25a244' : 'red',
+													}}
+												>
+													{course.isActive ? 'Active' : 'Not Active'}
+												</Typography>
+												<Chip
+													sx={{
+														bgcolor: 'primary.main',
+														color: 'white',
+														px: 2,
+													}}
+													label={course.code}
+												/>
+											</Stack>
 										</Typography>
 										<Typography variant="body2" color="text.secondary">
 											{course.description}

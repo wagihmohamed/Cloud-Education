@@ -88,7 +88,7 @@ export const CourseTab = ({
 		});
 	};
 	const showActions =
-		!isAdmin && isTeacher && email === courseContent.data.ownerEmail;
+		!isAdmin && !(isTeacher && email === courseContent.data.ownerEmail);
 	return (
 		<Box
 			sx={{
@@ -124,7 +124,7 @@ export const CourseTab = ({
 					>
 						{section.title}
 					</Button>
-					{showActions && (
+					{!showActions && (
 						<Delete
 							sx={{
 								width: '1.5rem',
@@ -169,7 +169,7 @@ export const CourseTab = ({
 						}}
 					/>
 				)}
-				{showActions && (
+				{!showActions && (
 					<CustomButton
 						loadingButton
 						loading={isAddCourseLoading}

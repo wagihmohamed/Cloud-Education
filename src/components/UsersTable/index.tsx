@@ -10,7 +10,7 @@ import {
 	Pagination,
 	TableContainer,
 } from '@mui/material';
-import { Delete, PeopleAltOutlined, Edit } from '@mui/icons-material';
+import { Delete, Edit } from '@mui/icons-material';
 import { userTableColumns } from 'mockup';
 import {
 	EditUserModal,
@@ -100,7 +100,7 @@ export const UsersTable = () => {
 										<CustomTableCell>{row.role}</CustomTableCell>
 										<CustomTableCell>{row.email}</CustomTableCell>
 										<CustomTableCell>{row.phoneNumber}</CustomTableCell>
-										<CustomTableCell width="170px">
+										<CustomTableCell width="140px">
 											<Stack direction="row" justifyContent="space-around">
 												<Edit
 													sx={{
@@ -129,13 +129,6 @@ export const UsersTable = () => {
 															userId: row.id,
 														})
 													}
-												/>
-												<PeopleAltOutlined
-													sx={{
-														height: '30px',
-														width: '30px',
-													}}
-													cursor="pointer"
 												/>
 											</Stack>
 										</CustomTableCell>

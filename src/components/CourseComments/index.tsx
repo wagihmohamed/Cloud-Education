@@ -16,6 +16,7 @@ import { useParams } from 'react-router-dom';
 import { EmptyComments } from 'assets';
 import { toast } from 'react-toastify';
 import { useAuth } from 'zustandStore';
+import { format, formatDistanceToNow, parseISO } from 'date-fns';
 
 interface CourseCommentsInterface {
 	sectionId: number;
@@ -120,16 +121,13 @@ export const CourseComments = ({
 					<Typography variant="h3" sx={{ margin: '1rem auto' }}>
 						Comments :-
 					</Typography>
-					{comments.data.map(({ id, content, user }) => {
+					{comments.data.map(({ id, content, user, createdAt }) => {
 						return (
 							<Stack
-								key={id}
+								width="100%"
 								display="flex"
-								flexDirection="row"
-								justifyContent="space-between"
-								alignItems="center"
+								key={id}
 								sx={{
-									width: '95%',
 									margin: '1rem auto',
 									padding: '10px',
 									borderRadius: '5px',
@@ -139,40 +137,77 @@ export const CourseComments = ({
 										'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px',
 								}}
 							>
+								<Stack
+									display="flex"
+									flexDirection="row"
+									justifyContent="space-between"
+									alignItems="center"
+								>
+									<Box
+										sx={{
+											display: 'flex',
+											alignItems: 'center',
+											justifyContent: 'flex-start',
+										}}
+									>
+										<Avatar>
+											{user.firstName[0]}
+											{user.lastName[0]}
+										</Avatar>
+										<Typography ml={2} textAlign="center">
+											{content}
+										</Typography>
+									</Box>
+									{email === user.email && (
+										<Delete
+											onClick={() =>
+												deleteComment({
+													courseCode: courseId || '',
+													sectionOrder: sectionId,
+													commentId: id,
+												})
+											}
+											sx={{
+												cursor: 'pointer',
+												color: '#d32f2f',
+												':hover': {
+													color: 'red',
+												},
+												ml: 'auto',
+											}}
+										/>
+									)}
+								</Stack>
 								<Box
 									sx={{
 										display: 'flex',
 										alignItems: 'center',
-										justifyContent: 'flex-start',
+										justifyContent: 'flex-end',
 									}}
 								>
-									<Avatar>
-										{user.firstName[0]}
-										{user.lastName[0]}
-									</Avatar>
-									<Typography ml={2} textAlign="center">
-										{content}
+									<Typography
+										variant="body2"
+										sx={{
+											fontSize: '1rem',
+											color: '#808080',
+										}}
+									>
+										{formatDistanceToNow(parseISO(createdAt), {
+											addSuffix: true,
+										})}
+										<Typography
+											component="span"
+											variant="body2"
+											sx={{
+												mx: 3,
+												fontSize: '1rem',
+												color: '#808080',
+											}}
+										>
+											{format(parseISO(createdAt), 'dd-MM-yyyy hh:mm a')}
+										</Typography>
 									</Typography>
 								</Box>
-								{email === user.email && (
-									<Delete
-										onClick={() =>
-											deleteComment({
-												courseCode: courseId || '',
-												sectionOrder: sectionId,
-												commentId: id,
-											})
-										}
-										sx={{
-											cursor: 'pointer',
-											color: '#d32f2f',
-											':hover': {
-												color: 'red',
-											},
-											ml: 'auto',
-										}}
-									/>
-								)}
 							</Stack>
 						);
 					})}

@@ -281,6 +281,7 @@ export interface CourseContentResponse {
 		order: number;
 		content: OutputBlockData[] | null;
 		ownerEmail: string;
+		isReviewed: boolean;
 	};
 }
 

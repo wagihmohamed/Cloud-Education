@@ -19,6 +19,7 @@ import { isExamDisabled } from 'utlis';
 import { theme } from 'theme';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from 'zustandStore';
+import EmptyExams from 'assets/images/empty-courses.png';
 
 interface LocationType {
 	state: {
@@ -64,7 +65,23 @@ export const ExamsScreen = () => {
 					</Typography>
 				</Box>
 				<Grid container spacing={4} sx={{ mt: 2 }}>
-					<LoadingErrorPlaceholder isError={isError} isLoading={isLoading}>
+					<LoadingErrorPlaceholder
+						isError={isError}
+						isLoading={isLoading}
+						isEmpty={exams.length === 0}
+						emptyImg={EmptyExams as string}
+						height="70vh"
+						emptyText={
+							<>
+								<Typography variant="h5" fontWeight="bold">
+									No Exams Found
+								</Typography>
+								<Typography variant="h6">
+									If you have some exams they will appear here
+								</Typography>
+							</>
+						}
+					>
 						{!isError &&
 							!isLoading &&
 							exams.map((exam) => (

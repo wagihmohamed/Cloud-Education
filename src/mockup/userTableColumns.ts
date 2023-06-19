@@ -17,6 +17,6 @@ export const userTableColumns = [
 	},
 	{
 		id: 'options',
-		label: 'options',
+		label: 'Options',
 	},
 ];
