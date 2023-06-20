@@ -86,9 +86,7 @@ export const SummarizeScreen = () => {
 								inputProps={{ 'aria-label': 'controlled' }}
 							/>
 						}
-						label={
-							withSlides ? 'Summarize with slides' : 'Summarize without slides'
-						}
+						label={withSlides ? 'format into a presentation' : 'Summarize'}
 					/>
 				</Grid>
 				<Grid item xs={12} md={6}>
