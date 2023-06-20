@@ -12,10 +12,12 @@ export const useSummarizeText = ({
 		mutationFn: ({
 			text,
 			orgnizationId,
+			summarizeType,
 		}: {
 			text: string;
 			orgnizationId: string;
-		}) => summarizeTextService({ text, orgnizationId }),
+			summarizeType: 'format' | 'summarize';
+		}) => summarizeTextService({ text, orgnizationId, summarizeType }),
 		onSuccess: (data) => {
 			onSuccess(data);
 		},

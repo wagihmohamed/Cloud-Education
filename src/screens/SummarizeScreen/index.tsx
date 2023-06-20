@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, FormControlLabel, Grid, Switch, Typography } from '@mui/material';
 import { CustomButton, CustomLayout, CustomTextField } from 'components';
 import { useSummarizeText } from 'hooks';
 import { useAuth } from 'zustandStore';
@@ -13,6 +13,7 @@ export const SummarizeScreen = () => {
 	});
 	const [originalText, setOriginalText] = useState('');
 	const [summarizedText, setSummarizedText] = useState('');
+	const [withSlides, setWithSlides] = useState(true);
 
 	const handleSubmitSummarize = () => {
 		if (originalText) {
@@ -20,10 +21,14 @@ export const SummarizeScreen = () => {
 			summarize({
 				text: originalText,
 				orgnizationId: subDomain,
+				summarizeType: withSlides ? 'format' : 'summarize',
 			});
 		}
 	};
 
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setWithSlides(event.target.checked);
+	};
 	return (
 		<CustomLayout>
 			<Box
@@ -73,6 +78,18 @@ export const SummarizeScreen = () => {
 					>
 						Start
 					</CustomButton>
+					<FormControlLabel
+						control={
+							<Switch
+								checked={withSlides}
+								onChange={handleChange}
+								inputProps={{ 'aria-label': 'controlled' }}
+							/>
+						}
+						label={
+							withSlides ? 'Summarize with slides' : 'Summarize without slides'
+						}
+					/>
 				</Grid>
 				<Grid item xs={12} md={6}>
 					<CustomTextField
